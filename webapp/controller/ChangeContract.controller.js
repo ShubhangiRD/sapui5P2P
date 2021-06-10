@@ -40,15 +40,17 @@ sap.ui.define([
 	return Controller.extend("com.cassini.Rebate.controller.ChangeContract", {
 		onInit : function() {
 			
-			
+			//get model and model property
 			var oUserModel = this.getOwnerComponent().getModel("User");
 			var sUsername = oUserModel.getProperty("/Username");
 			if(sUsername === "") {
+				//model property is null then naviagte back to login skin
 				var oRouter = this.getOwnerComponent().getRouter();
 				oRouter.navTo("Login");
 			}
 			this.oModel = new JSONModel();
 			this.oRouter = this.getOwnerComponent().getRouter();
+			//get router to attach pattern
 			this.oRouter.getRoute("ChangeContract").attachPatternMatched(this._onRouteMatched1, this);
 			
 		},
@@ -59,7 +61,7 @@ sap.ui.define([
 			var flag = 0;
 			setInterval(function(){
 				target = sap.ui.getCore().byId("__xmlview6--idVendorInput").getValue(); //sap.ui.getCore().byId("__xmlview4--idVendorInput");
-				if(target!==undefined && target!=="" && flag===0)
+				if(target!==undefined && target!=="" && flag==0)
 				{
 					BusyIndicator.hide();
 					//alert(target);
@@ -67,8 +69,10 @@ sap.ui.define([
 					sap.ui.getCore().byId("__xmlview6--tabid").setSelectedKey("item");
 				}
 			}, 3000);
+			//get the view name to set model value
 			oView = this.getView();
 			var vn = oView.sViewName;
+		   
 			if(vn==="com.cassini.Rebate.view.ChangeContract")
 			{
 				this.oModel.loadData(sap.ui.require.toUrl("com/cassini/Rebate/model") + "/model.json", null, false);
@@ -91,7 +95,7 @@ sap.ui.define([
 			}
 		},
 		onBeforeRendering: function(odata) {
-			
+			//get model
 		     var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 		     console.log(oVendorModel);
 		     console.log("onBeforeRendering");
@@ -100,13 +104,14 @@ sap.ui.define([
 		 
 		    // hook gets invoked after the view is rendered  
 		    onAfterRendering: function(odata) {
-		  
+		  //get model
 		      var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 		     console.log(oVendorModel);
 		     console.log("onAfterRendering");
 		  
 		    },
 		onUserNamePress: function (oEvent) {
+			//creating buttons through button objects
 			var that = this;
 			var oPopover = new Popover({
 				showHeader: false,
@@ -124,6 +129,7 @@ sap.ui.define([
 						text: "Logout",
 						type: ButtonType.Transparent,
 						press: function() {
+							//calling function to navigate to the login page
 							var oRouter = that.getOwnerComponent().getRouter();
 							oRouter.navTo("Login");
 						}
@@ -139,11 +145,14 @@ sap.ui.define([
 			this.byId("pageContainer").to(this.getView().createId(item.getKey()));
 			var oComponent = this.getOwnerComponent();
 			var key = item.getKey();
+			//get model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			if(key==="createContract")
 			{
+				//get model property to set data 
 				var oTempContract = oVendorModel.getProperty("/TempContract");
 				oTempContract.setData({modelData:{}});
+				//navigate the page according to the condition
 				oComponent.getRouter().navTo("Home");       
 			}
 			else
@@ -164,29 +173,32 @@ sap.ui.define([
 		},
 
 		onMenuButtonPress : function() {
+			//function called to expand and unexpand the tool page
 			var toolPage = this.byId("toolPage");
 
 			toolPage.setSideExpanded(!toolPage.getSideExpanded());
 		},
 		
 		onSaveWithItem: function(oEvent) {
-			//get the model
+				//get model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
+				//get model property
 			var oTempContract = oVendorModel.getProperty("/TempContract");
 			console.log(oVendorModel);
-		
 			if (oTempContract.validate()) {
 				var oRequestPayload = oTempContract.getRequestPayload();
 				oRequestPayload.Rcont = "1";
 				var oModel = this.getOwnerComponent().getModel("HeaderSet");
 				BusyIndicator.show(0);
+				//get entity set
 				oModel.create("/HeaderSet", oRequestPayload, {
 					success: function(oData) {
 						BusyIndicator.hide();
 						//MessageToast.show("Contract Saved Successfully");
 						MessageBox.success("Contract No.: " + oData.Rcont + " created successfully");
 						oTempContract.ContractNo =  oData.Rcont;
+						//set model property
 						oLookupModel.setProperty("/IsContractItemSaved", true);
 						oLookupModel.refresh(true);
 						oVendorModel.refresh(true);
@@ -206,8 +218,11 @@ sap.ui.define([
 			var flag = 0;
 			//$("#__xmlview6--idDesc-inner").val(target);
 			//$("#__xmlview6--idDesc-inner").click();
+			
+			//get model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
+			//get model property
 			var oTempContract = oVendorModel.getProperty("/TempContract");
 			if (oTempContract.validateHeader() && oTempContract.Accrual.validate()) {
 				var oRequestPayload = oTempContract.getAccrualRequestPayload();
@@ -222,13 +237,17 @@ sap.ui.define([
 				//setInterval(function (){	
 					//if(flag==0 && cl!==undefined && cl!=="")
 					//{
+					
+					//get entity set
 						oModel.create("/HeaderDocSet", oRequestPayload, {
 							success: function(oData) {
 								BusyIndicator.hide();
 								MessageBox.success("Document No.: " + oData.Rcont + " posted successfully");
+								//set model property
 								oLookupModel.setProperty("/IsContractAccrualSaved", true);
 								oLookupModel.refresh(true);
 								oVendorModel.refresh(true);
+								//get id to set selected key value
 								sap.ui.getCore().byId("__xmlview4--tabid").setSelectedKey("item");
 							},
 							error: function(oError) {
@@ -245,20 +264,25 @@ sap.ui.define([
 		},
 		
 		onPostSettlement: function() {
+			//get model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
+			//get model property
 			var oTempContract = oVendorModel.getProperty("/TempContract");
 			if (oTempContract.validateHeader() && oTempContract.Settlement.validate()) {
 				var oRequestPayload = oTempContract.getSettlementRequestPayload();
 				var oModel = this.getOwnerComponent().getModel("RebatePostSet");
 				BusyIndicator.show(0);
+				//get entity set
 				oModel.create("/HeaderDocSet", oRequestPayload, {
 					success: function(oData) {
 						BusyIndicator.hide();
 						MessageBox.success("Document No.: " + oData.Rcont + " posted successfully");
+						//set model property
 						oLookupModel.setProperty("/IsContractSettlementSaved", true);
 						oLookupModel.refresh(true);
 						oVendorModel.refresh(true);
+						//get id to set selected key value
 						sap.ui.getCore().byId("__xmlview4--tabid").setSelectedKey("item");
 					},
 					error: function(oError) {
@@ -271,6 +295,7 @@ sap.ui.define([
 			oVendorModel.refresh(true);
 		},
 		onNavBack: function () {
+			//function is called to navigate to the previous page
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
 
@@ -282,6 +307,7 @@ sap.ui.define([
 			}
 		},
 		editCode: function(){
+			//function is called to naviagte to the changecontract page
 			var oComponent = this.getOwnerComponent();
 				oComponent.getRouter().navTo("ChangeContract");
 		}

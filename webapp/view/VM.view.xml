@@ -22,7 +22,7 @@
 					<actions>
 						<ObjectPageHeaderActionButton text="Edit" id="iddEditt" type="Transparent" hideText="false" tooltip="edit" press="onEditPress"/>
 						<ObjectPageHeaderActionButton id="btn_display" type="Transparent" hideText="false" text="Display" press="onDisplayPress" tooltip="display"/>
-						<ObjectPageHeaderActionButton hideText="false" type="Transparent" text="Cancel" tooltip="decline" press="onCancelPresss"/>
+						<ObjectPageHeaderActionButton hideText="false" type="Transparent" text="Cancel" tooltip="decline" press="onCancelPress"/>
 						<ObjectPageHeaderActionButton hideText="false" type="Emphasized" text="Save" tooltip="save" press="onSaveContract"/>
 					</actions>
 				</ObjectPageDynamicHeaderTitle>
