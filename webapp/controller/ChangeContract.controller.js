@@ -59,7 +59,7 @@ sap.ui.define([
 			var flag = 0;
 			setInterval(function(){
 				target = sap.ui.getCore().byId("__xmlview6--idVendorInput").getValue(); //sap.ui.getCore().byId("__xmlview4--idVendorInput");
-				if(target!==undefined && target!=="" && flag==0)
+				if(target!==undefined && target!=="" && flag===0)
 				{
 					BusyIndicator.hide();
 					//alert(target);
@@ -170,10 +170,12 @@ sap.ui.define([
 		},
 		
 		onSaveWithItem: function(oEvent) {
+			//get the model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
 			var oTempContract = oVendorModel.getProperty("/TempContract");
 			console.log(oVendorModel);
+		
 			if (oTempContract.validate()) {
 				var oRequestPayload = oTempContract.getRequestPayload();
 				oRequestPayload.Rcont = "1";

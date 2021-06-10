@@ -20,11 +20,10 @@ sap.ui.define([
 			this.getView().setModel(oModel);
 			console.log(oModel);
 		},
-				onMenuButtonPress: function() {
-		
-	
+		onMenuButtonPress: function() {
+
 			var oComponent2 = this.getOwnerComponent();
-				oComponent2.getRouter().navTo("Dashboard");
+			oComponent2.getRouter().navTo("Dashboard");
 		},
 		handleValueHelp: function(oEvent) {
 
@@ -55,7 +54,7 @@ sap.ui.define([
 			var oFilter = new Filter(
 				"Vbeln",
 				sap.ui.model.FilterOperator.Contains, sValue
-			
+
 			);
 			evt.getSource().getBinding("items").filter([oFilter]);
 		},
