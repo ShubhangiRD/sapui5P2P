@@ -26,7 +26,7 @@ sap.ui.define([
 	//console.log(sap.ui.getCore().byId("idVendorInput").setValue("dfs"));
 	return Controller.extend("com.vSimpleApp.controller.Home", {
 		onInit: function() {
-
+           //get model and model property
 			var oUserModel = this.getOwnerComponent().getModel("User");
 			var sUsername = oUserModel.getProperty("/Username");
 		/*	if (sUsername === "") {
@@ -34,9 +34,10 @@ sap.ui.define([
 				oRouter.navTo("Login");
 			}*/
 			this.oModel = new JSONModel();
-
+           //get the view name to set model value
 			oView = this.getView();
 			var vn = oView.sViewName;
+			
 			if (vn === "com.vSimpleApp.view.ChangeContract") {
 				this.oModel.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/model.json", null, false);
 				this.oModel.oData.selectedKey = "changeContract";
@@ -55,6 +56,7 @@ sap.ui.define([
 
 		},
 		onUserNamePress: function(oEvent) {
+			//creating buttons through button objects
 			var that = this;
 			var oPopover = new Popover({
 				showHeader: false,
@@ -72,6 +74,7 @@ sap.ui.define([
 						text: "Logout",
 						type: ButtonType.Transparent,
 						press: function() {
+							//calling function to navigate to the login page
 							var oRouter = that.getOwnerComponent().getRouter();
 							oRouter.navTo("Login");
 						}
@@ -83,16 +86,18 @@ sap.ui.define([
 		},
 
 		onItemSelect: function(oEvent) {
-			//navigated items
 			var oComponent = this.getOwnerComponent();
 			var item = oEvent.getParameter("item");
 			var key = item.getKey();
+			//get model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			if (key === "createContract") {
+				//get model property to set data 
 				var oTempContract = oVendorModel.getProperty("/TempContract");
 				oTempContract.setData({
 					modelData: {}
 				});
+				//navigate the page according to the condition
 				oComponent.getRouter().navTo("Home");
 			} else
 			if (key === "displayContract") {
@@ -108,6 +113,7 @@ sap.ui.define([
 		},
 
 		onMenuButtonPress: function() {
+			//function called to expand and unexpand the tool page
 			var toolPage = this.byId("toolPage");
 
 			toolPage.setSideExpanded(!toolPage.getSideExpanded());
@@ -117,20 +123,21 @@ sap.ui.define([
 			//get model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
+			//get model property
 			var oTempContract = oVendorModel.getProperty("/TempContract");
-			//call the request payload method
 			if (oTempContract.validate()) {
 				var oRequestPayload = oTempContract.getRequestPayload();
 				oRequestPayload.Rcont = "1";
 				var oModel = this.getOwnerComponent().getModel("HeaderSet");
 				BusyIndicator.show(0);
-				//save the data
+				//get entity set
 				oModel.create("/HeaderSet", oRequestPayload, {
 					success: function(oData) {
 						BusyIndicator.hide();
 						//MessageToast.show("Contract Saved Successfully");
 						MessageBox.success("Contract No.: " + oData.Rcont + " created successfully");
 						oTempContract.ContractNo = oData.Rcont;
+						//set model property
 						oLookupModel.setProperty("/IsContractItemSaved", true);
 						oLookupModel.refresh(true);
 						oVendorModel.refresh(true);
@@ -146,11 +153,11 @@ sap.ui.define([
 		},
 
 		onPostAccrual: function(oEvent) {
-			//get the model
+			//get model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
+			//get model property
 			var oTempContract = oVendorModel.getProperty("/TempContract");
-			//validate the data and call the class requestpayload method
 			if (oTempContract.validateHeader() && oTempContract.Accrual.validate()) {
 				var oRequestPayload = oTempContract.getAccrualRequestPayload();
 				var dt = oRequestPayload.Aedtm;
@@ -161,14 +168,16 @@ sap.ui.define([
 				oRequestPayload.Aedtm = dt1 + "T" + dt2;
 				var oModel = this.getOwnerComponent().getModel("RebatePostSet");
 				BusyIndicator.show(0);
-				//post the Accural data into enttityset
+				//get entity set
 				oModel.create("/HeaderDocSet", oRequestPayload, {
 					success: function(oData) {
 						BusyIndicator.hide();
 						MessageBox.success("Document No.: " + oData.Rcont + " posted successfully");
+						//set model property
 						oLookupModel.setProperty("/IsContractAccrualSaved", true);
 						oLookupModel.refresh(true);
 						oVendorModel.refresh(true);
+						//get id to set selected key value
 						sap.ui.getCore().byId("__xmlview6--tabid").setSelectedKey("item");
 					},
 					error: function(oError) {
@@ -182,22 +191,25 @@ sap.ui.define([
 		},
 
 		onPostSettlement: function() {
+			//get model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
+			//get model property
 			var oTempContract = oVendorModel.getProperty("/TempContract");
-			//validate the data based on class method and call the settlement request payload
 			if (oTempContract.validateHeader() && oTempContract.Settlement.validate()) {
 				var oRequestPayload = oTempContract.getSettlementRequestPayload();
 				var oModel = this.getOwnerComponent().getModel("RebatePostSet");
 				BusyIndicator.show(0);
-				//post the Settlement data into enttityset
+				//get entity set
 				oModel.create("/HeaderDocSet", oRequestPayload, {
 					success: function(oData) {
 						BusyIndicator.hide();
 						MessageBox.success("Document No.: " + oData.Rcont + " posted successfully");
+						//set model property
 						oLookupModel.setProperty("/IsContractSettlementSaved", true);
 						oLookupModel.refresh(true);
 						oVendorModel.refresh(true);
+						//get id to set selected key value
 						sap.ui.getCore().byId("__xmlview6--tabid").setSelectedKey("item");
 					},
 					error: function(oError) {
@@ -210,6 +222,7 @@ sap.ui.define([
 			oVendorModel.refresh(true);
 		},
 		onNavBack: function() {
+			//function is called to navigate to the previous page
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
 

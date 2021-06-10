@@ -21,7 +21,7 @@
 					</snappedHeading>
 					<actions>
 						<ObjectPageHeaderActionButton text="Edit" id="iddEditt" type="Emphasized" hideText="false" tooltip="edit" press="onEditPress"/>
-						<ObjectPageHeaderActionButton hideText="false" type="Transparent" text="Cancel" tooltip="decline" press="onCancelPresss"/>
+						<ObjectPageHeaderActionButton hideText="false" type="Transparent" text="Cancel" tooltip="decline" press="onCancelPress"/>
 						<ObjectPageHeaderActionButton hideText="false" id ="idSave" type="Emphasized" text="Save" tooltip="save" press="onSaveContract"/>
 					</actions>
 				</ObjectPageDynamicHeaderTitle>

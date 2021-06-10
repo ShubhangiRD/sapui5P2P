@@ -45,8 +45,10 @@ sap.ui.define([
 			oView = this.getView();
 			oComponent = this.getOwnerComponent();
 			this.oSF = oView.byId("searchField");
+			//get the rooth path of application
 			var sRootPath = jQuery.sap.getModulePath("com.vSimpleApp");
-
+            
+            //creating the complete path by joining slash
 			var oModel = new JSONModel([sRootPath, "data/TileHeader.json"].join("/"));
 			this.getView().setModel(oModel, "LandingPageModel");
 			
@@ -55,7 +57,7 @@ sap.ui.define([
 
 		},
 				onMenuButtonPress: function() {
-		
+		//calling the function to navigate back to the dashboard
 	
 			var oComponent2 = this.getOwnerComponent();
 				oComponent2.getRouter().navTo("ShowTiles");
@@ -67,11 +69,15 @@ sap.ui.define([
 			if (evt.getSource().getProperty("header") === "CONTRACT MANAGEMENT") {
 				//localStorage.clear();
 				//localStorage.clear();
+				
+				//get model and model property
 				var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oTempContract = oVendorModel.getProperty("/TempContract");
 			oComponent = this.getOwnerComponent();
 			console.log(oTempContract);
 			//oTempContract.setData({modelData:{}});
+			
+			//navigating to the another page according to conditions
 				oComponent.getRouter().navTo("Home");
 			} else if (evt.getSource().getProperty("header") === "POST ACCRUALS") {
 				oComponent.getRouter().navTo("MassAccrualPost");
@@ -88,6 +94,8 @@ sap.ui.define([
 		{
 			//localStorage.clear();
 			//localStorage.clear();
+			
+			//get the selected value inside parameter
 			var oItem = data.getParameter("selectedItem");
 			var x = oItem.mProperties.text;
 			var y = x.split("|");
@@ -96,6 +104,8 @@ sap.ui.define([
 			z1 = z1.split("-");
 			z1 = z1[1];
 			z1 = z1.replace(" ", "");
+			
+			//get model and model property
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oTempContract = oVendorModel.getProperty("/TempContract");
 			console.log(oTempContract);
@@ -105,7 +115,10 @@ sap.ui.define([
 			oTempContract.ContractNo =  z1;
 			var that = this;
 			//var oVendorModel = that.getOwnerComponent().getModel("Vendor");
+			
+		    //get model 
 			var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+			//get model property
 			var aRebateContionItems = oVendorModel.getProperty("/TempContract/RebateConditionItems");
 			var scaleArr = [];
 			var hdetails = [];
@@ -116,6 +129,7 @@ sap.ui.define([
 			var sDesc;
 			function myf(cn)
 			{
+				//get entity set
 				tModel.read("/AGRItemScalesSet", {
 				//	filters: aFilter,
 					success: function (data) {
@@ -142,6 +156,7 @@ sap.ui.define([
 										}
 					}
 				});
+				//get entity set
 				tModel.read("/AGRHeaderSet", {
 				//	filters: aFilter,
 					success: function (data) {
@@ -162,6 +177,8 @@ sap.ui.define([
 					//oStore.put("agdesc", { agdesc: sDesc });
 					//var sVendorNumber; = Vendorno
 			//BusyIndicator.show(0);
+			
+			              //get entity set
 						oModel.read("/ZVendorDetSet('" + sVendorNumber + "')", {
 							success: function(oData) {
 								//BusyIndicator.hide();
@@ -184,6 +201,7 @@ sap.ui.define([
 						});
 					}
 				});
+				//get entity set
 				tModel.read("/AGRItemSet", {
 				//	filters: aFilter,
 					success: function (data) {
@@ -259,6 +277,7 @@ sap.ui.define([
 			console.log(oTempContract.ContractNo);
 			if(cn!==undefined || cn!=="")
 			{
+				//set property on model
 					oLookupModel.setProperty("/IsContractItemSaved", true);
 						oLookupModel.refresh(true);
 						oVendorModel.refresh(true);
@@ -270,6 +289,7 @@ sap.ui.define([
 				}, 5000);
 			oVendorModel.refresh(true);
 			oComponent = this.getOwnerComponent();
+			//naviage to viewContract page
 			oComponent.getRouter().navTo("ViewContract");
 			z2 = z2.split("-");
 			z2 = z2[1];
@@ -279,7 +299,9 @@ sap.ui.define([
 		},
 		handleValueHelp: function(evt){
 			//alert("hghgj");
+			//get model
 			var oModel1 = this.getOwnerComponent().getModel("ViewAllAg");
+			//get entity set
 			oModel1.read("/AGRHeaderSet", {
 				success: function(oData){
 					console.log(oData);
