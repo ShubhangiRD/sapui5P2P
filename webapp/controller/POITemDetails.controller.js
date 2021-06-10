@@ -782,7 +782,7 @@ sap.ui.define([
 		},
 		_handleValueVendorHelpS: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
+//open the vendor fragment
 			this.inputId = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogMP) {
