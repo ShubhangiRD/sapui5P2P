@@ -90,7 +90,7 @@ sap.ui.define([
 			oTempContract.ContractNo = oVendorModel.oData.TempContract.Rcont;
 				//var oRequestPayload = oTempContract.getAccrualRequestPayload();
 				var oRequestPayload = new sap.ui.model.json.JSONModel();
-			oRequestPayload.loadData(sap.ui.require.toUrl("com/cassini/Rebate/model") + "/AccrualModel.json", null, false);
+			oRequestPayload.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/AccrualModel.json", null, false);
 			var test = oRequestPayload.oData;
 			/*	oRequestPayload.Rcont = oVendorModel.oData.TempContract.Rcont,
 				oRequestPayload.Vendorno = oVendorModel.oData.TempContract.Vendorno,
@@ -138,7 +138,7 @@ sap.ui.define([
 			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
 			var oTempContract = oVendorModel.getProperty("/TempContract");
 			var oRequestPayload = new sap.ui.model.json.JSONModel();
-			oRequestPayload.loadData(sap.ui.require.toUrl("com/cassini/Rebate/model") + "/AccrualModel.json", null, false);
+			oRequestPayload.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/AccrualModel.json", null, false);
 			var chk1 = oView.byId("perid").getValue();
 			var chk2 = oView.byId("peridate").getValue();
 			var chk3 = oView.byId("contid").getValue();
@@ -520,7 +520,7 @@ sap.ui.define([
 		},
 
 		OnCancelMassAcrual: function (event) {
-			//clear all the selected values.
+			//clear all the selected values and cancel accrual.
 			MessageToast.show("Cancel Acrrual");
 			oView.byId("perid").setValue("");
 			oView.byId("peridate").setValue("");
@@ -572,6 +572,7 @@ sap.ui.define([
 			this.responsivePaddingDialog.open();
 		},
 		addMultiple: function () {
+			//open the MassAgreement dialog box
 			if (!this.oDialogFragment) {
 
 				this.oDialogFragment = sap.ui.xmlfragment("com.vSimpleApp.fragment.MassAgreement", this);

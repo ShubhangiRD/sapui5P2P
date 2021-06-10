@@ -83,6 +83,7 @@ sap.ui.define([
 		},
 
 		onItemSelect: function(oEvent) {
+			//navigated items
 			var oComponent = this.getOwnerComponent();
 			var item = oEvent.getParameter("item");
 			var key = item.getKey();
@@ -113,14 +114,17 @@ sap.ui.define([
 		},
 
 		onSaveWithItem: function(oEvent) {
+			//get model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
 			var oTempContract = oVendorModel.getProperty("/TempContract");
+			//call the request payload method
 			if (oTempContract.validate()) {
 				var oRequestPayload = oTempContract.getRequestPayload();
 				oRequestPayload.Rcont = "1";
 				var oModel = this.getOwnerComponent().getModel("HeaderSet");
 				BusyIndicator.show(0);
+				//save the data
 				oModel.create("/HeaderSet", oRequestPayload, {
 					success: function(oData) {
 						BusyIndicator.hide();
@@ -142,9 +146,11 @@ sap.ui.define([
 		},
 
 		onPostAccrual: function(oEvent) {
+			//get the model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
 			var oTempContract = oVendorModel.getProperty("/TempContract");
+			//validate the data and call the class requestpayload method
 			if (oTempContract.validateHeader() && oTempContract.Accrual.validate()) {
 				var oRequestPayload = oTempContract.getAccrualRequestPayload();
 				var dt = oRequestPayload.Aedtm;
@@ -155,6 +161,7 @@ sap.ui.define([
 				oRequestPayload.Aedtm = dt1 + "T" + dt2;
 				var oModel = this.getOwnerComponent().getModel("RebatePostSet");
 				BusyIndicator.show(0);
+				//post the Accural data into enttityset
 				oModel.create("/HeaderDocSet", oRequestPayload, {
 					success: function(oData) {
 						BusyIndicator.hide();
@@ -178,10 +185,12 @@ sap.ui.define([
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
 			var oTempContract = oVendorModel.getProperty("/TempContract");
+			//validate the data based on class method and call the settlement request payload
 			if (oTempContract.validateHeader() && oTempContract.Settlement.validate()) {
 				var oRequestPayload = oTempContract.getSettlementRequestPayload();
 				var oModel = this.getOwnerComponent().getModel("RebatePostSet");
 				BusyIndicator.show(0);
+				//post the Settlement data into enttityset
 				oModel.create("/HeaderDocSet", oRequestPayload, {
 					success: function(oData) {
 						BusyIndicator.hide();

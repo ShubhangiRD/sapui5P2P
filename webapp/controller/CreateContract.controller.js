@@ -63,7 +63,7 @@ sap.ui.define([
 									}
 								});
 			}, 5000); */
-	var oUserModel = this.getOwnerComponent().getModel("User");
+			var oUserModel = this.getOwnerComponent().getModel("User");
 			var sUsername = oUserModel.getProperty("/Username");
 			if(sUsername !== "") {
 				this.getVendorList();

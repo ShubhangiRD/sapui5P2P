@@ -40,6 +40,7 @@ sap.ui.define([
 			oView = this.getView();
 			oComponent = this.getOwnerComponent();
 
+			//create the model and set the json data
 			var oModel = new sap.ui.model.json.JSONModel();
 			oModel.loadData("utils/Massupload.json");
 			this.getView().setModel(oModel, "MassuploadModel");

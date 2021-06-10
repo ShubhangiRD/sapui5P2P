@@ -27,7 +27,9 @@ sap.ui.define([
 		},
 		_onObjectMatched: function(oEvent) {
 			sap.ui.core.BusyIndicator.show(0);
+			//get the rejectedDocuments model 
 			var mgrRejectionDataModel = oComponent.getModel("rejectedDocuments");
+			//get data from rejectedDocuments model
 			var rejections = mgrRejectionDataModel.getData();
 			var rejection = {};
 			for(var i = 0; i < rejections.length; i++) {
@@ -36,6 +38,7 @@ sap.ui.define([
 					break;
 				}
 			}
+			//declare the odata model and set the parameter
 			var rejectionModel = new sap.ui.model.json.JSONModel(rejection);
 			oView.setModel(rejectionModel, "rejection"); 
 			
