@@ -59,7 +59,7 @@ sap.ui.define([
 			this.bGrouped = false;
 
 		},
-		OnCancelPOList : function(){
+		OnCancelPOList: function() {
 			oView.byId("vnumber").setValue(" ");
 			oView.byId("cc").setValue(" ");
 			oComponent.getRouter().navTo("ShowTiles");
@@ -75,7 +75,6 @@ sap.ui.define([
 			return this.getView().byId(sId);
 		},
 
-	
 		onSelectChange: function() {
 			this.aKeys = [
 				"Lifnr", "Bukrs"
@@ -96,8 +95,7 @@ sap.ui.define([
 		filterTable: function(aCurrentFilterValues) {
 			//	var aFilter = [];
 			this.getTableItems().filter(this.getFilters(aCurrentFilterValues));
-		
-		
+
 		},
 		getTable: function() {
 			return this.getView().byId("PurchaseTableDisplay");
@@ -151,7 +149,6 @@ sap.ui.define([
 				MessageBox.error(ex);
 			}
 
-	
 		},
 
 		/*start purchase order f4 click*/
@@ -159,7 +156,7 @@ sap.ui.define([
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 			BusyIndicator.show(true);
-	
+
 			oModel.read("/openpo_headerSet", {
 				success: function(oData) {
 					BusyIndicator.hide(false);
@@ -175,9 +172,9 @@ sap.ui.define([
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/OpenPOList", oData.results);
 					oLookupModel.refresh(true);
-			
+
 					var oPOHeaderData = new PODetail(oData.results);
-					oView.getModel("POHeaderModel", oPOHeaderData); // setData(oData.results);
+					oView.getModel("POHeaderModel", oPOHeaderData);
 
 				},
 				error: function(oError) {
@@ -189,26 +186,25 @@ sap.ui.define([
 		},
 
 		getVendorList: function() {
-		
+//get  the odata following entityset
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 			//BusyIndicator.show(0);
 			oModel.read("/Fetch_Vendor_DetailsSet", {
 				success: function(oData) {
 
 					var item = oData.results.length;
-
 					var ListofVendors = [];
 					ListofVendors.push({
 						"": ""
 					});
 					for (var iRowIndex = 0; iRowIndex < item; iRowIndex++) {
-					
+
 						var Lifnrr = oData.results[iRowIndex].Lifnr;
 						ListofVendors.push({
 							Lifnr: Lifnrr
 						});
 					}
-				
+
 					oView.getModel("VendorListM").setSizeLimit(ListofVendors.length);
 					oView.getModel("VendorListM").setData(ListofVendors);
 
@@ -221,7 +217,7 @@ sap.ui.define([
 			});
 		},
 		getPurchaseOrgList: function() {
-			
+
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 			//	BusyIndicator.show(0);
 			oModel.read("/get_purchaseorg_f4helpSet", {
@@ -230,7 +226,6 @@ sap.ui.define([
 					oView.getModel("PurchaseORg").setSizeLimit(oData.results.length);
 					oView.getModel("PurchaseORg").setData(oData.results);
 
-				
 				},
 				error: function(oError) {
 					////BusyIndicator.hide();
@@ -263,12 +258,10 @@ sap.ui.define([
 			oComponent2.getRouter().navTo("ShowTiles");
 		},
 
-	
-
 		/*Comp Code Search start*/
 
 		getCompanyList: function() {
-		
+
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 			//BusyIndicator.show(0);
 			oModel.read("/get_companycode_f4helpSet", {
@@ -282,7 +275,7 @@ sap.ui.define([
 						"": ""
 					});
 					for (var iRowIndex = 0; iRowIndex < item; iRowIndex++) {
-					
+
 						var Bukrs = oData.results[iRowIndex].Bukrs;
 						CountryCode.push({
 							Bukrs: Bukrs
@@ -293,7 +286,6 @@ sap.ui.define([
 					oView.getModel("compMode").setSizeLimit(CountryCode.length);
 					oView.getModel("compMode").setData(CountryCode);
 
-				
 				},
 				error: function(oError) {
 					//BusyIndicator.hide();
@@ -304,8 +296,6 @@ sap.ui.define([
 		},
 
 		/*Company SEarch end*/
-
-
 
 		// Po sorting 
 		onSort: function(oEvent) {
@@ -322,23 +312,22 @@ sap.ui.define([
 			};
 		},
 		fnApplyFiltersAndOrdering: function(oEvent) {
-				var aFilters = [],
-					aSorters = [];
+			var aFilters = [],
+				aSorters = [];
 
-				if (this.bGrouped) {
-					aSorters.push(new Sorter("Lookup>Lifnr", this.bDescending, this._fnGroup));
-				} else {
-					aSorters.push(new Sorter("Lookup>Ebeln", this.bDescending));
-				}
-
-				if (this.sSearchQuery) {
-					var oFilter = new Filter("Lookup>Ebeln", FilterOperator.Contains, this.sSearchQuery);
-					aFilters.push(oFilter);
-				}
-
-				this.byId("PurchaseTableDisplay").getBinding("items").filter(aFilters).sort(aSorters);
+			if (this.bGrouped) {
+				aSorters.push(new Sorter("Lookup>Lifnr", this.bDescending, this._fnGroup));
+			} else {
+				aSorters.push(new Sorter("Lookup>Ebeln", this.bDescending));
 			}
-		
+
+			if (this.sSearchQuery) {
+				var oFilter = new Filter("Lookup>Ebeln", FilterOperator.Contains, this.sSearchQuery);
+				aFilters.push(oFilter);
+			}
+
+			this.byId("PurchaseTableDisplay").getBinding("items").filter(aFilters).sort(aSorters);
+		}
 
 	});
 

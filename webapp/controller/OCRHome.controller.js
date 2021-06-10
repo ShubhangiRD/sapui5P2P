@@ -100,11 +100,11 @@ sap.ui.define([
             });
             oVizFrame.setModel(dataModel);
             
+            //analytics popover
             var oPopOver = this.getView().byId("idPopOver");
             oPopOver.connect(oVizFrame.getVizUid());
             oPopOver.setFormatString(ChartFormatter.DefaultPattern.STANDARDFLOAT);
-            
-            InitPageUtil.initPageSettings(this.getView());
+        	 InitPageUtil.initPageSettings(this.getView());
             
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
         	oRouter.getRoute("Home").attachPatternMatched(this._onObjectMatched, this);
@@ -167,6 +167,7 @@ sap.ui.define([
 						
 						//documentDate = documentDate.getFullYear() + "-" + documentMonth + "-" + documentDate.getDate() + "T00:00:00";
 						
+						//set all data to the array
 						var postData = {
 							Servicecall: "FIN",
 							PostingDate: postingDate.toJSON().split(".")[0],
@@ -179,6 +180,7 @@ sap.ui.define([
 						};
 						
 						var mainServiceModel = oComponent.getModel("mainServiceModel");
+						//post the data
 						mainServiceModel.create("/UpdOcrHdrs", postData, {
 							success: function(postResponse) {
 								
