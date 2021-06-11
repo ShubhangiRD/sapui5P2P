@@ -26,7 +26,7 @@ sap.ui.define([
 	"use strict";
 	var oView;
 	var Ebeln, oComponent;
-	return Controller.extend("com.vSimpleApp.view.controller.POCreation", {
+	return Controller.extend("com.vSimpleApp.view.controller.Pocreation", {
 
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
@@ -55,7 +55,7 @@ sap.ui.define([
 			var s = oPurchaseModel.oData.TempContract.destroy;
 
 			oPurchaseModel.refresh(true);
-			this.getOwnerComponent().getRouter().navTo("PODetails");
+			this.getOwnerComponent().getRouter().navTo("PoHeaderList");
 
 		},
 		getVendorList: function() {
@@ -1014,7 +1014,7 @@ sap.ui.define([
 				onClose: function(oAction) {
 					if (oAction === "OK") {
 						var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-						oRouter.navTo('PODetails');
+						oRouter.navTo('PoHeaderList');
 					}
 				}.bind(this)
 			});

@@ -670,7 +670,7 @@ sap.ui.define([
 					//oModel.read("/POItemSet", {
 					filters: aFilter,
 					success: function(oData) {
-					//set the odata items to model property
+						//set the odata items to model property
 						oView.getModel("PurchaseModel").setProperty("/TempContract/POItem", oData.results);
 						// setData(oData.results);
 						//console.log(oData);
@@ -782,7 +782,7 @@ sap.ui.define([
 		},
 		_handleValueVendorHelpS: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-//open the vendor fragment
+			//open the vendor fragment
 			this.inputId = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogMP) {
@@ -870,8 +870,8 @@ sap.ui.define([
 
 		/*Purchase Order Suggestion Items Ended*/
 		onAddNewConditionItem: function() {
-			//		var oVendorModel = this.getView().getModel("PurchaseModelITem");
-			//	var PurchaseConditionItems = [];
+			// add the new rows in a table and added set  the array to property
+
 			var oVendorModel = this.getView().getModel("PurchaseModel");
 			//	var aPurchaseConditionItems = oVendorModel.getData();
 			var aPurchaseConditionItems = oVendorModel.getProperty("/TempContract/POItem");
@@ -884,6 +884,7 @@ sap.ui.define([
 		},
 
 		onDeleteConditionItem: function() {
+			//delete the selected rows in a table and also delete the array property in model
 			var oPurchaseItemTable = this.byId("idPOItemsTab");
 			var aSelectedIndex = oPurchaseItemTable.getSelectedIndices().reverse();
 			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
@@ -972,9 +973,6 @@ sap.ui.define([
 				var oDiscription = oModel.getProperty(sBindPath + "/Description");
 				var uom = oModel.getProperty(sBindPath + "/UOM");
 
-				//$(this).closest(".desc1").val(oDiscription);
-				//$(this).closest(".desc1").find("input").val(oDiscription);
-
 				var ab = $(this)[0].inputId;
 				var id = $("#" + ab).closest("tr").find(".desc1").attr("id");
 				var ss = "#" + id + "-inner";
@@ -992,7 +990,6 @@ sap.ui.define([
 				var id1 = $("#" + ab1).closest("tr").find(".measure1").attr("id");
 				$("#" + id1 + "-inner").val(b);
 
-				//		getPurchase.getData().PurchaseGroup = oModel.getProperty(sBindPath + "/ ");
 			}
 			evt.getSource().getBinding("items").filter([]);
 
@@ -1042,6 +1039,7 @@ sap.ui.define([
 				console.log(Materialno);
 				oView.byId("Price").setValue(oModel.getProperty("/Stprs"));
 				var s = "This";
+				//increase the lenght of value
 				var a = oView.byId("Price").setValue(s);
 				if ($.isNumeric((Materialno)) == true) {
 					var len = Materialno.length;
@@ -1058,7 +1056,7 @@ sap.ui.define([
 
 				var notzwer = "";
 				//	var no;
-
+				//increase the length of variable
 				if ($.isNumeric((VendorNumber)) == true) {
 					var len = VendorNumber.length;
 					if (len !== undefined) {
@@ -1071,7 +1069,7 @@ sap.ui.define([
 					console.log(notzwer);
 					VendorNumber = notzwer + VendorNumber;
 				}
-
+				//filtered the data and set the filter to get enttityset
 				var oFilter = new sap.ui.model.Filter('Lifnr', sap.ui.model.FilterOperator.EQ, VendorNumber);
 				var oFilterV = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Materialno);
 				var that = this;
@@ -1079,9 +1077,9 @@ sap.ui.define([
 					filters: [oFilter, oFilterV],
 
 					success: function(oData) {
-
 						console.log(oData);
 
+						//get the price from passing filtered vendor and material no
 						if (!oData.results.length) {
 							alert("No price found for given material number and plant combination. Add the price manually.");
 							var aaas = "0.00"
@@ -1106,9 +1104,6 @@ sap.ui.define([
 							$("#" + id + "-inner").removeAttr('value');
 
 							$("#" + id + "-inner").val(aaas);
-							//	$("#" + id + "-inner").val(oHierarchyModel.getProperty("/Netpr"));
-
-							//var price = oView.byId("idPrice").setValue(PriceJson.getProperty("/Stprs"));
 
 						}
 
@@ -1169,11 +1164,13 @@ sap.ui.define([
 		/*plant search end*/
 
 		onSavePurchaseOrder: function() {
+			var oModel = this.getOwnerComponent().getModel("VHeader");
+
+			//get odata model with the data
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
 			console.log(oPurchaseModel);
 
-			//	var Ebeln = oView.byId("productPO").getValue();
 			console.log(PurchaseOno);
 			//	Ebeln = oPurchaseContract.Ebeln;
 			var Bukrs = oPurchaseContract.Bukrs;
@@ -1185,7 +1182,7 @@ sap.ui.define([
 			console.log(Ebelp);
 			var zero = "";
 			//	var no;
-
+			//increase the vendor length
 			var len = Lifnr.length;
 			if (len !== undefined) {
 				var z = 10 - len;
@@ -1204,8 +1201,6 @@ sap.ui.define([
 
 			console.log(Ebeln);
 			var POItem = [];
-
-			var oModel = this.getOwnerComponent().getModel("VHeader");
 
 			var aItems = oPurchaseContract.POItem;
 			//	Ebeln = oPurchaseContract.oData[0].Ebeln;
@@ -1234,7 +1229,6 @@ sap.ui.define([
 				console.log(l_Ebelp1);
 
 				var l_material = oPurchaseContract.POItem[iRowIndex].Material;
-
 				var l_Menge = oPurchaseContract.POItem[iRowIndex].Quantity;
 				var l_Werks = oPurchaseContract.POItem[iRowIndex].Plant;
 
@@ -1272,6 +1266,7 @@ sap.ui.define([
 		},
 		_onUpdateProdEntrySuccess: function(oObject, oResponse) {
 			BusyIndicator.hide();
+			//show the response from sap using meassage box
 			var UpdatedPO = oResponse.data.Ebeln;
 			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
 			var oTempContract = oPurchaseModel.getProperty("/TempContract");
