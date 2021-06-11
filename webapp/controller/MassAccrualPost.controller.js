@@ -22,7 +22,8 @@ sap.ui.define([
 	"com/vSimpleApp/model/Contract",
 	"com/vSimpleApp/service/dateServices",
 	"com/vSimpleApp/model/Formatter"
-], function(Controller, JSONModel, Filter, Button, Dialog, List, History, StandardListItem, Text, mobileLibrary, BusyIndicator, MessageToast, MessageBox, FilterOperator, AccrualItem) {
+], function(Controller, JSONModel, Filter, Button, Dialog, List, History, StandardListItem, Text, mobileLibrary, BusyIndicator,
+	MessageToast, MessageBox, FilterOperator, AccrualItem) {
 	"use strict";
 	var DialogType = mobileLibrary.DialogType;
 	// shortcut for sap.m.ButtonType
@@ -36,10 +37,10 @@ sap.ui.define([
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 		 * @memberOf demonewcassini.view.MassAccrualPost
 		 */
-		onInit: function () {
+		onInit: function() {
 			var oUserModel = this.getOwnerComponent().getModel("User");
 			var sUsername = oUserModel.getProperty("/Username");
-			if(sUsername === "") {
+			if (sUsername === "") {
 				var oRouter = this.getOwnerComponent().getRouter();
 				oRouter.navTo("Login");
 			}
@@ -62,17 +63,17 @@ sap.ui.define([
 			this.getView().setModel(oCalculationType, "CalculationType");
 
 		},
-		_getDialog: function () {
+		_getDialog: function() {
 			if (!this._oDialog) {
 				this._oDialog = sap.ui.xmlfragment("com.vSimpleApp.fragment.MassAgreement");
 				this.getView().addDependent(this._oDialog);
 			}
 			return this._oDialog;
 		},
-		onOpenDialog: function () {
+		onOpenDialog: function() {
 			this._getDialog().open();
 		},
-		addRow: function (arg) {
+		addRow: function(arg) {
 			this._data.Products.push({
 				Name: '',
 				size: ''
@@ -80,16 +81,16 @@ sap.ui.define([
 			this.jModel.refresh(); //which will add the new record
 
 		},
-		mfunc: function()
-			{
-					var oVendorModel = this.getOwnerComponent().getModel("Vendor");
+		mfunc: function() {
+			//get models
+			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oModel = this.getOwnerComponent().getModel("RebatePostSet");
 			var oModel1 = this.getOwnerComponent().getModel("RebatePostSet");
 			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
 			var oTempContract = oVendorModel.getProperty("/TempContract");
 			oTempContract.ContractNo = oVendorModel.oData.TempContract.Rcont;
-				//var oRequestPayload = oTempContract.getAccrualRequestPayload();
-				var oRequestPayload = new sap.ui.model.json.JSONModel();
+			//var oRequestPayload = oTempContract.getAccrualRequestPayload();
+			var oRequestPayload = new sap.ui.model.json.JSONModel();
 			oRequestPayload.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/AccrualModel.json", null, false);
 			var test = oRequestPayload.oData;
 			/*	oRequestPayload.Rcont = oVendorModel.oData.TempContract.Rcont,
@@ -111,27 +112,26 @@ sap.ui.define([
 				var dt1 = dt[0];
 				var dt2 = dt[1];
 				dt1 = dt1+"-01";*/
-				//oRequestPayload.Aedtm = dt1+"T"+dt2;
+			//oRequestPayload.Aedtm = dt1+"T"+dt2;
+
+			//BusyIndicator.show(0);
+			oModel1.create("/HeaderDocSet", oRequestPayload, {
+				success: function(oData1) {
+					//BusyIndicator.hide();
+					MessageToast.show("Document No.: " + oData1.Rcont + " posted successfully");
 				
-				//BusyIndicator.show(0);
-				oModel1.create("/HeaderDocSet", oRequestPayload, {
-					success: function(oData1) {
-						//BusyIndicator.hide();
-						//MessageBox.success("Document No.: " + oData.Rcont + " posted successfully");
-						MessageToast.show("Document No.: " + oData1.Rcont + " posted successfully");
-						//sap.ui.getCore().byId("__xmlview4--tabid").setSelectedKey("item");
-					},
-					error: function(oError) {
-						//BusyIndicator.hide();
-						var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-						MessageToast.show(errorMsg);
-					}
-				});
-			},
-		getAccrual: function(){
+				},
+				error: function(oError) {
+					//BusyIndicator.hide();
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
+				}
+			});
+		},
+		getAccrual: function() {
 			BusyIndicator.show(0);
 			var that = this;
-			var ag = [];
+		
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oModel = this.getOwnerComponent().getModel("RebatePostSet");
 			var oModel1 = this.getOwnerComponent().getModel("RebatePostSet");
@@ -148,27 +148,23 @@ sap.ui.define([
 			var ag1 = [];
 			var cnt = 0;
 			var tmpcnt = 0;
-			function exe()
-			{
+
+			function exe() {
 				var x = ag[cnt];
 				test.Rcont = x;
-							var len = test.AccrualSet.length;
-							for(var j=0;j<len;j++)
-							{
-								test.AccrualSet[j].Rcont = x;
-								test.AccrualSet[j].Assignment = x;
-							}
+				var len = test.AccrualSet.length;
+				for (var j = 0; j < len; j++) {
+					test.AccrualSet[j].Rcont = x;
+					test.AccrualSet[j].Assignment = x;
+				}
 				oModel1.create("/HeaderDocSet", test, {
 					success: function(oData1) {
 						cnt++;
-						if(cnt<ag.length)
-						{
-							exe(cnt);	
+						if (cnt < ag.length) {
+							exe(cnt);
 						}
-						//MessageBox.success("Document No.: " + oData.Rcont + " posted successfully");
 						ag1.push(oData1.Rcont);
-					
-						//sap.ui.getCore().byId("__xmlview4--tabid").setSelectedKey("item");
+
 					},
 					error: function(oError) {
 						//BusyIndicator.hide();
@@ -177,59 +173,51 @@ sap.ui.define([
 					}
 				});
 			}
-			if(chk3.indexOf(",")!==-1)
-			{
+			if (chk3.indexOf(",") !== -1) {
 				var arr = chk3.split(",");
-				for(var i = 0; i<arr.length; i++)
-				{
+				for (var i = 0; i < arr.length; i++) {
 					//setTimeout(function (){
-					
-					ag.push(arr[i]);	
-						//ag1[i] = ag[i];
+
+					ag.push(arr[i]);
+					//ag1[i] = ag[i];
 					//},3000);
 				}
 				exe();
-			}
-			else{
-				if(chk3.indexOf(" ")!==-1)
-				{
-					chk3 = chk3.replace(" ","");
+			} else {
+				if (chk3.indexOf(" ") !== -1) {
+					chk3 = chk3.replace(" ", "");
 				}
-					test.Rcont = chk3;
-						var len = test.AccrualSet.length;
-						for(var j=0;j<len;j++)
-						{
-							test.AccrualSet[j].Rcont = chk3;
-							test.AccrualSet[j].Assignment = chk3;
-						}
-						//ag.push(test);
-						oModel1.create("/HeaderDocSet", test, {
-									success: function(oData1) {
-										//BusyIndicator.hide();
-										//MessageBox.success("Document No.: " + oData.Rcont + " posted successfully");
-										MessageToast.show("Document No.: " + oData1.Rcont + " posted successfully");
-										//sap.ui.getCore().byId("__xmlview4--tabid").setSelectedKey("item");
-									},
-									error: function(oError) {
-										//BusyIndicator.hide();
-										var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-										MessageToast.show(errorMsg);
-									}
-								});
+				test.Rcont = chk3;
+				var len = test.AccrualSet.length;
+				for (var j = 0; j < len; j++) {
+					test.AccrualSet[j].Rcont = chk3;
+					test.AccrualSet[j].Assignment = chk3;
+				}
+				//ag.push(test);
+				oModel1.create("/HeaderDocSet", test, {
+					success: function(oData1) {
+						//BusyIndicator.hide();
+						MessageToast.show("Document No.: " + oData1.Rcont + " posted successfully");
+						},
+					error: function(oError) {
+						//BusyIndicator.hide();
+						var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+						MessageToast.show(errorMsg);
+					}
+				});
 			}
-			setInterval(function (){
-					if(ag.length == ag1.length && tmpcnt==0)
-						{
-							BusyIndicator.hide();
-							MessageToast.show("Document No: " + ag1.toString() + " posted successfully");
-							tmpcnt=1;
-						}
-						//ag1[i] = ag[i];
-					},500);
-			
+			setInterval(function() {
+				if (ag.length == ag1.length && tmpcnt == 0) {
+					BusyIndicator.hide();
+					MessageToast.show("Document No: " + ag1.toString() + " posted successfully");
+					tmpcnt = 1;
+				}
+				//ag1[i] = ag[i];
+			}, 500);
+
 		},
-		
-		OnInputFuction: function () {
+
+		OnInputFuction: function() {
 			//  var MassAccru = oView.getModel("MassAgreement");
 			var Accrual = oView.byId("mas").getValue();
 			var res = Accrual.split(",");
@@ -246,7 +234,7 @@ sap.ui.define([
     	j++;*/
 			}
 		},
-		changeDateFormat: function (valDate) {
+		changeDateFormat: function(valDate) {
 			var dateFormat = sap.ui.core.format.DateFormat.getDateInstance({
 				pattern: "yyyy-MM-dd"
 			});
@@ -254,19 +242,19 @@ sap.ui.define([
 			var dateStr = dateFormat.format(date);
 			return (dateStr + "T00:00:00");
 		},
-		_onCreateEntrySuccess: function () {
+		_onCreateEntrySuccess: function() {
 			//shows the create entry when the data is posted and refresh the model
-		//	sap.ui.core.BusyIndicator.hide();
-		//	MessageBox.information("Accrual Document Number # " + oResponse.data.Message.substr(0, 10) + " successfully posted.");
-		//	MessageToast.show("Successfully posted!" + oResponse.data.Message);
+			//	sap.ui.core.BusyIndicator.hide();
+			//	MessageBox.information("Accrual Document Number # " + oResponse.data.Message.substr(0, 10) + " successfully posted.");
+			//	MessageToast.show("Successfully posted!" + oResponse.data.Message);
 			MessageToast.show("Success");
 			//refresh the values
 			//oView.byId("perid").setValue("");
 			//oView.byId("peridate").setValue("");
 			//oView.byId("contid").setValue("");
-		
+
 		},
-		_onCreateEntryError: function (oError) {
+		_onCreateEntryError: function(oError) {
 			//if getting the issue while posting the accruls call the _onCreateEntryError
 			//sap.ui.core.BusyIndicator.hide();
 			MessageBox.error(
@@ -275,7 +263,7 @@ sap.ui.define([
 				}
 			);
 		},
-		handleLiveChange: function (oEvent) {
+		handleLiveChange: function(oEvent) {
 			//create a new input field based on value length
 			//	var oPage = this.getView().byId("ListDialog");
 			const oInput = sap.ui.getCore().byId("inpuhear");
@@ -310,7 +298,7 @@ sap.ui.define([
 			this.onSaveAccrual(res);
 			return res[i];
 		},
-		onCreateItem: function (oEvent) {
+		onCreateItem: function(oEvent) {
 			var massagreement = oView.getModel("Agreement");
 			const oInput = sap.ui.getCore().byId("inpuhear");
 			const sValue = oInput.getValue();
@@ -364,67 +352,65 @@ sap.ui.define([
       });
       alert(values);
     }*/
-		onSaveMassAcrual: function (evt) {
+		onSaveMassAcrual: function(evt) {
 			var chk1 = oView.byId("perid").getValue();
 			var chk2 = oView.byId("peridate").getValue();
 			var chk3 = oView.byId("contid").getValue();
-			if(chk1=="" || chk2=="" || chk3=="" || chk3==" ")
-			{
+			if (chk1 == "" || chk2 == "" || chk3 == "" || chk3 == " ") {
 				alert("Please enter all the values");
 				return false;
+			} else {
+
+				//onPostAccrual is used to post the Accrual data to contS model
+
+				//var vdocdate = oView.byId("DP2").getValue();
+				//var vdocdate1 = new Date(vdocdate.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
+				var vpostdate = oView.byId("peridate").getValue();
+				var fpostdate = this.changeDateFormat(vpostdate);
+				var periodd = oView.byId("perid").getValue();
+				var fakeperiod = periodd.substr(0, 2) + "/01/2020";
+				var ldate = new Date(fakeperiod);
+				var lastDay = new Date(ldate.getFullYear(), ldate.getMonth() + 1, 0);
+				var flastdate = this.changeDateFormat(lastDay);
+				var currdate = new Date();
+				currdate = this.changeDateFormat(currdate);
+				if (fpostdate > currdate) {
+					alert("Posting date should be less than current date!");
+					return false;
+				}
+				//var vpostdate1 = new Date(vpostdate.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
+				var multiconts = oView.byId("contid").getValue();
+				var divcont = multiconts.split(",");
+				var i = 0; //  set your counter to 1
+				var oModelCreate = this.getView().getModel("contS");
+				var that = this;
+
+				function myLoop() { //  create a loop function
+					// setTimeout(function() {   //  call a 3s setTimeout when the loop is called
+					//console.log(divcont[i]);
+					var oEntry1 = {};
+					oEntry1.Contractno = divcont[i]; //"CN0000000278";//oView.getModel("AgreementN").getProperty("/ContractNo");
+					oEntry1.Period = periodd.substr(0, 2); //"08";//oView.byId("postingPerd").getValue().substr(0, 2);
+					oEntry1.Message = "";
+					oEntry1.Docdate = flastdate; //"2020-08-31T00:00:00";
+					oEntry1.Postdate = fpostdate; //"2020-08-31T00:00:00";
+					console.log(oEntry1);
+					//	var oContext = oModelCreate.create("/AccrualsSet", oEntry1, {
+
+					oModelCreate.create("/AccrualsSet", oEntry1, {
+
+						success: MessageToast.show(i + 1 + " of " + divcont.length + " completed"), //that._onCreateEntrySuccess.bind(that),
+						error: that._onCreateEntryError.bind(that)
+					});
+					i++; //  increment the counter
+					if (i < divcont.length) { //  if the counter < 10, call the loop function
+						myLoop(); //  ..  again which will trigger another 
+					} //  ..  setTimeout()
+					// }, 3000)
+				}
+
+				myLoop();
 			}
-			else{ 
-				
-			//onPostAccrual is used to post the Accrual data to contS model
-			
-			//var vdocdate = oView.byId("DP2").getValue();
-			//var vdocdate1 = new Date(vdocdate.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
-			var vpostdate = oView.byId("peridate").getValue();
-			var fpostdate = this.changeDateFormat(vpostdate);
-			var periodd = oView.byId("perid").getValue();
-			var fakeperiod = periodd.substr(0, 2)+"/01/2020";
-			var ldate = new Date(fakeperiod);
-			var lastDay = new Date(ldate.getFullYear(), ldate.getMonth() + 1, 0);
-			var flastdate = this.changeDateFormat(lastDay);
-			var currdate = new Date();
-			currdate = this.changeDateFormat(currdate);
-			if(fpostdate > currdate)
-			{
-				alert("Posting date should be less than current date!");
-				return false;
-			}
-			//var vpostdate1 = new Date(vpostdate.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3"));
-			var multiconts = oView.byId("contid").getValue();
-			var divcont = multiconts.split(",");
-			var i = 0;                  //  set your counter to 1
-			var oModelCreate = this.getView().getModel("contS");
-			var that = this;
-			function myLoop() {         //  create a loop function
-			 // setTimeout(function() {   //  call a 3s setTimeout when the loop is called
-			    //console.log(divcont[i]);
-				var oEntry1 = {};
-				oEntry1.Contractno = divcont[i]; //"CN0000000278";//oView.getModel("AgreementN").getProperty("/ContractNo");
-				oEntry1.Period = periodd.substr(0, 2); //"08";//oView.byId("postingPerd").getValue().substr(0, 2);
-				oEntry1.Message = "";
-				oEntry1.Docdate =  flastdate;//"2020-08-31T00:00:00";
-				oEntry1.Postdate = fpostdate;//"2020-08-31T00:00:00";
-				console.log(oEntry1);
-			//	var oContext = oModelCreate.create("/AccrualsSet", oEntry1, {
-		
-					 oModelCreate.create("/AccrualsSet", oEntry1, {
-			
-					success: MessageToast.show(i+1+" of "+divcont.length+" completed"),//that._onCreateEntrySuccess.bind(that),
-					error: that._onCreateEntryError.bind(that)
-				}); 
-			    i++;                    //  increment the counter
-			    if (i < divcont.length) {           //  if the counter < 10, call the loop function
-			      myLoop();             //  ..  again which will trigger another 
-			    }                       //  ..  setTimeout()
-			 // }, 3000)
-			}
-			
-			myLoop(); 
-		}
 			/*for(var i = 0; i < divcont.length; i++)
 			{ 
 				//console.log(divcont[i]);
@@ -443,48 +429,47 @@ sap.ui.define([
 				});
 			}*/
 			//console.log(multiconts);
-		
-/*
-			var massagreement = oView.getModel("Agreement");
-			var vPeriod = oView.byId("perid").getValue();
-			var vPerioddate = oView.byId("peridate").getValue();
-			var vContid = oView.byId("contid").getValue();
-			massagreement.getData().vPeriod = vPeriod;
-			massagreement.getData().vPerioddate = vPerioddate;
-			massagreement.getData().vContid = vContid;
-			const IdLenght = vContid.split(",");
-			console.log(IdLenght);
 
-			//define the arrarys
-			var itemData = [];
-			var oRows = IdLenght.length;
-			for (var i = 0; i < oRows; i++) {
-				var l_ContractNo = IdLenght[i];
-				itemData.push({
-					ContractNo: l_ContractNo
-				});
+			/*
+						var massagreement = oView.getModel("Agreement");
+						var vPeriod = oView.byId("perid").getValue();
+						var vPerioddate = oView.byId("peridate").getValue();
+						var vContid = oView.byId("contid").getValue();
+						massagreement.getData().vPeriod = vPeriod;
+						massagreement.getData().vPerioddate = vPerioddate;
+						massagreement.getData().vContid = vContid;
+						const IdLenght = vContid.split(",");
+						console.log(IdLenght);
 
-			}
-			//define the array/
-			var oEntry1 = {};
-			//bind the values to array
-		//		var vPeriod = oView.byId("perid").getValue();
-		
-			oEntry1.vPeriod = massagreement.getData().vPeriod;
-			oEntry1.vPerioddate = massagreement.getData().vPerioddate;
-			oEntry1.CONT_ACCRUAL_ITEM = itemData;
-			var oModelCreate = this.getView().getModel("contS");
-			oModelCreate.create("/AccrualsSet", oEntry1, {
-				method: "POST",
+						//define the arrarys
+						var itemData = [];
+						var oRows = IdLenght.length;
+						for (var i = 0; i < oRows; i++) {
+							var l_ContractNo = IdLenght[i];
+							itemData.push({
+								ContractNo: l_ContractNo
+							});
 
-				success: this._onCreateEntrySuccess.bind(this),
-				error: this._onCreateEntryError.bind(this)
-			});
-					*/
+						}
+						//define the array/
+						var oEntry1 = {};
+						//bind the values to array
+					//		var vPeriod = oView.byId("perid").getValue();
+					
+						oEntry1.vPeriod = massagreement.getData().vPeriod;
+						oEntry1.vPerioddate = massagreement.getData().vPerioddate;
+						oEntry1.CONT_ACCRUAL_ITEM = itemData;
+						var oModelCreate = this.getView().getModel("contS");
+						oModelCreate.create("/AccrualsSet", oEntry1, {
+							method: "POST",
+
+							success: this._onCreateEntrySuccess.bind(this),
+							error: this._onCreateEntryError.bind(this)
+						});
+								*/
 		},
-		
 
-		onSaveAccrual: function (res) {
+		onSaveAccrual: function(res) {
 			console.log(res);
 
 			var st = this.getView().byId("contid").setValue(res);
@@ -519,7 +504,7 @@ sap.ui.define([
 
 		},
 
-		OnCancelMassAcrual: function (event) {
+		OnCancelMassAcrual: function(event) {
 			//clear all the selected values and cancel accrual.
 			MessageToast.show("Cancel Acrrual");
 			oView.byId("perid").setValue("");
@@ -530,7 +515,7 @@ sap.ui.define([
 
 		},
 
-		onResponsivePaddingDialog: function () {
+		onResponsivePaddingDialog: function() {
 			if (!this.responsivePaddingDialog) {
 				this.responsivePaddingDialog = new Dialog({
 					title: "On SAP Quartz themes, the padding will adjust based on the width of the Dialog",
@@ -544,17 +529,16 @@ sap.ui.define([
 						})
 					}),
 
-				
 					beginButton: new Button({
 						type: ButtonType.Emphasized,
 						text: "OK",
-						press: function () {
+						press: function() {
 							this.responsivePaddingDialog.close();
 						}.bind(this)
 					}),
 					endButton: new Button({
 						text: "Close",
-						press: function () {
+						press: function() {
 							this.responsivePaddingDialog.close();
 						}.bind(this)
 					})
@@ -571,7 +555,7 @@ sap.ui.define([
 
 			this.responsivePaddingDialog.open();
 		},
-		addMultiple: function () {
+		addMultiple: function() {
 			//open the MassAgreement dialog box
 			if (!this.oDialogFragment) {
 
@@ -584,29 +568,29 @@ sap.ui.define([
 			}
 			this.oDialogFragment.open();
 		},
-		onSave: function (oEvent) {
+		onSave: function(oEvent) {
 			var msg = 'Saved successfully';
 			MessageToast.show(msg);
 			this.oDialogFragment.close();
 			this.oDialogFragment.destroy();
 			this.oDialogFragment = null;
 		},
-		onClose: function () {
+		onClose: function() {
 			//	oView.byId("inpuhear").setValue(" ");
 			this.oDialogFragment.close();
 			this.oDialogFragment.destroy();
 			this.oDialogFragment = null;
 		},
-		onCloseFragment: function () {
+		onCloseFragment: function() {
 			this.oDialogFragment.close();
 		},
-		navAgreement: function () {
+		navAgreement: function() {
 			//	this.getRouter().initialize();
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("AddmultipleAgreement");
 
 		},
-		onNavBack: function () {
+		onNavBack: function() {
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
 
@@ -643,7 +627,6 @@ sap.ui.define([
 		//	onExit: function() {
 		//
 		//	}
-
 
 	});
 

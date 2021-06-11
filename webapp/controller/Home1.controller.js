@@ -14,8 +14,9 @@ sap.ui.define([
 	"com/vSimpleApp/model/AccrualItem",
 	"com/vSimpleApp/model/SettlementItem",
 	"com/vSimpleApp/service/dateServices",
-	"com/vSimpleApp/model/Formatter"
-	], function(Controller, Popover, Button, library, JSONModel, BusyIndicator, MessageToast, MessageBox) {
+	"com/vSimpleApp/model/Formatter",
+	 "sap/ui/core/routing/History"
+	], function(Controller, Popover, Button, library, JSONModel, BusyIndicator, MessageToast, MessageBox,History) {
 	"use strict";
 	var ButtonType = library.ButtonType,
 		PlacementType = library.PlacementType;

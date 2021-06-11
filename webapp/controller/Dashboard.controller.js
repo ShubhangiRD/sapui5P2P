@@ -66,9 +66,7 @@ sap.ui.define([
             });
             vfTopVendors.setModel(dataModel);
             
-            /*var dataModelTopProducts = new JSONModel({
-            	topProducts: Report.getInstance().getModel().getData().topProducts
-            });*/
+            
             vfTopProducts.setModel(dataModel);
             
             var oPopOverBar = this.getView().byId("idPopOverBar");
@@ -89,9 +87,7 @@ sap.ui.define([
 		onAfterRendering: function() {
 			
 		},
-				onMenuButtonPress: function() {
-		
-	
+		onMenuButtonPress: function() {
 			var oComponent2 = this.getOwnerComponent();
 				oComponent2.getRouter().navTo("ShowTiles");
 		},
@@ -104,8 +100,7 @@ sap.ui.define([
 				
 				/** @type {cassini.sim.model.Document} */
 				var oSelectedRecord = oBindingModel.getProperty(sPath);
-				
-				
+			
 				var oSource = oEvent.getSource();
 				oSource.setBusy(true);
 				
@@ -243,8 +238,8 @@ sap.ui.define([
 		
 		handleNav: function(oEvent) {
 			//navigate to presed tile
-			var route = oEvent.getSource().data("route");
-			this.getRouter().navTo(route);
+			var oRoute = oEvent.getSource().data("route");
+			this.getRouter().navTo(oRoute);
 		}
 	});
 });

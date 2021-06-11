@@ -26,6 +26,7 @@ sap.ui.define([
 ], function(jQuery, Controller, JSONModel, Filter, Button, Dialog, List, History, StandardListItem, Text, mobileLibrary, BusyIndicator,
 	MessageToast, MessageBox, FilterOperator, AccrualItem) {
 	"use strict";
+	//global variable
 	var oView, oController, oComponent;
 	return Controller.extend("com.vSimpleApp.controller.MassUpload", {
 
@@ -45,10 +46,10 @@ sap.ui.define([
 			oModel.loadData("utils/Massupload.json");
 			this.getView().setModel(oModel, "MassuploadModel");
 
-			var model = new JSONModel({
+			var oUpload = new JSONModel({
 				items: []
 			});
-			this.getView().setModel(model, "UploadModel");
+			this.getView().setModel(oUpload, "UploadModel");
 
 		},
 		getRouter: function() {
@@ -68,9 +69,9 @@ sap.ui.define([
 			}
 		},
 		_onObjectMatched: function(oEvent) {
-			var globalKeys = oComponent.getModel("GlobalKeys");
-			globalKeys.getData().page = "massupload";
-			globalKeys.refresh(true);
+			var oGlobalKeys = oComponent.getModel("GlobalKeys");
+			oGlobalKeys.getData().page = "massupload";
+			oGlobalKeys.refresh(true);
 
 			$("#nav-icon1").addClass("back");
 			$("#nav-icon1").removeClass("open");
@@ -92,7 +93,7 @@ sap.ui.define([
 			var file = domRef.files[0];
 			console.log(file);
 			var filename = file.name;
-			if (filename.indexOf("contract") != -1) {
+			if (filename.indexOf("contract") !== -1) {
 				console.log("its a contract template");
 				// Create a File Reader object
 				var reader = new FileReader();

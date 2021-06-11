@@ -551,8 +551,7 @@ sap.ui.define([
 			var oModel = this.getOwnerComponent().getModel();
 			BusyIndicator.show(0);
 			oModel.read("/VendorListSet", {
-		//	oModel.read("/Fetch_Vendor_DetailsSet", {
-		
+	
 				success: function(oData) {
 					BusyIndicator.hide();
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");

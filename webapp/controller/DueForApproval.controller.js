@@ -20,9 +20,9 @@ sap.ui.define([
 		onSelectDocument: function(oEvent) {
 			try {
 				//get unique id and navigate to PoPreference with parameter
-				var approvalId = oEvent.getSource().data("uniqueId");
+				var sApprovalId = oEvent.getSource().data("uniqueId");
 				this.getRouter().navTo("PoPreference", {
-					approvalId: approvalId
+					approvalId: sApprovalId
 				});
 			} catch (ex) {
 				MessageBox.error(ex);
@@ -30,10 +30,10 @@ sap.ui.define([
 		},
 		onRefresh: function(oEvent) {
 			//refresh the odata
-			var tbl = oView.byId("awaitingApprovalTable");
-			tbl.setBusy(true);
+			var oTbl = oView.byId("awaitingApprovalTable");
+			oTbl.setBusy(true);
 			documentServices.getInstance().getAwaitingApprovalDocuments(this, function() {
-				tbl.setBusy(false);
+				oTbl.setBusy(false);
 			});
 		}
 	});

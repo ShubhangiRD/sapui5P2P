@@ -58,36 +58,36 @@ sap.ui.define([
 			
 			BusyIndicator.show(0);
 			//var that = this;
-			var flag = 0;
+			var bflag = 0;
 			setInterval(function(){
 				target = sap.ui.getCore().byId("__xmlview6--idVendorInput").getValue(); //sap.ui.getCore().byId("__xmlview4--idVendorInput");
-				if(target!==undefined && target!=="" && flag==0)
+				if(target!==undefined && target!=="" && bflag==0)
 				{
 					BusyIndicator.hide();
 					//alert(target);
-					flag=1;
+					bflag=1;
 					sap.ui.getCore().byId("__xmlview6--tabid").setSelectedKey("item");
 				}
 			}, 3000);
 			//get the view name to set model value
 			oView = this.getView();
-			var vn = oView.sViewName;
+			var svn = oView.sViewName;
 		   
-			if(vn==="com.cassini.Rebate.view.ChangeContract")
+			if(svn==="com.cassini.Rebate.view.ChangeContract")
 			{
 				this.oModel.loadData(sap.ui.require.toUrl("com/cassini/Rebate/model") + "/model.json", null, false);
 				this.oModel.oData.selectedKey = "changeContract";
 				this.getView().setModel(this.oModel);
 			}
 			else
-			if(vn==="com.cassini.Rebate.view.ViewContract")
+			if(svn==="com.cassini.Rebate.view.ViewContract")
 			{
 				this.oModel.loadData(sap.ui.require.toUrl("com/cassini/Rebate/model") + "/model.json", null, false);
 				this.oModel.oData.selectedKey = "displayContract";
 				this.getView().setModel(this.oModel);
 			}
 			else
-			if(vn==="com.cassini.Rebate.view.Home")
+			if(svn==="com.cassini.Rebate.view.Home")
 			{
 				this.oModel.loadData(sap.ui.require.toUrl("com/cassini/Rebate/model") + "/model.json", null, false);
 				this.oModel.oData.selectedKey = "createContract";
@@ -95,19 +95,13 @@ sap.ui.define([
 			}
 		},
 		onBeforeRendering: function(odata) {
-			//get model
-		     var oVendorModel = this.getOwnerComponent().getModel("Vendor");
-		     console.log(oVendorModel);
-		     console.log("onBeforeRendering");
+		
 		  
 		    },
 		 
 		    // hook gets invoked after the view is rendered  
 		    onAfterRendering: function(odata) {
-		  //get model
-		      var oVendorModel = this.getOwnerComponent().getModel("Vendor");
-		     console.log(oVendorModel);
-		     console.log("onAfterRendering");
+		  
 		  
 		    },
 		onUserNamePress: function (oEvent) {
@@ -141,13 +135,13 @@ sap.ui.define([
 		},
 
 		onItemSelect : function(oEvent) {
-			var item = oEvent.getParameter("item");
-			this.byId("pageContainer").to(this.getView().createId(item.getKey()));
+			var iItem = oEvent.getParameter("item");
+			this.byId("pageContainer").to(this.getView().createId(iItem.getKey()));
 			var oComponent = this.getOwnerComponent();
-			var key = item.getKey();
+			var skey = iItem.getKey();
 			//get model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
-			if(key==="createContract")
+			if(skey==="createContract")
 			{
 				//get model property to set data 
 				var oTempContract = oVendorModel.getProperty("/TempContract");
@@ -156,17 +150,17 @@ sap.ui.define([
 				oComponent.getRouter().navTo("Home");       
 			}
 			else
-			if(key==="displayContract")
+			if(skey==="displayContract")
 			{
 				oComponent.getRouter().navTo("Dashboard");       
 			}
 			else
-			if(key==="changeContract")
+			if(skey==="changeContract")
 			{
 				oComponent.getRouter().navTo("ChangeContract");       
 			}
 			else
-			if(key==="dashboard")
+			if(skey==="dashboard")
 			{
 				oComponent.getRouter().navTo("Dashboard");       
 			}
@@ -185,7 +179,6 @@ sap.ui.define([
 			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
 				//get model property
 			var oTempContract = oVendorModel.getProperty("/TempContract");
-			console.log(oVendorModel);
 			if (oTempContract.validate()) {
 				var oRequestPayload = oTempContract.getRequestPayload();
 				oRequestPayload.Rcont = "1";
@@ -215,7 +208,7 @@ sap.ui.define([
 		
 		onPostAccrual: function(oEvent) {
 			var that = this;
-			var flag = 0;
+			var bflag = 0;
 			//$("#__xmlview6--idDesc-inner").val(target);
 			//$("#__xmlview6--idDesc-inner").click();
 			

@@ -19,9 +19,9 @@ sap.ui.define([
 		onSelectDocument: function(oEvent) {
 			try {
 				//get unique id and navigate to DocumentsRejectedDetails with parameter
-				var rejectionId = oEvent.getSource().data("uniqueId");
+				var sRejectionId = oEvent.getSource().data("uniqueId");
 				this.getRouter().navTo("DocumentsRejectedDetails", {
-					rejectionId: rejectionId
+					rejectionId: sRejectionId
 				});
 			} catch (ex) {
 				MessageBox.error(ex);
@@ -29,10 +29,10 @@ sap.ui.define([
 		},
 		onRefresh: function (oEvent) {
 			//refresh all the table data
-			var tbl = oView.byId("rejectedDocumentsTable");
-			tbl.setBusy(true);
+			var oTbl = oView.byId("rejectedDocumentsTable");
+			oTbl.setBusy(true);
 			documentServices.getInstance().getRejectedDocuments(this, function() {
-				tbl.setBusy(false);
+				oTbl.setBusy(false);
 			});
 		}
 	});

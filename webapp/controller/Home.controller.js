@@ -29,26 +29,23 @@ sap.ui.define([
            //get model and model property
 			var oUserModel = this.getOwnerComponent().getModel("User");
 			var sUsername = oUserModel.getProperty("/Username");
-		/*	if (sUsername === "") {
-				var oRouter = this.getOwnerComponent().getRouter();
-				oRouter.navTo("Login");
-			}*/
+		
 			this.oModel = new JSONModel();
            //get the view name to set model value
 			oView = this.getView();
-			var vn = oView.sViewName;
+			var svn = oView.sViewName;
 			
-			if (vn === "com.vSimpleApp.view.ChangeContract") {
+			if (svn === "com.vSimpleApp.view.ChangeContract") {
 				this.oModel.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/model.json", null, false);
 				this.oModel.oData.selectedKey = "changeContract";
 				this.getView().setModel(this.oModel);
 			} else
-			if (vn === "com.vSimpleApp.view.ViewContract") {
+			if (svn === "com.vSimpleApp.view.ViewContract") {
 				this.oModel.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/model.json", null, false);
 				this.oModel.oData.selectedKey = "viewContract";
 				this.getView().setModel(this.oModel);
 			} else
-			if (vn === "com.vSimpleApp.view.Home") {
+			if (svn === "com.vSimpleApp.view.Home") {
 				this.oModel.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/model.json", null, false);
 				this.oModel.oData.selectedKey = "createContract";
 				this.getView().setModel(this.oModel);
@@ -87,8 +84,8 @@ sap.ui.define([
 
 		onItemSelect: function(oEvent) {
 			var oComponent = this.getOwnerComponent();
-			var item = oEvent.getParameter("item");
-			var key = item.getKey();
+			var iItem = oEvent.getParameter("item");
+			var key = iItem.getKey();
 			//get model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			if (key === "createContract") {
@@ -114,9 +111,8 @@ sap.ui.define([
 
 		onMenuButtonPress: function() {
 			//function called to expand and unexpand the tool page
-			var toolPage = this.byId("toolPage");
-
-			toolPage.setSideExpanded(!toolPage.getSideExpanded());
+			var sToolPage = this.byId("toolPage");
+	sToolPage.setSideExpanded(!sToolPage.getSideExpanded());
 		},
 
 		onSaveWithItem: function(oEvent) {
@@ -160,12 +156,12 @@ sap.ui.define([
 			var oTempContract = oVendorModel.getProperty("/TempContract");
 			if (oTempContract.validateHeader() && oTempContract.Accrual.validate()) {
 				var oRequestPayload = oTempContract.getAccrualRequestPayload();
-				var dt = oRequestPayload.Aedtm;
-				dt = dt.split("T");
-				var dt1 = dt[0];
-				var dt2 = dt[1];
-				dt1 = dt1 + "-01";
-				oRequestPayload.Aedtm = dt1 + "T" + dt2;
+				var sDt = oRequestPayload.Aedtm;
+				sDt = sDt.split("T");
+				var sDt1 = sDt[0];
+				var sDt2 = sDt[1];
+				sDt1 = sDt1 + "-01";
+				oRequestPayload.Aedtm = sDt1 + "T" + sDt2;
 				var oModel = this.getOwnerComponent().getModel("RebatePostSet");
 				BusyIndicator.show(0);
 				//get entity set

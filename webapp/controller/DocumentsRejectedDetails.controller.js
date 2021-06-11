@@ -28,34 +28,34 @@ sap.ui.define([
 		_onObjectMatched: function(oEvent) {
 			sap.ui.core.BusyIndicator.show(0);
 			//get the rejectedDocuments model 
-			var mgrRejectionDataModel = oComponent.getModel("rejectedDocuments");
+			var oRejectionDataModel = oComponent.getModel("rejectedDocuments");
 			//get data from rejectedDocuments model
-			var rejections = mgrRejectionDataModel.getData();
-			var rejection = {};
-			for(var i = 0; i < rejections.length; i++) {
-				if(rejections[i].uniqueId === oEvent.getParameter("arguments").rejectionId){
-					rejection = rejections[i];
+			var oRejections = oRejectionDataModel.getData();
+			var oRejection = {};
+			for(var i = 0; i < oRejections.length; i++) {
+				if(oRejections[i].uniqueId === oEvent.getParameter("arguments").rejectionId){
+					oRejection = oRejections[i];
 					break;
 				}
 			}
 			//declare the odata model and set the parameter
-			var rejectionModel = new sap.ui.model.json.JSONModel(rejection);
-			oView.setModel(rejectionModel, "rejection"); 
+			var oRejectionModel = new sap.ui.model.json.JSONModel(oRejection);
+			oView.setModel(oRejectionModel, "rejection"); 
 			
-			var filePath = rejection.filePath;
-			var newFilePath = filePath.substring(filePath.lastIndexOf("/") + 1);
-			var postData = JSON.stringify({
-				filePath: newFilePath,
-				linkId: rejection.documentId
+			var sfilePath = oRejection.filePath;
+			var sNewFilePath = sfilePath.substring(sfilePath.lastIndexOf("/") + 1);
+			var oPostData = JSON.stringify({
+				filePath: sNewFilePath,
+				linkId: oRejection.documentId
 			});
 			
-			documentServices.getInstance().getFile(this, postData, 
+			documentServices.getInstance().getFile(this, oPostData, 
 				function(oData) {
 				},
 				function(oError) {
 					if(oError.status === 200) {
-						rejectionModel.getData().file = oError.responseText;
-						rejectionModel.refresh(true);
+						oRejectionModel.getData().file = oError.responseText;
+						oRejectionModel.refresh(true);
 						sap.ui.core.BusyIndicator.hide();
 					}
 				});
