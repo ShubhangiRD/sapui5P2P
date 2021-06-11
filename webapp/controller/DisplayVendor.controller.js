@@ -255,7 +255,7 @@ sap.ui.define([
 					new sap.ui.model.Filter({
 						path: "Companycode",
 						operator: sap.ui.model.FilterOperator.EQ,
-						value1: ComCode
+						value1: sComCode
 					})
 
 				];
