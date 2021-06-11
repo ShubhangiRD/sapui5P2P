@@ -176,8 +176,8 @@ sap.ui.define([
 
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdVendor),
-					sDescription = oSelectedItem.getInfo(),
-					sTitle = oSelectedItem.getTitle();
+					sDescription = oSelectedItem.getInfo();
+				
 				sProductInput.setSelectedKey(sDescription);
 				sProductInput.setValue(sDescription);
 
@@ -193,7 +193,7 @@ sap.ui.define([
 
 				sDescription = zero + sDescription;
 
-				//	this.getVendorDetails(sDescription);
+			
 				var sBindPath = oSelectedItem.getBindingContext("Lookup").sPath;
 
 				var sComCode = oModel.getProperty(sBindPath + "/Bukrs");
@@ -202,11 +202,7 @@ sap.ui.define([
 				var sKtokk = oModel.getProperty(sBindPath + "/Ktokk");
 				oView.byId("idVendor").setValue(sLifnr);
 
-				/*		oView.byId("idCompCode").setValue(ComCode);
-						oView.byId("idAccGp").setValue(Ktokk);
-						oView.byId("idPurOrg").setValue(Ekorg);
-
-				*/
+				
 
 				var aFilter = [
 					new sap.ui.model.Filter({
@@ -230,13 +226,6 @@ sap.ui.define([
 
 						oComponent.getModel("VendorModel").setData(oData.results[0]);
 
-						/*	var oVendor = new Vendor(oData.results[0]);
-						oComponent.getModel("Vendor").setProperty("/VendorTemp", oVendor); // setData(oData.results);
-				*/
-
-						//	oView.getModel("Vendor",oVendor); // setData(oData.results);
-						//	oView.getModel("Vendor").setData(oData.results); // setData(oData.results);
-						//	oView.setModel(oVendor,"Vendor");
 						oView.byId("idAccGp").setValue(sKtokk);
 						oView.byId("idPurOrg").setValue(sEkorg);
 

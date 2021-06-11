@@ -29,8 +29,7 @@
 			</headerTitle>
 			<headerContent>
 				<m:FlexBox wrap="Wrap" fitContainer="true">
-					<!--	<m:Avatar src="sap-icon://picture" displaySize="L" class="sapUiTinyMarginEnd"/>
-		-->
+	
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 						<m:Label text="Vendor : " required="true" visible="{VisibleModel>/isVisible}"/>
 						<m:Input id="idVendor" value="{VendorModel>/Vendorno}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"

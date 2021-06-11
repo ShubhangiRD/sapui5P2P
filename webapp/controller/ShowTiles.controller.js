@@ -187,7 +187,7 @@ sap.ui.define([
 		// Get  Top five vendor and get their counts
 
 		getVendorCountListByPO: function() {
-			var that = this;
+		
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 			BusyIndicator.show(true);
 			return new Promise(function(resolve1, reject1) {

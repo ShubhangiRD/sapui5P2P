@@ -14,11 +14,11 @@ sap.ui.define([
 	"sap/ui/core/routing/History"
 
 ], function(Controller, JSONModel, BusyIndicator, MessageToast, FilterOperator, Filter, library, Fragment,
- MessageBox, History) {
+	MessageBox, History) {
 	"use strict";
 	var oView, Ebeln, oComponent;
-	var ListofVendor = [];
-	var VendorNum;
+	var aListofVendor = [];
+	var sVendorNum, sVendorname, svendorname, sPlant, CreateDocDate, CreateDoctypeDate;
 	return Controller.extend("com.vSimpleApp.controller.GoodReceipt", {
 
 		/**
@@ -32,10 +32,10 @@ sap.ui.define([
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
 			oComponent = this.getOwnerComponent();
-		
+
 			this.getVendorList();
-			var POItemsModel = new JSONModel();
-			oView.setModel(POItemsModel, "POItemsModel");
+			var oPOItemsModel = new JSONModel();
+			oView.setModel(oPOItemsModel, "oPOItemsModel");
 
 			//define the model to  field editable true or false
 			var oEditModel = new JSONModel({
@@ -43,7 +43,7 @@ sap.ui.define([
 			});
 
 			this.getView().setModel(oEditModel, "EditModel");
-			
+
 			//define the model to  field visible true or false
 			var oVisi = new JSONModel({
 				isvisible: false
@@ -51,9 +51,9 @@ sap.ui.define([
 
 			this.getView().setModel(oVisi, "visiblemodel");
 
-				//define the model 
-			var AllDataModel = new sap.ui.model.json.JSONModel([]);
-			oView.setModel(AllDataModel, "AllDataModel");
+			//define the model 
+			var oAllDataModel = new sap.ui.model.json.JSONModel([]);
+			oView.setModel(oAllDataModel, "oAllDataModel");
 
 		},
 		onNavBack: function(oevt) {
@@ -62,12 +62,12 @@ sap.ui.define([
 			var oPurchaseModel = oComponent.getModel("PurchaseModel");
 			var oTempContract = oPurchaseModel.getProperty("/TempContract");
 			oTempContract.setData();
-			//	oPurchaseModel.setData([]);
-			var s = oPurchaseModel.oData.TempContract.destroy;
-			//	s.refresh(true);
-			var AllDataModel = oView.getModel("AllDataModel");
-			AllDataModel.setData();
-			AllDataModel.refresh(true);
+
+			// var s = oPurchaseModel.oData.TempContract.destroy;
+
+			var oAllDataModel = oView.getModel("oAllDataModel");
+			oAllDataModel.setData();
+			oAllDataModel.refresh(true);
 			oView.getModel("visiblemodel").setProperty("/isvisible", false);
 
 			oPurchaseModel.refresh(true);
@@ -97,12 +97,10 @@ sap.ui.define([
 			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
 			var oTempContract = oPurchaseModel.getProperty("/TempContract");
 			oTempContract.setData();
-			var s = oPurchaseModel.oData.TempContract.destroy;
-			//	s.refresh(true);
+			// var s = oPurchaseModel.oData.TempContract.destroy;
 
 			oPurchaseModel.refresh(true);
-			//	oView.byId("vtitle").setValue("");
-			//	oView.byId("idPurchaseOrder").setValue("");
+
 			oView.byId("idPD").setValue("");
 			oView.byId("idlant").setValue("");
 			oView.byId("idVendor").setValue("");
@@ -139,8 +137,8 @@ sap.ui.define([
 			}
 			this.getStorageLocation();
 			if (sInputValue.includes(")")) {
-				var sSubstring = sInputValue.split(")")[1];
-				sInputValue = sSubstring.trim();
+				var sSubsString = sInputValue.split(")")[1];
+				sInputValue = sSubsString.trim();
 			}
 			// ccreate a filter for the binding
 			this._valueHelpDialogStorage.getBinding("items").filter(new Filter([new Filter(
@@ -168,8 +166,8 @@ sap.ui.define([
 		_handleStorageLocationClose: function(oEvent) {
 			var oSelectedItem = oEvent.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId);
-				productInput.setValue(oSelectedItem.getTitle());
+				var sProductInput = this.byId(this.inputId);
+				sProductInput.setValue(oSelectedItem.getTitle());
 
 			}
 			oEvent.getSource().getBinding("items").filter([]);
@@ -184,18 +182,15 @@ sap.ui.define([
 			var oTempModel = oPurchaseModel.getProperty("/TempContract");
 
 			var aItems = oTempModel.POItem;
-			console.log(aItems.length);
 
 			for (var i = 0; i < aItems.length; i++) {
 
-				s_Plant = oTempModel.POItem[i].Plant;
+				sPlant = oTempModel.POItem[i].Plant;
 
 			}
 
-			console.log(s_Plant);
-
-			var oFilter = new sap.ui.model.Filter('Werks', sap.ui.model.FilterOperator.EQ, s_Plant);
-			oModel.read("/storage_f4helpSet?$filter=(Werks eq '" + s_Plant + "')", {
+			var oFilter = new sap.ui.model.Filter('Werks', sap.ui.model.FilterOperator.EQ, sPlant);
+			oModel.read("/storage_f4helpSet?$filter=(Werks eq '" + sPlant + "')", {
 				filters: [oFilter],
 
 				success: function(oData) {
@@ -215,14 +210,13 @@ sap.ui.define([
 		/*Storage Location End*/
 
 		/*start purchase order f4 click*/
-		getPurchaseOrderList: function() {
+		getsPurchaseorderList: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 			//	BusyIndicator.show(0);
 
 			oModel.read("/openpo_headerSet", {
-			success: function(oData) {
-					console.log(oData);
+				success: function(oData) {
 
 					BusyIndicator.hide();
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
@@ -250,8 +244,8 @@ sap.ui.define([
 				this.getView().addDependent(this._valueHelpDialog);
 			}
 			if (sInputValue.includes(")")) {
-				var sSubString = sInputValue.split(")")[1];
-				sInputValue = sSubString.trim();
+				var sSubsString = sInputValue.split(")")[1];
+				sInputValue = sSubsString.trim();
 			}
 
 			// create a filter for the binding
@@ -265,7 +259,7 @@ sap.ui.define([
 
 			// open value help dialog filtered by the input value
 			this._valueHelpDialog.open(sInputValue);
-			this.getPurchaseOrderList();
+			this.getsPurchaseorderList();
 
 		},
 		_handleValueHelpSearchPurs: function(evt) {
@@ -287,54 +281,50 @@ sap.ui.define([
 
 			var oModellookup = oView.getModel("Lookup");
 
-			console.log(oModellookup);
 			if (oSelectedItem) {
 
-				var productInput = this.byId(this.inputId);
-				var sBindPath = oSelectedItem.getBindingContext("Lookup").sPath;
-				productInput.setValue(oSelectedItem.getTitle());
-				var eelnvalue = oSelectedItem.getTitle();
-				console.log(eelnvalue);
-				VendorNum = oModellookup.getProperty(sBindPath + "/Lifnr");
-				oView.byId("idVendor").setValue(VendorNum);
-				//	oView.byId("idvendorno").setValue(oModellookup.getProperty(sBindPath + "/Lifnr"));
+				var sProductInput = this.byId(this.inputId);
+				var sBindsPath = oSelectedItem.getBindingContext("Lookup").ssPath;
+				sProductInput.setValue(oSelectedItem.getTitle());
+
+				sVendorNum = oModellookup.getProperty(sBindsPath + "/Lifnr");
+				oView.byId("idVendor").setValue(sVendorNum);
+			
 				oView.getModel("EditModel").setProperty("/isEditable", true);
 
-				Ebeln = oModellookup.getProperty(sBindPath + "/Ebeln");
-				var Vendorname1 = oModellookup.getProperty(sBindPath + "/Lifnr");
-				Vendorname = oModellookup.getProperty(sBindPath + "/Name1");
-				console.log(Vendorname1);
+				Ebeln = oModellookup.getProperty(sBindsPath + "/Ebeln");
 
-				console.log(Ebeln);
+				sVendorname = oModellookup.getProperty(sBindsPath + "/Name1");
+
 				var aFilter = [
 					new sap.ui.model.Filter({
-						path: "Purchaseorder",
+						sPath: "sPurchaseorder",
 						operator: sap.ui.model.FilterOperator.EQ,
 						value1: Ebeln
 					})
 
 				];
 
-				var Purchaseorder = Ebeln;
+				var sPurchaseorder = Ebeln;
 				//fetch all the data from entity set based on filters
-				oModel.read("/fetch_openPOSet(Purchaseorder='" + Purchaseorder + "')", {
+				oModel.read("/fetch_openPOSet(sPurchaseorder='" + sPurchaseorder + "')", {
 					urlParameters: {
 						"$expand": "fpoItemSet"
 					},
 					success: function(oData) {
-						console.log(oData);
-							var AllModel = oView.getModel("AllDataModel");
-						
+
+						// var AllModel = oView.getModel("oAllDataModel");
+
 						var lq = oData.fpoItemSet.results.length;
 						//fields visible or disable, fields editable or disable based on odata. 
 						if (lq === 0) {
-							var AllModel = oView.getModel("AllDataModel");
-							var path = AllModel.oData;
-							AllModel.setProperty(path + "/PONO");
-							oView.getModel("AllDataModel").setProperty("/PONO", Ebeln);
+							var oAllModel = oView.getModel("oAllDataModel");
+							var sPath = oAllModel.oData;
+							oAllModel.setProperty(sPath + "/PONO");
+							oView.getModel("oAllDataModel").setProperty("/PONO", Ebeln);
 							oView.getModel("visiblemodel").setProperty("/isvisible", true);
 							oView.getModel("EditModel").setProperty("/isEditable", false);
-							console.log('value starts with zero');
+
 						} else {
 							oView.getModel("visiblemodel").setProperty("/isvisible", false);
 							oView.getModel("EditModel").setProperty("/isEditable", true);
@@ -342,104 +332,94 @@ sap.ui.define([
 						for (var quant = 0; quant < lq; quant++) {
 							var Quantity = oData.fpoItemSet.results[quant].Quantity;
 
-							var path = AllModel.oData;
-							AllModel.setProperty(path + "/PONO");
-							oView.getModel("AllDataModel").setProperty("/PONO", Ebeln);
-							
+							var sPath1 = oAllModel.oData;
+							oAllModel.setProperty(sPath1 + "/PONO");
+							oView.getModel("oAllDataModel").setProperty("/PONO", Ebeln);
+
 						}
 						var PostDate = oData.CreatDate;
 						var s_doc_date = PostDate;
-						var str = s_doc_date.toISOString();
+						var str = s_doc_date.toISOsString();
 						str = str.slice(0, -5);
-						console.log(str);
 
 						var DocumentDates = oData.DocDate;
 						var s_doc_datePost = DocumentDates;
-						var Datepoststring = s_doc_datePost.toISOString();
-						Datepoststring = Datepoststring.slice(0, -5);
-						console.log(Datepoststring);
+						var DatepostsString = s_doc_datePost.toISOsString();
+						DatepostsString = DatepostsString.slice(0, -5);
 
-					//set the runtime properties to model
-						AllModel = oView.getModel("AllDataModel");
-						var path = AllModel.oData;
-						AllModel.setProperty(path + "/CreatDate");
-						oView.getModel("AllDataModel").setProperty("/CreatDate", str);
+						//set the runtime properties to model
+						oAllModel = oView.getModel("oAllDataModel");
+						var sPath2 = oAllModel.oData;
+						oAllModel.setProperty(sPath2 + "/CreatDate");
+						oView.getModel("oAllDataModel").setProperty("/CreatDate", str);
 
-						AllModel.setProperty(path + "/DocumentDate");
-						oView.getModel("AllDataModel").setProperty("/DocumentDate", Datepoststring);
+						oAllModel.setProperty(sPath + "/DocumentDate");
+						oView.getModel("oAllDataModel").setProperty("/DocumentDate", DatepostsString);
 
-						//	console.log(oData.Vendor);
-						var vendor = oData.Vendor;
+						var sVendor = oData.Vendor;
 
-						if (vendor !== "" || vendor !== undefined) {
-							for (var y = 0; y < ListofVendor.length; y++) {
-								if (vendor === ListofVendor[y].Lifnr) {
-									var venname = ListofVendor[y].Name1;
-									console.log(venname);
-								
+						if (sVendor !== "" || sVendor !== undefined) {
+							for (var y = 0; y < aListofVendor.length; y++) {
+								if (sVendor === aListofVendor[y].Lifnr) {
+									var venname = aListofVendor[y].Name1;
 
 								}
 							}
 						}
+
+						oAllModel.setProperty(sPath + "/Vendor");
+						oView.getModel("oAllDataModel").setProperty("/Vendor", sVendor);
+						oAllModel.setProperty(sPath + "/sVendorname");
+						oView.getModel("oAllDataModel").setProperty("/sVendorname", venname);
+						oAllModel.setProperty(sPath + "/PON");
+						oView.getModel("oAllDataModel").setProperty("/PON", Ebeln);
+
+						var oPurchaseModel = oView.getModel("PurchaseModel");
+
+						var sPlant1 = oData.fpoItemSet.results[0].Plant;
+						oView.byId("idlant").setValue(sPlant1);
 					
 
-						AllModel.setProperty(path + "/Vendor");
-						oView.getModel("AllDataModel").setProperty("/Vendor", vendor);
-						AllModel.setProperty(path + "/VendorName");
-						oView.getModel("AllDataModel").setProperty("/VendorName", venname);
-						AllModel.setProperty(path + "/PON");
-						oView.getModel("AllDataModel").setProperty("/PON", Ebeln);
+						//	oPurchaseModel.setProperty(sPath + "/SuppVendor", dd);
 
-						var aa = oView.getModel("PurchaseModel");
-						console.log(aa);
-						var ppp = oData.fpoItemSet.results[0].Plant;
-						oView.byId("idlant").setValue(ppp);
-						var oModellookup = oView.getModel("Lookup");
-
-						console.log(oModellookup);
-						var dd = "abc";
-						var path = oData.fpoItemSet.results;
-						console.log(path.length);
-						//	aa.setProperty(path + "/SuppVendor", dd);
-
-						var aData = aa.getProperty("/TempContract/POItem");
+						var aData = oPurchaseModel.getProperty("/TempContract/POItem");
 						aData.push.apply(aData, oData.fpoItemSet.results);
-						aa.setProperty("/TempContract/POItem", aData);
-						/*	for (var i = 0; i < aa.oData.TempContract.POItem.length; i++) {
+						oPurchaseModel.setProperty("/TempContract/POItem", aData);
+						/*	for (var i = 0; i < oPurchaseModel.oData.TempContract.POItem.length; i++) {
 						oView.getModel("PurchaseModel").setProperty("/TempContract/POItem", oData.results); // setData(oData.results);
-						//console.log(oData);
+					
 						}*/
 
 						var poModel = oView.getModel("PurchaseModel");
-						console.log(poModel);
+
 						var mModel = poModel.getProperty("/TempContract/POItem");
 						CreateDocDate = oData.CreatDate;
 						CreateDoctypeDate = oData.DocDate;
-						var mno = mModel[0].Material;
-						var matgp = mModel[0].MatlGroup;
-						var shot = mModel[0].ShortText;
-						var qunt = mModel[0].Quantity;
-						var pun = mModel[0].PoUnit;
-						var MaterialAndVendor = mno.concat("-", VendorNum);
+						var sMaterial = mModel[0].Material;
+						var sMaterialGroup = mModel[0].MatlGroup;
+						var sShortText = mModel[0].ShortText;
+						var sQuantity = mModel[0].Quantity;
+						var sPoUnit = mModel[0].PoUnit;
+						var MaterialAndVendor = sMaterial.concat("-", sVendorNum);
 						oView.byId("VMatNo").setValue(MaterialAndVendor);
-						//		oView.byId("iddis").setValue(VendorNum);
+						//		oView.byId("iddis").setValue(sVendorNum);
 						oView.byId("idPOrder").setValue(Ebeln);
-						oView.byId("idMatdis").setValue(shot);
-						oView.byId("idMatNo").setValue(mno);
-						oView.byId("idMatGrp").setValue(matgp);
-						oView.byId("ident").setValue(qunt);
-						oView.byId("idQunat").setValue(pun);
-						oView.byId("idQntS").setValue(qunt);
-						oView.byId("idQuantsku").setValue(pun);
-						oView.byId("idDelNot").setValue(qunt);
-						oView.byId("idDelNott").setValue(pun);
+						oView.byId("idMatdis").setValue(sShortText);
+						oView.byId("idMatNo").setValue(sMaterial);
+						oView.byId("idMatGrp").setValue(sMaterialGroup);
+						oView.byId("ident").setValue(sQuantity);
+						oView.byId("idQunat").setValue(sPoUnit);
+						oView.byId("idQntS").setValue(sQuantity);
+						oView.byId("idQuantsku").setValue(sPoUnit);
+						oView.byId("idDelNot").setValue(sQuantity);
+						oView.byId("idDelNott").setValue(sPoUnit);
 
 					},
 					error: function(oError) {
 						console.log(oError);
 					}
 				});
-				//	this.byId("idPOItemsTab").setModel(oView.getModel("POItemsModel"), "POItemsModel");
+			
 
 			}
 			oEvent.getSource().getBinding("items").filter([]);
@@ -451,23 +431,19 @@ sap.ui.define([
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 			if (oSelectedItem) {
 
-				var productInput = this.byId(this.inputId);
-				var sBindPath = oSelectedItem.getBindingContext("VHeader").sPath;
-				//	productInput.setValue(oSelectedItem.getText());
-				var no = oSelectedItem.getText();
+				var sBindsPath = oSelectedItem.getBindingContext("VHeader").ssPath;
 
-				//	productInput.setValue(sInputValue.getTitle());
-				oView.byId("vnumber").setValue(oModel.getProperty(sBindPath + "/Lifnr"));
-				oView.byId("idPurOrg").setValue(oModel.getProperty(sBindPath + "/Ekorg"));
-				oView.byId("idCompCode").setValue(oModel.getProperty(sBindPath + "/Bukrs"));
-				oView.byId("idCountryCode").setValue(oModel.getProperty(sBindPath + "/Waers"));
-				oView.byId("idPurGrg").setValue(oModel.getProperty(sBindPath + "/Ekgrp"));
-				oView.byId("idPoOrder").setValue(oModel.getProperty(sBindPath + "/Ebeln"));
-				Ebeln = oModel.getProperty(sBindPath + "/Ebeln");
-				console.log(Ebeln);
+				oView.byId("vnumber").setValue(oModel.getProperty(sBindsPath + "/Lifnr"));
+				oView.byId("idPurOrg").setValue(oModel.getProperty(sBindsPath + "/Ekorg"));
+				oView.byId("idCompCode").setValue(oModel.getProperty(sBindsPath + "/Bukrs"));
+				oView.byId("idCountryCode").setValue(oModel.getProperty(sBindsPath + "/Waers"));
+				oView.byId("idPurGrg").setValue(oModel.getProperty(sBindsPath + "/Ekgrp"));
+				oView.byId("idPoOrder").setValue(oModel.getProperty(sBindsPath + "/Ebeln"));
+				Ebeln = oModel.getProperty(sBindsPath + "/Ebeln");
+
 				var aFilter = [
 					new sap.ui.model.Filter({
-						path: "Purchaseorder",
+						sPath: "sPurchaseorder",
 						operator: sap.ui.model.FilterOperator.EQ,
 						value1: Ebeln
 					})
@@ -475,17 +451,15 @@ sap.ui.define([
 				];
 
 				oModel.read("/PO_DetailsSet", {
-					//oModel.read("/POItemSet", {
+
 					filters: aFilter,
 					success: function(oData) {
-						//	console.log(oData.results);
-						//	oView.getModel("PurchaseModelITem").setData(oData.results);
+
 						oView.getModel("PurchaseModel").setProperty("/TempContract/POItem", oData.results); // setData(oData.results);
-						//console.log(oData);
 
 					},
 					error: function(oError) {
-						//console.log(oError);
+
 					}
 				});
 				this.byId("idPOItemsTab").setModel(oView.getModel("PurchaseModelITem"), "PurchaseModelITem");
@@ -499,19 +473,19 @@ sap.ui.define([
 		getPOPlant: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("VHeader");
-			//BusyIndicator.show(0);
+
 			oModel.read("/get_plant_f4helpSet", {
 				success: function(oData) {
-					//BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/POPlant", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					//BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMessage);
 				}
 			});
 		},
@@ -528,8 +502,8 @@ sap.ui.define([
 				this.getView().addDependent(this._valueHelpDialogpp);
 			}
 			if (sInputValue.includes(")")) {
-				var sSubString = sInputValue.split(")")[1];
-				sInputValue = sSubString.trim();
+				var sSubsString = sInputValue.split(")")[1];
+				sInputValue = sSubsString.trim();
 			}
 
 			// create a filter for the binding
@@ -558,16 +532,15 @@ sap.ui.define([
 		},
 
 		_handlePlantClose: function(evt) {
-			var zero = "";
+		
 			var oSelectedItem = evt.getParameter("selectedItem");
 
-			var oModel = oView.getModel("Lookup");
+		
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId);
-				var sBindPath = oSelectedItem.getBindingContext("Lookup").sPath;
-				productInput.setValue(oSelectedItem.getTitle());
-				var PlantNumber = oSelectedItem.getTitle();
-				console.log(PlantNumber);
+				var sProductInput = this.byId(this.inputId);
+			
+				sProductInput.setValue(oSelectedItem.getTitle());
+		
 
 				evt.getSource().getBinding("items").filter([]);
 			}
@@ -601,26 +574,25 @@ sap.ui.define([
 						if (odata !== undefined) {
 							var Lifnrr = odata.Lifnr;
 							var Name1r = odata.Name1;
-							ListofVendor.push({
+							aListofVendor.push({
 								Lifnr: Lifnrr,
 								Name1: Name1r
 							});
 						}
 
 					}
-					//	console.log(ListofVendor);
 
-					var Count = new sap.ui.model.json.JSONModel({
+					var iCount = new sap.ui.model.json.JSONModel({
 						item: item
 
 					});
-					oView.setModel(Count, "Count");
+					oView.setModel(iCount, "Count");
 
 					BusyIndicator.hide();
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					oLookupModel.setProperty("/DisplyaVendorList", ListofVendor);
+					oLookupModel.setProperty("/DisplyaVendorList", aListofVendor);
 					oLookupModel.refresh(true);
-				
+
 				},
 				error: function(oError) {
 					//BusyIndicator.hide();
@@ -642,8 +614,8 @@ sap.ui.define([
 				this.getView().addDependent(this._valueHelpDialogvendor);
 			}
 			if (sInputValue.includes(")")) {
-				var sSubString = sInputValue.split(")")[1];
-				sInputValue = sSubString.trim();
+				var sSubsString = sInputValue.split(")")[1];
+				sInputValue = sSubsString.trim();
 			}
 
 			// create a filter for the binding
@@ -674,15 +646,15 @@ sap.ui.define([
 			var oModel = oView.getModel("Lookup");
 
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId),
-					sDescription = oSelectedItem.getInfo(),
-					sTitle = oSelectedItem.getTitle();
-				productInput.setSelectedKey(sDescription);
-				productInput.setValue(sDescription);
+				var sProductInput = this.byId(this.inputId),
+					sDescription = oSelectedItem.getInfo();
+
+				sProductInput.setSelectedKey(sDescription);
+				sProductInput.setValue(sDescription);
 				if (sDescription !== "") {
 					//	this.getVendorDetails(sDescription);
-					var sBindPath = oSelectedItem.getBindingContext("Lookup").sPath;
-					oView.byId("idvendorno1").setValue(oModel.getProperty(sBindPath + "/Name1"));
+					var sBindsPath = oSelectedItem.getBindingContext("Lookup").ssPath;
+					oView.byId("idvendorno1").setValue(oModel.getProperty(sBindsPath + "/Name1"));
 
 				}
 			}
@@ -691,23 +663,18 @@ sap.ui.define([
 		},
 
 		/*vendor list end*/
-		onPostPurchaseOrder: function() {
+		onPostsPurchaseorder: function() {
 			//get the  model and their property
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oTempModel = oPurchaseModel.getProperty("/TempContract");
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 
-			console.log(oTempModel);
 			var oPoorder = oView.byId("idPD").getValue();
-			var oVendor = oView.byId("idVendor").getValue();
 
-			//	var idVendornumber = oView.byId("idvendorno").getValue();
-			//get details from model property 
 			var aItems = oTempModel.POItem;
-			console.log(aItems.length);
 
-			var itemData = [];
-				//increase the length of  material 
+			var aItemData = [];
+			//increase the length of  material 
 			for (var i = 0; i < aItems.length; i++) {
 
 				var s_Material = oTempModel.POItem[i].Material;
@@ -722,19 +689,16 @@ sap.ui.define([
 					}
 				}
 
-				console.log(len);
-				console.log(zero);
 				s_Material = zero + s_Material;
-				console.log(s_Material);
 
-				s_Plant = oTempModel.POItem[i].Plant;
+				sPlant = oTempModel.POItem[i].Plant;
 				var s_PoItem = oTempModel.POItem[i].PoItem;
 				var s_PoNumber = oPoorder;
 				var s_PoUnit = oTempModel.POItem[i].PoUnit;
 				var s_Quantity = oTempModel.POItem[i].Quantity;
 				var s_store = oTempModel.POItem[i].Plant;
 
-				itemData.push({
+				aItemData.push({
 					Bwart: "101",
 					Sobkz: "Q",
 					Matnr: s_Material,
@@ -742,35 +706,31 @@ sap.ui.define([
 					Ebelp: s_PoItem,
 					Erfmg: s_Quantity,
 					Erfme: s_PoUnit,
-					Werks: s_Plant,
+					Werks: sPlant,
 					Lgort: s_store
 
 				});
 
 			}
 			var oEntry1 = {};
-				//get date
+			//get date
 			var Documentdate = oView.byId("idDocDate").getValue();
 			var PostingDate = oView.byId("idPostDate").getValue();
-				//convert the date formate
+			//convert the date formate
 			var date_post = new Date(PostingDate);
-			var podate = date_post.toISOString();
+			var podate = date_post.toISOsString();
 			podate = podate.slice(0, -5);
-			console.log(podate);
 
 			var s_documentDate = new Date(Documentdate);
 
-			var string = s_documentDate.toISOString();
-			string = string.slice(0, -5);
-			console.log(string);
+			var sString = s_documentDate.toISOsString();
+			sString = sString.slice(0, -5);
 
 			oEntry1.Budat = podate;
-			oEntry1.Bldat = string;
+			oEntry1.Bldat = sString;
 			oEntry1.Xblnr = "1234";
 
-			oEntry1.GRITEMSet = itemData;
-
-			console.log(oEntry1);
+			oEntry1.GRITEMSet = aItemData;
 
 			BusyIndicator.show(0);
 			//post data
@@ -786,23 +746,22 @@ sap.ui.define([
 		_onUpdateProdEntrySuccess: function(oObject, oResponse) {
 			BusyIndicator.hide();
 
-			var sap1 = {};
-			sap1 = JSON.parse(oResponse.headers["sap-message"]);
-			console.log(sap1.message);
+			var oSap = {};
+			oSap = JSON.parse(oResponse.headers["sap-message"]);
+
 			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
 			var oTempContract = oPurchaseModel.getProperty("/TempContract");
 			oTempContract.setData();
-			var s = oPurchaseModel.oData.TempContract.destroy;
-			//	s.refresh(true);
+		
 
 			oPurchaseModel.refresh(true);
-			var allmodel = oView.getModel("AllDataModel");
-			allmodel.setData({
+			var oAllModel = oView.getModel("oAllDataModel");
+			oAllModel.setData({
 				oData: {}
 			});
-			allmodel.updateBindings(true);
+			oAllModel.updateBindings(true);
 
-			allmodel.refresh(true);
+			oAllModel.refresh(true);
 			oView.byId("idPD").setValue("");
 			oView.byId("idlant").setValue("");
 			oView.byId("idVendor").setValue("");
@@ -821,11 +780,10 @@ sap.ui.define([
 			oView.byId("idDocDate").setValue(" ");
 			oView.byId("idPostDate").setValue(" ");
 
-		
 			//	this.getView().getModel("VHeader").refresh();
 			jQuery.sap.require("sap.m.MessageBox");
 
-			sap.m.MessageBox.show("Material document #" + sap1.message + " posted", {
+			sap.m.MessageBox.show("Material document #" + oSap.message + " posted", {
 				icon: sap.m.MessageBox.Icon.INFORMATION,
 				title: "Message",
 				actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CLOSE],
@@ -843,12 +801,12 @@ sap.ui.define([
 
 			BusyIndicator.hide();
 			var x = JSON.parse(oError.responseText);
-			var err = x.error.message.value;
+			var sError = x.error.message.value;
 
 			jQuery.sap.require("sap.m.MessageBox");
 
 			sap.m.MessageBox.error(
-				"Error creating entry: " + err + " "
+				"Error creating entry: " + sError + " "
 			);
 
 		},
@@ -858,20 +816,19 @@ sap.ui.define([
 				var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
 				var oTempContract = oPurchaseModel.getProperty("/TempContract");
 				oTempContract.setData();
-				//	oPurchaseModel.setData([]);
-				var s = oPurchaseModel.oData.TempContract.destroy;
-				//	s.refresh(true);
-				var allmodel = oView.getModel("AllDataModel");
-				allmodel.setData({
+
+				// var s = oPurchaseModel.oData.TempContract.destroy;
+
+				var oAllModel = oView.getModel("oAllDataModel");
+				oAllModel.setData({
 					oData: {}
 				});
-				allmodel.updateBindings(true);
+				oAllModel.updateBindings(true);
 
-				allmodel.refresh(true);
+				oAllModel.refresh(true);
 				oPurchaseModel.refresh(true);
 				this.getView().getModel("VHeader").refresh();
 
-			
 				oView.byId("idPD").setValue("");
 				oView.byId("idlant").setValue("");
 				oView.byId("idVendor").setValue("");
