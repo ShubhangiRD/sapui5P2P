@@ -18,7 +18,7 @@ sap.ui.define([
 	"use strict";
 	var oView, Ebeln, oComponent;
 	var ListofVendor = [];
-	var VendorNum, Vendorname, vendorname, s_Plant, CreateDocDate, CreateDoctypeDate;
+	var VendorNum;
 	return Controller.extend("com.vSimpleApp.controller.GoodReceipt", {
 
 		/**

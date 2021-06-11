@@ -27,6 +27,7 @@ sap.ui.define([
 				oComponent2.getRouter().navTo("Dashboard");
 		},
 		_onObjectMatched: function(oEvent) {
+			//get all the data form rs
 			sap.ui.core.BusyIndicator.show(0);
 			var mgrApprovalDataModel = oComponent.getModel("awaitingApprovalDocuments");
 			var approvals = mgrApprovalDataModel.getData();

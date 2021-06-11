@@ -360,26 +360,22 @@
 				"name": "VendorDetails",
 				"pattern": "VendorDetails",
 				"target": ["VendorDetails"]
-			}, {
-				"name": "AdminPanel",
-				"pattern": "AdminPanel",
-				"target": ["AdminPanel"]
-			}, {
+			},  {
 				"pattern": "POForm-screen",
 				"name": "POForm",
 				"target": "POForm"
 			}, {
-				"pattern": "PODetails",
-				"name": "PODetails",
-				"target": "PODetails"
+				"pattern": "PoHeaderList",
+				"name": "PoHeaderList",
+				"target": "PoHeaderList"
 			}, {
-				"pattern": "POCreation",
-				"name": "POCreation",
-				"target": "POCreation"
+				"pattern": "PoCreation",
+				"name": "PoCreation",
+				"target": "PoCreation"
 			}, {
-				"pattern": "VM",
-				"name": "VM",
-				"target": "VM"
+				"pattern": "VendorMaster",
+				"name": "VendorMaster",
+				"target": "VendorMaster"
 			}],
 			"targets": {
 				"LoginPage": {
@@ -389,12 +385,12 @@
 					"viewName": "ShowTiles",
 					"controlId": "idApp"
 				},
-				"VM": {
-					"viewName": "VM",
+				"VendorMaster": {
+					"viewName": "VendorMaster",
 					"controlId": "idApp"
 				},
-				"POCreation": {
-					"viewName": "POCreation",
+				"PoCreation": {
+					"viewName": "PoCreation",
 					"controlId": "idApp"
 				},
 				"TileDashboard": {
@@ -528,9 +524,9 @@
 					"viewName": "POITemDetails",
 					"controlId": "idApp"
 				},
-				"PODetails": {
+				"PoHeaderList": {
 					"viewType": "XML",
-					"viewName": "PODetails",
+					"viewName": "PoHeaderList",
 					"controlId": "idApp"
 				}
 			}
