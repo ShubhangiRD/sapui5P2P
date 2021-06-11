@@ -43,12 +43,14 @@ sap.ui.define([
 				var oRouter = this.getOwnerComponent().getRouter();
 				oRouter.navTo("ShowTiles");
 				return;
-			} else {
+			}
+			else {
 				var oUserModel = this.getOwnerComponent().getModel("User");
 				oUserModel.setProperty("/Username", sUserName);
-				oRouter = this.getOwnerComponent().getRouter();
-				oRouter.navTo("ShowTiles");
-
+			oRouter = this.getOwnerComponent().getRouter();
+			oRouter.navTo("ShowTiles");
+		//	oRouter.navTo("AdminPanel");
+			//oRouter.navTo("Dashboard2");
 				oUserNameControl.setValue("");
 				oPasswordControl.setValue("");
 				oUserModel.refresh(true);

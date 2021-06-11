@@ -1,4 +1,4 @@
-<mvc:View controllerName="com.vSimpleApp.controller.PoHeaderList" height="100%" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+<mvc:View controllerName="com.vSimpleApp.controller.PODetails" height="100%" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
 	xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" class="sapUiSizeCompact" xmlns:fb="sap.ui.comp.filterbar"
 xmlns:tnt="sap.tnt" 	xmlns:vm="sap.ui.comp.variants">
 	<tnt:ToolHeader>

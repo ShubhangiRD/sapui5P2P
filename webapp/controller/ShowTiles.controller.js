@@ -23,7 +23,6 @@ sap.ui.define([
 ], function(Controller, JSONModel, Filter, FilterOperator, BusyIndicator, MessageToast, Export, ExportTypeCSV, MessageBox, Sorter,
 	library, jQuery, RowAction, RowActionItem, RowSettings, Fragment, Spreadsheet, exportLibrary, VendorP2P) {
 	"use strict";
-	//global variable
 	var Purchaseordernumber;
 	var oView, oComponent, oController;
 	var SortOrder = library.SortOrder;
@@ -50,22 +49,21 @@ sap.ui.define([
 
 		
 
-			var oCountModel = new JSONModel();
-			oView.setModel(oCountModel, "CountModel");
+			var CountModel = new JSONModel();
+			oView.setModel(CountModel, "CountModel");
 
-			var oInputModel = new JSONModel({
+			var inputModel = new JSONModel({
 				expression: ""
 			});
-			this.getView().setModel(oInputModel, "inputModel");
+			this.getView().setModel(inputModel, "inputModel");
 
 			//Visible disable model
-			var oVisiblemodel = new JSONModel({
+			var onVisiblemodel = new JSONModel({
 				isEditable: false
 			});
 
-			this.getView().setModel(oVisiblemodel, "Visiblemodel");
+			this.getView().setModel(onVisiblemodel, "Visiblemodel");
 
-//calling function through init
 			this.getVendorList();
 			this.getPurchaseOrderList();
 			this.getVendorCountListByPO();
@@ -107,8 +105,6 @@ sap.ui.define([
 			}), "modes");
 			this.switchState("Navigation");
 
-
-//declare boolean variable
 			this.bDescending = false;
 			this.sSearchQuery = 0;
 			this.bGrouped = false;
@@ -125,7 +121,7 @@ sap.ui.define([
 			}
 
 			for (var i = 0; i < this.modes.length; i++) {
-				if (sKey === this.modes[i].key) {
+				if (sKey == this.modes[i].key) {
 					var aRes = this.modes[i].handler();
 					iCount = aRes[0];
 					oTemplate = aRes[1];
@@ -139,10 +135,12 @@ sap.ui.define([
 		},
 
 		handleActionPress: function(oEvent) {
-			var sPurchaseNumber = oEvent.getParameter("row").getRowBindingContext().getProperty("Ebeln");
+			var PurchaseNumber = oEvent.getParameter("row").getRowBindingContext().getProperty("Ebeln");
+
 			try {
+				//	var PurchaseNumber = oEvent.getSource().data("Ebeln");
 				oComponent.getRouter().navTo("POITemDetails", {
-					PoNo: sPurchaseNumber
+					PoNo: PurchaseNumber
 				});
 			} catch (ex) {
 				MessageBox.error(ex);
@@ -157,15 +155,15 @@ sap.ui.define([
 				//get the Prodno from this model
 				var oModel = oView.getModel("Lookup");
 				var oVendorpath = oModel.getProperty(sPath);
-				var sVendor = oVendorpath.Lifnr;
+				var oVendor = oVendorpath.Lifnr;
 				oComponent.getRouter().navTo("DisplayVendor", {
-					VendorNo: sVendor
+					VendorNo: oVendor
 				});
 			} catch (ex) {
 				MessageBox.error(ex);
 			}
 
-		
+			//oComponent.getRouter().navTo("Dashboard2");
 		},
 
 		pressGenericTile: function(evt) {
@@ -192,19 +190,19 @@ sap.ui.define([
 			BusyIndicator.show(true);
 			return new Promise(function(resolve1, reject1) {
 				oModel.read("/POHeaderSet", {
-				
+					//	oModel.read("/POItemSet",{
 					success: function(oData) {
 						BusyIndicator.hide(false);
-					
-						var iItem = oData.results.length;
-						var aListofVendoritem = [];
+						//		console.log(oData);
+						var item = oData.results.length;
+						var ListofVendoritem = [];
 
-				
-						for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
+						var ListofVendoritemTwo = [];
+						for (var iRowIndex = 0; iRowIndex < item; iRowIndex++) {
 							//		console.log(iRowIndex);
 							var Lifnrr = oData.results[iRowIndex].Lifnr;
 
-							aListofVendoritem.push({
+							ListofVendoritem.push({
 								Lifnr: Lifnrr
 
 							});
@@ -215,7 +213,7 @@ sap.ui.define([
 						var index = {};
 						var result = [];
 
-						aListofVendoritem.forEach(function(point) {
+						ListofVendoritem.forEach(function(point) {
 							var key = "" + point.Lifnr + " ";
 
 							if (key in index) {
@@ -237,67 +235,73 @@ sap.ui.define([
 							return b.count - a.count;
 						});
 						//		console.log(result);
-						var sResultlengrh = result.length;
-						var aListofVendoritemTwo = [];
+						var resultlengrh = result.length;
+						var ListofVendoritemTwo = [];
 						for (var iRowIndex = 1; iRowIndex <= 5; iRowIndex++) {
 
-							var sLifnrr = result[iRowIndex].Lifnr;
-							var scounts = result[iRowIndex].count;
-							var sname = result[iRowIndex].VendorNameee;
-							if (sLifnrr !== "" || sLifnrr !== undefined) {
+							var Lifnrr = result[iRowIndex].Lifnr;
+							var counts = result[iRowIndex].count;
+							var name = result[iRowIndex].VendorNameee;
+							if (Lifnrr !== "" || Lifnrr !== undefined) {
 								for (var x = 0; x < ListofVendor.length; x++) {
-									if (sLifnrr === ListofVendor[x].Lifnr) {
-										var sVendorname = ListofVendor[x].Name1;
-										sname = sVendorname;
+									if (Lifnrr === ListofVendor[x].Lifnr) {
+										var vendorname = ListofVendor[x].Name1;
+										console.log(vendorname);
+										name = vendorname;
 									}
 								}
 							}
-							aListofVendoritemTwo.push({
-								Lifnr: sLifnrr,
-								count: scounts,
-								name: sname
+							ListofVendoritemTwo.push({
+								Lifnr: Lifnrr,
+								count: counts,
+								name: name
 
 							});
 						}
 
-					
+						console.log(ListofVendoritemTwo);
+
 						//top five vendor model with the count
-						var oCountModel = oView.getModel("CountModel");
-						oCountModel.setData(aListofVendoritemTwo);
-					
+						var CountModel = oView.getModel("CountModel");
+						CountModel.setData(ListofVendoritemTwo);
+						//	oView.setModel(CountModel, "CountModel");
+						console.log(CountModel);
+
 					
 
-						var iItmcount = oCountModel.oData.length;
-						for (var iRowIndex = 0; iRowIndex < iItmcount; iRowIndex++) {
-							var sLifnrr = oCountModel.oData[iRowIndex].Lifnr;
+						var itemsc = CountModel.oData.length;
+						for (var iRowIndex = 0; iRowIndex < itemsc; iRowIndex++) {
+							var Lifnrr = CountModel.oData[iRowIndex].Lifnr;
 							var aFilter = [
 								new sap.ui.model.Filter({
 									path: "Lifnr",
 									operator: sap.ui.model.FilterOperator.EQ,
-									value1: sLifnrr
+									value1: Lifnrr
 								})
 
 							];
 
 						}
 
-						var aListofVendorTopThree = [];
+						var ListofVendorTopThree = [];
 
 						for (var iRowIndex = 1; iRowIndex <= 3; iRowIndex++) {
 							//		console.log(iRowIndex);
-							var sLifnrr = result[iRowIndex].Lifnr;
-							var sCount = result[iRowIndex].count;
-							aListofVendorTopThree.push({
-								Lifnr: sLifnrr,
-								count: sCount
+							var Lifnrr = result[iRowIndex].Lifnr;
+							var Count = result[iRowIndex].count;
+							ListofVendorTopThree.push({
+								Lifnr: Lifnrr,
+								count: Count
 
 							});
 						}
 
-						var oListofVendorTopThreeModel = new JSONModel();
-						oListofVendorTopThreeModel.setData(aListofVendorTopThree);
-						oView.setModel(oListofVendorTopThreeModel, "ListofVendorTopThreeModel");
-						},
+						console.log(ListofVendorTopThree);
+						var ListofVendorTopThreeModel = new JSONModel();
+						ListofVendorTopThreeModel.setData(ListofVendorTopThree);
+						oView.setModel(ListofVendorTopThreeModel, "ListofVendorTopThreeModel");
+						console.log(ListofVendorTopThreeModel);
+					},
 					error: function(oError) {
 						BusyIndicator.hide(false);
 						var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
@@ -314,9 +318,9 @@ sap.ui.define([
 			//	BusyIndicator.show(0);
 			oModel.read("/Fetch_Vendor_DetailsSet", {
 				success: function(oData) {
-					var iItem = oData.results.length;
+					var item = oData.results.length;
 
-					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
+					for (var iRowIndex = 0; iRowIndex < item; iRowIndex++) {
 						var odata = oData.results[iRowIndex];
 						if (odata !== undefined) {
 							var Lifnrr = odata.Lifnr;
@@ -359,21 +363,22 @@ sap.ui.define([
 						}
 
 					}
-				
-					var oCount = new sap.ui.model.json.JSONModel({
-						item: iItem
+					//	console.log(ListofVendor);
+
+					var Count = new sap.ui.model.json.JSONModel({
+						item: item
 
 					});
-					oView.setModel(oCount, "Count");
+					oView.setModel(Count, "Count");
 
 					//BusyIndicator.hide();
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-					var olengthpo = oLookupModel.oData.PoDocumentNumber.length;
-					var oCountPoooo = new sap.ui.model.json.JSONModel({
-						item: olengthpo
+					var lengthpo = oLookupModel.oData.PoDocumentNumber.length;
+					var CountPoooo = new sap.ui.model.json.JSONModel({
+						item: lengthpo
 
 					});
-					oView.setModel(oCountPoooo, "CountPoooo");
+					oView.setModel(CountPoooo, "CountPoooo");
 
 					oLookupModel.setProperty("/DisplyaVendorList", ListofVendor);
 					oLookupModel.refresh(true);
@@ -405,13 +410,14 @@ sap.ui.define([
 			var oModel = oView.getModel("Lookup");
 			var oSelectedItem = oEvent.getParameter("listItem");
 			if (oSelectedItem) {
-				var sVendorNumber = oSelectedItem.getTitle();
+				var VendorNumber = oSelectedItem.getTitle();
 
-			
+				console.log(VendorNumber);
+
 				var zero = "";
 				//	var no;
 
-				var len = sVendorNumber.length;
+				var len = VendorNumber.length;
 				if (len !== undefined) {
 					var z = 10 - len;
 					for (var i = 0; i < z; i++) {
@@ -421,25 +427,25 @@ sap.ui.define([
 
 				console.log(len);
 				console.log(zero);
-				sVendorNumber = zero + sVendorNumber;
-				console.log(sVendorNumber);
+				VendorNumber = zero + VendorNumber;
+				console.log(VendorNumber);
 
 				var sBindPath = oSelectedItem.getBindingContext("Lookup").sPath;
 
-				var sComCode = oModel.getProperty(sBindPath + "/Bukrs");
-				console.log(sVendorNumber);
+				var ComCode = oModel.getProperty(sBindPath + "/Bukrs");
+				console.log(VendorNumber);
 				console.log(ComCode)
 
 				var aFilter = [
 					new sap.ui.model.Filter({
 						path: "Vendorno",
 						operator: sap.ui.model.FilterOperator.EQ,
-						value1: sVendorNumber
+						value1: VendorNumber
 					}),
 					new sap.ui.model.Filter({
 						path: "Companycode",
 						operator: sap.ui.model.FilterOperator.EQ,
-						value1: sComCode
+						value1: ComCode
 					})
 
 				];
@@ -449,7 +455,7 @@ sap.ui.define([
 					filters: aFilter,
 					success: function(oData) {
 						console.log(oData);
-						var iItem = oData.results.length;
+						var item = oData.results.length;
 						var oVendor = new VendorP2P(oData.results[0]);
 						oComponent.getModel("VendorModel").setData(oData.results[0]);
 						oComponent.getRouter().navTo("VM");
@@ -535,15 +541,16 @@ sap.ui.define([
 
 				//	console.log(oData);
 					BusyIndicator.hide();
-					var iItemPO = oData.results.length;
-					var oCountPo1 = new sap.ui.model.json.JSONModel({
-						item: iItemPO
+					var itemPO = oData.results.length;
+					var CountPo1 = new sap.ui.model.json.JSONModel({
+						item: itemPO
 
 					});
-					oView.setModel(oCountPo1, "CountPo1");
+					oView.setModel(CountPo1, "CountPo1");
 
-				
-					for (var iRowIndex = 0; iRowIndex < iItemPO; iRowIndex++) {
+					ListofPurchaseOrders = [];
+
+					for (var iRowIndex = 0; iRowIndex < itemPO; iRowIndex++) {
 						var odataset = oData.results[iRowIndex];
 
 						var Compcode = odataset.Bukrs;
@@ -741,7 +748,7 @@ sap.ui.define([
 					//		console.log(ListofPurchaseOrders);
 
 					var CountPo = new sap.ui.model.json.JSONModel({
-						item: iItemPO
+						item: itemPO
 
 					});
 					oView.setModel(CountPo, "CountPo");
@@ -814,18 +821,18 @@ sap.ui.define([
 					}
 					final.sort(compareSecondColumn);
 					//	console.log(final);
-					var aTop5products = [];
+					var top5products = [];
 					for (var zz = 0; zz <= 4; zz++) {
-						aTop5products.push({
+						top5products.push({
 							prod: final[zz][0],
 							count: final[zz][1]
 						});
 					}
-				
-					var oTop5productsModel = new JSONModel();
-					oTop5productsModel.setData(aTop5products);
-					oView.setModel(oTop5productsModel, "top5products");
-				
+					//		console.log(top5products);
+					var top5productsModel = new JSONModel();
+					top5productsModel.setData(top5products);
+					oView.setModel(top5productsModel, "top5products");
+					//		console.log(top5productsModel);
 				},
 				error: function(er) {
 					BusyIndicator.hide();
@@ -885,8 +892,8 @@ sap.ui.define([
 
 			}
 			// update list binding
-			var slist = this.getView().byId("awaitingTable");
-			var binding = slist.getBinding("items");
+			var list = this.getView().byId("awaitingTable");
+			var binding = list.getBinding("items");
 			binding.filter(aFilter, "Application");
 
 		},
@@ -895,6 +902,7 @@ sap.ui.define([
 				aStates = [undefined, "asc", "desc"],
 				aStateTextIds = ["sortNone", "sortAscending", "sortDescending"],
 				sMessage,
+				//	iOrder = oView.getModel("appView").getProperty("/order");
 				iOrder = this.getOwnerComponent().getModel("Lookup").getProperty("/POOrderList");
 
 			// Cycle between the states
@@ -916,6 +924,77 @@ sap.ui.define([
 			}];
 		},
 
+		onDataExport: function(oEvent) {
+			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
+			console.log(oLookupModel);
+			var data = oLookupModel.oData.POOrderList;
+			var localdata = new JSONModel();
+			localdata.setData(data);
+			oView.setModel(localdata, "localdata");
+			console.log(localdata);
+			jQuery.sap.require("sap.ui.core.util.Export");
+			jQuery.sap.require("sap.ui.core.util.ExportTypeCSV");
+			var oExport = new Export({
+
+				// Type that will be used to generate the content. Own ExportType's can be created to support other formats
+				exportType: new ExportTypeCSV({
+					fileExtension: "xls",
+					separatorChar: "\t"
+				}),
+
+				// Pass in the model created above
+				models: localdata,
+				//this.getView().getModel("Lookup"),
+
+				// binding information for the rows aggregation
+				rows: {
+					path: "/"
+				},
+
+				// column definitions with column name and binding info for the content
+
+				columns: [{
+					name: "Company Code",
+					template: {
+						content: "{Bukrs}"
+					}
+				}, {
+					name: "Purchase Order",
+					template: {
+						content: "{Ebeln}"
+					}
+				}, {
+					name: "Vendor Details",
+					template: {
+						content: "{Lifnr}"
+					}
+				}, {
+					name: "Purchase Organization",
+					template: {
+						content: "{Ekgrp}"
+					}
+				}, {
+					name: "Created Date",
+					template: {
+						content: "{Bedat}"
+
+					}
+				}, {
+					name: "Created By",
+					template: {
+						content: "{Ernam}"
+
+					}
+				}]
+			});
+
+			// download exported file
+			oExport.saveFile().catch(function(oError) {
+				MessageBox.error("Error when downloading data. Browser might not be supported!\n\n" + oError);
+			}).then(function() {
+				oExport.destroy();
+			});
+		},
 
 		/*vendor action list sorting */
 		ListSort: function(oEvent) {

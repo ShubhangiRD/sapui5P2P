@@ -16,7 +16,7 @@ sap.ui.define([
 	BusyIndicator) {
 	"use strict";
 	var oView, oComponent;
-	return Controller.extend("com.vSimpleApp.controller.VM", {
+	return Controller.extend("com.vSimpleApp.controller.VendorMaster", {
 
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
@@ -27,12 +27,10 @@ sap.ui.define([
 			oView = this.getView();
 			oComponent = this.getOwnerComponent();
 			var oModel = this.getOwnerComponent().getModel("VHeader");
-			var oModelLookup = this.getOwnerComponent().getModel("Lookup");
-			//	this.getOrderCurrencyList();
 
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
-			console.log(oModel);
+
 			oView.byId("iddEditt").setVisible(false);
 			var oHierarchyModel = new sap.ui.model.json.JSONModel();
 			oView.setModel(oHierarchyModel, "hierarchy");
@@ -47,11 +45,11 @@ sap.ui.define([
 			});
 
 			this.getView().setModel(oVisibleModel, "VisibleModel");
-			var ScreenModel = new JSONModel({
+			var oScreenModel = new JSONModel({
 				isScreen: "Create Vendor"
 			});
 
-			this.getView().setModel(ScreenModel, "ScreenName");
+			this.getView().setModel(oScreenModel, "ScreenName");
 
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 
@@ -66,10 +64,10 @@ sap.ui.define([
 				oData: {}
 			});
 			oVendorModel.updateBindings(true);
-			var a = "Create Vendor";
+			var sVendor = "Create Vendor";
 
 			//setting property to models
-			oView.getModel("ScreenName").setProperty("/isScreen", a);
+			oView.getModel("ScreenName").setProperty("/isScreen", sVendor);
 			oView.getModel("EditModel").setProperty("/isEditable", true);
 			oView.byId("iddEditt").setVisible(false);
 			oVendorModel.refresh(true);
@@ -84,10 +82,10 @@ sap.ui.define([
 
 		onNavBack: function(oevt) {
 			//calling the function to navigate back to the dashboard page
-			var a = "Create Vendor";
+			var sVendor = "Create Vendor";
 
 			//setting property to models
-			oView.getModel("ScreenName").setProperty("/isScreen", a);
+			oView.getModel("ScreenName").setProperty("/isScreen", sVendor);
 			var oVendorModel = oComponent.getModel("VendorModel");
 
 			//clear the model data
@@ -108,23 +106,22 @@ sap.ui.define([
 			var that = this;
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("VHeader");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/Fetch_Vendor_DetailsSet", {
 
 				success: function(oData) {
-					//BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/DisplyaVendorList", oData.results);
 					oLookupModel.refresh(true);
-					
+
 				},
 				error: function(oError) {
-					//	//BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -178,14 +175,13 @@ sap.ui.define([
 			var oModelRe = this.getOwnerComponent().getModel("VHeader");
 
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdVendor),
+				var sProductInput = this.byId(this.inputIdVendor),
 					sDescription = oSelectedItem.getInfo(),
 					sTitle = oSelectedItem.getTitle();
-				productInput.setSelectedKey(sDescription);
-				productInput.setValue(sDescription);
+				sProductInput.setSelectedKey(sDescription);
+				sProductInput.setValue(sDescription);
 
 				var zero = "";
-				//	var no;
 
 				var len = sDescription.length;
 				if (len !== undefined) {
@@ -195,27 +191,22 @@ sap.ui.define([
 					}
 				}
 
-				console.log(len);
-				console.log(zero);
 				sDescription = zero + sDescription;
-				console.log(sDescription);
 
 				//	this.getVendorDetails(sDescription);
 				var sBindPath = oSelectedItem.getBindingContext("Lookup").sPath;
 
-				var ComCode = oModel.getProperty(sBindPath + "/Bukrs");
-				var Lifnr = oModel.getProperty(sBindPath + "/Lifnr");
-				var Ekorg = oModel.getProperty(sBindPath + "/Ekorg");
-				var Ktokk = oModel.getProperty(sBindPath + "/Ktokk");
-				oView.byId("idVendor").setValue(Lifnr);
+				var sComCode = oModel.getProperty(sBindPath + "/Bukrs");
+				var sLifnr = oModel.getProperty(sBindPath + "/Lifnr");
+				var sEkorg = oModel.getProperty(sBindPath + "/Ekorg");
+				var sKtokk = oModel.getProperty(sBindPath + "/Ktokk");
+				oView.byId("idVendor").setValue(sLifnr);
 
 				/*		oView.byId("idCompCode").setValue(ComCode);
 						oView.byId("idAccGp").setValue(Ktokk);
 						oView.byId("idPurOrg").setValue(Ekorg);
 
 				*/
-				console.log(sDescription);
-				console.log(ComCode)
 
 				var aFilter = [
 					new sap.ui.model.Filter({
@@ -226,20 +217,17 @@ sap.ui.define([
 					new sap.ui.model.Filter({
 						path: "Companycode",
 						operator: sap.ui.model.FilterOperator.EQ,
-						value1: ComCode
+						value1: sComCode
 					})
 
 				];
 				BusyIndicator.show(true);
 				oModelRe.read("/bapi_vendor_getdetailSet", {
-					//oModel.read("/POItemSet", {
+
 					filters: aFilter,
 					success: function(oData) {
 						BusyIndicator.hide(false);
-						console.log(oData);
-						var item = oData.results.length;
 
-						var oVendor = new VendorP2P(oData.results[0]);
 						oComponent.getModel("VendorModel").setData(oData.results[0]);
 
 						/*	var oVendor = new Vendor(oData.results[0]);
@@ -249,13 +237,13 @@ sap.ui.define([
 						//	oView.getModel("Vendor",oVendor); // setData(oData.results);
 						//	oView.getModel("Vendor").setData(oData.results); // setData(oData.results);
 						//	oView.setModel(oVendor,"Vendor");
-						oView.byId("idAccGp").setValue(Ktokk);
-						oView.byId("idPurOrg").setValue(Ekorg);
+						oView.byId("idAccGp").setValue(sKtokk);
+						oView.byId("idPurOrg").setValue(sEkorg);
 
 					},
 					error: function(oError) {
 						BusyIndicator.hide(false);
-						//console.log(oError);
+
 					}
 				});
 
@@ -270,22 +258,21 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("VHeader");
-			//	BusyIndicator.show(0);
+
 			//get entity set
 			oModel.read("/get_purchaseorg_f4helpSet", {
 				success: function(oData) {
 
-					//BusyIndicator.hide();
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/PurchaseOrganization", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -350,22 +337,21 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/PlanningGroupsSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/PlanningGroups", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -428,22 +414,21 @@ sap.ui.define([
 			//get all data from odata model
 
 			var oModel = this.getOwnerComponent().getModel("VHeader");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/get_companycode_f4helpSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/CountryCode", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -518,12 +503,12 @@ sap.ui.define([
 					//set the odata to model property
 					oLookupModel.setProperty("/AccountGroup", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
 					BusyIndicator.hide(false);
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -571,11 +556,11 @@ sap.ui.define([
 		_handlevendorAccountGClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdAcolist),
+				var sProductInput = this.byId(this.inputIdAcolist),
 					sDescription = oSelectedItem.getInfo(),
 					sTitle = oSelectedItem.getTitle();
-				productInput.setSelectedKey(sDescription);
-				productInput.setValue(sTitle);
+				sProductInput.setSelectedKey(sDescription);
+				sProductInput.setValue(sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -587,22 +572,21 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("VHeader");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/country_keySet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/CountryCodeRegion", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -651,17 +635,17 @@ sap.ui.define([
 		_handlecountryVendorClose: function(oEvent) {
 			var oSelectedItem = oEvent.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdContry);
-				productInput.setValue(oSelectedItem.getTitle());
-				var sDescription = oSelectedItem.getInfo(),
-					sTitle = oSelectedItem.getTitle();
+				var sProductInput = this.byId(this.inputIdContry);
+				sProductInput.setValue(oSelectedItem.getTitle());
+				var sDescription = oSelectedItem.getInfo();
+
 				var oModel = this.getView().getModel("VHeader");
 				oView.byId("TimeZone").setValue(sDescription);
 
-				var cd = oSelectedItem.getTitle();
+				var sItemTitle = oSelectedItem.getTitle();
 
-				var oFilter = new sap.ui.model.Filter('Land1', sap.ui.model.FilterOperator.EQ, cd);
-				oModel.read("/region_keySet?$filter=(Land1 eq '" + cd + "')", {
+				var oFilter = new sap.ui.model.Filter('Land1', sap.ui.model.FilterOperator.EQ, sItemTitle);
+				oModel.read("/region_keySet?$filter=(Land1 eq '" + sItemTitle + "')", {
 					filters: [oFilter],
 					success: function(oData) {
 						var VendorData = new JSONModel();
@@ -680,8 +664,6 @@ sap.ui.define([
 						*/
 						//var a = oView.byId("idCity").setValue(oHierarchyModel.getProperty("/Bezei"));
 
-						console.log(oData);
-
 					},
 					error: function(oError) {
 						console.log(oError);
@@ -698,7 +680,7 @@ sap.ui.define([
 		/*Region Code start*/
 
 		handleValueHelpCust: function(oEvent) {
-			//var oView = this.getView().getId();
+
 			var sInputValue = oEvent.getSource().getValue();
 
 			this.inputIdCust = oEvent.getSource().getId();
@@ -734,9 +716,9 @@ sap.ui.define([
 				var productInput = this.byId(this.inputIdCust);
 
 				productInput.setValue(oSelectedItem.getDescription());
-				var aa = oSelectedItem.getTitle();
+				// var sItemTitle = oSelectedItem.getTitle();
 
-				var a = oView.byId("idDistin").setValue(aa);
+				// var sVal = oView.byId("idDistin").setValue(sItemTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -753,24 +735,23 @@ sap.ui.define([
 			//get entity set
 			oModel.read("/LanguageSet", {
 				success: function(oData) {
-					console.log(oData)
-						////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/LanguageList", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
 
 		handleLanguage: function(oEvent) {
-			//var oView = this.getView().getId();
+
 			var sInputValue = oEvent.getSource().getValue();
 
 			this.inputIdLanguage = oEvent.getSource().getId();
@@ -825,18 +806,17 @@ sap.ui.define([
 			//get entity set
 			oModel.read("/getcustomerSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
-					console.log(oData);
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/CustomerList", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -959,22 +939,21 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/industrysSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/IndustrySet", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -1048,8 +1027,8 @@ sap.ui.define([
 					oLookupModel.refresh(true);
 				},
 				error: function(oError) {
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -1268,8 +1247,8 @@ sap.ui.define([
 
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdAPY);
-				productInput.setValue(oSelectedItem.getTitle());
+				var sProductInput = this.byId(this.inputIdAPY);
+				sProductInput.setValue(oSelectedItem.getTitle());
 			}
 			evt.getSource().getBinding("items").filter([]);
 
@@ -1281,12 +1260,11 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/InstructionsKeysSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/InstructionKeyList", oData.results);
@@ -1294,9 +1272,9 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -1414,12 +1392,10 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/ReleaseGroupSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/ReleaseGroupList", oData.results);
@@ -1427,9 +1403,9 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -1472,8 +1448,8 @@ sap.ui.define([
 
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdRG);
-				productInput.setValue(oSelectedItem.getTitle());
+				var sProductInput = this.byId(this.inputIdRG);
+				sProductInput.setValue(oSelectedItem.getTitle());
 			}
 			evt.getSource().getBinding("items").filter([]);
 
@@ -1485,22 +1461,21 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/ExemptionAuthoritySet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/ExemptionAuthorityList", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -1550,8 +1525,8 @@ sap.ui.define([
 
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdEXA);
-				productInput.setValue(oSelectedItem.getTitle());
+				var sProductInput = this.byId(this.inputIdEXA);
+				sProductInput.setValue(oSelectedItem.getTitle());
 			}
 			evt.getSource().getBinding("items").filter([]);
 
@@ -1563,22 +1538,21 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/PaymentTemsSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/PaymentTermsList", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -1628,8 +1602,8 @@ sap.ui.define([
 
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdPTER);
-				productInput.setValue(oSelectedItem.getTitle());
+				var sProductInput = this.byId(this.inputIdPTER);
+				sProductInput.setValue(oSelectedItem.getTitle());
 			}
 			evt.getSource().getBinding("items").filter([]);
 
@@ -1641,22 +1615,21 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/TolenrenceGrpSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/ToleranceGroupList", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -1706,8 +1679,8 @@ sap.ui.define([
 
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdTG);
-				productInput.setValue(oSelectedItem.getTitle());
+				var sProductInput = this.byId(this.inputIdTG);
+				sProductInput.setValue(oSelectedItem.getTitle());
 			}
 			evt.getSource().getBinding("items").filter([]);
 
@@ -1719,22 +1692,21 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/HouseBankSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/HouseBankList", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -1784,8 +1756,8 @@ sap.ui.define([
 
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdHoB);
-				productInput.setValue(oSelectedItem.getTitle());
+				var sProductInput = this.byId(this.inputIdHoB);
+				sProductInput.setValue(oSelectedItem.getTitle());
 			}
 			evt.getSource().getBinding("items").filter([]);
 
@@ -1851,12 +1823,11 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/OrderCurrencySet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/OrderCurrencyList", oData.results);
@@ -1864,7 +1835,7 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
+
 					MessageToast.show(oError);
 				}
 			});
@@ -1928,12 +1899,11 @@ sap.ui.define([
 		getIncotermsList: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/IncotermsSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/IncotermsList", oData.results);
@@ -1941,9 +1911,9 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -1992,10 +1962,10 @@ sap.ui.define([
 		_handleIncotermsVendorClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdInco),
+				var sProductInput = this.byId(this.inputIdInco),
 
 					sTitle = oSelectedItem.getTitle();
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2017,12 +1987,12 @@ sap.ui.define([
 					//set the odata to model property
 					oLookupModel.setProperty("/PurchaseGroupList", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
 					BusyIndicator.hide(false);
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -2071,10 +2041,10 @@ sap.ui.define([
 		_handlePurchaseGroupClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdPGP),
+				var sProductInput = this.byId(this.inputIdPGP),
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2087,12 +2057,11 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/ShippingConditionsSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/ShippingConditionList", oData.results);
@@ -2100,9 +2069,9 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -2144,10 +2113,10 @@ sap.ui.define([
 		_handleShippingConditionVendorClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdSPC),
+				var sProductInput = this.byId(this.inputIdSPC),
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2159,12 +2128,11 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/ModeOfTransportSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/ModeOfTransportList", oData.results);
@@ -2172,9 +2140,9 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -2216,11 +2184,11 @@ sap.ui.define([
 		_handleModeOfTransportClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdMOT),
+				var sProductInput = this.byId(this.inputIdMOT),
 
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2232,10 +2200,10 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//	BusyIndicator.show(0);
+
 			oModel.read("/CustomerOfficeSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/CustomerOfficeEntryList", oData.results);
@@ -2243,9 +2211,9 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -2294,11 +2262,11 @@ sap.ui.define([
 		_handleCustomerOfficeEntryVendorClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdCOEN),
+				var sProductInput = this.byId(this.inputIdCOEN),
 
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2311,12 +2279,11 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/ActivityGroupSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/ActivityCodeList", oData.results);
@@ -2324,9 +2291,9 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -2368,11 +2335,11 @@ sap.ui.define([
 		_handleActivityCodeClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdACode),
+				var sProductInput = this.byId(this.inputIdACode),
 
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2425,11 +2392,11 @@ sap.ui.define([
 		_handleValueILHelpClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdInd),
+				var sProductInput = this.byId(this.inputIdInd),
 
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2438,22 +2405,21 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/IntrestsIndicSet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/InterestlndicList", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -2505,11 +2471,11 @@ sap.ui.define([
 		_handleValueContPersonHelpClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdCPERs),
+				var sProductInput = this.byId(this.inputIdCPERs),
 
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2563,11 +2529,11 @@ sap.ui.define([
 			var oSelectedItem = evt.getParameter("selectedItem");
 
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId),
+				var sProductInput = this.byId(this.inputId),
 					sDescription = oSelectedItem.getInfo(),
 					sTitle = oSelectedItem.getTitle();
-				productInput.setSelectedKey(sDescription);
-				productInput.setValue(sTitle);
+				sProductInput.setSelectedKey(sDescription);
+				sProductInput.setValue(sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2619,10 +2585,10 @@ sap.ui.define([
 		_handleSortKeyClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId),
+				var sProductInput = this.byId(this.inputId),
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
@@ -2673,10 +2639,10 @@ sap.ui.define([
 		_handleCashManagementClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId),
+				var sProductInput = this.byId(this.inputId),
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
@@ -2726,10 +2692,10 @@ sap.ui.define([
 		_handlePartnerFunctionClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId),
+				var sProductInput = this.byId(this.inputId),
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
@@ -2779,10 +2745,10 @@ sap.ui.define([
 		_handleValueHelpClosePrice: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId),
+				var sProductInput = this.byId(this.inputId),
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
@@ -2832,10 +2798,10 @@ sap.ui.define([
 		_handleValueHelpClosePayment: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId),
+				var sProductInput = this.byId(this.inputId),
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
@@ -2845,23 +2811,21 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/TimeZoneSet", {
 				success: function(oData) {
-					console.log(oData);
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/TimeZoneList", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					////BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -2910,11 +2874,11 @@ sap.ui.define([
 
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputIdTimZ),
+				var sProductInput = this.byId(this.inputIdTimZ),
 
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2928,22 +2892,21 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			//	BusyIndicator.show(0);
 
 			//get entity set
 			oModel.read("/bankkeySet", {
 				success: function(oData) {
-					////BusyIndicator.hide();
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/BankKeyList", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
-					//BusyIndicator.hide();
-					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(errorMsg);
+
+					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(sErrorMsg);
 				}
 			});
 		},
@@ -2991,11 +2954,11 @@ sap.ui.define([
 		_handleBankKeyVendorClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputId),
+				var sProductInput = this.byId(this.inputId),
 
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -3164,11 +3127,11 @@ sap.ui.define([
 
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
-				var productInput = this.byId(this.inputAutalQmSys),
+				var sProductInput = this.byId(this.inputAutalQmSys),
 
 					sTitle = oSelectedItem.getTitle();
 
-				productInput.setValue(sTitle);
+				sProductInput.setValue(sTitle);
 
 			}
 
@@ -3240,9 +3203,9 @@ sap.ui.define([
 			oComponent1.getRouter().navTo("CreateContractVendor");
 		},
 		onDisplayPress: function(oEvent) {
-			var a = "Display Vendor";
+			var sVendor = "Display Vendor";
 			//setting property to models
-			oView.getModel("ScreenName").setProperty("/isScreen", a);
+			oView.getModel("ScreenName").setProperty("/isScreen", sVendor);
 
 			oView.getModel("VisibleModel").setProperty("/isVisible", true);
 			oView.byId("btn_display").setVisible(false);
@@ -3252,9 +3215,9 @@ sap.ui.define([
 		},
 		onEditPress: function(oEvent) {
 			//calling the function to display all fields in edit mode
-			var a = "Edit Vendor";
+			var sVendor = "Edit Vendor";
 			//setting property to models
-			oView.getModel("ScreenName").setProperty("/isScreen", a);
+			oView.getModel("ScreenName").setProperty("/isScreen", sVendor);
 			oView.getModel("VisibleModel").setProperty("/isVisible", true);
 
 			oView.byId("iddEditt").setVisible(false);
@@ -3265,21 +3228,17 @@ sap.ui.define([
 			var oModel = this.getView().getModel("VHeader");
 
 			var oVendorModel = this.getOwnerComponent().getModel("VendorModel");
-			//	var oTempContract = oVendorModel.getProperty("/VendorTemp");
 
-			//	var vendor = oVendorModel.oData.Vendor;
 			var oVendors = oVendorModel.getData();
 
 			var oVendor = oVendors.Vendorno;
-			console.log(oVendor)
 
 			//define and bind the model
-			var ovm = new VendorP2P(oVendors);
-			var oContract = ovm.getUpdateRequestPayload();
-			console.log(oContract);
+			var oVModel = new VendorP2P(oVendors);
+			var oContract = oVModel.getUpdateRequestPayload();
 
 			if (oVendor === null || oVendor === undefined || oVendor === "") {
-				//	BusyIndicator.show(0);
+
 				oModel.create("/Vendor_crudSet", oContract, {
 
 					success: this._onCreateEntrySuccess.bind(this),
@@ -3295,21 +3254,21 @@ sap.ui.define([
 					merge: false
 				};
 				var sVendorCreate = "/Vendor_crudSet(Lifnra='" + oVendor + "')";
-				//	BusyIndicator.show(0);
+
 				oModel.update(sVendorCreate, oContract, mParameters);
 			}
 
 		},
 
 		_onCreateEntrySuccess: function(oObject, oResponse) {
-			//BusyIndicator.hide();
+
 			var oVendorModel = oView.getModel("VendorModel");
 
-			var Message = JSON.parse(oResponse.headers["sap-message"]).message;
-			if (Message == "Vendors found with same address; check") {
-				MessageBox.warning(Message);
-			} else if (Message === "Changes have been made") {
-				sap.m.MessageBox.show(Message, {
+			var sMessage = JSON.parse(oResponse.headers["sap-message"]).message;
+			if (sMessage === "Vendors found with same address; check") {
+				MessageBox.warning(sMessage);
+			} else if (sMessage === "Changes have been made") {
+				sap.m.MessageBox.show(sMessage, {
 					icon: sap.m.MessageBox.Icon.INFORMATION,
 
 					actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CLOSE],
@@ -3322,14 +3281,12 @@ sap.ui.define([
 							oVendorModel.updateBindings(true);
 
 							oVendorModel.refresh(true);
-
-							//		this.getOwnerComponent().getRouter().navTo("ShowTiles");
 
 						}
 					}.bind(this)
 				});
 			} else {
-				sap.m.MessageBox.show(Message, {
+				sap.m.MessageBox.show(sMessage, {
 					icon: sap.m.MessageBox.Icon.INFORMATION,
 
 					actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CLOSE],
@@ -3342,8 +3299,6 @@ sap.ui.define([
 							oVendorModel.updateBindings(true);
 
 							oVendorModel.refresh(true);
-
-							//	this.getOwnerComponent().getRouter().navTo("ShowTiles");
 
 						}
 					}.bind(this)
@@ -3352,13 +3307,11 @@ sap.ui.define([
 
 		},
 		_onCreateEntryError: function(oError) {
-			//BusyIndicator.hide();
 
 			//if getting the issue while posting the accruls call the _onCreateEntryError
-			//sap.ui.core.//BusyIndicator.hide();
+
 			var x = JSON.parse(oError.responseText);
 			var err = x.error.message.value;
-			console.log(err);
 
 			MessageBox.error(
 				"Error creating entry: " + err + " "

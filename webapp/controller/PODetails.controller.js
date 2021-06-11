@@ -7,6 +7,8 @@ sap.ui.define([
 	"sap/ui/core/Fragment",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
+	"com/vSimpleApp/model/RebateConditionItemPO",
+	"com/vSimpleApp/model/CreateContract",
 	"sap/m/ColumnListItem",
 	"jquery.sap.global",
 	"sap/m/MessageToast",
@@ -18,15 +20,15 @@ sap.ui.define([
 	"sap/ui/core/BusyIndicator",
 	"sap/ui/core/routing/History",
 	"com/vSimpleApp/model/PODetail",
-
+	"com/vSimpleApp/model/GetPurchaseVendor",
 	"sap/ui/model/Sorter"
-], function(Formatter, Controller, JSONModel, mobileLibrary, Input, Fragment, Filter, FilterOperator,
- ColumnListItem, jQuery, MessageToast, MessageBox, Text, TextArea, DatePicker, FilterType,
-	BusyIndicator, History, PODetail, Sorter) {
+], function(Formatter, Controller, JSONModel, mobileLibrary, Input, Fragment, Filter, FilterOperator, RebateConditionItemPO,
+	CreateContract, ColumnListItem, jQuery, MessageToast, MessageBox, Text, TextArea, DatePicker, FilterType,
+	BusyIndicator, History, PODetail, GetPurchaseVendor, Sorter) {
 	"use strict";
-	//global variable
-	var oView, Ebeln, oComponent;
-	return Controller.extend("com.vSimpleApp.view.controller.PoHeaderList", {
+	var oView;
+	var Ebeln, oComponent;
+	return Controller.extend("com.vSimpleApp.view.controller.PODetails", {
 
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
@@ -40,34 +42,29 @@ sap.ui.define([
 			this.getView().setModel(oModel);
 			oView = this.getView();
 			oComponent = this.getOwnerComponent();
-			var oOdataModel = new sap.ui.model.json.JSONModel();
-			oView.setModel(oOdataModel, "VendorListM");
-			var oPurcOrg = new sap.ui.model.json.JSONModel();
-			oView.setModel(oPurcOrg, "PurchaseORg");
-			var oCompMode = new sap.ui.model.json.JSONModel();
-			oView.setModel(oCompMode, "compMode");
+			var OdataModel = new sap.ui.model.json.JSONModel();
+			oView.setModel(OdataModel, "VendorListM");
+			var odPurcOrg = new sap.ui.model.json.JSONModel();
+			oView.setModel(odPurcOrg, "PurchaseORg");
+			var compMode = new sap.ui.model.json.JSONModel();
+			oView.setModel(compMode, "compMode");
 			// Define the models
-
-			//call the function
 			this.getCompanyList();
 			this.getVendorList();
 			this.getPurchaseOrgList();
 			this.getPurchaseOrderList();
 
-			//boolean varible
 			this.bDescending = false;
 			this.sSearchQuery = 0;
 			this.bGrouped = false;
 
 		},
 		OnCancelPOList: function() {
-			//cancel po search selection and navigate to dashboard page
 			oView.byId("vnumber").setValue(" ");
 			oView.byId("cc").setValue(" ");
 			oComponent.getRouter().navTo("ShowTiles");
 		},
 		onNavBack: function(oevt) {
-			//get model and refresh model for navigation
 			var oPurchaseModel = oComponent.getModel("PurchaseModel");
 			oPurchaseModel.refresh(true);
 			this.getOwnerComponent().getRouter().navTo("ShowTiles");
@@ -84,13 +81,13 @@ sap.ui.define([
 			];
 			this.oSelectName = this.getSelect("vnumber");
 			//		this.oSelectCategory = this.getSelect("idPurchaseOrg");
-			this.oSelectcompName = this.getSelect("cc");
+			this.oSelectSupplierName = this.getSelect("cc");
 
 			var aCurrentFilterValues = [];
 
 			aCurrentFilterValues.push(this.getSelectedItemText(this.oSelectName));
 			//	aCurrentFilterValues.push(this.getSelectedItemText(this.oSelectCategory));
-			aCurrentFilterValues.push(this.getSelectedItemText(this.oSelectcompName));
+			aCurrentFilterValues.push(this.getSelectedItemText(this.oSelectSupplierName));
 
 			this.filterTable(aCurrentFilterValues);
 
@@ -136,17 +133,17 @@ sap.ui.define([
 
 			}
 			// update list binding
-			var slist = this.getView().byId("PurchaseTableDisplay");
-			var binding = slist.getBinding("items");
+			var list = this.getView().byId("PurchaseTableDisplay");
+			var binding = list.getBinding("items");
 			binding.filter(aFilter, "Application");
 
 		},
 		OnNavigateDetails: function(oEvent) {
 
 			try {
-				var sPurchaseNumber = oEvent.getSource().data("Ebeln");
+				var PurchaseNumber = oEvent.getSource().data("Ebeln");
 				oComponent.getRouter().navTo("POITemDetails", {
-					PoNo: sPurchaseNumber
+					PoNo: PurchaseNumber
 				});
 			} catch (ex) {
 				MessageBox.error(ex);
@@ -164,13 +161,13 @@ sap.ui.define([
 				success: function(oData) {
 					BusyIndicator.hide(false);
 
-					var iitemPO = oData.results.length;
-				
-					var oCountPo = new sap.ui.model.json.JSONModel({
-						item: iitemPO
+					var itemPO = oData.results.length;
+					console.log(oData);
+					var CountPo = new sap.ui.model.json.JSONModel({
+						item: itemPO
 
 					});
-					oView.setModel(oCountPo, "CountPo");
+					oView.setModel(CountPo, "CountPo");
 
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/OpenPOList", oData.results);
@@ -182,40 +179,40 @@ sap.ui.define([
 				},
 				error: function(oError) {
 					BusyIndicator.hide(false);
-					var serrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(serrorMsg);
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
 				}
 			});
 		},
 
 		getVendorList: function() {
-			//get  the odata following entityset
+//get  the odata following entityset
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 			//BusyIndicator.show(0);
 			oModel.read("/Fetch_Vendor_DetailsSet", {
 				success: function(oData) {
 
-					var iItem = oData.results.length;
-					var aListofVendors = [];
-					aListofVendors.push({
+					var item = oData.results.length;
+					var ListofVendors = [];
+					ListofVendors.push({
 						"": ""
 					});
-					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
+					for (var iRowIndex = 0; iRowIndex < item; iRowIndex++) {
 
-						var sLifnrr = oData.results[iRowIndex].Lifnr;
-						aListofVendors.push({
-							Lifnr: sLifnrr
+						var Lifnrr = oData.results[iRowIndex].Lifnr;
+						ListofVendors.push({
+							Lifnr: Lifnrr
 						});
 					}
 
-					oView.getModel("VendorListM").setSizeLimit(aListofVendors.length);
-					oView.getModel("VendorListM").setData(aListofVendors);
+					oView.getModel("VendorListM").setSizeLimit(ListofVendors.length);
+					oView.getModel("VendorListM").setData(ListofVendors);
 
 				},
 				error: function(oError) {
 					//BusyIndicator.hide();
-					var serrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(serrorMsg);
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
 				}
 			});
 		},
@@ -232,8 +229,8 @@ sap.ui.define([
 				},
 				error: function(oError) {
 					////BusyIndicator.hide();
-					var serrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-					MessageToast.show(serrorMsg);
+					var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+					MessageToast.show(errorMsg);
 				}
 			});
 		},
@@ -271,22 +268,23 @@ sap.ui.define([
 				success: function(oData) {
 					//BusyIndicator.hide();
 
-					var iItem = oData.results.length;
+					var item = oData.results.length;
 
-					var aCountryCode = [];
-					aCountryCode.push({
+					var CountryCode = [];
+					CountryCode.push({
 						"": ""
 					});
-					for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
+					for (var iRowIndex = 0; iRowIndex < item; iRowIndex++) {
 
-						var sBukrs = oData.results[iRowIndex].Bukrs;
-						aCountryCode.push({
-							Bukrs: sBukrs
+						var Bukrs = oData.results[iRowIndex].Bukrs;
+						CountryCode.push({
+							Bukrs: Bukrs
 						});
 					}
-				
-					oView.getModel("compMode").setSizeLimit(aCountryCode.length);
-					oView.getModel("compMode").setData(aCountryCode);
+					console.log(CountryCode);
+
+					oView.getModel("compMode").setSizeLimit(CountryCode.length);
+					oView.getModel("compMode").setData(CountryCode);
 
 				},
 				error: function(oError) {

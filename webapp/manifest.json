@@ -360,18 +360,22 @@
 				"name": "VendorDetails",
 				"pattern": "VendorDetails",
 				"target": ["VendorDetails"]
-			},  {
+			}, {
+				"name": "AdminPanel",
+				"pattern": "AdminPanel",
+				"target": ["AdminPanel"]
+			}, {
 				"pattern": "POForm-screen",
 				"name": "POForm",
 				"target": "POForm"
 			}, {
-				"pattern": "PoHeaderList",
-				"name": "PoHeaderList",
-				"target": "PoHeaderList"
+				"pattern": "PODetails",
+				"name": "PODetails",
+				"target": "PODetails"
 			}, {
-				"pattern": "PoCreation",
-				"name": "PoCreation",
-				"target": "PoCreation"
+				"pattern": "POCreation",
+				"name": "POCreation",
+				"target": "POCreation"
 			}, {
 				"pattern": "VM",
 				"name": "VM",
@@ -389,8 +393,8 @@
 					"viewName": "VM",
 					"controlId": "idApp"
 				},
-				"PoCreation": {
-					"viewName": "PoCreation",
+				"POCreation": {
+					"viewName": "POCreation",
 					"controlId": "idApp"
 				},
 				"TileDashboard": {
@@ -524,9 +528,9 @@
 					"viewName": "POITemDetails",
 					"controlId": "idApp"
 				},
-				"PoHeaderList": {
+				"PODetails": {
 					"viewType": "XML",
-					"viewName": "PoHeaderList",
+					"viewName": "PODetails",
 					"controlId": "idApp"
 				}
 			}
