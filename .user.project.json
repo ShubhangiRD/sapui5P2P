@@ -16,7 +16,11 @@
         "runnerId": "webapprunner",
         "id": 1814215,
         "displayName": "Run index.html",
+<<<<<<< HEAD
+        "lastRunTimeStamp": 1623412587012
+=======
         "lastRunTimeStamp": 1623412638181
+>>>>>>> branch 'main' of https://github.com/ShubhangiRD/sapui5P2P.git
       }
     }
   ]

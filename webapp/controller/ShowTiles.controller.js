@@ -27,7 +27,7 @@ sap.ui.define([
 	var Purchaseordernumber;
 	var oView, oComponent, oController;
 	var SortOrder = library.SortOrder;
-		var EdmType = exportLibrary.EdmType;
+	var EdmType = exportLibrary.EdmType;
 	var ListofVendor = [],
 		ListofPurchaseOrders = [];
 	return Controller.extend("com.vSimpleApp.controller.ShowTiles", {
@@ -43,12 +43,10 @@ sap.ui.define([
 			oComponent = this.getOwnerComponent();
 			this.oSF = oView.byId("searchField");
 			var sRootPath = jQuery.sap.getModulePath("com.vSimpleApp");
-		
+
 			//get the json data model.
 			var oModel = new JSONModel([sRootPath, "data/LandingPageData.json"].join("/"));
 			this.getView().setModel(oModel, "LandingPageModel");
-
-		
 
 			var oCountModel = new JSONModel();
 			oView.setModel(oCountModel, "CountModel");
@@ -65,7 +63,7 @@ sap.ui.define([
 
 			this.getView().setModel(oVisiblemodel, "Visiblemodel");
 
-//calling function through init
+			//calling function through init
 			this.getVendorList();
 			this.getPurchaseOrderList();
 			this.getVendorCountListByPO();
@@ -107,8 +105,7 @@ sap.ui.define([
 			}), "modes");
 			this.switchState("Navigation");
 
-
-//declare boolean variable
+			//declare boolean variable
 			this.bDescending = false;
 			this.sSearchQuery = 0;
 			this.bGrouped = false;
@@ -165,7 +162,6 @@ sap.ui.define([
 				MessageBox.error(ex);
 			}
 
-		
 		},
 
 		pressGenericTile: function(evt) {
@@ -187,19 +183,18 @@ sap.ui.define([
 		// Get  Top five vendor and get their counts
 
 		getVendorCountListByPO: function() {
-		
+
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 			BusyIndicator.show(true);
 			return new Promise(function(resolve1, reject1) {
 				oModel.read("/POHeaderSet", {
-				
+
 					success: function(oData) {
 						BusyIndicator.hide(false);
-					
+
 						var iItem = oData.results.length;
 						var aListofVendoritem = [];
 
-				
 						for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
 							//		console.log(iRowIndex);
 							var Lifnrr = oData.results[iRowIndex].Lifnr;
@@ -260,12 +255,9 @@ sap.ui.define([
 							});
 						}
 
-					
 						//top five vendor model with the count
 						var oCountModel = oView.getModel("CountModel");
 						oCountModel.setData(aListofVendoritemTwo);
-					
-					
 
 						var iItmcount = oCountModel.oData.length;
 						for (var iRowIndex = 0; iRowIndex < iItmcount; iRowIndex++) {
@@ -297,7 +289,7 @@ sap.ui.define([
 						var oListofVendorTopThreeModel = new JSONModel();
 						oListofVendorTopThreeModel.setData(aListofVendorTopThree);
 						oView.setModel(oListofVendorTopThreeModel, "ListofVendorTopThreeModel");
-						},
+					},
 					error: function(oError) {
 						BusyIndicator.hide(false);
 						var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
@@ -307,7 +299,6 @@ sap.ui.define([
 			});
 		},
 
-	
 		getVendorList: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("VHeader");
@@ -359,7 +350,7 @@ sap.ui.define([
 						}
 
 					}
-				
+
 					var oCount = new sap.ui.model.json.JSONModel({
 						item: iItem
 
@@ -407,7 +398,6 @@ sap.ui.define([
 			if (oSelectedItem) {
 				var sVendorNumber = oSelectedItem.getTitle();
 
-			
 				var zero = "";
 				//	var no;
 
@@ -462,8 +452,8 @@ sap.ui.define([
 			}
 
 		},
-	
-			onExport: function() {
+
+		onExport: function() {
 			var aCols, oRowBinding, oSettings, oSheet, oTable;
 			if (!this._oTable) {
 				this._oTable = this.byId('tablePoorders');
@@ -485,20 +475,20 @@ sap.ui.define([
 				oSheet.destroy();
 			});
 		},
-		
-			createColumnConfig: function() {
+
+		createColumnConfig: function() {
 			var aCols = [];
 			aCols.push({
 				label: 'Company Code',
 				property: 'Bukrs',
 				type: EdmType.String
-				
+
 			});
 			aCols.push({
 				label: 'Purchase Order',
 				property: 'Ebeln',
 				type: EdmType.String
-				
+
 			});
 			aCols.push({
 				label: 'Vendor Details',
@@ -521,7 +511,7 @@ sap.ui.define([
 				property: 'Ernam',
 				type: EdmType.String
 			});
-		
+
 			return aCols;
 		},
 		getPurchaseOrderList: function() {
@@ -530,10 +520,10 @@ sap.ui.define([
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 			//BusyIndicator.show(0);
 			oModel.read("/just_poheader2Set ", {
-			
+
 				success: function(oData) {
 
-				//	console.log(oData);
+					//	console.log(oData);
 					BusyIndicator.hide();
 					var iItemPO = oData.results.length;
 					var oCountPo1 = new sap.ui.model.json.JSONModel({
@@ -542,7 +532,6 @@ sap.ui.define([
 					});
 					oView.setModel(oCountPo1, "CountPo1");
 
-				
 					for (var iRowIndex = 0; iRowIndex < iItemPO; iRowIndex++) {
 						var odataset = oData.results[iRowIndex];
 
@@ -751,7 +740,6 @@ sap.ui.define([
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/POOrderList", ListofPurchaseOrders);
 					oLookupModel.refresh(true);
-			
 
 				},
 				error: function(oError) {
@@ -821,11 +809,11 @@ sap.ui.define([
 							count: final[zz][1]
 						});
 					}
-				
+
 					var oTop5productsModel = new JSONModel();
 					oTop5productsModel.setData(aTop5products);
 					oView.setModel(oTop5productsModel, "top5products");
-				
+
 				},
 				error: function(er) {
 					BusyIndicator.hide();
@@ -915,7 +903,6 @@ sap.ui.define([
 				property: "{Lifnr}"
 			}];
 		},
-
 
 		/*vendor action list sorting */
 		ListSort: function(oEvent) {
