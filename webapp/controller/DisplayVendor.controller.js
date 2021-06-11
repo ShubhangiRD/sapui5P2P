@@ -5,13 +5,12 @@ sap.ui.define([
 	"sap/m/MessageBox",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/core/Fragment",
-	"com/vSimpleApp/model/displayVendor",
 	"sap/m/MessageToast",
 	"com/vSimpleApp/model/VendorP2P",
 	"sap/ui/core/routing/History",
 	"sap/ui/core/BusyIndicator"
 
-], function(Controller, Filter, JSONModel, MessageBox, FilterOperator, Fragment, displayVendor, MessageToast, VendorP2P,
+], function(Controller, Filter, JSONModel, MessageBox, FilterOperator, Fragment, MessageToast, VendorP2P,
 	History,
 	BusyIndicator) {
 	"use strict";
@@ -255,7 +254,7 @@ sap.ui.define([
 					new sap.ui.model.Filter({
 						path: "Companycode",
 						operator: sap.ui.model.FilterOperator.EQ,
-						value1: ComCode
+						value1: sComCode
 					})
 
 				];
