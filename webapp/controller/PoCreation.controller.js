@@ -26,7 +26,7 @@ sap.ui.define([
 	"use strict";
 	var oView;
 	var Ebeln, oComponent;
-	return Controller.extend("com.vSimpleApp.view.controller.Pocreation", {
+	return Controller.extend("com.vSimpleApp.view.controller.PoCreation", {
 
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.

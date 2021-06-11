@@ -1,6 +1,6 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns="sap.uxap" xmlns:l="sap.ui.layout" xmlns:m="sap.m" xmlns:u="sap.ui.unified"
 	xmlns:form="sap.ui.layout.form" xmlns:f="sap.f" xmlns:card="sap.f.cards" class="sapUiSizeCompact" xmlns:mvc="sap.ui.core.mvc" height="100%"
-	xmlns:t="sap.ui.table" xmlns:tnt="sap.tnt"  controllerName="com.vSimpleApp.controller.Pocreation">
+	xmlns:t="sap.ui.table" xmlns:tnt="sap.tnt"  controllerName="com.vSimpleApp.controller.PoCreation">
 	
 	<m:Page  showNavButton="true"
 		navButtonPress="onNavBack">

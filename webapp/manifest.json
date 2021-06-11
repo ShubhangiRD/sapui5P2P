@@ -369,9 +369,9 @@
 				"name": "PoHeaderList",
 				"target": "PoHeaderList"
 			}, {
-				"pattern": "Pocreation",
-				"name": "Pocreation",
-				"target": "Pocreation"
+				"pattern": "PoCreation",
+				"name": "PoCreation",
+				"target": "PoCreation"
 			}, {
 				"pattern": "VM",
 				"name": "VM",
@@ -389,8 +389,8 @@
 					"viewName": "VM",
 					"controlId": "idApp"
 				},
-				"Pocreation": {
-					"viewName": "Pocreation",
+				"PoCreation": {
+					"viewName": "PoCreation",
 					"controlId": "idApp"
 				},
 				"TileDashboard": {
