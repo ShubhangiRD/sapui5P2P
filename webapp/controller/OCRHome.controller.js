@@ -8,6 +8,7 @@ sap.ui.define([
 	'../InitPage'
 ], function (BaseController, Formatter, JSONModel, ChartFormatter, Format, MessageBox, InitPageUtil) {
 	"use strict";
+	//global variable
 	var oView, oController, oComponent;
 	return BaseController.extend("com.vSimpleApp.controller.Home", {
 		settingsModel : {
