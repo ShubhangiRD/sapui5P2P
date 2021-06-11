@@ -188,8 +188,7 @@ sap.ui.define([
 			BusyIndicator.show(true);
 			return new Promise(function(resolve1, reject1) {
 				oModel.read("/POHeaderSet", {
-
-					success: function(oData) {
+	success: function(oData) {
 						BusyIndicator.hide(false);
 
 						var iItem = oData.results.length;
