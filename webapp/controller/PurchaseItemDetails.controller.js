@@ -9,6 +9,7 @@ sap.ui.define([
 	"sap/m/MessageBox"
 ], function(Controller, JSONModel, Filter, FilterOperator, BusyIndicator, MessageToast, MessageBox) {
 	"use strict";
+	//global variable
 	var oView;
 	var aListofVendor = [],
 		aListofCompanycode = [],
@@ -22,13 +23,8 @@ sap.ui.define([
 		 */
 		onInit: function() {
 			oView = this.getView();
-
-			var oPurchaseItemDetailsModel = new JSONModel();
+	var oPurchaseItemDetailsModel = new JSONModel();
 			oView.setModel(oPurchaseItemDetailsModel, "PurchaseItemDetailsModel");
-
-			//	this.getVendorList();
-			//	this.getCompanyList();
-			//	this.getPurchaseOrgList();
 
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.getRoute("PurchaseItemDetails").attachPatternMatched(this._onObjectMatched, this);
@@ -46,11 +42,11 @@ sap.ui.define([
 					for (var iRowIndex = 0; iRowIndex <= 2600; iRowIndex++) {
 						var odata = oData.results[iRowIndex];
 						if (odata !== undefined) {
-							var Lifnrr = odata.Lifnr;
-							var Name1r = odata.Name1;
+							var sLifnrr = odata.Lifnr;
+							var sName1r = odata.Name1;
 							aListofVendor.push({
-								Lifnr: Lifnrr,
-								Name1: Name1r
+								Lifnr: sLifnrr,
+								Name1: sName1r
 							});
 						}
 
@@ -89,11 +85,11 @@ sap.ui.define([
 					for (var iRowIndex = 0; iRowIndex <= iPurorgitem; iRowIndex++) {
 						var odata = oData.results[iRowIndex];
 						if (odata !== undefined) {
-							var Ekorg = odata.Ekorg;
-							var Ekotx = odata.Ekotx;
+							var sEkorg = odata.Ekorg;
+							var sEkotx = odata.Ekotx;
 							aListofPurchaseOrg.push({
-								Ekorg: Ekorg,
-								Ekotx: Ekotx
+								Ekorg: sEkorg,
+								Ekotx: sEkotx
 							});
 						}
 

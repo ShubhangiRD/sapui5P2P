@@ -19,10 +19,10 @@ sap.ui.define([
 				oComponent2.getRouter().navTo("Dashboard");
 		},
 		onRefresh: function (oEvent) {
-			var tbl = oView.byId("postedTable");
-			tbl.setBusy(true);
+			var oTbl = oView.byId("postedTable");
+			oTbl.setBusy(true);
 			documentServices.getInstance().getPostedDocuments(this, function() {
-				tbl.setBusy(false);
+				oTbl.setBusy(false);
 			});
 		}
 	});

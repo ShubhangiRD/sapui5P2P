@@ -29,10 +29,10 @@ sap.ui.define([
 			}
 		},
 		onRefresh: function (oEvent) {
-			var tbl = oView.byId("validationErrorTable");
-			tbl.setBusy(true);
+			var oTbl = oView.byId("validationErrorTable");
+			oTbl.setBusy(true);
 			documentServices.getInstance().getValidationErrorDocuments(this, function() {
-				tbl.setBusy(false);
+				oTbl.setBusy(false);
 			});
 		}
 	});

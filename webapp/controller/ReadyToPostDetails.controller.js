@@ -31,19 +31,19 @@ sap.ui.define([
 		_onObjectMatched: function(oEvent) {
 			sap.ui.core.BusyIndicator.show(0);
 			var fiReviewRecordsDataModel = oComponent.getModel("approvedDocuments");
-			var records = fiReviewRecordsDataModel.getData();
+			var oRecords = fiReviewRecordsDataModel.getData();
 			var record = {};
-			for(var i = 0; i < records.length; i++) {
-				if(records[i].uniqueId == oEvent.getParameter("arguments").recordId){
-					record = records[i];
+			for(var i = 0; i < oRecords.length; i++) {
+				if(oRecords[i].uniqueId === oEvent.getParameter("arguments").recordId){
+					record = oRecords[i];
 					break;
 				}
 			}
 			//approval.balanceAmount = approval.Grossvalue;
 			//approval.isValid = false;
 			
-			var recordlModel = new sap.ui.model.json.JSONModel(record);
-			oView.setModel(recordlModel, "record"); 
+			var oRecordlModel = new sap.ui.model.json.JSONModel(record);
+			oView.setModel(oRecordlModel, "record"); 
 			
 			var filePath = record.filePath;
 			var newFilePath = filePath.substring(filePath.lastIndexOf("/") + 1);
@@ -58,28 +58,28 @@ sap.ui.define([
 				},
 				function(oError) {
 					if(oError.status === 200) {
-						recordlModel.getData().file = oError.responseText;
-						recordlModel.refresh(true);
+						oRecordlModel.getData().file = oError.responseText;
+						oRecordlModel.refresh(true);
 						sap.ui.core.BusyIndicator.hide();
 					}
 				});
 			
 			documentServices.getInstance().getTaxRate(oController, record.vendorCountry, record.companyCode,
 					function(oData) {
-						recordlModel.getData().taxCode = oData.taxCode;
-						recordlModel.getData().taxRate = oData.taxRate;
+						oRecordlModel.getData().taxCode = oData.taxCode;
+						oRecordlModel.getData().taxRate = oData.taxRate;
 						//record.tax = documentServices.getInstance().calculateTax(record.netValue, oData.taxRate);
-						//recordlModel.getData().tax  = (parseFloat(recordlModel.getData().netValue) * parseFloat(oData.taxRate)) / 100;
-						recordlModel.refresh(true);
+						//oRecordlModel.getData().tax  = (parseFloat(oRecordlModel.getData().netValue) * parseFloat(oData.taxRate)) / 100;
+						oRecordlModel.refresh(true);
 					});
 			
 		/*$.ajax("/ocrspring/getTaxRate/"+ record.VendorCountry + "/" + record.Companycode + "/", {
 				success: function(data) {
-					recordlModel.getData().taxcode = data.taxCode;
-					recordlModel.getData().taxRate = data.taxRate;
-					var tax = (parseFloat(recordlModel.getData().netValue) * parseFloat(data.taxRate)) / 100;
-					recordlModel.getData().Vat = tax;
-					recordlModel.refresh(true);
+					oRecordlModel.getData().taxcode = data.taxCode;
+					oRecordlModel.getData().taxRate = data.taxRate;
+					var tax = (parseFloat(oRecordlModel.getData().netValue) * parseFloat(data.taxRate)) / 100;
+					oRecordlModel.getData().Vat = tax;
+					oRecordlModel.refresh(true);
 				},
 				error: function(err) {
 					MessageBox.error(err);
@@ -108,7 +108,7 @@ sap.ui.define([
 					{
 						actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
 						onClose: function(sAction) {
-							if(sAction == "OK") {
+							if(sAction === "OK") {
 								sap.ui.core.BusyIndicator.show(0);
 								//var reviewedData = JSON.parse(JSON.stringify(oView.getModel("record").getData()));
 								/*var reviewedData = oView.getModel("record").getData();
@@ -157,8 +157,8 @@ sap.ui.define([
 								var oReadyToPostModel = oView.getModel("record");
 								var postData = oReadyToPostModel.getData().getSAPPostData(true);
 								
-								var mainServiceModel = oComponent.getModel("mainServiceModel");
-								mainServiceModel.create("/UpdOcrHdrs", postData, {
+								var oMainServiceModel = oComponent.getModel("mainServiceModel");
+								oMainServiceModel.create("/UpdOcrHdrs", postData, {
 									success: function(postResponse) {
 										sap.ui.core.BusyIndicator.hide();
 										postData.sapInvoice = postResponse.UpdOcrHdrToOcrItm.results[0].Sapinvoice;
