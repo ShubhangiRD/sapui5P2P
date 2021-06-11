@@ -16,7 +16,7 @@ sap.ui.define([
 	BusyIndicator) {
 	"use strict";
 	var oView, oComponent;
-	return Controller.extend("com.vSimpleApp.controller.VendorMaster", {
+	return Controller.extend("com.vSimpleApp.controller.VendorDetail", {
 
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.

@@ -167,7 +167,7 @@ sap.ui.define([
 		pressGenericTile: function(evt) {
 			//navigate the property is selected subheader.
 			if (evt.getSource().getProperty("header") === "Vendor Master") {
-				oComponent.getRouter().navTo("VendorMaster");
+				oComponent.getRouter().navTo("VendorDetail");
 			} else if (evt.getSource().getProperty("header") === "Purchase Order") {
 				oComponent.getRouter().navTo("PoHeaderList");
 			} else if (evt.getSource().getProperty("header") === "Post Goods Receipt") {
@@ -188,7 +188,7 @@ sap.ui.define([
 			BusyIndicator.show(true);
 			return new Promise(function(resolve1, reject1) {
 				oModel.read("/POHeaderSet", {
-	success: function(oData) {
+					success: function(oData) {
 						BusyIndicator.hide(false);
 
 						var iItem = oData.results.length;

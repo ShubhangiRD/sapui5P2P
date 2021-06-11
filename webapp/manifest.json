@@ -373,9 +373,9 @@
 				"name": "PoCreation",
 				"target": "PoCreation"
 			}, {
-				"pattern": "VendorMaster",
-				"name": "VendorMaster",
-				"target": "VendorMaster"
+				"pattern": "VendorDetail",
+				"name": "VendorDetail",
+				"target": "VendorDetail"
 			}],
 			"targets": {
 				"LoginPage": {
@@ -385,8 +385,8 @@
 					"viewName": "ShowTiles",
 					"controlId": "idApp"
 				},
-				"VendorMaster": {
-					"viewName": "VendorMaster",
+				"VendorDetail": {
+					"viewName": "VendorDetail",
 					"controlId": "idApp"
 				},
 				"PoCreation": {

@@ -1,6 +1,6 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns="sap.uxap" xmlns:l="sap.ui.layout" xmlns:m="sap.m" xmlns:u="sap.ui.unified"
 	xmlns:form="sap.ui.layout.form" xmlns:f="sap.f" xmlns:card="sap.f.cards" class="sapUiSizeCompact" xmlns:mvc="sap.ui.core.mvc" height="100%"
-	controllerName="com.vSimpleApp.controller.VendorMaster">
+	controllerName="com.vSimpleApp.controller.VendorDetail">
 	<m:Page showNavButton="true" navButtonPress="onNavBack">
 		<ObjectPageLayout id="POHeader" showFooter="true" showTitleInHeaderContent="true" alwaysShowContentHeader="false"
 			preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
