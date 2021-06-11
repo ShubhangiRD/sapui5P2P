@@ -109,8 +109,7 @@ sap.ui.define([
 				filters: aFilter,
 				success: function(oData) {
 
-					// var item = oData.results.length;
-
+			
 					// var oVendorr = new VendorP2P(oData.results[0]);
 					oComponent.getModel("VendorModel").setData(oData.results[0]);
 
