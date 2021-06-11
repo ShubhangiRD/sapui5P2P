@@ -173,7 +173,7 @@ sap.ui.define([
 			if (evt.getSource().getProperty("header") === "Vendor Master") {
 				oComponent.getRouter().navTo("VendorMaster");
 			} else if (evt.getSource().getProperty("header") === "Purchase Order") {
-				oComponent.getRouter().navTo("PODetails");
+				oComponent.getRouter().navTo("PoHeaderList");
 			} else if (evt.getSource().getProperty("header") === "Post Goods Receipt") {
 				oComponent.getRouter().navTo("GoodReceipt");
 			} else if (evt.getSource().getProperty("header") === "Book Vendor Invoice") {
