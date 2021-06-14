@@ -63,13 +63,11 @@ sap.ui.define([
 					}
 			}
 			else
-			{
-<<<<<<< HEAD
-				if(iNumberCount===1)
-=======
-				if(nc===1)
->>>>>>> branch 'main' of https://github.com/ShubhangiRD/sapui5P2P.git
-				{
+		
+				if(iNumberCount===1){
+			
+
+				
 					$("body").find("input").each(function(){
 							var id = $(this).attr("id");
 							if(id!==undefined)
@@ -87,7 +85,8 @@ sap.ui.define([
 						});
 						iNumberCount=0;
 				}
-			}
+			
+				
 	}, 5000);
 	
 	//console.log(sap.ui.getCore().byId("idVendorInput").setValue("dfs"));
