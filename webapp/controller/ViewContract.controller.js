@@ -20,20 +20,20 @@ sap.ui.define([
 	"com/vSimpleApp/model/Formatter"
 	], function(Controller, jQuery, Popover, Button, library, JSONModel, BusyIndicator,History, MessageToast, MessageBox, Dialog, RebateConditionItem, Scale, Material, EligibleData, AccrualItem, SettlementItem, dateServices, Formatter) {
 	"use strict";
-	var ButtonType = library.ButtonType,
-		PlacementType = library.PlacementType;
+	var oButtonType = library.ButtonType,
+		oPlacementType = library.PlacementType;
 	var oView;
 	
-	var nc = 1;
+	var iNumberCount = 1;
 	setInterval(function (){	
 		var u = window.location.href;
 	var sep = u.split("/");
 	var cnt = sep.length;
 	var nm = sep[cnt-1];
 //	console.log(nm);
-			var vn = nm;//oView.sViewName;
-		//	console.log(vn);
-			if(vn!=="Home")
+			var sViewName = nm;//oView.sViewName;
+		//	console.log(sViewName);
+			if(sViewName!=="Home")
 			{
 					$("body").find("button").each(function(){
 					
@@ -64,7 +64,7 @@ sap.ui.define([
 			}
 			else
 			{
-				if(nc==1)
+				if(iNumberCount===1)
 				{
 					$("body").find("input").each(function(){
 							var id = $(this).attr("id");
@@ -81,7 +81,7 @@ sap.ui.define([
 								}	
 							}
 						});
-						nc=0;
+						iNumberCount=0;
 				}
 			}
 	}, 5000);
@@ -105,42 +105,42 @@ sap.ui.define([
 			}
 			this.oModel = new sap.ui.model.json.JSONModel();
 			
-			//var target = sap.ui.getCore().byId("__xmlview4--idVendorInput");
+			//var sTarget = sap.ui.getCore().byId("__xmlview4--idVendorInput");
 			this.oRouter = this.getOwnerComponent().getRouter();
 			this.oRouter.getRoute("ViewContract").attachPatternMatched(this._onRouteMatched1, this);
 		},
 		_onRouteMatched1: function() {
 			BusyIndicator.show(0);
-			var target;
+			var sTarget;
 			var that = this;
-			var flag = 0;
+			var iFlag = 0;
 			setInterval(function(){
-				target = sap.ui.getCore().byId("__xmlview4--idVendorInput").getValue(); //sap.ui.getCore().byId("__xmlview4--idVendorInput");
-				if(target!==undefined && target!=="" && flag==0)
+				sTarget = sap.ui.getCore().byId("__xmlview4--idVendorInput").getValue(); //sap.ui.getCore().byId("__xmlview4--idVendorInput");
+				if(sTarget!==undefined && sTarget!=="" && iFlag===0)
 				{
 					BusyIndicator.hide();
-					//alert(target);
-					flag=1;
+					//alert(sTarget);
+					iFlag=1;
 					sap.ui.getCore().byId("__xmlview4--tabid").setSelectedKey("item");
 				}
 			}, 5000);
 			oView = this.getView();
-			var vn = oView.sViewName;
-			if(vn==="com.vSimpleApp.view.ChangeContract")
+			var sViewName = oView.sViewName;
+			if(sViewName==="com.vSimpleApp.view.ChangeContract")
 			{
 				this.oModel.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/model.json", null, false);
 				this.oModel.oData.selectedKey = "changeContract";
 				this.getView().setModel(this.oModel);
 			}
 			else
-			if(vn==="com.vSimpleApp.view.ViewContract")
+			if(sViewName==="com.vSimpleApp.view.ViewContract")
 			{
 				this.oModel.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/model.json", null, false);
 				this.oModel.oData.selectedKey = "displayContract";
 				this.getView().setModel(this.oModel);
 			}
 			else
-			if(vn==="com.vSimpleApp.view.Home")
+			if(sViewName==="com.vSimpleApp.view.Home")
 			{
 				this.oModel.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/model.json", null, false);
 				this.oModel.oData.selectedKey = "createContract";
@@ -178,19 +178,19 @@ sap.ui.define([
 			var that = this;
 			var oPopover = new Popover({
 				showHeader: false,
-				placement: PlacementType.Bottom,
+				placement: oPlacementType.Bottom,
 				content: [
 					new Button({
 						text: "Feedback",
-						type: ButtonType.Transparent
+						type: oButtonType.Transparent
 					}),
 					new Button({
 						text: "Help",
-						type: ButtonType.Transparent
+						type: oButtonType.Transparent
 					}),
 					new Button({
 						text: "Logout",
-						type: ButtonType.Transparent,
+						type: oButtonType.Transparent,
 						press: function() {
 							var oRouter = that.getOwnerComponent().getRouter();
 							oRouter.navTo("Login");
@@ -203,39 +203,39 @@ sap.ui.define([
 		},
 
 		onItemSelect : function(oEvent) {
-			var item = oEvent.getParameter("item");
-			this.byId("pageContainer").to(this.getView().createId(item.getKey()));
+			var oItem = oEvent.getParameter("item");
+			this.byId("pageContainer").to(this.getView().createId(oItem.getKey()));
 			var oComponent = this.getOwnerComponent();
-			var key = item.getKey();
+			var sKey = oItem.getKey();
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
-			if(key==="createContract")
+			if(sKey==="createContract")
 			{
 				var oTempContract = oVendorModel.getProperty("/TempContract");
 				oTempContract.setData({modelData:{}});
 				oComponent.getRouter().navTo("Home");       
 			}
 			else
-			if(key==="displayContract")
+			if(sKey==="displayContract")
 			{
 				oComponent.getRouter().navTo("Dashboard");   
 				//this._getDialog().open();
 			}
 			else
-			if(key==="changeContract")
+			if(sKey==="changeContract")
 			{
 				oComponent.getRouter().navTo("ChangeContract");       
 			}
 			else
-			if(key==="dashboard")
+			if(sKey==="dashboard")
 			{
 				oComponent.getRouter().navTo("Dashboard");       
 			}
 		},
 
 		onMenuButtonPress : function() {
-			var toolPage = this.byId("toolPage");
+			var oToolPage = this.byId("oToolPage");
 
-			toolPage.setSideExpanded(!toolPage.getSideExpanded());
+			oToolPage.setSideExpanded(!oToolPage.getSideExpanded());
 		},
 		
 		onSaveWithItem: function(oEvent) {
@@ -260,8 +260,8 @@ sap.ui.define([
 					},
 					error: function(oError) {
 						BusyIndicator.hide();
-						var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-						MessageToast.show(errorMsg);
+						var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+						MessageToast.show(sErrorMessage);
 					}
 				});
 			}
@@ -275,12 +275,12 @@ sap.ui.define([
 			var oTempContract = oVendorModel.getProperty("/TempContract");
 			if (oTempContract.validateHeader() && oTempContract.Accrual.validate()) {
 				var oRequestPayload = oTempContract.getAccrualRequestPayload();
-				var dt = oRequestPayload.Aedtm;
-				dt = dt.split("T");
-				var dt1 = dt[0];
-				var dt2 = dt[1];
-				dt1 = dt1+"-01";
-				oRequestPayload.Aedtm = dt1+"T"+dt2;
+				var sDt = oRequestPayload.Aedtm;
+				sDt = sDt.split("T");
+				var sDt1 = sDt[0];
+				var sDt2 = sDt[1];
+				sDt1 = sDt1+"-01";
+				oRequestPayload.Aedtm = sDt1+"T"+sDt2;
 				var oModel = this.getOwnerComponent().getModel("RebatePostSet");
 				BusyIndicator.show(0);
 				oModel.create("/HeaderDocSet", oRequestPayload, {
@@ -294,8 +294,8 @@ sap.ui.define([
 					},
 					error: function(oError) {
 						BusyIndicator.hide();
-						var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-						MessageToast.show(errorMsg);
+						var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+						MessageToast.show(sErrorMessage);
 					}
 				});
 			}
@@ -321,8 +321,8 @@ sap.ui.define([
 					},
 					error: function(oError) {
 						BusyIndicator.hide();
-						var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-						MessageToast.show(errorMsg);
+						var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+						MessageToast.show(sErrorMessage);
 					}
 				});
 			}
