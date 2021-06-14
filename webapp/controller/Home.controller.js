@@ -23,18 +23,15 @@ sap.ui.define([
 	var ButtonType = library.ButtonType,
 		PlacementType = library.PlacementType;
 	var oView;
-	//console.log(sap.ui.getCore().byId("idVendorInput").setValue("dfs"));
+
 	return Controller.extend("com.vSimpleApp.controller.Home", {
 		onInit: function() {
-           //get model and model property
-			var oUserModel = this.getOwnerComponent().getModel("User");
-			var sUsername = oUserModel.getProperty("/Username");
-		
+
 			this.oModel = new JSONModel();
-           //get the view name to set model value
+			//get the view name to set model value
 			oView = this.getView();
 			var svn = oView.sViewName;
-			
+
 			if (svn === "com.vSimpleApp.view.ChangeContract") {
 				this.oModel.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/model.json", null, false);
 				this.oModel.oData.selectedKey = "changeContract";
@@ -85,10 +82,10 @@ sap.ui.define([
 		onItemSelect: function(oEvent) {
 			var oComponent = this.getOwnerComponent();
 			var iItem = oEvent.getParameter("item");
-			var key = iItem.getKey();
+			var skey = iItem.getKey();
 			//get model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
-			if (key === "createContract") {
+			if (skey === "createContract") {
 				//get model property to set data 
 				var oTempContract = oVendorModel.getProperty("/TempContract");
 				oTempContract.setData({
@@ -97,22 +94,22 @@ sap.ui.define([
 				//navigate the page according to the condition
 				oComponent.getRouter().navTo("Home");
 			} else
-			if (key === "displayContract") {
+			if (skey === "displayContract") {
 				oComponent.getRouter().navTo("Dashboard");
 			} else
-			if (key === "changeContract") {
+			if (skey === "changeContract") {
 				oComponent.getRouter().navTo("ChangeContract");
 			} else
-			if (key === "dashboard") {
+			if (skey === "dashboard") {
 				oComponent.getRouter().navTo("Dashboard");
 			}
-			//this.byId("pageContainer").to(this.getView().createId(item.getKey()));
+
 		},
 
 		onMenuButtonPress: function() {
 			//function called to expand and unexpand the tool page
 			var sToolPage = this.byId("toolPage");
-	sToolPage.setSideExpanded(!sToolPage.getSideExpanded());
+			sToolPage.setSideExpanded(!sToolPage.getSideExpanded());
 		},
 
 		onSaveWithItem: function(oEvent) {
@@ -140,8 +137,8 @@ sap.ui.define([
 					},
 					error: function(oError) {
 						BusyIndicator.hide();
-						var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-						MessageToast.show(errorMsg);
+						var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+						MessageToast.show(sErrorMessage);
 					}
 				});
 			}
@@ -178,8 +175,8 @@ sap.ui.define([
 					},
 					error: function(oError) {
 						BusyIndicator.hide();
-						var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-						MessageToast.show(errorMsg);
+						var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+						MessageToast.show(sErrorMessage);
 					}
 				});
 			}
@@ -210,8 +207,8 @@ sap.ui.define([
 					},
 					error: function(oError) {
 						BusyIndicator.hide();
-						var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-						MessageToast.show(errorMsg);
+						var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+						MessageToast.show(sErrorMessage);
 					}
 				});
 			}

@@ -120,25 +120,24 @@ sap.ui.define([
 
 		onPost: function(oEvent) {
 			try {
-				var source = oEvent.getSource();
+				var oSource = oEvent.getSource();
 
-				var row = source.getParent();
-				var sPath = row.getBindingContext('FiReviewRecords').getPath();
-				var selectedRecord = row.getBindingContext('FiReviewRecords').getModel().getProperty(row.getBindingContext('FiReviewRecords').getPath());
+				var oRow = oSource.getParent();
 
-				source.setBusy(true);
-				var reviewedData = JSON.parse(JSON.stringify(selectedRecord));
+				var oSelectedRecord = oRow.getBindingContext('FiReviewRecords').getModel().getProperty(oRow.getBindingContext('FiReviewRecords').getPath());
+
+				oSource.setBusy(true);
+				var reviewedData = JSON.parse(JSON.stringify(oSelectedRecord));
 
 				$.ajax("/ocrspring/getTaxRate/" + reviewedData.VendorCountry + "/" + reviewedData.Companycode + "/", {
 					success: function(data) {
-						//var tax = (parseFloat(reviewedData.Netvalue) * parseFloat(data.taxRate)) / 100;
+
 						reviewedData.UpdOcrHdrToOcrItm = reviewedData.GetOcrHdrToOcrItm;
 
 						for (var i = 0; i < reviewedData.UpdOcrHdrToOcrItm.results.length; i++) {
-							//reviewedData.UpdOcrHdrToOcrItm.results[i].Message = "";
+
 							reviewedData.UpdOcrHdrToOcrItm.results[i].FinReviewed = "X";
-							//delete reviewedData.UpdOcrHdrToOcrItm.results[i].Paymentindays;
-							//delete reviewedData.UpdOcrHdrToOcrItm.results[i].VendorCountry;
+
 							delete reviewedData.UpdOcrHdrToOcrItm.results[i].__metadata;
 						}
 
@@ -181,18 +180,18 @@ sap.ui.define([
 						oMainServiceModel.create("/UpdOcrHdrs", postData, {
 							success: function(postResponse) {
 
-								var oParent = source.getParent().getParent();
+								var oParent = oSource.getParent().getParent();
 								$("#" + oParent.getId() + "-highlight").addClass("posted");
-								source.setBusy(false);
+								oSource.setBusy(false);
 								$("#" + oParent.getId() + "-highlight").one(
 									'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
 									function(e) {
 										var oFiRecordsModel = oComponent.getModel("FiReviewRecords");
 										var totalFiRecords = oFiRecordsModel.getData();
 
-										for (var i = 0; i < totalFiRecords.length; i++) {
-											if (reviewedData.Uniqueid === totalFiRecords[i].Uniqueid) {
-												totalFiRecords.splice(i, 1);
+										for (var j = 0; j < totalFiRecords.length; j++) {
+											if (reviewedData.Uniqueid === totalFiRecords[j].Uniqueid) {
+												totalFiRecords.splice(j, 1);
 											}
 										}
 										oFiRecordsModel.refresh(true);
