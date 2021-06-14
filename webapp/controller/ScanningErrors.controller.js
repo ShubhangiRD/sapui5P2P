@@ -11,7 +11,7 @@ sap.ui.define([
 			oController = this;
 			oView = this.getView();
 			oComponent = this.getOwnerComponent();
-				var postData = [
+				var oPostData = [
 				{
 					postId: "1",
 					status: 1,
@@ -60,18 +60,18 @@ sap.ui.define([
 			];
 			
 			var oModelPost = new sap.ui.model.json.JSONModel({
-				PostData: postData
+				PostData: oPostData
 			});
 			
 			this.setModel(oModelPost);
 		//	var oModelPost = this.getOwnerComponent().getModel();
 		//	var postData = oModelPost.getData().PostData;
-			var scanningErrorData = postData.filter(function(data) {
+			var oScanningErrorData = oPostData.filter(function(data) {
 			    return data.status === 0;
 			});
 			
 			var oScanningErrorModel = new sap.ui.model.json.JSONModel({
-				PostData: scanningErrorData
+				PostData: oScanningErrorData
 			});
 			this.getOwnerComponent().setModel(oScanningErrorModel, "ScanningErrorData");
 		},
@@ -105,10 +105,10 @@ sap.ui.define([
 			window.open(url, '_blank');
 		},
 		onRefresh: function (oEvent) {
-			var tbl = oView.byId("manualVerifyTable");
-			tbl.setBusy(true);
+			var oTbl = oView.byId("manualVerifyTable");
+			oTbl.setBusy(true);
 			documentServices.getInstance().getManualVerificationDocuments(this, function() {
-				tbl.setBusy(false);
+				oTbl.setBusy(false);
 			});
 		}
 	});

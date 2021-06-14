@@ -18,10 +18,10 @@ sap.ui.define([
 				oComponent2.getRouter().navTo("Dashboard");
 		},
 		onRefresh: function (oEvent) {
-			var tbl = oView.byId("scannedTable");
-			tbl.setBusy(true);
+			var oTbl = oView.byId("scannedTable");
+			oTbl.setBusy(true);
 			documentServices.getInstance().getSuccesfullyScannedDocuments(this, function() {
-				tbl.setBusy(false);
+				oTbl.setBusy(false);
 			});
 		}
 	});
