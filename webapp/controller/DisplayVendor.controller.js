@@ -200,7 +200,7 @@ sap.ui.define([
 		_handleValueVendorHelpClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			var oModel = oView.getModel("Lookup");
-			var oModelRe = this.getOwnerComponent().getModel("VHeader1");
+			var oModelRe = this.getOwnerComponent().getModel("VHeader");
 
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdVendor),
