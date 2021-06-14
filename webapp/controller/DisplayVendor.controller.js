@@ -76,18 +76,18 @@ sap.ui.define([
 
 			}
 
-/*			var zero = "";
-			//	var no;
+			/*			var zero = "";
+						//	var no;
 
-			var len = sVendorNumber.length;
-			if (len !== undefined) {
-				var z = 10 - len;
-				for (var i = 0; i < z; i++) {
-					zero += "0";
-				}
-			}
+						var len = sVendorNumber.length;
+						if (len !== undefined) {
+							var z = 10 - len;
+							for (var i = 0; i < z; i++) {
+								zero += "0";
+							}
+						}
 
-			sVendorNumber = zero + sVendorNumber;*/
+						sVendorNumber = zero + sVendorNumber;*/
 
 			//creating filter
 			var aFilter = [
@@ -98,7 +98,6 @@ sap.ui.define([
 				})
 			];
 
-			
 			oModel.read("/VendorRSet", {
 				filters: aFilter,
 				success: function(oData) {
@@ -239,14 +238,16 @@ sap.ui.define([
 					})
 
 				];
-				
-			
-			oModelRe.read("/VendorRSet", {
-				filters: aFilter,
-				success: function(oData) {
-					//	BusyIndicator.hide(false);
 
-						oComponent.getModel("VendorModel").setData(oData.results[0]);
+				oModelRe.read("/VendorRSet", {
+					filters: aFilter,
+					success: function(oData) {
+						//	BusyIndicator.hide(false);
+
+						var oVendorr = new VendorP2P(oData.results[0]);
+						var aa = oComponent.getModel("VendorModel").setData(oVendorr);
+						console.log(aa);
+						//	oComponent.getModel("VendorModel").setData(oData.results[0]);
 
 						oView.byId("idAccGp").setValue(sKtokk);
 						oView.byId("idPurOrg").setValue(sEkorg);
@@ -254,7 +255,7 @@ sap.ui.define([
 					},
 					error: function(oError) {
 						console.log(oError);
-					//	BusyIndicator.hide(false);
+						//	BusyIndicator.hide(false);
 
 					}
 				});
@@ -663,8 +664,8 @@ sap.ui.define([
 
 					},
 					error: function(oError) {
-							MessageBox.error(oError);
-					
+						MessageBox.error(oError);
+
 					}
 				});
 

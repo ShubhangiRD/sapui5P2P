@@ -38,8 +38,9 @@ sap.ui.define([
 			this.Telephone = (oData && oData.Telephone) ? oData.Telephone : "";
 			this.Telephone2 = (oData && oData.Telephone2) ? oData.Telephone2 : "";
 			this.Type = (oData && oData.Type) ? oData.Type : "";
-			this.Vendor = (oData && oData.Vendor) ? oData.Vendor : "";
 			this.Vendorno = (oData && oData.Vendorno) ? oData.Vendorno : "";
+	this.Vendor = (oData && oData.Lifnra) ? oData.Lifnra : "";
+			this.Reconaccount = (oData && oData.Akontb) ? oData.Akontb : "";
 
 			this.ReconciliationAccount = (oData && oData.ReconciliationAccount) ? oData.ReconciliationAccount : "";
 			this.Title = (oData && oData.Title) ? oData.Title : "";
@@ -125,8 +126,9 @@ sap.ui.define([
 			this.Telephone = (oData && oData.Telephone) ? oData.Telephone : "";
 			this.Telephone2 = (oData && oData.Telephone2) ? oData.Telephone2 : "";
 			this.Type = (oData && oData.Type) ? oData.Type : "";
-			this.Vendor = (oData && oData.Vendor) ? oData.Vendor : "";
-			this.Vendorno = (oData && oData.Vendorno) ? oData.Vendorno : "";
+			this.Vendor = (oData && oData.Lifnra) ? oData.Lifnra : "";
+			this.Name = (oData && oData.Name) ? oData.Name : "";
+			this.Reconaccount = (oData && oData.Akontb) ? oData.Akontb : "";
 
 			this.ReconciliationAccount = (oData && oData.ReconciliationAccount) ? oData.ReconciliationAccount : "";
 			this.Title = (oData && oData.Title) ? oData.Title : "";

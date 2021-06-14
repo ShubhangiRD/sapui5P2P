@@ -32,7 +32,7 @@
 		-->
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 						<m:Label text="Vendor : " required="true" />
-						<m:Input id="idVendor" value="{VendorModel>/Vendorno}"  textFormatMode="KeyValue" placeholder="Vendor Number"
+						<m:Input id="idVendor" value="{VendorModel>/Vendor}"  textFormatMode="KeyValue" placeholder="Vendor Number"
 							showSuggestion="true" showValueHelp="true" valueHelpRequest="handleVendorValueHelpBox"
 							suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
