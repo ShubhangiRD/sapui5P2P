@@ -148,7 +148,7 @@ sap.ui.define([
 		   this.Qsznrb = (oData && oData.Qsznrb) ? oData.Qsznrb : "";
 		   
 		   this.Rdprfc = (oData && oData.Rdprfc) ? oData.Rdprfc : "";
-		   this.Regioa = (oData && oData.Regioa) ? oData.Regioa : "";
+		   this.Region = (oData && oData.Regioa) ? oData.Regioa : "";
 		   this.Regssa = (oData && oData.Regssa) ? oData.Regssa : "";
 		   this.Reprfb = (oData && oData.Reprfb) ? oData.Reprfb : "";
 		   this.Revdba = (oData && oData.Revdba) ? oData.Revdba : "";
