@@ -42,9 +42,6 @@ sap.ui.define([
 			var oModel = new JSONModel([sRootPath, "data/TileHeader.json"].join("/"));
 			this.getView().setModel(oModel, "LandingPageModel");
 
-			//location.reload();
-			//	this.getRouter().getRoute("appHome").attachPatternMatched(this._onObjectMatched, this);
-
 		},
 		onMenuButtonPress: function() {
 			//calling the function to navigate back to the dashboard
@@ -57,15 +54,7 @@ sap.ui.define([
 			console.log(evt.getSource().getProperty("header"));
 
 			if (evt.getSource().getProperty("header") === "CONTRACT MANAGEMENT") {
-				//localStorage.clear();
-				//localStorage.clear();
-
-				//get model and model property
-				var oVendorModel = this.getOwnerComponent().getModel("Vendor");
-				var oTempContract = oVendorModel.getProperty("/TempContract");
 				oComponent = this.getOwnerComponent();
-				console.log(oTempContract);
-				//oTempContract.setData({modelData:{}});
 
 				//navigating to the another page according to conditions
 				oComponent.getRouter().navTo("Home");
@@ -81,8 +70,6 @@ sap.ui.define([
 
 		},
 		suggestionItemSelected: function(data) {
-			//localStorage.clear();
-			//localStorage.clear();
 
 			//get the selected value inside parameter
 			var oItem = data.getParameter("selectedItem");
@@ -97,13 +84,9 @@ sap.ui.define([
 			//get model and model property
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oTempContract = oVendorModel.getProperty("/TempContract");
-			console.log(oTempContract);
-			//oTempContract.setData({modelData:{}});
-			//oTempContract.updateBindings(true);
-			//var oTempContract = oVendorModel.getProperty("/TempContract");
+
 			oTempContract.ContractNo = z1;
 			var that = this;
-			//var oVendorModel = that.getOwnerComponent().getModel("Vendor");
 
 			//get model 
 			var oLookupModel = that.getOwnerComponent().getModel("Lookup");
@@ -121,11 +104,11 @@ sap.ui.define([
 				//get entity set
 				tModel.read("/AGRItemScalesSet", {
 					//	filters: aFilter,
-					success: function(data) {
-						console.log(data.results);
+					success: function(data1) {
+
 						var res1 = data.results;
 						for (var i = 0; i < res1.length; i++) {
-							if (res1[i].Rcont == cn) {
+							if (res1[i].Rcont === cn) {
 								aDetails.push(res1[i]);
 							}
 
@@ -145,8 +128,8 @@ sap.ui.define([
 				//get entity set
 				tModel.read("/AGRHeaderSet", {
 					//	filters: aFilter,
-					success: function(data) {
-						console.log(data.results);
+					success: function(data2) {
+
 						var oRes = data.results;
 						for (var i = 0; i < oRes.length; i++) {
 							if (oRes[i].Rcont === cn) {
@@ -158,16 +141,11 @@ sap.ui.define([
 						}
 						var oModel = that.getOwnerComponent().getModel();
 						var oStore = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-						//oStore.put("agdesc", { agdesc: sDesc });
-						//var sVendorNumber; = Vendorno
-						//BusyIndicator.show(0);
 
 						//get entity set
 						oModel.read("/ZVendorDetSet('" + sVendorNumber + "')", {
 							success: function(oData) {
-								//BusyIndicator.hide();
-								//var oVendorModel = that.getOwnerComponent().getModel("Vendor");
-								//var oTempContract = oVendorModel.getProperty("/TempContract");
+
 								oTempContract.VendorName = oData.Vendorname;
 								oStore.put("id", {
 									vname1: oData.Vendorname,
@@ -191,8 +169,8 @@ sap.ui.define([
 				//get entity set
 				tModel.read("/AGRItemSet", {
 					//	filters: aFilter,
-					success: function(data) {
-
+					success: function(data3) {
+						var flag1;
 						var oRes = data.results;
 						for (var i = 0; i < oRes.length; i++) {
 							if (oRes[i].Rcont === cn) {
@@ -202,10 +180,10 @@ sap.ui.define([
 						}
 						for (var i = 0; i < idetails.length; i++) {
 							if (idetails[i].Scale === "X") {
-								var flag1 = true;
+								flag1 = true;
 
 							} else {
-								var flag1 = false;
+								flag1 = false;
 							}
 							aRebateContionItems.push(new RebateConditionItem({
 								ItemNo: idetails[i].Item,
@@ -214,36 +192,23 @@ sap.ui.define([
 								Scales: aScaleArr,
 								Rate: idetails[i].Rate,
 								Base: idetails[i].Base
-									//ValidFrom: idetails[i].Kdatb,
-									//ValidTo: idetails[i].Kdate,
 
 							}));
 						}
 						oVendorModel.refresh(true);
 					}
 				});
-				console.log(hdetails);
-				console.log(idetails);
-				console.log(aDetails);
-
-				//var cnt = idetails.length();
-				//aRebateContionItems.length = cnt;
 
 			}
 			setTimeout(function() {
-				console.log("in tm");
-				//var oVendorModel = that.getOwnerComponent().getModel("Vendor");
-				//var oLookupModel = that.getOwnerComponent().getModel("Lookup");
-				//var oTempContract = oVendorModel.getProperty("/TempContract");
+
 				var cn = oTempContract.ContractNo;
-				//var x = oView.byId("createContract");
-				//console.log(x);
-				//console.log(x.mProperties.title);
+
 				if (cn === undefined || cn === "") {
-					x = x.mProperties.title;
+				  	x = x.mProperties.title;
 					var x1 = x.split(":");
 					var x2 = x1[1];
-					console.log(x2);
+
 					if (x2 !== undefined || x2 !== "" || x2 !== " ") {
 						x = x2.replace(" ", "");
 						cn = x;
@@ -251,12 +216,8 @@ sap.ui.define([
 
 				}
 
-				console.log(cn);
 				cn = cn.replace(" ", "");
-				//console.log(x1);
-				//console.log(x2);
-				console.log(oTempContract);
-				console.log(oTempContract.ContractNo);
+
 				if (cn !== undefined || cn !== "") {
 					//set property on model
 					oLookupModel.setProperty("/IsContractItemSaved", true);
@@ -272,18 +233,15 @@ sap.ui.define([
 			oComponent.getRouter().navTo("ViewContract");
 			z2 = z2.split("-");
 			z2 = z2[1];
-			//console.log(z1.replace(" ", ""));
-			//console.log(z2.replace(" ", ""));
-			//console.log(oItem);
+
 		},
 		handleValueHelp: function(evt) {
-				//alert("hghgj");
-				//get model
+
 				var oModel1 = this.getOwnerComponent().getModel("ViewAllAg");
 				//get entity set
 				oModel1.read("/AGRHeaderSet", {
 					success: function(oData) {
-					
+
 					},
 
 					error: function(oError) {
