@@ -67,16 +67,16 @@ sap.ui.define([
 				for (var y = 0; y < sListvendor.length; y++) {
 					if (sVendorNumber === sListvendor[y].Lifnr) {
 
-						var Ekorg = sListvendor[y].Ekorg;
-						var ComCode = sListvendor[y].Bukrs;
-						var Ktokk = sListvendor[y].Ktokk;
+						var sEkorg = sListvendor[y].Ekorg;
+						var sComCode = sListvendor[y].Bukrs;
+						var sKtokk = sListvendor[y].Ktokk;
 
 					}
 				}
 
 			}
 
-			var zero = "";
+/*			var zero = "";
 			//	var no;
 
 			var len = sVendorNumber.length;
@@ -87,34 +87,27 @@ sap.ui.define([
 				}
 			}
 
-			sVendorNumber = zero + sVendorNumber;
+			sVendorNumber = zero + sVendorNumber;*/
 
 			//creating filter
 			var aFilter = [
 				new sap.ui.model.Filter({
-					path: "Vendorno",
+					path: "Lifnra",
 					operator: sap.ui.model.FilterOperator.EQ,
-					value1: sVendorNumber
-				}),
-				new sap.ui.model.Filter({
-					path: "Companycode",
-					operator: sap.ui.model.FilterOperator.EQ,
-					value1: ComCode
+					value1: "V400031543"
 				})
-
 			];
 
-			oModel.read("/bapi_vendor_getdetailSet", {
-				//oModel.read("/POItemSet", {
+			
+			oModel.read("/VendorRSet", {
 				filters: aFilter,
 				success: function(oData) {
 
-			
 					// var oVendorr = new VendorP2P(oData.results[0]);
 					oComponent.getModel("VendorModel").setData(oData.results[0]);
 
-					oView.byId("idAccGp").setValue(Ktokk);
-					oView.byId("idPurOrg").setValue(Ekorg);
+					oView.byId("idAccGp").setValue(sKtokk);
+					oView.byId("idPurOrg").setValue(sEkorg);
 
 				},
 				error: function(oError) {
@@ -207,7 +200,7 @@ sap.ui.define([
 		_handleValueVendorHelpClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			var oModel = oView.getModel("Lookup");
-			var oModelRe = this.getOwnerComponent().getModel("VHeader");
+			var oModelRe = this.getOwnerComponent().getModel("VHeader1");
 
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdVendor),
@@ -238,31 +231,20 @@ sap.ui.define([
 				var sKtokk = oModel.getProperty(sBindPath + "/Ktokk");
 				oView.byId("idVendor").setValue(sLifnr);
 
-				/*		oView.byId("idCompCode").setValue(ComCode);
-						oView.byId("idAccGp").setValue(Ktokk);
-						oView.byId("idPurOrg").setValue(Ekorg);
-
-				*/
-
 				var aFilter = [
 					new sap.ui.model.Filter({
-						path: "Vendorno",
+						path: "Lifnra",
 						operator: sap.ui.model.FilterOperator.EQ,
 						value1: sDescription
-					}),
-					new sap.ui.model.Filter({
-						path: "Companycode",
-						operator: sap.ui.model.FilterOperator.EQ,
-						value1: sComCode
 					})
 
 				];
-				BusyIndicator.show(true);
-				oModelRe.read("/bapi_vendor_getdetailSet", {
-
-					filters: aFilter,
-					success: function(oData) {
-						BusyIndicator.hide(false);
+				
+			
+			oModelRe.read("/VendorRSet", {
+				filters: aFilter,
+				success: function(oData) {
+					//	BusyIndicator.hide(false);
 
 						oComponent.getModel("VendorModel").setData(oData.results[0]);
 
@@ -271,7 +253,8 @@ sap.ui.define([
 
 					},
 					error: function(oError) {
-						BusyIndicator.hide(false);
+						console.log(oError);
+					//	BusyIndicator.hide(false);
 
 					}
 				});
@@ -667,11 +650,9 @@ sap.ui.define([
 
 				var oModel = this.getView().getModel("VHeader");
 				oView.byId("TimeZone").setValue(sDescription);
-
-				var cd = oSelectedItem.getTitle();
-
-				var oFilter = new sap.ui.model.Filter('Land1', sap.ui.model.FilterOperator.EQ, cd);
-				oModel.read("/region_keySet?$filter=(Land1 eq '" + cd + "')", {
+				var sContrycode = oSelectedItem.getTitle();
+				var oFilter = new sap.ui.model.Filter('Land1', sap.ui.model.FilterOperator.EQ, sContrycode);
+				oModel.read("/region_keySet?$filter=(Land1 eq '" + sContrycode + "')", {
 					filters: [oFilter],
 					success: function(oData) {
 						var VendorData = new JSONModel();
@@ -682,7 +663,8 @@ sap.ui.define([
 
 					},
 					error: function(oError) {
-						console.log(oError);
+							MessageBox.error(oError);
+					
 					}
 				});
 
@@ -805,7 +787,6 @@ sap.ui.define([
 			if (!oSelectedItem) {
 				return;
 			}
-
 			this.byId("idlanguage").setValue(oSelectedItem.getTitle());
 
 		},
@@ -820,15 +801,12 @@ sap.ui.define([
 			//get entity set
 			oModel.read("/getcustomerSet", {
 				success: function(oData) {
-
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/CustomerList", oData.results);
 					oLookupModel.refresh(true);
-
 				},
 				error: function(oError) {
-
 					var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(sErrorMessage);
 				}
@@ -859,7 +837,6 @@ sap.ui.define([
 				"Name1",
 				FilterOperator.Contains, sInputValue
 			)]));
-
 			// open value help dialog filtered by the input value
 			this._valueHelpCustomerList.open(sInputValue);
 			this.getCustomerList();
@@ -883,7 +860,6 @@ sap.ui.define([
 			if (!oSelectedItem) {
 				return;
 			}
-
 			this.byId("idCustomer").setValue(oSelectedItem.getTitle());
 
 		},
@@ -900,7 +876,6 @@ sap.ui.define([
 			if (!this._valueHelpDialogtradingpartners) {
 				this._valueHelpDialogtradingpartners = sap.ui.xmlfragment(
 					"com.vSimpleApp.view.fragment.Vendor.fragment.TradingPartners",
-
 					this
 				);
 				this.getView().addDependent(this._valueHelpDialogtradingpartners);
@@ -909,7 +884,6 @@ sap.ui.define([
 				var sSubString = sInputValue.split(")")[1];
 				sInputValue = sSubString.trim();
 			}
-
 			// create a filter for the binding
 			this._valueHelpDialogtradingpartners.getBinding("items").filter(new Filter([new Filter(
 				"Bukrs",
@@ -924,14 +898,11 @@ sap.ui.define([
 			this.getCompanyList();
 		},
 		_handleValueTPHelpClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			evt.getSource().getBinding("items").filter([]);
-
 			if (!oSelectedItem) {
 				return;
 			}
-
 			this.byId("idTrading").setValue(oSelectedItem.getTitle());
 
 		},
@@ -957,15 +928,12 @@ sap.ui.define([
 			//get entity set
 			oModel.read("/industrysSet", {
 				success: function(oData) {
-
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/IndustrySet", oData.results);
 					oLookupModel.refresh(true);
-
 				},
 				error: function(oError) {
-
 					var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(sErrorMessage);
 				}
@@ -973,7 +941,6 @@ sap.ui.define([
 		},
 		handleValueHelpIndustry: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdInd = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogIndustryS) {
@@ -996,7 +963,6 @@ sap.ui.define([
 				"Brtxt",
 				FilterOperator.Contains, sInputValue
 			)]));
-
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogIndustryS.open(sInputValue);
 			this.getIndustryList();
@@ -1013,14 +979,12 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 		_handleValueHelpIndustryClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			evt.getSource().getBinding("items").filter([]);
 
 			if (!oSelectedItem) {
 				return;
 			}
-
 			this.byId("Industry1").setValue(oSelectedItem.getTitle());
 
 		},
@@ -1031,7 +995,6 @@ sap.ui.define([
 			var that = this;
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-
 			//get entity set
 			oModel.read("/TransportZoneSet", {
 				success: function(oData) {
@@ -1049,7 +1012,6 @@ sap.ui.define([
 
 		handleTransportZone: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdTzone = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogTransportZone) {
@@ -1089,14 +1051,11 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 		_handleTransportZoneClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			evt.getSource().getBinding("items").filter([]);
-
 			if (!oSelectedItem) {
 				return;
 			}
-
 			this.byId("idTransportzone").setValue(oSelectedItem.getTitle());
 
 		},
@@ -1105,7 +1064,6 @@ sap.ui.define([
 		/*Fiscal Address F4 function start*/
 		handleFiscalAddressValueHelp: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdFA = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogFA) {
@@ -1119,7 +1077,6 @@ sap.ui.define([
 				var sSubString = sInputValue.split(")")[1];
 				sInputValue = sSubString.trim();
 			}
-
 			// create a filter for the binding
 			this._valueHelpDialogFA.getBinding("items").filter(new Filter([new Filter(
 				"Name1",
@@ -1145,7 +1102,6 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 		_handleFiscalAddressClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdFA);
@@ -1160,7 +1116,6 @@ sap.ui.define([
 		/*Tax office  F4 function start*/
 		handleTaxOfficeValueHelp: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdTO = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogTaxOfc) {
@@ -1174,7 +1129,6 @@ sap.ui.define([
 				var sSubString = sInputValue.split(")")[1];
 				sInputValue = sSubString.trim();
 			}
-
 			// create a filter for the binding
 			this._valueHelpDialogTaxOfc.getBinding("items").filter(new Filter([new Filter(
 				"Name1",
@@ -1200,7 +1154,6 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 		_handleTaxOfficeClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdTO);
@@ -1216,7 +1169,6 @@ sap.ui.define([
 
 		handleAlternatePayee: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdAPY = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogAlternatePayee) {
@@ -1245,7 +1197,6 @@ sap.ui.define([
 			this.getVendorList();
 		},
 		_handleAlternatePayeeVendorSearch: function(evt) {
-
 			var sValue = evt.getParameter("value");
 			var oFilter = new Filter([new Filter(
 				"Name1",
@@ -1258,7 +1209,6 @@ sap.ui.define([
 
 		},
 		_handleAlternatePayeeClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdAPY);
@@ -1274,7 +1224,6 @@ sap.ui.define([
 			var that = this;
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-
 			//get entity set
 			oModel.read("/InstructionsKeysSet", {
 				success: function(oData) {
@@ -1286,7 +1235,6 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-
 					var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(sErrorMessage);
 				}
@@ -1335,7 +1283,6 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 		_handleInstructionKeyClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdIKEYS);
@@ -1350,7 +1297,6 @@ sap.ui.define([
 
 		handleHeadOfficeHelp: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdHO = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogHeadOffice) {
@@ -1390,7 +1336,6 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 		_handleHeadOfficeVendorClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdHO);
@@ -1410,7 +1355,6 @@ sap.ui.define([
 			//get entity set
 			oModel.read("/ReleaseGroupSet", {
 				success: function(oData) {
-
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/ReleaseGroupList", oData.results);
@@ -1427,7 +1371,6 @@ sap.ui.define([
 
 		handleReleasegrpValueHelp: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdRG = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogReleaseGroup) {
@@ -1460,7 +1403,6 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 		_handleReleaseGroupVendorClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdRG);
@@ -1476,7 +1418,6 @@ sap.ui.define([
 			var that = this;
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-
 			//get entity set
 			oModel.read("/ExemptionAuthoritySet", {
 				success: function(oData) {
@@ -1488,7 +1429,6 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-
 					var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(sErrorMessage);
 				}
@@ -1497,7 +1437,6 @@ sap.ui.define([
 
 		handleExmptAuthority: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdEXA = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogExmpAutho) {
@@ -1537,7 +1476,6 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 		_handleExemptionVendorClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdEXA);
@@ -1562,7 +1500,6 @@ sap.ui.define([
 					//set the odata to model property
 					oLookupModel.setProperty("/PaymentTermsList", oData.results);
 					oLookupModel.refresh(true);
-
 				},
 				error: function(oError) {
 
@@ -1574,7 +1511,6 @@ sap.ui.define([
 
 		handlePaymenttermsHelp: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdPTER = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogPaymentTerms) {
@@ -1630,7 +1566,6 @@ sap.ui.define([
 			var that = this;
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-
 			//get entity set
 			oModel.read("/TolenrenceGrpSet", {
 				success: function(oData) {
@@ -1642,7 +1577,6 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-
 					var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(sErrorMessage);
 				}
@@ -1651,7 +1585,6 @@ sap.ui.define([
 
 		handleToleranceGrpValueHelp: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdTG = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogToleranceGroup) {
@@ -1691,7 +1624,6 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 		_handleToleranceGroupVendorClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdTG);
@@ -1707,11 +1639,9 @@ sap.ui.define([
 			var that = this;
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-
 			//get entity set
 			oModel.read("/HouseBankSet", {
 				success: function(oData) {
-
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/HouseBankList", oData.results);
@@ -1728,7 +1658,6 @@ sap.ui.define([
 
 		handleHousebank: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdHoB = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogHouseBank) {
@@ -1742,7 +1671,6 @@ sap.ui.define([
 				var sSubString = sInputValue.split(")")[1];
 				sInputValue = sSubString.trim();
 			}
-
 			// create a filter for the binding
 			this._valueHelpDialogHouseBank.getBinding("items").filter(new Filter([new Filter(
 				"Hbkid",
@@ -1768,7 +1696,6 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 		_handleHouseBankVendorClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdHoB);
@@ -1783,7 +1710,6 @@ sap.ui.define([
 
 		handledunnreceipt: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdDunnRe = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogDunnRecipient) {
@@ -1837,7 +1763,6 @@ sap.ui.define([
 		getOrderCurrencyList: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-
 			//get entity set
 			oModel.read("/OrderCurrencySet", {
 				success: function(oData) {
@@ -1857,7 +1782,6 @@ sap.ui.define([
 
 		handleOrderCurrencyValue: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdORC = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogOrderCurrency) {
@@ -1901,7 +1825,6 @@ sap.ui.define([
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdORC),
 					sTitle = oSelectedItem.getTitle();
-
 				sProductInput.setValue(sTitle);
 
 			}
@@ -1914,11 +1837,9 @@ sap.ui.define([
 			var that = this;
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-
 			//get entity set
 			oModel.read("/IncotermsSet", {
 				success: function(oData) {
-
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/IncotermsList", oData.results);
@@ -1935,7 +1856,6 @@ sap.ui.define([
 
 		handleIncotermsValue: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdInco = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogIncoterms) {
@@ -1958,7 +1878,6 @@ sap.ui.define([
 				"Ortob",
 				FilterOperator.Contains, sInputValue
 			)]));
-
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogIncoterms.open(sInputValue);
 			this.getIncotermsList();
@@ -1978,7 +1897,6 @@ sap.ui.define([
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdInco),
-
 					sTitle = oSelectedItem.getTitle();
 				sProductInput.setValue(sTitle);
 
@@ -1993,7 +1911,6 @@ sap.ui.define([
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
 			BusyIndicator.show(true);
-
 			//get entity set
 			oModel.read("/PurchasingGroupSet", {
 				success: function(oData) {
@@ -2014,7 +1931,6 @@ sap.ui.define([
 
 		handlePurchaseGroupVendor: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdPGP = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogPgrp) {
@@ -2028,7 +1944,6 @@ sap.ui.define([
 				var sSubString = sInputValue.split(")")[1];
 				sInputValue = sSubString.trim();
 			}
-
 			// create a filter for the binding
 			this._valueHelpDialogPgrp.getBinding("items").filter(new Filter([new Filter(
 				"Ekgrp",
@@ -2072,11 +1987,9 @@ sap.ui.define([
 			var that = this;
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-
 			//get entity set
 			oModel.read("/ShippingConditionsSet", {
 				success: function(oData) {
-
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/ShippingConditionList", oData.results);
@@ -2093,7 +2006,6 @@ sap.ui.define([
 
 		handleShippingCondition: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdSPC = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogShippingCondition) {
@@ -2107,7 +2019,6 @@ sap.ui.define([
 				var sSubString = sInputValue.split(")")[1];
 				sInputValue = sSubString.trim();
 			}
-
 			// create a filter for the binding of Vsbed
 			this._valueHelpDialogShippingCondition.getBinding("items").filter(new Filter([new Filter(
 				"Vsbed",
@@ -2132,7 +2043,6 @@ sap.ui.define([
 					sTitle = oSelectedItem.getTitle();
 
 				sProductInput.setValue(sTitle);
-
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
@@ -2143,11 +2053,9 @@ sap.ui.define([
 			var that = this;
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-
 			//get entity set
 			oModel.read("/ModeOfTransportSet", {
 				success: function(oData) {
-
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/ModeOfTransportList", oData.results);
@@ -2155,7 +2063,6 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-
 					var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(sErrorMessage);
 				}
@@ -2164,7 +2071,6 @@ sap.ui.define([
 
 		handleModeOfTrnsprtBorder: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdMOT = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogModeOfTransport) {
@@ -2178,7 +2084,6 @@ sap.ui.define([
 				var sSubString = sInputValue.split(")")[1];
 				sInputValue = sSubString.trim();
 			}
-
 			// create a filter for the binding of Frgrp
 			this._valueHelpDialogModeOfTransport.getBinding("items").filter(new Filter([new Filter(
 				"Vktra",
@@ -2200,9 +2105,7 @@ sap.ui.define([
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdMOT),
-
 					sTitle = oSelectedItem.getTitle();
-
 				sProductInput.setValue(sTitle);
 
 			}
@@ -2215,11 +2118,9 @@ sap.ui.define([
 			var that = this;
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-
 			//get entity set
 			oModel.read("/CustomerOfficeSet", {
 				success: function(oData) {
-
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/CustomerOfficeEntryList", oData.results);
@@ -2227,7 +2128,6 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-
 					var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(sErrorMessage);
 				}
@@ -2236,7 +2136,6 @@ sap.ui.define([
 
 		handleCustomerOfficeofEntry: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdCOEN = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogCustomerOfficeEntry) {
@@ -2250,7 +2149,6 @@ sap.ui.define([
 				var sSubString = sInputValue.split(")")[1];
 				sInputValue = sSubString.trim();
 			}
-
 			// create a filter for the binding of Land1 and Zolla
 			this._valueHelpDialogCustomerOfficeEntry.getBinding("items").filter(new Filter([new Filter(
 				"Land1",
@@ -2279,11 +2177,8 @@ sap.ui.define([
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdCOEN),
-
 					sTitle = oSelectedItem.getTitle();
-
 				sProductInput.setValue(sTitle);
-
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
@@ -2295,19 +2190,15 @@ sap.ui.define([
 			var that = this;
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-
 			//get entity set
 			oModel.read("/ActivityGroupSet", {
 				success: function(oData) {
-
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/ActivityCodeList", oData.results);
 					oLookupModel.refresh(true);
-
 				},
 				error: function(oError) {
-
 					var sErrorMessage = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(sErrorMessage);
 				}
@@ -2316,7 +2207,6 @@ sap.ui.define([
 
 		handleActivityCode: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdACode = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogActivityCode) {
@@ -2364,9 +2254,7 @@ sap.ui.define([
 
 		/*Interest indic set*/
 		handleinterestindic: function(oEvent) {
-
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdInd = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogInterestL) {
@@ -2409,11 +2297,8 @@ sap.ui.define([
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdInd),
-
 					sTitle = oSelectedItem.getTitle();
-
 				sProductInput.setValue(sTitle);
-
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
@@ -2421,11 +2306,9 @@ sap.ui.define([
 			var that = this;
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-
 			//get entity set
 			oModel.read("/IntrestsIndicSet", {
 				success: function(oData) {
-
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/InterestlndicList", oData.results);
@@ -2445,7 +2328,6 @@ sap.ui.define([
 
 		handleContPersonValueHelp: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdCPERs = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogCP) {
@@ -2459,7 +2341,6 @@ sap.ui.define([
 				var sSubString = sInputValue.split(")")[1];
 				sInputValue = sSubString.trim();
 			}
-
 			// create a filter for the binding
 			this._valueHelpDialogCP.getBinding("items").filter(new Filter([new Filter(
 				"Name1",
@@ -2468,7 +2349,6 @@ sap.ui.define([
 				"Lifnr",
 				FilterOperator.Contains, sInputValue
 			)]));
-
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogCP.open(sInputValue);
 			//this.getVendorList();
@@ -2488,11 +2368,8 @@ sap.ui.define([
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdCPERs),
-
 					sTitle = oSelectedItem.getTitle();
-
 				sProductInput.setValue(sTitle);
-
 			}
 			evt.getSource().getBinding("items").filter([]);
 
@@ -2503,7 +2380,6 @@ sap.ui.define([
 
 		handleReconAccountValueHelp: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputId = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogReAcc) {
@@ -2550,7 +2426,6 @@ sap.ui.define([
 					sTitle = oSelectedItem.getTitle();
 				sProductInput.setSelectedKey(sDescription);
 				sProductInput.setValue(sTitle);
-
 			}
 			evt.getSource().getBinding("items").filter([]);
 
@@ -2559,7 +2434,6 @@ sap.ui.define([
 		/*SortKey List code starts here*/
 		handleSorkeyValueHelp: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputId = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogSortKey) {
@@ -2582,7 +2456,6 @@ sap.ui.define([
 				"Description",
 				FilterOperator.Contains, sInputValue
 			)]));
-
 			// open value help dialog filtered by the input value
 			this._valueHelpDialogSortKey.open(sInputValue);
 		},
@@ -2602,7 +2475,6 @@ sap.ui.define([
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputId),
 					sTitle = oSelectedItem.getTitle();
-
 				sProductInput.setValue(sTitle);
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2656,7 +2528,6 @@ sap.ui.define([
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputId),
 					sTitle = oSelectedItem.getTitle();
-
 				sProductInput.setValue(sTitle);
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2709,7 +2580,6 @@ sap.ui.define([
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputId),
 					sTitle = oSelectedItem.getTitle();
-
 				sProductInput.setValue(sTitle);
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2762,7 +2632,6 @@ sap.ui.define([
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputId),
 					sTitle = oSelectedItem.getTitle();
-
 				sProductInput.setValue(sTitle);
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2772,7 +2641,6 @@ sap.ui.define([
 		/*Payment methods code starts here*/
 		handlePaymentmethod: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputId = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogPaymentMethods) {
@@ -2815,7 +2683,6 @@ sap.ui.define([
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputId),
 					sTitle = oSelectedItem.getTitle();
-
 				sProductInput.setValue(sTitle);
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -2826,11 +2693,9 @@ sap.ui.define([
 			var that = this;
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-
 			//get entity set
 			oModel.read("/TimeZoneSet", {
 				success: function(oData) {
-
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/TimeZoneList", oData.results);
@@ -2846,7 +2711,6 @@ sap.ui.define([
 		},
 		handleValueHelpTimeZone: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdTimZ = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogTimeZone) {
@@ -2890,11 +2754,8 @@ sap.ui.define([
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdTimZ),
-
 					sTitle = oSelectedItem.getTitle();
-
 				sProductInput.setValue(sTitle);
-
 			}
 			evt.getSource().getBinding("items").filter([]);
 
@@ -2907,16 +2768,13 @@ sap.ui.define([
 			var that = this;
 			//get data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-
 			//get entity set
 			oModel.read("/bankkeySet", {
 				success: function(oData) {
-
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/BankKeyList", oData.results);
 					oLookupModel.refresh(true);
-
 				},
 				error: function(oError) {
 
@@ -2927,7 +2785,6 @@ sap.ui.define([
 		},
 		handleBankKey: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputId = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogBankkey) {
@@ -2970,11 +2827,8 @@ sap.ui.define([
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputId),
-
 					sTitle = oSelectedItem.getTitle();
-
 				sProductInput.setValue(sTitle);
-
 			}
 			evt.getSource().getBinding("items").filter([]);
 		},
@@ -2984,7 +2838,6 @@ sap.ui.define([
 
 		handleTaxnotype: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputTaxnotype = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpTaxnotype) {
@@ -3024,14 +2877,11 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 		_handleTaxnoTypeClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			evt.getSource().getBinding("items").filter([]);
-
 			if (!oSelectedItem) {
 				return;
 			}
-
 			this.byId("Taxnotype").setValue(oSelectedItem.getTitle());
 
 		},
@@ -3043,7 +2893,6 @@ sap.ui.define([
 
 		handleTaxtype: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputTaxtype = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpTaxtype) {
@@ -3083,14 +2932,11 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 		_handleTaxTypeClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			evt.getSource().getBinding("items").filter([]);
-
 			if (!oSelectedItem) {
 				return;
 			}
-
 			this.byId("Taxtype").setValue(oSelectedItem.getTitle());
 
 		},
@@ -3100,7 +2946,6 @@ sap.ui.define([
 		/*Actual qm sys start*/
 		handleidAcutalQMsys: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputAutalQmSys = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpAcutalQmSys) {
@@ -3114,7 +2959,6 @@ sap.ui.define([
 				var sSubString = sInputValue.split(")")[1];
 				sInputValue = sSubString.trim();
 			}
-
 			// create a filter for the binding
 			this._valueHelpAcutalQmSys.getBinding("items").filter(new Filter([new Filter(
 				"ActQmSys",
@@ -3143,9 +2987,7 @@ sap.ui.define([
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputAutalQmSys),
-
 					sTitle = oSelectedItem.getTitle();
-
 				sProductInput.setValue(sTitle);
 
 			}
@@ -3158,7 +3000,6 @@ sap.ui.define([
 
 		handleiidsex: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputSexType = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpsex) {
@@ -3181,7 +3022,6 @@ sap.ui.define([
 				"Description",
 				FilterOperator.Contains, sInputValue
 			)]));
-
 			// open value help dialog filtered by the input value
 			this._valueHelpsex.open(sInputValue);
 
@@ -3199,14 +3039,11 @@ sap.ui.define([
 			evt.getSource().getBinding("items").filter(oFilter);
 		},
 		_handleSexTypeClose: function(evt) {
-
 			var oSelectedItem = evt.getParameter("selectedItem");
 			evt.getSource().getBinding("items").filter([]);
-
 			if (!oSelectedItem) {
 				return;
 			}
-
 			this.byId("idsex").setValue(oSelectedItem.getTitle());
 
 		},
@@ -3214,7 +3051,6 @@ sap.ui.define([
 			//calling the function which cancel the existing values or clear the data from input field 
 			//and navigate to dashboard page
 			var oVendorModel = oComponent.getModel("Vendor");
-
 			//clear the model data
 			oVendorModel.setData({
 				oData: {}
@@ -3259,11 +3095,8 @@ sap.ui.define([
 		},
 		onSaveContract: function(oEvt) {
 			var oModel = this.getView().getModel("VHeader");
-
 			var oVendorModel = this.getOwnerComponent().getModel("VendorModel");
-
 			var oVendors = oVendorModel.getData();
-
 			var oVendor = oVendors.Vendorno;
 
 			//define and bind the model
@@ -3271,23 +3104,17 @@ sap.ui.define([
 			var oContract = ovm.getUpdateRequestPayload();
 
 			if (oVendor === null || oVendor === undefined || oVendor === "") {
-
 				oModel.create("/Vendor_crudSet", oContract, {
-
 					success: this._onCreateEntrySuccess.bind(this),
 					error: this._onCreateEntryError.bind(this)
-
 				});
-
 			} else {
-
 				var mParameters = {
 					success: this._onCreateEntrySuccess.bind(this),
 					error: this._onCreateEntryError.bind(this),
 					merge: false
 				};
 				var sVendorCreate = "/Vendor_crudSet(Lifnra='" + oVendor + "')";
-
 				oModel.update(sVendorCreate, oContract, mParameters);
 			}
 
@@ -3316,8 +3143,7 @@ sap.ui.define([
 							oVendorModel.refresh(true);
 
 							this.getOwnerComponent().getRouter().navTo("ShowTiles");
-							//		var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-							//	oRouter.navTo('ShowTiles');
+
 						}
 					}.bind(this)
 				});
@@ -3328,16 +3154,12 @@ sap.ui.define([
 					actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CLOSE],
 					onClose: function(oAction) {
 						if (oAction === "OK") {
-
 							oVendorModel.setData({
 								oData: {}
 							});
 							oVendorModel.updateBindings(true);
-
 							oVendorModel.refresh(true);
-
 							this.getOwnerComponent().getRouter().navTo("ShowTiles");
-
 						}
 					}.bind(this)
 				});
@@ -3345,12 +3167,9 @@ sap.ui.define([
 
 		},
 		_onCreateEntryError: function(oError) {
-
 			//if getting the issue while posting the accruls call the _onCreateEntryError
-
 			var x = JSON.parse(oError.responseText);
 			var sError = x.error.message.value;
-
 			MessageBox.error(
 				"Error creating entry: " + sError + " "
 			);

@@ -48,12 +48,7 @@ sap.ui.define([
 
 				$.ajax("/ocrspring/getTaxRate/" + reviewedData.VendorCountry + "/" + reviewedData.Companycode + "/", {
 					success: function(data) {
-						//recordlModel.getData().Taxcode = data.taxCode;
-						//recordlModel.getData().Taxrate = data.taxRate;
-						var tax = (parseFloat(reviewedData.Netvalue) * parseFloat(data.taxRate)) / 100;
-						//recordlModel.getData().Vat = tax;
-						//recordlModel.refresh(true);
-
+					var tax = (parseFloat(reviewedData.Netvalue) * parseFloat(data.taxRate)) / 100;
 						reviewedData.UpdOcrHdrToOcrItm = reviewedData.GetOcrHdrToOcrItm;
 
 						for (var i = 0; i < reviewedData.UpdOcrHdrToOcrItm.results.length; i++) {

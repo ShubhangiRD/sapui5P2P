@@ -13,7 +13,6 @@ sap.ui.define([
 			oComponent = this.getOwnerComponent();
 		},
 		onMenuButtonPress: function() {
-
 			var oComponent2 = this.getOwnerComponent();
 			oComponent2.getRouter().navTo("Dashboard");
 		},

@@ -23,7 +23,7 @@ sap.ui.define([
 		 */
 		onInit: function() {
 			oView = this.getView();
-	var oPurchaseItemDetailsModel = new JSONModel();
+			var oPurchaseItemDetailsModel = new JSONModel();
 			oView.setModel(oPurchaseItemDetailsModel, "PurchaseItemDetailsModel");
 
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -36,9 +36,7 @@ sap.ui.define([
 			//BusyIndicator.show(0);
 			oModel.read("/Fetch_Vendor_DetailsSet", {
 				success: function(oData) {
-
 					var iItem = oData.results.length;
-
 					for (var iRowIndex = 0; iRowIndex <= 2600; iRowIndex++) {
 						var odata = oData.results[iRowIndex];
 						if (odata !== undefined) {
@@ -94,8 +92,7 @@ sap.ui.define([
 						}
 
 					}
-					console.log(aListofPurchaseOrg);
-
+				
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/PurchaseOrganization", aListofPurchaseOrg);
 					oLookupModel.refresh(true);
@@ -129,7 +126,6 @@ sap.ui.define([
 						}
 
 					}
-					console.log(aListofCompanycode);
 					//BusyIndicator.hide();
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/CountryCode", aListofCompanycode);
@@ -182,7 +178,7 @@ sap.ui.define([
 				oModel.read("/PO_DetailsSet()", {
 					filters: aFilter,
 					success: function(odata) {
-						console.log(odata);
+				
 						var iItem = odata.results.length;
 						var aPoDetailsItems = [];
 						for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
@@ -270,12 +266,14 @@ sap.ui.define([
 							});
 
 						}
-						console.log(aPoDetailsItems);
+					
 						oView.getModel("PurchaseItemDetailsModel").setSizeLimit(aPoDetailsItems.length);
 						oView.getModel("PurchaseItemDetailsModel").setData(aPoDetailsItems);
 					},
 					error: function(oError) {
-						console.log(oError);
+							MessageBox.error(oError);
+
+				
 					}
 				});
 

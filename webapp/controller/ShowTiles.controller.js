@@ -416,8 +416,6 @@ sap.ui.define([
 				var sBindPath = oSelectedItem.getBindingContext("Lookup").sPath;
 
 				var sComCode = oModel.getProperty(sBindPath + "/Bukrs");
-				console.log(sVendorNumber);
-				console.log(ComCode)
 
 				var aFilter = [
 					new sap.ui.model.Filter({
@@ -816,7 +814,8 @@ sap.ui.define([
 				},
 				error: function(er) {
 					BusyIndicator.hide();
-					console.log(er);
+						MessageBox.error(er);
+				
 				}
 			});
 

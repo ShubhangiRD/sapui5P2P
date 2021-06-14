@@ -3,7 +3,7 @@ sap.ui.define([
 	"sap/m/MessageBox",
 	"com/vSimpleApp/service/documentServices",
 	'../Formatter'
-], function (BaseController, MessageBox, documentServices, Formatter) {
+], function(BaseController, MessageBox, documentServices, Formatter) {
 	"use strict";
 	var oView, oController, oComponent;
 	return BaseController.extend("com.vSimpleApp.controller.PostedDocuments", {
@@ -13,12 +13,11 @@ sap.ui.define([
 			oComponent = this.getOwnerComponent();
 		},
 		onMenuButtonPress: function() {
-		
-	
+
 			var oComponent2 = this.getOwnerComponent();
-				oComponent2.getRouter().navTo("Dashboard");
+			oComponent2.getRouter().navTo("Dashboard");
 		},
-		onRefresh: function (oEvent) {
+		onRefresh: function(oEvent) {
 			var oTbl = oView.byId("postedTable");
 			oTbl.setBusy(true);
 			documentServices.getInstance().getPostedDocuments(this, function() {

@@ -768,11 +768,10 @@ sap.ui.define([
 		},
 		_handleValueVendorHelpS: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-<<<<<<< HEAD
+
 //open the vendor fragment
-=======
+
 			//open the vendor fragment
->>>>>>> branch 'main' of https://github.com/ShubhangiRD/sapui5P2P.git
 			this.inputId = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogMP) {

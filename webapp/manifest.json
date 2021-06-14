@@ -63,6 +63,13 @@
 					"localUri": "localService/metadata.xml"
 				}
 			},
+				"vendorGetService1": {
+				"uri": "/sap/opu/odata/sap/ZVENDOR_ASSIGNMENT_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
+			},
 			"Vendorf4Service": {
 				"uri": "/sap/opu/odata/sap/ZP2P_PORTALSERVICES_SRV/",
 				"type": "OData",
@@ -181,6 +188,9 @@
 			},
 			"VHeader": {
 				"dataSource": "vendorGetService"
+			},
+			"VHeader1": {
+				"dataSource": "vendorGetService1"
 			},
 			"Vendorf4Model": {
 				"dataSource": "Vendorf4Service"

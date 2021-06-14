@@ -3,7 +3,7 @@ sap.ui.define([
 	"sap/m/MessageBox",
 	"com/vSimpleApp/service/documentServices",
 	"../Formatter"
-], function (BaseController, MessageBox, documentServices, Formatter) {
+], function(BaseController, MessageBox, documentServices, Formatter) {
 	"use strict";
 	var oView;
 	return BaseController.extend("com.vSimpleApp.controller.DocumentsRejected", {
@@ -11,10 +11,8 @@ sap.ui.define([
 			oView = this.getView();
 		},
 		onMenuButtonPress: function() {
-		
-	
 			var oComponent2 = this.getOwnerComponent();
-				oComponent2.getRouter().navTo("Dashboard");
+			oComponent2.getRouter().navTo("Dashboard");
 		},
 		onSelectDocument: function(oEvent) {
 			try {
@@ -27,7 +25,7 @@ sap.ui.define([
 				MessageBox.error(ex);
 			}
 		},
-		onRefresh: function (oEvent) {
+		onRefresh: function(oEvent) {
 			//refresh all the table data
 			var oTbl = oView.byId("rejectedDocumentsTable");
 			oTbl.setBusy(true);

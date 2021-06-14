@@ -18,7 +18,7 @@ sap.ui.define([
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
-			console.log(oModel);
+		
 		},
 		onMenuButtonPress: function() {
 

@@ -39,7 +39,7 @@ sap.ui.define([
 					"Do you confirm the update?", {
 						actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
 						onClose: function(sAction) {
-							if (sAction == "OK") {
+							if (sAction === "OK") {
 								sap.ui.core.BusyIndicator.show(0);
 								var oErrorModel = oView.getModel("errorData");
 

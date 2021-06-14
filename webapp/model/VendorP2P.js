@@ -85,6 +85,9 @@ sap.ui.define([
 			this.CollAuth = (oData && oData.CollAuth) ? oData.CollAuth : "";
 			this.ActAtVen = (oData && oData.ActAtVen) ? oData.ActAtVen : "";
 			this.Clerk = (oData && oData.Clerk) ? oData.Clerk : "";
+			
+			
+			
 
 		},
 

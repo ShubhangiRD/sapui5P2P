@@ -33,36 +33,13 @@ sap.ui.define([
 		_onRouteMatched2: function() {
 			var oView = this.getView();
 			console.log("kahdkjhdkashdakjhdaksdhjakhd"+oView.sViewName);
-			//	this.getVendorList();
 							
 			},
 		_onRouteMatched: function() {
-			//alert("sdasd");
-		//	this.getVendorList();
+		
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
 			var oTempContract = oVendorModel.getProperty("/TempContract");
-			//oTempContract.setData({modelData:{}});
-			//oTempContract.Accrual.Accrual = [];
-			//oTempContract.Settlement = [];
-			console.log(oTempContract);
-			//	this.getVendorList();
-		/*	setTimeout(function (){
-					$("body").find("input").each(function(){
-									var id = $(this).attr("id");
-									if(id!==undefined)
-									{
-										if(id.indexOf("idVendorInput")!==-1)
-										{
-											var v = $(this).val();
-											$(this).val("");
-										}
-										if(id.indexOf("idDesc")!==-1)
-										{
-											$(this).val("");
-										}	
-									}
-								});
-			}, 5000); */
+		
 			var oUserModel = this.getOwnerComponent().getModel("User");
 			var sUsername = oUserModel.getProperty("/Username");
 			if(sUsername !== "") {
