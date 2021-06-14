@@ -160,8 +160,8 @@ sap.ui.define([
 							},
 							error: function(oError) {
 								BusyIndicator.hide();
-								var errorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
-								MessageToast.show(errorMsg);
+								var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
+								MessageToast.show(sErrorMsg);
 							}
 						});
 					}
@@ -170,7 +170,7 @@ sap.ui.define([
 				tModel.read("/AGRItemSet", {
 					//	filters: aFilter,
 					success: function(data3) {
-						var flag1;
+						var bFlag;
 						var oRes = data.results;
 						for (var i = 0; i < oRes.length; i++) {
 							if (oRes[i].Rcont === cn) {
@@ -180,15 +180,15 @@ sap.ui.define([
 						}
 						for (var i = 0; i < idetails.length; i++) {
 							if (idetails[i].Scale === "X") {
-								flag1 = true;
+								bFlag = true;
 
 							} else {
-								flag1 = false;
+								bFlag = false;
 							}
 							aRebateContionItems.push(new RebateConditionItem({
 								ItemNo: idetails[i].Item,
 								RebateType: idetails[i].Rtype,
-								IsScaleSelected: flag1,
+								IsScaleSelected: bFlag,
 								Scales: aScaleArr,
 								Rate: idetails[i].Rate,
 								Base: idetails[i].Base
@@ -202,28 +202,28 @@ sap.ui.define([
 			}
 			setTimeout(function() {
 
-				var cn = oTempContract.ContractNo;
+				var sContractNo = oTempContract.ContractNo;
 
-				if (cn === undefined || cn === "") {
+				if (sContractNo === undefined || sContractNo === "") {
 				  	x = x.mProperties.title;
 					var x1 = x.split(":");
 					var x2 = x1[1];
 
 					if (x2 !== undefined || x2 !== "" || x2 !== " ") {
 						x = x2.replace(" ", "");
-						cn = x;
+						sContractNo = x;
 					}
 
 				}
 
-				cn = cn.replace(" ", "");
+				sContractNo = sContractNo.replace(" ", "");
 
-				if (cn !== undefined || cn !== "") {
+				if (sContractNo !== undefined || sContractNo !== "") {
 					//set property on model
 					oLookupModel.setProperty("/IsContractItemSaved", true);
 					oLookupModel.refresh(true);
 					oVendorModel.refresh(true);
-					myf(cn);
+					myf(sContractNo);
 				}
 
 			}, 5000);
