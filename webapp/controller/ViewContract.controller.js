@@ -64,7 +64,7 @@ sap.ui.define([
 			}
 			else
 			{
-				if(nc==1)
+				if(nc===1)
 				{
 					$("body").find("input").each(function(){
 							var id = $(this).attr("id");
