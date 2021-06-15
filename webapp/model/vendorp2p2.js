@@ -203,7 +203,7 @@ sap.ui.define([
 			this.VenServLevl = (oData && oData.Venslc) ? oData.Venslc : "";
 			this.Salesperson = (oData && oData.Verkfc) ? oData.Verkfc : "";
 			this.ShippingCond = (oData && oData.Vsbedc) ? oData.Vsbedc : "";
-			this.Interestindic. = (oData && oData.Vzskzb) ? oData.Vzskzb : "";
+			this.Interestindic = (oData && oData.Vzskzb) ? oData.Vzskzb : "";
 
 			this.Ordercurrency = (oData && oData.Waersc) ? oData.Waersc : "";
 			this.GR - BasedIV = (oData && oData.Webrec) ? oData.Webrec : "";
@@ -306,7 +306,7 @@ sap.ui.define([
 				Guzteb: this.Crmemoterms,
 				Hbkidb: this.HouseBank,
 
-					Inco1c: this.Incoterms,
+				Inco1c: this.Incoterms,
 				Inco2c: this.Incoterms2,
 				Intadb: this.Clrksinternet,
 				Ipispa: this.Taxsplit,
@@ -323,7 +323,7 @@ sap.ui.define([
 				Kzautc: this.AutomaticPO,
 				Kzretc: this.Returnsvendor
 
-					Land1a: this.Country,
+				Land1a: this.Country,
 				Lebrec: this.Srv - BasedInvVer,
 				Lfabcc: this.ABCindicator,
 				Lfrhyc: this.Planningcycle,
@@ -341,7 +341,7 @@ sap.ui.define([
 				Ltsnaa: this.VSRrelevant
 				Lzonea: this.Transportzone,
 
-					Mcod1a: this.Name,
+				Mcod1a: this.Name,
 				Mcod2a: this.Name2,
 				Mcod3a: this.City,
 				Megruc: this.UoMGroup,
@@ -358,7 +358,7 @@ sap.ui.define([
 				Nodelb: this.CoCddelblock,
 				Nrgewc: this.QualiffDKd,
 
-					Ort01a: City,
+				Ort01a: City,
 				Ort02a: District,
 				Paprfc: PROACTcontrolprof,
 				Pernrb: PersonnelNo,
@@ -378,7 +378,7 @@ sap.ui.define([
 				Qszdtb: Validuntil,
 				Qsznrb: Exemptionno,
 
-					Rdprfc: RndingProfile,
+				Rdprfc: RndingProfile,
 				Regioa: region,
 				Regssa: SocialIns,
 				Reprfb: Chkdoubleinv,
@@ -410,7 +410,7 @@ sap.ui.define([
 				Stkzua: LiableforVAT,
 				Strasa: Street,
 
-					Taxbsa: Taxbase,
+				Taxbsa: Taxbase,
 				Telbxa: Telebox,
 				Telf1a: Telephone1,
 				Telf1c: Telephone,
@@ -424,48 +424,48 @@ sap.ui.define([
 				Togrub: Tolerancegroup,
 				Txjcda: TaxJur,
 
-					Umsaec: Bvolcompag,
+				Umsaec: Bvolcompag,
 				Updata: Confirmdate,
 				Updatb: Confirmdate,
 				Uptima: Confirmtime,
 				Uptimb: Confirmtime,
-				Uzaweb: Pmtmethsupl
-				Vbunda: ""
-				Venslc: "0.0000"
-				Verkfc: ""
-				Vsbedc: ""
-				Vzskzb: ""
+				Uzaweb: Pmtmethsupl,
+				Vbunda: TradingPartner,
+				Venslc: VenServLevl,
+				Verkfc: Salesperson,
+				Vsbedc: ShippingCond,
+				Vzskzb: Interestindic,
 
-					Waersc: ""
-				Webrec: ""
-				Webtrb: "0.000"
-				Werkra: ""
-				Werksa: ""
-				Xauszb: ""
-				Xcpdka: ""
-				Xdezvb: ""
-				Xedipb: ""
-				Xersrc: ""
-				Xersyc: ""
-				Xezerd: ""
-				Xlfzaa: ""
-				Xlfzbb: ""
-				Xnbwyc: ""
-				Xporeb: ""
-				Xverrb: ""
-				Xzempa: ""
+				Waersc: Ordercurrency,
+				Webrec: GR - BasedIV,
+				Webtrb: B / exchlimit,
+				Werkra: Plantrelevant,
+				Werksa: Plant,
+				Xauszb: Acctstatement,
+				Xcpdka: One - timeacct,
+				Xdezvb: Localprocess,
+				Xedipb: PmtadvbyEDI,
+				Xersrc: AutGRSetRet,
+				Xersyc: ERS,
+				Xezerd: Collectauthor,
+				Xlfzaa: Altpayeedoc,
+				Xlfzbb: Altpayeedoc,
+				Xnbwyc: Revaluation,
+				Xporeb: Individualpmnt,
+				Xverrb: Clrgwithcust,
+				Xzempa: Payeeindoc,
 
-					Zahlsb: ""
-				Zbokdb: null
-				Zgrupb: ""
-				Zindtb: null
-				Zinrtb: "00"
-				Zollac: ""
-				Zsabeb: ""
-				Ztermb: ""
-				Ztermc: ""
-				Zuawab: ""
-				Zwelsb: ""
+				Zahlsb: Paymentblock,
+				Zbokdb: LedgerExpdate,
+				Zgrupb: Groupingkey,
+				Zindtb: Lastkeydate,
+				Zinrtb: Intcalcfreq,
+				Zollac: Customsoffice,
+				Zsabeb: Clerkatvendor,
+				Ztermb: PaytTerms,
+				Ztermc: PaytTerms,
+				Zuawab: Sortkey,
+				Zwelsb: Paymentmethods
 
 			};
 
