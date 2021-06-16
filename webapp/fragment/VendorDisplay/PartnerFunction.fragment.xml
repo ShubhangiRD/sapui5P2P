@@ -6,7 +6,7 @@
 			<t:Table id="idPurchaseFunction" rows="{ path: 'VendorModel>/'}" visibleRowCount="5" selectionMode="MultiToggle">
 				<t:extension>
 					<OverflowToolbar>
-						<Title text="Partner Function "/>
+					
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://add" type="Transparent" id="idAddbuttonPF" class="remove-attr" tooltip="Add Row" press="onAddPartnerFunction"/>
 						<Button icon="sap-icon://delete" enabled="{=${Vendor>/TempContract/RebateConditionItems}.length > 0}" type="Transparent"

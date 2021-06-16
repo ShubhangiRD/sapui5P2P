@@ -5,7 +5,7 @@
 			class="myFormMarginTop" singleContainerFullSize="false">
 			<form:content>
 				<core:Title text=""/>
-				<Label text="Customer"/>
+				<Label text="Customer" fieldGroupIds="Kunnra"/>
 				<Input maxLength="10" id="idCustomer" textFormatMode="KeyValue" placeholder="Customer" showSuggestion="true" showValueHelp="true"
 					value="{VendorModel>/Customer}" valueHelpRequest="handleCustomer" editable="{EditModel>/isEditable}"
 					suggestionItems="{ path: 'Lookup>/CustomerList' }" suggestionItemSelected="onSuggestCustomer">
@@ -13,7 +13,7 @@
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="Trading Partner"/>
+				<Label text="Trading Partner" fieldGroupIds="Vbunda"/>
 				<Input maxLength="6" id="idTrading" textFormatMode="KeyValue" placeholder="Trading" showSuggestion="true" showValueHelp="true"
 					value="{VendorModel>/TradingPartner}" valueHelpRequest="handleTradingPartners" editable="{EditModel>/isEditable}"
 					suggestionItems="{ path: 'Lookup>/CountryCode' }" suggestionItemSelected="onSuggestTrading">
@@ -22,9 +22,9 @@
 					</suggestionItems>
 				</Input>
 				<core:Title text=""/>
-				<Label text="Authorization"/>
+				<Label text="Authorization" fieldGroupIds="Begrua"/>
 				<Input maxLength="4" value="{VendorModel>/Authorization}" editable="{EditModel>/isEditable}"/>
-				<Label text="Planning Group" required="true"/>
+				<Label text="Planning Group" required="true" fieldGroupIds="Fdgrvb"/>
 				<Input id="idPlanninggrp" maxLength="4" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
 					valueHelpRequest="handlePlanningGroups" editable="{EditModel>/isEditable}" suggestionItems="{ path: 'Lookup>/PlanningGroups' }"
 					value="{VendorModel>/Planninggroup}">
@@ -39,26 +39,25 @@
 			columnsL="3" columnsM="1" class="myFormMarginBottom" singleContainerFullSize="false">
 			<form:content>
 				<core:Title text=" "/>
-				<Label text="Tax Number 1"/>
+				<Label text="Tax Number 1" fieldGroupIds="Stcd1a"/>
 				<Input maxLength="16" value="{VendorModel>/TaxNumber1}" editable="{EditModel>/isEditable}"/>
-				<Label text="Tax Number 3" required="true"/>
-				<Input value="{VendorModel>/TaxNumber3}" fieldGroupIds="Stcd3a" maxLength="18" editable="{EditModel>/isEditable}"/>
-				<Label text="Tax Number 4" required="true"/>
-				<Input value="{VendorModel>/TaxNumber4}" fieldGroupIds="Stcd4a" maxLength="18" editable="{EditModel>/isEditable}"/>
-				<Label text="Tax Number" required="true"/>
+				<Label text="Tax Number 3" required="true" fieldGroupIds="Stcd3a"/>
+				<Input value="{VendorModel>/TaxNumber3}" maxLength="18" editable="{EditModel>/isEditable}"/>
+				<Label text="Tax Number 4" required="true" fieldGroupIds="Stcd4a"/>
+				<Input value="{VendorModel>/TaxNumber4}" maxLength="18" editable="{EditModel>/isEditable}"/>
+				<Label text="Tax Number" required="true" fieldGroupIds="Stenra"/>
 				<Input value="{VendorModel>/TaxNumber}" maxLength="18" editable="{EditModel>/isEditable}"/>
-				<Label text="Tax Jur"/>
-				<Input maxLength="15" id="idTaxJur" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/TaxJur}"
-					showValueHelp="true" valueHelpRequest="handleMaterialValueHelp" suggestionItems=" " editable="{EditModel>/isEditable}"
-					suggestionItemSelected="onSuggest">
+				<Label text="Tax Jur" fieldGroupIds="Txjcda"/>
+				<Input maxLength="15" id="idTaxJur" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/TaxJur}" showValueHelp="true"
+					valueHelpRequest="handleMaterialValueHelp" suggestionItems=" " editable="{EditModel>/isEditable}" suggestionItemSelected="onSuggest">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
 				<core:Title text=""/>
-				<Label text="Tax Number 2"/>
+				<Label text="Tax Number 2" fieldGroupIds="Stcd2a"/>
 				<Input id="taxno2" maxLength="11" value="{VendorModel>/TaxNumber2}" editable="{EditModel>/isEditable}"/>
-				<Label text="Fiscal Address"/>
+				<Label text="Fiscal Address" fieldGroupIds="Fiskna"/>
 				<Input maxLength="10" id="idFiscalAddress" value="{VendorModel>/Fiscaladdress}" textFormatMode="KeyValue" showSuggestion="true"
 					editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handleFiscalAddressValueHelp"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">
@@ -66,7 +65,7 @@
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="Business Type"/>
+				<Label text="Business Type" fieldGroupIds=" "/>
 				<Input maxLength="30" id="TypeofBusiness" value="{VendorModel>/Authorization}" textFormatMode="KeyValue" showSuggestion="true"
 					showValueHelp="true" valueHelpRequest="handleTypeofBusiness" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 					suggestionItemSelected="onSuggestTypeofBusiness" editable="{EditModel>/isEditable}">
@@ -74,8 +73,8 @@
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="Indusrtry Type"/>
-				<Input maxLength="30" id="TypeofIndustry" value="{VendorModel>/Authorization}" textFormatMode="KeyValue" showSuggestion="true"
+				<Label text="Indusrtry Type" fieldGroupIds="Brscha"/>
+				<Input maxLength="30" id="TypeofIndustry" value="{VendorModel>/Industry}" textFormatMode="KeyValue" showSuggestion="true"
 					showValueHelp="true" valueHelpRequest="handleTypeofIndustry" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 					suggestionItemSelected="onSuggestTypeofIndustry" editable="{EditModel>/isEditable}">
 					<suggestionItems>
@@ -83,9 +82,9 @@
 					</suggestionItems>
 				</Input>
 				<core:Title text=""/>
-				<Label text="Tax no type" required="true"/>
+				<Label text="Tax no type" required="true" fieldGroupIds="Stcdta"/>
 				<Input maxLength="2" id="Taxnotype" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" showSuggestion="true"
-					value="{VendorModel>/TaxNumberType}" showValueHelp="true" valueHelpRequest="handleTaxnotype"
+					value="{VendorModel>/Taxnumbertype}" showValueHelp="true" valueHelpRequest="handleTaxnotype"
 					suggestionItems="{ path: 'taxnotype>/results' }" suggestionItemSelected="onSuggestTaxnotype">
 					<suggestionItems>
 						<core:ListItem key="{taxnotype>taxnoType}" text="{taxnotype>Description}" additionalText="{taxnotype>taxnoType}"/>
@@ -98,7 +97,7 @@
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>-->
-				<Label text="Tax type" required="true"/>
+				<Label text="Tax type" required="true" fieldGroupIds="Fitypa"/>
 				<Input maxLength="2" id="Taxtype" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Taxtype}" showValueHelp="true"
 					valueHelpRequest="handleTaxtype" fieldGroupIds="Stcdta" suggestionItems="{ path: 'Taxtype>/resutls' }"
 					suggestionItemSelected="onSuggestTaxtype" editable="{EditModel>/isEditable}">
@@ -106,20 +105,20 @@
 						<core:ListItem key="{Taxtype>Taxtype}" text="{Taxtype>Description}" additionalText="{Taxtype>Taxtype}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="Social code"/>
+				<Label text="Social code" fieldGroupIds="Actssa"/>
 				<Input id="Socinccode" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" editable="{EditModel>/isEditable}"
-					value="{VendorModel>/Authorization}" valueHelpRequest="handleSocinccode" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					value="{VendorModel>/SocInsCode}" valueHelpRequest="handleSocinccode" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 					suggestionItemSelected="onSuggestSocinccode">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="Rep's Name "/>
+				<Label text="Rep's Name " fieldGroupIds=" "/>
 				<Input id="RepName" value="{VendorModel>/Authorization}" editable="{EditModel>/isEditable}"/>
-				<Label text="Tax Office" required="true"/>
-				<Input maxLength="10" id="TaxOffice" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-					value="{VendorModel>/Authorization}" valueHelpRequest="handleTaxOfficeValueHelp" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
-					suggestionItemSelected="onSuggest" editable="{EditModel>/isEditable}">
+				<Label text="Tax Office" required="true" fieldGroupIds="Fiskua"/>
+				<Input maxLength="10" id="TaxOffice" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{VendorModel>/Taxoffice}"
+					valueHelpRequest="handleTaxOfficeValueHelp" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest"
+					editable="{EditModel>/isEditable}">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
@@ -132,11 +131,11 @@
 			class="myFormMarginTop" singleContainerFullSize="false" title="Reference Data">
 			<form:content>
 				<core:Title text="Reference Data "/>
-				<Label text="Location no1"/>
+				<Label text="Location no1" fieldGroupIds="Bbbnra"/>
 				<Input id="Location1" maxLength="7" value="{VendorModel>/Locationno1}" editable="{EditModel>/isEditable}"/>
-				<Label text="Credit no Info"/>
-				<Input id="Credit1" maxLength="11" value="{VendorModel>/Locationno2}" editable="{EditModel>/isEditable}"/>
-				<Label text="Industry" required="true"/>
+				<Label text="Credit no Info" fieldGroupIds="Krausa "/>
+				<Input id="Credit1" maxLength="11" value="{VendorModel>/Credinfono }" editable="{EditModel>/isEditable}"/>
+				<Label text="Industry" required="true" fieldGroupIds="Brscha"/>
 				<Input maxLength="4" id="Industry1" showSuggestion=" true" value="{VendorModel>/Industry}" showValueHelp="true"
 					valueHelpRequest="handleValueHelpIndustry" suggestionItems="{ path: 'Lookup>/IndustrySet' }" suggestionItemSelected="onSuggestIndustry"
 					editable="{EditModel>/isEditable}">
@@ -144,10 +143,9 @@
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="SCAC " required="true"/>
-				<Input id="idSCAC" placeholder="Standard Code" fieldGroupIds="Scacda" maxLength="4" value="{VendorModel>/SCAC}"
-					editable="{EditModel>/isEditable}"/>
-				<Label text="Transport Zone " required="true"/>
+				<Label text="SCAC" fieldGroupIds="Scacda" required="true"/>
+				<Input id="idSCAC" placeholder="Standard Code" maxLength="4" value="{VendorModel>/SCAC}" editable="{EditModel>/isEditable}"/>
+				<Label text="Transport Zone" fieldGroupIds="Lzonea" required="true"/>
 				<Input id="idTransportzone" fieldGroupIds="Lzonea" value="{Vendor>/Transportzone}" showSuggestion="true" showValueHelp="true"
 					valueHelpRequest="handleTransportZone" suggestionItems="{ path: 'Lookup>/TransportZoneList' }"
 					suggestionItemSelected="onSuggestidTransportzone" editable="{EditModel>/isEditable}">
@@ -155,42 +153,43 @@
 						<core:ListItem key="{Lookup>Land1}" text="{Lookup>Zone1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="Train Station "/>
-				<Input id="idTrain" maxLength="25" placeholder="Train Station" value="{VendorModel>/Trainstation}" editable="{EditModel>/isEditable}"/>
-				<Label text="Acutal QM sys " required="true"/>
-				<Input maxLength="4" id="idAcutalQMsys" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/ActualQMsys}"
-					showValueHelp="true" valueHelpRequest="handleidAcutalQMsys" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
-					suggestionItemSelected="onSuggestidAcutalQMsys" editable="{EditModel>/isEditable}">
+				<Label text="Train Station " fieldGroupIds="Bahnsa"/>
+				<Input id="idTrain" maxLength="25" fieldGroupIds="Bahnsa" placeholder="Train Station" value="{VendorModel>/Trainstation}"
+					editable="{EditModel>/isEditable}"/>
+				<Label text="Acutal QM sys " fieldGroupIds="Qssysa" required="true"/>
+				<Input maxLength="4" id="idAcutalQMsys" fieldGroupIds="Qssysa" textFormatMode="KeyValue" showSuggestion="true"
+					value="{VendorModel>/ActualQMsys}" showValueHelp="true" valueHelpRequest="handleidAcutalQMsys"
+					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestidAcutalQMsys" editable="{EditModel>/isEditable}">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="External Maufac" required="true"/>
+				<Label text="External Maufac" fieldGroupIds="Emnfra" required="true"/>
 				<Input id="idExternal" fieldGroupIds="Emnfra" value="{VendorModel>/Externalmanuf}" maxLength="10" editable="{EditModel>/isEditable}"/>
 				<core:Title text=""/>
-				<Label text="Location no2 "/>
-				<Input id="Location2" maxLength="5" value="{VendorModel>/Locationno2}" editable="{EditModel>/isEditable}"/>
-				<Label text="Last ext review"/>
-				<DatePicker id="idLasextreview" value="{VendorModel>/Lastextreview}" editable="{EditModel>/isEditable}"/>
-				<Label text="POD-Relevent"/>
-				<Input maxLength="1" id="idPOD-Relevent" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+				<Label text="Location no2 " fieldGroupIds="Bbsnra"/>
+				<Input id="Location2" maxLength="5" fieldGroupIds="Bbsnra" value="{VendorModel>/Locationno2}" editable="{EditModel>/isEditable}"/>
+				<Label text="Last ext review" fieldGroupIds="Revdba"/>
+				<DatePicker id="idLasextreview" fieldGroupIds="Revdba" value="{VendorModel>/Lastextreview}" editable="{EditModel>/isEditable}"/>
+				<Label text="POD-Relevent" fieldGroupIds="Werkra"/>
+				<Input maxLength="1" id="idPOD-Relevent" fieldGroupIds="Werkra" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
 					value="{VendorModel>/Plantrelevant}" valueHelpRequest="handleididPODReleven" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 					suggestionItemSelected="onSuggestididPODReleven" editable="{EditModel>/isEditable}">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="Car freight grp"/>
-				<Input maxLength="4" id="idCarfreightgro" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+				<Label text="Car freight grp" fieldGroupIds="Sfrgra"/>
+				<Input maxLength="4" id="idCarfreightgro" fieldGroupIds="Sfrgra" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
 					value="{VendorModel>/Carfreightgrp}" valueHelpRequest="handleidCarfreightgro" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 					suggestionItemSelected="onSuggestidCarfreightgro" editable="{EditModel>/isEditable}">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="Check Digit"/>
-				<Input id="idCheckDigit" maxLength="1" value="{VendorModel>/Checkdigit}" editable="{EditModel>/isEditable}"/>
-				<Label text="SAPG"/>
+				<Label text="Check Digit" fieldGroupIds="Bubkza"/>
+				<Input id="idCheckDigit" fieldGroupIds="Bubkza" maxLength="1" value="{VendorModel>/Checkdigit}" editable="{EditModel>/isEditable}"/>
+				<Label text="SAPG" fieldGroupIds=" "/>
 				<Input maxLength="4" id="idSAPG" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleSAPG"
 					value="{VendorModel>/Authorization}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestSAPG"
 					editable="{EditModel>/isEditable}">
@@ -198,41 +197,41 @@
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="QM System to"/>
+				<Label text="QM System to" fieldGroupIds=" "/>
 				<DatePicker id="QMSystemto" editable="{EditModel>/isEditable}"/>
 				<core:Title text=""/>
-				<Label text=""/>
-				<CheckBox id="Equalizationtax" text="Equalization tax" editable="{EditModel>/isEditable}"/>
-				<Label text=""/>
-				<CheckBox id="NaturalPerson" text="Natural Person" editable="{EditModel>/isEditable}"/>
-				<Label text=""/>
+				<Label text=" " fieldGroupIds="Stkzaa"/>
+				<CheckBox id="Equalizationtax" fieldGroupIds="Stkzaa" text="Equalization tax" editable="{EditModel>/isEditable}"/>
+				<Label text="" fieldGroupIds="Stkzna"/>
+				<CheckBox id="NaturalPerson" fieldGroupIds="Stkzna" text="Natural Person" editable="{EditModel>/isEditable}"/>
+				<Label text="" fieldGroupIds=" "/>
 				<CheckBox id="SalesPurchaseTax" text="Sales Pur/Tax" editable="{EditModel>/isEditable}"/>
-				<Label text=""/>
-				<CheckBox id="TaxSplit" text="Tax Split " editable="{EditModel>/isEditable}"/>
-				<Label text=""/>
-				<CheckBox id="SocInsurance" text="Soc Insurance " editable="{EditModel>/isEditable}"/>
+				<Label text="" fieldGroupIds="Ipispa"/>
+				<CheckBox id="TaxSplit" text="Tax Split " fieldGroupIds="Ipispa" editable="{EditModel>/isEditable}"/>
+				<Label text="" fieldGroupIds="Regssa"/>
+				<CheckBox id="SocInsurance" fieldGroupIds="Regssa" text="Soc Insurance " editable="{EditModel>/isEditable}"/>
 			</form:content>
 		</form:SimpleForm>
-		<form:SimpleForm id="SimpleForm" editable="true" layout="ResponsiveGridLayout" title="Address" labelSpanXL="4" labelSpanL="4"
+		<form:SimpleForm id="SimpleForm" editable="true" layout="ResponsiveGridLayout"  labelSpanXL="4" labelSpanL="4"
 			labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3"
 			columnsL="3" columnsM="1" class="myFormMarginBottom" singleContainerFullSize="false">
 			<form:content>
 				<core:Title text=" "/>
-				<Label text="DOB"/>
-				<DatePicker id="idDOB" value="{VendorModel>/Dateofbirth}" editable="{EditModel>/isEditable}"/>
-				<Label text="Sex"/>
-				<Input maxLength="1" id="idsex" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleiidsex"
-					value="{VendorModel>/Sex}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestidsex"
-					editable="{EditModel>/isEditable}">
+				<Label text="DOB" fieldGroupIds="Gbdata"/>
+				<DatePicker id="idDOB" fieldGroupIds="Gbdata" value="{VendorModel>/Dateofbirth}" editable="{EditModel>/isEditable}"/>
+				<Label text="Sex" fieldGroupIds="Sexkza"/>
+				<Input maxLength="1" id="idsex" fieldGroupIds="Sexkza" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+					valueHelpRequest="handleiidsex" value="{VendorModel>/Sex}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					suggestionItemSelected="onSuggestidsex" editable="{EditModel>/isEditable}">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
 				<core:Title text=" "/>
-				<Label text="BirthPlace"/>
-				<Input id="idbirthplace" value="{VendorModel>/Placeofbirth}" editable="{EditModel>/isEditable}"/>
-				<Label text="Profession"/>
-				<Input id="idProfession" value="{VendorModel>/Profession}" editable="{EditModel>/isEditable}"></Input>
+				<Label text="BirthPlace" fieldGroupIds="Gborta"/>
+				<Input id="idbirthplace" fieldGroupIds="Gborta" value="{VendorModel>/Placeofbirth}" editable="{EditModel>/isEditable}"/>
+				<Label text="Profession" fieldGroupIds="Profsa"/>
+				<Input id="idProfession" value="{VendorModel>/Profession}" fieldGroupIds="Profsa" editable="{EditModel>/isEditable}"></Input>
 			</form:content>
 		</form:SimpleForm>
 	</VBox>

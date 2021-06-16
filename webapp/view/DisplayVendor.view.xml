@@ -53,7 +53,7 @@
 					</l:VerticalLayout>
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 						<m:Label text="Company Code:" required="true"/>
-						<m:Input id="idCompCode" value="{VendorModel>/CompCode}" textFormatMode="KeyValue" placeholder="Company Code" showSuggestion="true"
+						<m:Input id="idCompCode" value="{VendorModel>/CompanyCode}" textFormatMode="KeyValue" placeholder="Company Code" showSuggestion="true"
 							showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor" editable="{EditModel>/isEditable}"
 							suggestionItems="{ path: 'Lookup>/CountryCode' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
@@ -64,7 +64,7 @@
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 						<m:Label text="Account Group:" required="true"/>
 						<m:Input id="idAccGp" textFormatMode="KeyValue" placeholder="Account Group ..." showSuggestion="true" showValueHelp="true"
-							value="{VendorModel>/VendorAccountGroup}" editable="{EditModel>/isEditable}" valueHelpRequest="handleAccountCodeVendor"
+							value="{VendorModel>/Accountgroup}" editable="{EditModel>/isEditable}" valueHelpRequest="handleAccountCodeVendor"
 							suggestionItems="{ path: 'Lookup>/AccountGroup' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
 								<core:ListItem key="{Lookup>Ktokk}" text="{Lookup>Ktokk}" additionalText="{Lookup>Ktokk}"/>

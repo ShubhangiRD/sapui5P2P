@@ -35,6 +35,11 @@ sap.ui.define([
 			var oHierarchyModel = new sap.ui.model.json.JSONModel();
 			oView.setModel(oHierarchyModel, "hierarchy");
 
+	var oBankmodel = new sap.ui.model.json.JSONModel();
+			oView.setModel(oBankmodel, "BankModel");
+
+
+
 			var oEditModel = new JSONModel({
 				isEditable: false
 			});
@@ -243,12 +248,13 @@ sap.ui.define([
 					filters: aFilter,
 					success: function(oData) {
 						//	BusyIndicator.hide(false);
-
+	console.log(oData);
+					
 						var oVendorr = new VendorP2P(oData.results[0]);
 						var aa = oComponent.getModel("VendorModel").setData(oVendorr);
-						console.log(aa);
 						//	oComponent.getModel("VendorModel").setData(oData.results[0]);
-
+					//	oView.getModel("BankModel").setData(oVendorr.getModel());
+					//	oView.setModel(oVendorr.getModel(),"BankModel");
 						oView.byId("idAccGp").setValue(sKtokk);
 						oView.byId("idPurOrg").setValue(sEkorg);
 

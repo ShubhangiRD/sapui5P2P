@@ -24,10 +24,10 @@
 				<Label text="Authorization "/>
 				<Input id="idauthor" value="{VendorModel>/Authorization}" placeholder="Authorization" editable="{EditModel>/isEditable}"/>
 				<Label text="Certification Date"/>
-				<DatePicker id="idcertificatindate" value="{VendorModel>/Authorization}" editable="{EditModel>/isEditable}"/>
+				<DatePicker id="idcertificatindate" value="{VendorModel>/CertifictnDate}" editable="{EditModel>/isEditable}"/>
 				<Label text="Minority Indic"/>
 				<Input id="MinorityIndic" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleMinorityIndicHelp"
-					value="{VendorModel>/Authorization}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestMinorityIndic"
+					value="{VendorModel>/Minorityindic}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestMinorityIndic"
 					editable="{EditModel>/isEditable}">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>

@@ -5,29 +5,29 @@
 			columnsL="3" columnsM="1" class="myFormMarginBottom" singleContainerFullSize="false">
 			<form:content>
 				<core:Title text=""/>
-				<Label text="Payment Terms" required="true"/>
-				<Input id="idpaymentterms"  textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/AltPayee}"
+				<Label text="Payment Terms" fieldGroupIds="Ztermb" required="true"/>
+				<Input id="idpaymentterms" fieldGroupIds="Ztermb" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/PaytTerms}"
 					showValueHelp="true" valueHelpRequest="handlePaymenttermsHelp" suggestionItems="{ path: 'Lookup>/PaymentTermsList' }"
-					suggestionItemSelected="onSuggestpaymentterms" editable="{EditModel>/isEditable}" fieldGroupIds="Ztermb">
+					suggestionItemSelected="onSuggestpaymentterms" editable="{EditModel>/isEditable}" >
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="Cr Memo Terms"/>
-				<Input id="idmemoterms" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" editable="{EditModel>/isEditable}"
-					valueHelpRequest="handlePaymenttermsHelp" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
-					suggestionItemSelected="onSuggestmemoterms">
+				<Label text="Cr Memo Terms" fieldGroupIds="Guzteb"/>
+				<Input id="idmemoterms" fieldGroupIds="Guzteb" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+					editable="{EditModel>/isEditable}" value="{VendorModel>/Crmemoterms}" valueHelpRequest="handlePaymenttermsHelp"
+					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestmemoterms">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="Chk Cashing time"/>
-				<Input id="idchkcashingtime"  editable="{EditModel>/isEditable}"/>
+				<Label text="Chk Cashing time" fieldGroupIds="Kultgb"/>
+				<Input id="idchkcashingtime" value="{VendorModel>/Chkcashngtime}" fieldGroupIds="Kultgb" editable="{EditModel>/isEditable}"/>
 				<core:Title text=""/>
-				<Label text="Tolerance Group"/>
-				<Input id="idtolerencegp" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" editable="{EditModel>/isEditable}"
-					valueHelpRequest="handleToleranceGrpValueHelp" suggestionItems="{ path: 'Lookup>/ToleranceGroupList' }"
-					suggestionItemSelected="onSuggestTolerence">
+				<Label text="Tolerance Group" fieldGroupIds="Togrub"/>
+				<Input id="idtolerencegp" fieldGroupIds="Togrub" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+					editable="{EditModel>/isEditable}" value="{VendorModel>/Tolerancegroup}" valueHelpRequest="handleToleranceGrpValueHelp"
+					suggestionItems="{ path: 'Lookup>/ToleranceGroupList' }" suggestionItemSelected="onSuggestTolerence">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
@@ -41,57 +41,61 @@
 			emptySpanS="0" columnsXL="3" columnsL="3" columnsM="1" class="myFormMarginBottom" singleContainerFullSize="false">
 			<form:content>
 				<core:Title text=""/>
-				<Label text="Payment Methods" required="true"/>
-				<Input id="idpaymethod" maxLength="2" editable="{EditModel>/isEditable}" value="{VendorModel>/PaymentMethods}"
+				<Label text="Payment Methods" required="true" fieldGroupIds="Zwelsb"/>
+				<Input id="idpaymethod" maxLength="2" fieldGroupIds="Zwelsb" editable="{EditModel>/isEditable}" value="{VendorModel>/Paymentmethods}"
 					showValueHelp="true" class="sapUiSmallMarginTop" valueHelpRequest="handlePaymentmethod"
-					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestPaymentMethod" fieldGroupIds="Zwelsb">
+					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestPaymentMethod" >
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="Alternate.Payee"/>
-				<Input id="idAlternate.Payee" maxLength="10" value="{VendorModel>/AltPayee}" showValueHelp="true" editable="{EditModel>/isEditable}" valueHelpRequest="handleAlternatePayee"
-					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestAlternatePayee">
+				<Label text="Alternate.Payee" fieldGroupIds="Lnrzbb"/>
+				<Input id="idAlternate.Payee" fieldGroupIds="Lnrzbb" maxLength="10" value="{VendorModel>/Alternatpayee}" showValueHelp="true"
+					editable="{EditModel>/isEditable}" valueHelpRequest="handleAlternatePayee" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					suggestionItemSelected="onSuggestAlternatePayee">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="B/Exch/Limit "/>
-				<Input id="BExchLimit" maxLength="13" editable="{EditModel>/isEditable}"/>
+				<Label text="B/Exch/Limit" fieldGroupIds="Webtrb"/>
+				<Input id="BExchLimit" maxLength="13" fieldGroupIds="Webtrb" value="{VendorModel>/B/exchlimit}" editable="{EditModel>/isEditable}"/>
 				<Label text=""/>
-				<CheckBox id="idindividualpmnt" text="Individual Pmnt" editable="{EditModel>/isEditable}"/>
+				<CheckBox id="idindividualpmnt" fieldGroupIds="Xporeb" text="Individual Pmnt" editable="{EditModel>/isEditable}"/>
 				<core:Title text=""/>
-				<Label text="Payment Block"/>
-				<Input id="idpayBlock" maxLength="1" showValueHelp="true" valueHelpRequest="handlePaymentBlock" editable="{EditModel>/isEditable}"
-					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestPaymentBlock">
+				<Label text="Payment Block" fieldGroupIds="Zahlsb"/>
+				<Input id="idpayBlock" maxLength="1" fieldGroupIds="Zahlsb" showValueHelp="true" valueHelpRequest="handlePaymentBlock"
+					editable="{EditModel>/isEditable}" value="{VendorModel>/Paymentblock}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					suggestionItemSelected="onSuggestPaymentBlock">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="House Bank "/>
-				<Input id="idHousebank" maxLength="5" showValueHelp="true" valueHelpRequest="handleHousebank" editable="{EditModel>/isEditable}"
-					suggestionItems="{ path: 'Lookup>/HouseBankList' }" suggestionItemSelected="onSuggesthousebank">
+				<Label text="House Bank " fieldGroupIds="Hbkidb"/>
+				<Input id="idHousebank" maxLength="5" fieldGroupIds="Hbkidb" showValueHelp="true" valueHelpRequest="handleHousebank"
+					editable="{EditModel>/isEditable}" value="{VendorModel>/HouseBank}" suggestionItems="{ path: 'Lookup>/HouseBankList' }"
+					suggestionItemSelected="onSuggesthousebank">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="Grouping Keyk "/>
-				<Input id="idHGrouping" maxLength="2" showValueHelp="true" valueHelpRequest="handleGrouping" editable="{EditModel>/isEditable}"
-					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestGrouping">
+				<Label text="Grouping Keyk " fieldGroupIds="Mgrupb"/>
+				<Input id="idHGrouping" maxLength="2" fieldGroupIds="Mgrupb" showValueHelp="true" valueHelpRequest="handleGrouping"
+					editable="{EditModel>/isEditable}" value="{VendorModel>/Groupingkey}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					suggestionItemSelected="onSuggestGrouping">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
-				<Label text="Tolerence Group "/>
-				<Input id="ifTolerencegrp" maxLength="4" textFormatMode="KeyValue" showSuggestion="true" editable="{EditModel>/isEditable}"
-					showValueHelp="true" valueHelpRequest="handleToleranceGrpValueHelp" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
-					suggestionItemSelected="onSuggestTolerence">
+				<Label text="Tolerence Group" fieldGroupIds="Togrrb"/>
+				<Input id="ifTolerencegrp" fieldGroupIds="Togrrb" maxLength="4" textFormatMode="KeyValue" showSuggestion="true"
+					editable="{EditModel>/isEditable}" value="{VendorModel>/Tolerancegrp}" showValueHelp="true" valueHelpRequest="handleToleranceGrpValueHelp"
+					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestTolerence">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
 				<Label text=""/>
-				<CheckBox id="alternatepayiddoc" text="AltPayDoc" editable="{EditModel>/isEditable}"/>
+				<CheckBox id="alternatepayiddoc" fieldGroupIds=" " text="AltPayDoc" editable="{EditModel>/isEditable}"/>
 			</form:content>
 		</form:SimpleForm>
 	</VBox>
