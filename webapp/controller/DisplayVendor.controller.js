@@ -81,7 +81,7 @@ sap.ui.define([
 
 			}
 
-			/*			var zero = "";
+						var zero = "";
 						//	var no;
 
 						var len = sVendorNumber.length;
@@ -92,24 +92,26 @@ sap.ui.define([
 							}
 						}
 
-						sVendorNumber = zero + sVendorNumber;*/
+						sVendorNumber = zero + sVendorNumber;
 
 			//creating filter
 			var aFilter = [
 				new sap.ui.model.Filter({
 					path: "Lifnra",
 					operator: sap.ui.model.FilterOperator.EQ,
-					value1: "V400031543"
+					value1: sVendorNumber
 				})
 			];
 
 			oModel.read("/VendorRSet", {
 				filters: aFilter,
 				success: function(oData) {
-
+					var oVendorr = new VendorP2P(oData.results[0]);
+					 oComponent.getModel("VendorModel").setData(oVendorr);
+					//	oView.getModel("BankModel").setData(oVendorr.getModel());
+					//	oView.setModel(oVendorr.getModel(),"BankModel");
 					// var oVendorr = new VendorP2P(oData.results[0]);
-					oComponent.getModel("VendorModel").setData(oData.results[0]);
-
+				
 					oView.byId("idAccGp").setValue(sKtokk);
 					oView.byId("idPurOrg").setValue(sEkorg);
 

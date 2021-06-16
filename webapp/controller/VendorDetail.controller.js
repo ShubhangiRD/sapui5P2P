@@ -200,22 +200,15 @@ sap.ui.define([
 						path: "Vendorno",
 						operator: sap.ui.model.FilterOperator.EQ,
 						value1: sDescription
-					}),
-					new sap.ui.model.Filter({
-						path: "Companycode",
-						operator: sap.ui.model.FilterOperator.EQ,
-						value1: sComCode
 					})
-
 				];
 				BusyIndicator.show(true);
-				oModelRe.read("/bapi_vendor_getdetailSet", {
 
+				oModel.read("/VendorRSet", {
 					filters: aFilter,
 					success: function(oData) {
-						BusyIndicator.hide(false);
-
-						oComponent.getModel("VendorModel").setData(oData.results[0]);
+						var oVendorr = new VendorP2P(oData.results[0]);
+						oComponent.getModel("VendorModel").setData(oVendorr);
 
 						oView.byId("idAccGp").setValue(sKtokk);
 						oView.byId("idPurOrg").setValue(sEkorg);
@@ -1858,14 +1851,14 @@ sap.ui.define([
 		getIncotermsList: function() {
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-	//get entity set
+			//get entity set
 			oModel.read("/IncotermsSet", {
 				success: function(oData) {
-		var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/IncotermsList", oData.results);
 					oLookupModel.refresh(true);
-	},
+				},
 				error: function(oError) {
 
 					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
@@ -1934,7 +1927,7 @@ sap.ui.define([
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
 			BusyIndicator.show(true);
-	//get entity set
+			//get entity set
 			oModel.read("/PurchasingGroupSet", {
 				success: function(oData) {
 					BusyIndicator.hide(false);
@@ -1977,7 +1970,7 @@ sap.ui.define([
 				"Eknam",
 				FilterOperator.Contains, sInputValue
 			)]));
-		// open value help dialog filtered by the input value
+			// open value help dialog filtered by the input value
 			this._valueHelpDialogPgrp.open(sInputValue);
 			this.getPurchaseGroupList();
 		},
@@ -1999,7 +1992,7 @@ sap.ui.define([
 					sTitle = oSelectedItem.getTitle();
 
 				sProductInput.setValue(sTitle);
-	}
+			}
 			evt.getSource().getBinding("items").filter([]);
 		},
 
@@ -2116,7 +2109,7 @@ sap.ui.define([
 				var sSubString = sInputValue.split(")")[1];
 				sInputValue = sSubString.trim();
 			}
-		// create a filter for the binding of Frgrp
+			// create a filter for the binding of Frgrp
 			this._valueHelpDialogModeOfTransport.getBinding("items").filter(new Filter([new Filter(
 				"Vktra",
 				FilterOperator.Contains, sInputValue
@@ -2137,9 +2130,9 @@ sap.ui.define([
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdMOT),
-	sTitle = oSelectedItem.getTitle();
-	sProductInput.setValue(sTitle);
-	}
+					sTitle = oSelectedItem.getTitle();
+				sProductInput.setValue(sTitle);
+			}
 			evt.getSource().getBinding("items").filter([]);
 		},
 		/*Release Group List code ends here*/
@@ -2157,7 +2150,7 @@ sap.ui.define([
 					//set the odata to model property
 					oLookupModel.setProperty("/CustomerOfficeEntryList", oData.results);
 					oLookupModel.refresh(true);
-	},
+				},
 				error: function(oError) {
 
 					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
@@ -2284,9 +2277,9 @@ sap.ui.define([
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdACode),
-		sTitle = oSelectedItem.getTitle();
-		sProductInput.setValue(sTitle);
-	}
+					sTitle = oSelectedItem.getTitle();
+				sProductInput.setValue(sTitle);
+			}
 			evt.getSource().getBinding("items").filter([]);
 		},
 		/*Activity group list code ends here*/
@@ -2309,7 +2302,7 @@ sap.ui.define([
 				var sSubString = sInputValue.split(")")[1];
 				sInputValue = sSubString.trim();
 			}
-	// create a filter for the binding
+			// create a filter for the binding
 			this._valueHelpDialogInterestL.getBinding("items").filter(new Filter([new Filter(
 				"Vzskz",
 				FilterOperator.Contains, sInputValue
@@ -2337,9 +2330,9 @@ sap.ui.define([
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdInd),
-		sTitle = oSelectedItem.getTitle();
-	sProductInput.setValue(sTitle);
-	}
+					sTitle = oSelectedItem.getTitle();
+				sProductInput.setValue(sTitle);
+			}
 			evt.getSource().getBinding("items").filter([]);
 		},
 		getInterestLndicList: function() {
@@ -2350,7 +2343,7 @@ sap.ui.define([
 			//get entity set
 			oModel.read("/IntrestsIndicSet", {
 				success: function(oData) {
-		var oLookupModel = that.getOwnerComponent().getModel("Lookup");
+					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/InterestlndicList", oData.results);
 					oLookupModel.refresh(true);

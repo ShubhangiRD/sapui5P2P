@@ -32,7 +32,7 @@
 	
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 						<m:Label text="Vendor : " required="true" visible="{VisibleModel>/isVisible}"/>
-						<m:Input id="idVendor" value="{VendorModel>/Vendorno}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"
+						<m:Input id="idVendor" value="{VendorModel>/Vendor}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"
 							showSuggestion="true" showValueHelp="true" valueHelpRequest="handleVendorValueHelpBox"
 							suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
@@ -53,7 +53,7 @@
 					</l:VerticalLayout>
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 						<m:Label text="Company Code:" required="true"/>
-						<m:Input id="idCompCode" value="{VendorModel>/CompCode}" textFormatMode="KeyValue" placeholder="Company Code" showSuggestion="true"
+						<m:Input id="idCompCode" value="{VendorModel>/CompanyCode}" textFormatMode="KeyValue" placeholder="Company Code" showSuggestion="true"
 							showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor" editable="{EditModel>/isEditable}"
 							suggestionItems="{ path: 'Lookup>/CountryCode' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
@@ -64,7 +64,7 @@
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 						<m:Label text="Account Group:" required="true"/>
 						<m:Input id="idAccGp" textFormatMode="KeyValue" placeholder="Account Group ..." showSuggestion="true" showValueHelp="true"
-							value="{VendorModel>/VendorAccountGroup}" editable="{EditModel>/isEditable}" valueHelpRequest="handleAccountCodeVendor"
+							value="{VendorModel>/Accountgroup}" editable="{EditModel>/isEditable}" valueHelpRequest="handleAccountCodeVendor"
 							suggestionItems="{ path: 'Lookup>/AccountGroup' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
 								<core:ListItem key="{Lookup>Ktokk}" text="{Lookup>Ktokk}" additionalText="{Lookup>Ktokk}"/>
@@ -79,7 +79,7 @@
 					<subSections>
 						<ObjectPageSubSection>
 							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorFragment.Address" type="XML"/>
+								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorDisplay.Address" type="XML"/>
 							</blocks>
 						</ObjectPageSubSection>
 					</subSections>
@@ -88,7 +88,7 @@
 					<subSections>
 						<ObjectPageSubSection>
 							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorFragment.Control" type="XML"/>
+								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorDisplay.Control" type="XML"/>
 							</blocks>
 						</ObjectPageSubSection>
 					</subSections>
@@ -97,7 +97,7 @@
 					<subSections>
 						<ObjectPageSubSection>
 							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorFragment.Payment" type="XML"/>
+								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorDisplay.Payment" type="XML"/>
 							</blocks>
 						</ObjectPageSubSection>
 					</subSections>
@@ -106,7 +106,7 @@
 					<subSections>
 						<ObjectPageSubSection>
 							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorFragment.ContactPerson" type="XML"/>
+								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorDisplay.ContactPerson" type="XML"/>
 							</blocks>
 						</ObjectPageSubSection>
 					</subSections>
@@ -115,7 +115,7 @@
 					<subSections>
 						<ObjectPageSubSection>
 							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorFragment.AccountingInfo" type="XML"/>
+								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorDisplay.AccountingInfo" type="XML"/>
 							</blocks>
 						</ObjectPageSubSection>
 					</subSections>
@@ -124,7 +124,7 @@
 					<subSections>
 						<ObjectPageSubSection>
 							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorFragment.PaymentTransaction" type="XML"/>
+								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorDisplay.PaymentTransaction" type="XML"/>
 							</blocks>
 						</ObjectPageSubSection>
 					</subSections>
@@ -133,7 +133,7 @@
 					<subSections>
 						<ObjectPageSubSection>
 							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorFragment.Correspondence" type="XML"/>
+								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorDisplay.Correspondence" type="XML"/>
 							</blocks>
 						</ObjectPageSubSection>
 					</subSections>
@@ -142,7 +142,7 @@
 					<subSections>
 						<ObjectPageSubSection>
 							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorFragment.PurchaseData" type="XML"/>
+								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorDisplay.PurchaseData" type="XML"/>
 							</blocks>
 						</ObjectPageSubSection>
 					</subSections>
@@ -151,7 +151,7 @@
 					<subSections>
 						<ObjectPageSubSection>
 							<blocks>
-								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorFragment.PartnerFunction" type="XML"/>
+								<core:Fragment fragmentName="com.vSimpleApp.fragment.VendorDisplay.PartnerFunction" type="XML"/>
 							</blocks>
 						</ObjectPageSubSection>
 					</subSections>

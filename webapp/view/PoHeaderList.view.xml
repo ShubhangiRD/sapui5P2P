@@ -1,6 +1,6 @@
 <mvc:View controllerName="com.vSimpleApp.controller.PoHeaderList" height="100%" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
-	xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" class="sapUiSizeCompact" xmlns:fb="sap.ui.comp.filterbar"
-xmlns:tnt="sap.tnt" 	xmlns:vm="sap.ui.comp.variants">
+	xmlns:layout="sap.ui.layout" xmlns="sap.m" xmlns:f="sap.f" class="sapUiSizeCompact" xmlns:fb="sap.ui.comp.filterbar" xmlns:tnt="sap.tnt"
+	xmlns:vm="sap.ui.comp.variants">
 	<tnt:ToolHeader>
 		<Button icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress">
 			<layoutData>
@@ -12,15 +12,12 @@ xmlns:tnt="sap.tnt" 	xmlns:vm="sap.ui.comp.variants">
 				<FlexItemData growFactor="1"/>
 			</layoutData>
 		</Image>
-	
 		<FlexBox direction="Column" alignItems="Start">
 			<items></items>
 		</FlexBox>
 		<ToolbarSpacer/>
 		<FlexBox class="logoContent" direction="Column" alignItems="Start">
-			<items>
-			
-			</items>
+			<items></items>
 		</FlexBox>
 		<ToolbarSpacer/>
 		<Button icon="sap-icon://comment" type="Transparent">
@@ -34,18 +31,16 @@ xmlns:tnt="sap.tnt" 	xmlns:vm="sap.ui.comp.variants">
 			</layoutData>
 		</Switch>
 	</tnt:ToolHeader>
-	<f:DynamicPage id="dynamicPageId" showNavButton="true"
-		navButtonPress="onNavBack">
+	<f:DynamicPage id="dynamicPageId" >
 		<!-- DynamicPage Title -->
 		<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					
 					<vm:VariantManagement standardItemText="Purchase Orders"></vm:VariantManagement>
 				</f:heading>
 				<f:actions>
 					<ToolbarSpacer/>
-						<Button icon="sap-icon://navigation-left-arrow" type="Emphasized" press="onNavBack"/>
+					<Button icon="sap-icon://navigation-left-arrow" type="Emphasized" press="onNavBack"/>
 					<Button icon="sap-icon://add" type="Emphasized" press="onCreatePurchaseOrder"/>
 					<Button type="Transparent" text="Cancel" press="OnCancelPOList" tooltip="decline"/>
 				</f:actions>
@@ -57,22 +52,14 @@ xmlns:tnt="sap.tnt" 	xmlns:vm="sap.ui.comp.variants">
 				<f:content>
 					<fb:FilterBar id="filterbar" reset="onReset" search="onSearch" useToolbar="false" showGoOnFB="false">
 						<fb:filterItems>
-						<fb:FilterItem name="Lifnr" label="Vendor Number">
+							<fb:FilterItem name="Lifnr" label="Vendor Number">
 								<fb:control>
-						
-											<Select
-										id="vnumber"
-										forceSelection="true"
-										change="onSelectChange"
-										items="{
-                                                    path: 'VendorListM>/'
-                                                }">
-										
+									<Select id="vnumber" forceSelection="true" change="onSelectChange" items="{ path: 'VendorListM>/' }">
 										<core:Item key="{VendorListM>Lifnr}" text="{VendorListM>Lifnr}"/>
-										</Select>
+									</Select>
 								</fb:control>
 							</fb:FilterItem>
-				<!--	<fb:FilterItem name="Ekorg" label="Purchase Org">
+							<!--	<fb:FilterItem name="Ekorg" label="Purchase Org">
 								<fb:control>
 									<Select  id="idPurchaseOrg"  change="onSelectChange" forceSelection="true" items="{ path: 'PurchaseORg>/' }">
 										<core:Item key="{PurchaseORg>Ekorg}" text="{PurchaseORg>Ekorg}"/>

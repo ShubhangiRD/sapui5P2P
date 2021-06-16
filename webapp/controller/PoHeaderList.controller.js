@@ -123,7 +123,7 @@ sap.ui.define([
 
 		onCreatePurchaseOrder: function() {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("POCreation");
+			oRouter.navTo("PoCreation");
 		},
 		onSearchEbeln: function(oEvent) {
 
