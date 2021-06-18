@@ -17,7 +17,8 @@
 					<t:Column width="9rem" hAlign="Center">
 						<Label text="Partner Function "/>
 						<t:template>
-							<Input id="idpurchasefun" class="mtid" textFormatMode="KeyValue" showSuggestion="false" showValueHelp="false" value="{VendorModel>PartFunct}"
+							<Input id="idpurchasefun" class="mtid" textFormatMode="KeyValue" showSuggestion="false" showValueHelp="false" 
+							value="{VendorModel>PartFunct}"
 								valueHelpRequest="handlepurchasefunction" editable="{EditModel>/isEditable}" suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggestpurchasefunc"
 								liveChange="purchasefunctionchange">
 								<suggestionItems>

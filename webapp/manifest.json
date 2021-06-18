@@ -130,6 +130,10 @@
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "data/taxnotype.json"
 			},
+				"Title": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "data/Title.json"
+			},
 			"Taxtype": {
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "data/Taxtype.json"

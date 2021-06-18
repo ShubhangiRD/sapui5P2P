@@ -169,7 +169,7 @@ sap.ui.define([
 		_handleValueVendorHelpClose: function(evt) {
 			var oSelectedItem = evt.getParameter("selectedItem");
 			var oModel = oView.getModel("Lookup");
-			var oModelRe = this.getOwnerComponent().getModel("VHeader");
+			var oModelV = this.getOwnerComponent().getModel("VHeader");
 
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdVendor),
@@ -197,16 +197,17 @@ sap.ui.define([
 
 				var aFilter = [
 					new sap.ui.model.Filter({
-						path: "Vendorno",
+						path: "Lifnra",
 						operator: sap.ui.model.FilterOperator.EQ,
 						value1: sDescription
 					})
 				];
 				BusyIndicator.show(true);
 
-				oModel.read("/VendorRSet", {
+				oModelV.read("/VendorRSet", {
 					filters: aFilter,
 					success: function(oData) {
+						BusyIndicator.hide(false);
 						var oVendorr = new VendorP2P(oData.results[0]);
 						oComponent.getModel("VendorModel").setData(oVendorr);
 
@@ -313,7 +314,6 @@ sap.ui.define([
 			//get entity set
 			oModel.read("/PlanningGroupsSet", {
 				success: function(oData) {
-
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/PlanningGroups", oData.results);
@@ -321,7 +321,6 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-
 					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(sErrorMsg);
 				}
@@ -329,7 +328,6 @@ sap.ui.define([
 		},
 		handlePlanningGroups: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
-
 			this.inputIdPGG = oEvent.getSource().getId();
 			// create value help dialog
 			if (!this._valueHelpDialogPlanG) {
@@ -673,6 +671,9 @@ sap.ui.define([
 				var productInput = this.byId(this.inputIdCust);
 
 				productInput.setValue(oSelectedItem.getDescription());
+				var sTitle = oSelectedItem.getTitle();
+
+				oView.byId("idDistin").setValue(sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -3130,6 +3131,67 @@ sap.ui.define([
 		},
 
 		/*sex type code end*/
+		
+		
+		
+			/*Title type code start*/
+
+		handleTitles: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
+
+			this.inputTitleType = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueHelpTitle) {
+				this._valueHelpTitle = sap.ui.xmlfragment(
+					"com.vSimpleApp.view.fragment.Vendor.fragment.Title",
+					this
+				);
+				this.getView().addDependent(this._valueHelpTitle);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+			}
+
+			// create a filter for the binding
+			this._valueHelpTitle.getBinding("items").filter(new Filter([new Filter(
+				"text",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"key",
+				FilterOperator.Contains, sInputValue
+			)]));
+
+			// open value help dialog filtered by the input value
+			this._valueHelpTitle.open(sInputValue);
+
+		},
+
+		handleTitlesSearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"text",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"key",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+		handleTitlesClose: function(evt) {
+
+			var oSelectedItem = evt.getParameter("selectedItem");
+			evt.getSource().getBinding("items").filter([]);
+
+			if (!oSelectedItem) {
+				return;
+			}
+
+			this.byId("vtitle1").setValue(oSelectedItem.getTitle());
+
+		},
+
+		/*Title type code end*/
 		onCreatePress: function() {
 			var oComponent1 = this.getOwnerComponent();
 			//navigate to createcontractvendor page
@@ -3164,7 +3226,7 @@ sap.ui.define([
 
 			var oVendors = oVendorModel.getData();
 
-			var oVendor = oVendors.Vendorno;
+			var oVendor = oVendors.Lifnra;
 
 			//define and bind the model
 			var oVModel = new VendorP2P(oVendors);
@@ -3212,7 +3274,6 @@ sap.ui.define([
 								oData: {}
 							});
 							oVendorModel.updateBindings(true);
-
 							oVendorModel.refresh(true);
 
 						}

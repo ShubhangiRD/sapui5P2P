@@ -35,10 +35,8 @@ sap.ui.define([
 			var oHierarchyModel = new sap.ui.model.json.JSONModel();
 			oView.setModel(oHierarchyModel, "hierarchy");
 
-	var oBankmodel = new sap.ui.model.json.JSONModel();
+			var oBankmodel = new sap.ui.model.json.JSONModel();
 			oView.setModel(oBankmodel, "BankModel");
-
-
 
 			var oEditModel = new JSONModel({
 				isEditable: false
@@ -81,18 +79,18 @@ sap.ui.define([
 
 			}
 
-						var zero = "";
-						//	var no;
+			var zero = "";
+			//	var no;
 
-						var len = sVendorNumber.length;
-						if (len !== undefined) {
-							var z = 10 - len;
-							for (var i = 0; i < z; i++) {
-								zero += "0";
-							}
-						}
+			var len = sVendorNumber.length;
+			if (len !== undefined) {
+				var z = 10 - len;
+				for (var i = 0; i < z; i++) {
+					zero += "0";
+				}
+			}
 
-						sVendorNumber = zero + sVendorNumber;
+			sVendorNumber = zero + sVendorNumber;
 
 			//creating filter
 			var aFilter = [
@@ -107,11 +105,11 @@ sap.ui.define([
 				filters: aFilter,
 				success: function(oData) {
 					var oVendorr = new VendorP2P(oData.results[0]);
-					 oComponent.getModel("VendorModel").setData(oVendorr);
+					oComponent.getModel("VendorModel").setData(oVendorr);
 					//	oView.getModel("BankModel").setData(oVendorr.getModel());
 					//	oView.setModel(oVendorr.getModel(),"BankModel");
 					// var oVendorr = new VendorP2P(oData.results[0]);
-				
+
 					oView.byId("idAccGp").setValue(sKtokk);
 					oView.byId("idPurOrg").setValue(sEkorg);
 
@@ -250,13 +248,13 @@ sap.ui.define([
 					filters: aFilter,
 					success: function(oData) {
 						//	BusyIndicator.hide(false);
-	console.log(oData);
-					
+						console.log(oData);
+
 						var oVendorr = new VendorP2P(oData.results[0]);
 						var aa = oComponent.getModel("VendorModel").setData(oVendorr);
 						//	oComponent.getModel("VendorModel").setData(oData.results[0]);
-					//	oView.getModel("BankModel").setData(oVendorr.getModel());
-					//	oView.setModel(oVendorr.getModel(),"BankModel");
+						//	oView.getModel("BankModel").setData(oVendorr.getModel());
+						//	oView.setModel(oVendorr.getModel(),"BankModel");
 						oView.byId("idAccGp").setValue(sKtokk);
 						oView.byId("idPurOrg").setValue(sEkorg);
 
@@ -721,11 +719,9 @@ sap.ui.define([
 			var oSelectedItem = evt.getParameter("selectedItem");
 			if (oSelectedItem) {
 				var sProductInput = this.byId(this.inputIdCust);
-
 				sProductInput.setValue(oSelectedItem.getDescription());
 				var sTitle = oSelectedItem.getTitle();
-
-				var a = oView.byId("idDistin").setValue(sTitle);
+				oView.byId("idDistin").setValue(sTitle);
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -3056,6 +3052,64 @@ sap.ui.define([
 			this.byId("idsex").setValue(oSelectedItem.getTitle());
 
 		},
+			/*Title type code start*/
+
+		handleTitles: function(oEvent) {
+			var sInputValue = oEvent.getSource().getValue();
+
+			this.inputTitleType = oEvent.getSource().getId();
+			// create value help dialog
+			if (!this._valueHelpTitle) {
+				this._valueHelpTitle = sap.ui.xmlfragment(
+					"com.vSimpleApp.view.fragment.Vendor.fragment.Title",
+					this
+				);
+				this.getView().addDependent(this._valueHelpTitle);
+			}
+			if (sInputValue.includes(")")) {
+				var sSubString = sInputValue.split(")")[1];
+				sInputValue = sSubString.trim();
+			}
+
+			// create a filter for the binding
+			this._valueHelpTitle.getBinding("items").filter(new Filter([new Filter(
+				"text",
+				FilterOperator.Contains, sInputValue
+			), new Filter(
+				"key",
+				FilterOperator.Contains, sInputValue
+			)]));
+
+			// open value help dialog filtered by the input value
+			this._valueHelpTitle.open(sInputValue);
+
+		},
+
+		handleTitlesSearch: function(evt) {
+			var sValue = evt.getParameter("value");
+			var oFilter = new Filter([new Filter(
+				"text",
+				FilterOperator.Contains, sValue
+			), new Filter(
+				"key",
+				FilterOperator.Contains, sValue
+			)]);
+			evt.getSource().getBinding("items").filter(oFilter);
+		},
+		handleTitlesClose: function(evt) {
+
+			var oSelectedItem = evt.getParameter("selectedItem");
+			evt.getSource().getBinding("items").filter([]);
+
+			if (!oSelectedItem) {
+				return;
+			}
+
+			this.byId("vtitle1").setValue(oSelectedItem.getTitle());
+
+		},
+
+		/*Title type code end*/
 		onCancelPress: function() {
 			//calling the function which cancel the existing values or clear the data from input field 
 			//and navigate to dashboard page
@@ -3106,7 +3160,7 @@ sap.ui.define([
 			var oModel = this.getView().getModel("VHeader");
 			var oVendorModel = this.getOwnerComponent().getModel("VendorModel");
 			var oVendors = oVendorModel.getData();
-			var oVendor = oVendors.Vendorno;
+			var oVendor = oVendors.Lifnra;
 
 			//define and bind the model
 			var ovm = new VendorP2P(oVendors);
@@ -3134,7 +3188,7 @@ sap.ui.define([
 			var oVendorModel = oView.getModel("VendorModel");
 
 			var Message = JSON.parse(oResponse.headers["sap-message"]).message;
-			if (Message == "Vendors found with same address; check") {
+			if (Message === "Vendors found with same address; check") {
 				MessageBox.warning(Message);
 			} else if (Message === "Changes have been made") {
 				sap.m.MessageBox.show(Message, {

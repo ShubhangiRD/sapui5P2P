@@ -9,7 +9,17 @@
 				<!--<Input id="idVendorModelModelno" value="{VendorModel>/VendorModelModelNumber}" change="changeVenodr" type="Text" class="searchBox"-->
 				<!--	placeholder="VendorModelModel Number"></Input>-->
 				<Label text="Title" required="true" fieldGroupIds="Anreda"/>
-				<Select id="vtitle1" selectedKey="vtitle" class="sapclassinputbox">
+				<Input  id="vtitle1" fieldGroupIds="Anreda" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+					valueHelpRequest="handleTitles" value="{VendorModel>/Anreda}" suggestionItems="{ path: 'Title>/results' }"
+					suggestionItemSelected="onSuggestidsex" editable="{EditModel>/isEditable}">
+					<suggestionItems>
+						<core:ListItem key="{Title>text}" text="{Title>key}" additionalText="{Title>text}"/>
+					</suggestionItems>
+					<layoutData>
+						<l:GridData span="XL2 L3 M4 S4"/>
+					</layoutData>
+				</Input>
+			<!--	<Select id="vtitle1" selectedKey="vtitle" class="sapclassinputbox">
 					<items>
 						<core:Item text="Mr." key="Mr"/>
 						<core:Item text="Ms." key="Ms"/>
@@ -23,39 +33,40 @@
 					<layoutData>
 						<l:GridData span="XL2 L3 M4 S4"/>
 					</layoutData>
-				</Select>
-				<Input value="{VendorModel>/Name}" id="idFsname" maxLength="35" placeholder="Firstname" editable="{EditModel>/isEditable}"></Input>
+				</Select>-->
+				<Input value="{VendorModel>/Name1a}" fieldGroupIds="Name1a" id="idFsname" maxLength="35" placeholder="Firstname"
+					editable="{EditModel>/isEditable}"></Input>
 				<Label text="LastName" required="true" fieldGroupIds="Name2a"/>
-				<Input maxLength="35" value="{VendorModel>/Name2}" id="idLname" placeholder="LastName" editable="{EditModel>/isEditable}"/>
+				<Input maxLength="35" value="{VendorModel>/Name2a}" id="idLname" placeholder="LastName" editable="{EditModel>/isEditable}"/>
 				<Label text="Search Term" required="true" fieldGroupIds=""/>
-				<Input maxLength="25" value="{VendorModel>/Searchterm}" id="idSearchTerm" placeholder="Search Term" editable="{EditModel>/isEditable}"/>
+				<Input maxLength="25" value="{VendorModel>/Sortla}" id="idSearchTerm" placeholder="Search Term" editable="{EditModel>/isEditable}"/>
 				<Label text="Country Code" required="true" fieldGroupIds="Land1a"/>
 				<Input maxLength="3" id="idCountryCode" textFormatMode="KeyValue" placeholder="Country Code" showSuggestion="true"
-					value="{VendorModel>/Country}" showValueHelp="true" valueHelpRequest="handleValueHelpCountryCode"
+					value="{VendorModel>/Land1a}" showValueHelp="true" valueHelpRequest="handleValueHelpCountryCode"
 					suggestionItems="{ path: 'Lookup>/CountryCodeRegion' }" suggestionItemSelected="onSuggest" editable="{EditModel>/isEditable}">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Land1}" text="{Lookup>Landx}" additionalText="{Lookup>Land1}"/>
 					</suggestionItems>
 				</Input>
 				<Label text="Time Zone " fieldGroupIds=""/>
-				<Input id="TimeZone" type="Text" showSuggestion="true" showValueHelp="true" editable="{EditModel>/isEditable}" value="{VendorModel>/Name}"
+				<Input id="TimeZone" type="Text" showSuggestion="true" showValueHelp="true" editable="{EditModel>/isEditable}" value="{VendorModel>/ }"
 					valueHelpRequest="handleValueHelpTimeZone" suggestionItems="{ path: 'hierarchy>/results'}" suggestionItemSelected="suggestionItemTimeZone">
 					<suggestionItems>
 						<core:Item key="{hierarchy>Bezei}" text="{hierarchy>Bland}"/>
 					</suggestionItems>
 				</Input>
 				<Label text="POBoxPostalCode" fieldGroupIds="Pstl2a"/>
-				<Input maxLength="6" value="{VendorModel>/POBoxPCode}" id="idPOBoxPostalCode" editable="{EditModel>/isEditable}"></Input>
+				<Input maxLength="6" value="{VendorModel>/Pstl2a}" id="idPOBoxPostalCode" editable="{EditModel>/isEditable}"></Input>
 				<core:Title text=" "/>
 				<Label text="Street/House no" fieldGroupIds="Strasa"/>
-				<Input maxLength="35" value="{VendorModel>/Street}" id="idStreet" placeholder=" Your Street" editable="{EditModel>/isEditable}"></Input>
+				<Input maxLength="35" value="{VendorModel>/Strasa}" id="idStreet" placeholder=" Your Street" editable="{EditModel>/isEditable}"></Input>
 				<Label text="Address" fieldGroupIds="Adrnra"/>
-				<Input maxLength="10" id="idAddno" value="{VendorModel>/Address}" type="Text" placeholder="Address Number"></Input>
+				<Input maxLength="10" id="idAddno" value="{VendorModel>/Adrnra}" type="Text" editable="{EditModel>/isEditable}" placeholder="Address Number"></Input>
 				<Label text="City" fieldGroupIds="Ort01a"/>
-				<Input maxLength="35" value="{VendorModel>/City}" id="idCity" class="InputBoxContainer" placeholder=" City"
+				<Input maxLength="35" value="{VendorModel>/Ort01a}" id="idCity" class="InputBoxContainer" placeholder=" City"
 					editable="{EditModel>/isEditable}"/>
 				<Label text="Region " fieldGroupIds="Regioa"/>
-				<Input id="idRegion" maxLength="3" value="{VendorModel>/region}" placeholder="Select Region" type="Text" showSuggestion="true"
+				<Input id="idRegion" maxLength="3" value="{VendorModel>/Regioa}" placeholder="Select Region" type="Text" showSuggestion="true"
 					showValueHelp="true" valueHelpRequest="handleValueHelpCust" suggestionItems="{ path: 'hierarchy>/results'}"
 					suggestionItemSelected="suggestionItemRegion" editable="{EditModel>/isEditable}">
 					<suggestionItems>
@@ -65,13 +76,13 @@
 						<l:GridData span="XL2 L3 M4 S4"/>
 					</layoutData>
 				</Input>
-				<Input maxLength="11" value="{VendorModel>/District}" class="InputBoxContainer" id="idDistin" placeholder="Distinct"
+				<Input maxLength="11" value="{VendorModel>/Ort02a}" class="InputBoxContainer" id="idDistin" placeholder="Distinct"
 					editable="{EditModel>/isEditable}"></Input>
 				<Label text="Pox Box" fieldGroupIds="Pfacha"/>
-				<Input maxLength="6" value="{VendorModel>/POBox}" class="InputBoxContainer" id="idPostbox" placeholder="Post Box"
+				<Input maxLength="6" value="{VendorModel>/Pfacha}" class="InputBoxContainer" id="idPostbox" placeholder="Post Box"
 					editable="{EditModel>/isEditable}"></Input>
 				<Label text="Postal Code" fieldGroupIds="Pstlza"/>
-				<Input maxLength="6" value="{VendorModel>/PostalCode}" class="InputBoxContainer" change="changePostalCode" id="idPostcode"
+				<Input maxLength="6" value="{VendorModel>/Pstlza}" class="InputBoxContainer" change="changePostalCode" id="idPostcode"
 					placeholder="Postal Code" editable="{EditModel>/isEditable}"/>
 			</form:content>
 		</form:SimpleForm>
@@ -81,7 +92,7 @@
 			<form:content>
 				<core:Title text=" "/>
 				<Label text="Language" fieldGroupIds="Sprasa"/>
-				<Input id="idlanguage" value="{VendorModel>/Language}" placeholder="Language" type="Text" showSuggestion="true" maxLength="1"
+				<Input id="idlanguage" value="{VendorModel>/Sprasa}" placeholder="Language" type="Text" showSuggestion="true" maxLength="1"
 					showValueHelp="true" valueHelpRequest="handleLanguage" suggestionItems="{ path: 'Lookup>/LanguageList'}"
 					suggestionItemSelected="suggestionItemLanguage" editable="{EditModel>/isEditable}">
 					<suggestionItems>
@@ -89,20 +100,20 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Telphone" fieldGroupIds="Telf1a"/>
-				<Input maxLength="10" value="{VendorModel>/Telephone1}" id="idTel" class="InputBoxContainer" editable="{EditModel>/isEditable}"/>
-				<Label text="Fax" fieldGroupIds="Teltxa"/>
-				<Input maxLength="31" id="idfax" class="InputBoxContainer" value="{VendorModel>/FaxNumber}" editable="{EditModel>/isEditable}"/>
+				<Input maxLength="10" value="{VendorModel>/Telf1a}" id="idTel" class="InputBoxContainer" editable="{EditModel>/isEditable}"/>
+				<Label text="Fax" fieldGroupIds="Telfxa"/>
+				<Input maxLength="31" id="idfax" class="InputBoxContainer" value="{VendorModel>/Telfxa}" editable="{EditModel>/isEditable}"/>
 				<Label text="Email" fieldGroupIds="Intadb"/>
-				<Input id="idEmails" fieldGroupIds="Intadb" class="InputBoxContainer" value="{VendorModel>/Clrksinternet}" editable="{EditModel>/isEditable}"/>
+				<Input id="idEmails" fieldGroupIds="Intadb" class="InputBoxContainer" value="{VendorModel>/Intadb}" editable="{EditModel>/isEditable}"/>
 				<core:Title text=" "/>
 				<Label text="Data Line" fieldGroupIds="Datlta"/>
-				<Input maxLength="14" id="idDataline" value="{VendorModel>/Dataline}" class="InputBoxContainer" placeholder="Enter Data Line"
+				<Input maxLength="14" id="idDataline" value="{VendorModel>/Datlta}" class="InputBoxContainer" placeholder="Enter Data Line"
 					editable="{EditModel>/isEditable}"/>
-				<Label text="Tel Ext" fieldGroupIds="Telx1a"/>
-				<Input id="TelExtension" class="InputBoxContainer" value="{VendorModel>/Teletex}" placeholder="Enter Extension"
+				<Label text="Tel Ext" fieldGroupIds="Teltxa"/>
+				<Input id="TelExtension" class="InputBoxContainer" value="{VendorModel>/Teltxa}" placeholder="Enter Extension"
 					editable="{EditModel>/isEditable}"/>
 				<Label text="Fax Ext"/>
-				<Input id="FaxExtension" class="InputBoxContainer" value="{VendorModel>/Telex}" placeholder="Enter Extension"
+				<Input id="FaxExtension" class="InputBoxContainer" value="{VendorModel>/Telx1a}" placeholder="Enter Extension"
 					editable="{EditModel>/isEditable}"/>
 				<Label text="Tele Box" fieldGroupIds="Telbxa"/>
 				<Input id="TeleboxNumber" class="InputBoxContainer" value="{VendorModel>/Telebox}" placeholder="Enter Extension"
