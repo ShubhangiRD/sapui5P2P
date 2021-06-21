@@ -685,11 +685,12 @@ sap.ui.define([
 			var that = this;
 			//get all data from odata model
 			var oModel = this.getOwnerComponent().getModel("Vendorf4Model");
-			BusyIndicator.show(0);
-
+		
 			//get entity set
 			oModel.read("/LanguageSet", {
 				success: function(oData) {
+					
+
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					//set the odata to model property
 					oLookupModel.setProperty("/LanguageList", oData.results);
@@ -697,7 +698,7 @@ sap.ui.define([
 
 				},
 				error: function(oError) {
-
+	
 					var sErrorMsg = oError.statusCode + " " + oError.statusText + ":" + JSON.parse(oError.responseText).error.message.value;
 					MessageToast.show(sErrorMsg);
 				}

@@ -261,6 +261,22 @@ sap.ui.define([
 								for (var y = 0; y < ListofVendor.length; y++) {
 									if (sVendor == ListofVendor[y].Lifnr) {
 										var sVendorname = ListofVendor[y].Name1;
+											var Stras = ListofVendor[y].Stras;
+											var Telf1 = ListofVendor[y].Telf1;
+											var Pstlz = ListofVendor[y].Pstlz;
+											var Land1 = ListofVendor[y].Land1;
+											var Adrnr = ListofVendor[y].Adrnr;
+										var Ort02 = ListofVendor[y].Ort02;
+										
+										
+											oView.byId("idStreetHeader").setValue(Stras);
+					oView.byId("idTelHeader").setValue(Telf1);
+					oView.byId("idPostcodeHeader").setValue(Pstlz);
+				oView.byId("idCountryCodeHeader").setValue(Land1);
+					oView.byId("idAddnoHeader").setValue(Adrnr);
+				oView.byId("idCityHeader").setValue(Ort02);
+										
+										
 
 									}
 								}
@@ -738,11 +754,46 @@ sap.ui.define([
 					for (var iRowIndex = 0; iRowIndex <= 2600; iRowIndex++) {
 						var odata = oData.results[iRowIndex];
 						if (odata !== undefined) {
-							var sLifnrr = odata.Lifnr;
-							var sName1r = odata.Name1;
+						//	var sLifnrr = odata.Lifnr;
+						//	var sName1r = odata.Name1;
+							
+							
+								var Lifnrr = odata.Lifnr;
+							var Name1r = odata.Name1;
+							var Bukrs = odata.Bukrs;
+							var Ekgrp = odata.Ekgrp;
+							var Ekorg = odata.Ekorg;
+							var Gbort = odata.Gbort;
+							var Ktokk = odata.Ktokk;
+							var Kunnr = odata.Kunnr;
+							var Land1 = odata.Land1;
+							var Ort01 = odata.Ort01;
+							var Pstlz = odata.Pstlz;
+							var Stras = odata.Stras;
+							var Regio = odata.Regio;
+							var Telf1 = odata.Telf1;
+							var Waers = odata.Waers;
+							var Sexkz = odata.Sexkz;
+							var Adrnr = odata.Adrnr;
 							ListofVendor.push({
-								Lifnr: sLifnrr,
-								Name1: sName1r
+							Lifnr: Lifnrr,
+								Name1: Name1r,
+								Adrnr: Adrnr,
+								Bukrs: Bukrs,
+								Ekgrp: Ekgrp,
+								Ekorg: Ekorg,
+								Gbort: Gbort,
+								Ktokk: Ktokk,
+								Kunnr: Kunnr,
+								Land1: Land1,
+								Ort01: Ort01,
+								Pstlz: Pstlz,
+								Regio: Regio,
+								Sexkz: Sexkz,
+								Stras: Stras,
+								Telf1: Telf1,
+								Waers: Waers
+
 							});
 						}
 

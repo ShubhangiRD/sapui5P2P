@@ -57,7 +57,7 @@ sap.ui.define([
 		
 		
 			oPurchaseModel.refresh(true);
-			this.getOwnerComponent().getRouter().navTo("PODetails");
+			this.getOwnerComponent().getRouter().navTo("PoHeaderList");
 		//	this.getView().getModel("VHeader").refresh();
 
 		},
@@ -1029,7 +1029,7 @@ sap.ui.define([
 				onClose: function(oAction) {
 					if (oAction === "OK") {
 						var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-						oRouter.navTo('PODetails');
+						oRouter.navTo('PoHeaderList');
 					}
 				}.bind(this)
 			});

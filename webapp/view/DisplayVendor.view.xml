@@ -31,8 +31,8 @@
 					<!--	<m:Avatar src="sap-icon://picture" displaySize="L" class="sapUiTinyMarginEnd"/>
 		-->
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
-						<m:Label text="Vendor : " required="true" />
-						<m:Input id="idVendor" value="{VendorModel>/Vendor}"  textFormatMode="KeyValue" placeholder="Vendor Number"
+						<m:Label text="Vendor : " required="true" fieldGroupIds="Lifnra"/>
+						<m:Input id="idVendor" value="{VendorModel>/Lifnra}" fieldGroupIds="Lifnra"   textFormatMode="KeyValue" placeholder="Vendor Number"
 							showSuggestion="true" showValueHelp="true" valueHelpRequest="handleVendorValueHelpBox"
 							suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
@@ -41,9 +41,9 @@
 						</m:Input>
 						<l:HorizontalLayout class="sapUiSmallMarginEnd"></l:HorizontalLayout >
 					</l:VerticalLayout>
-					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
-						<m:Label text="Purchase Org :" required="true"/>
-						<m:Input id="idPurOrg" value="{VendorModel>/PurchasingOrg}" textFormatMode="KeyValue" placeholder=" Purchase Org" showSuggestion="true"
+					<l:VerticalLayout class="sapUiSmallMarginBeginEnd" >
+						<m:Label text="Purchase Org :" required="true" fieldGroupIds="Ekorgc"/>
+						<m:Input id="idPurOrg" value="{VendorModel>/Ekorgc}" fieldGroupIds="Ekorgc" textFormatMode="KeyValue" placeholder=" Purchase Org" showSuggestion="true"
 							showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor" editable="{EditModel>/isEditable}"
 							suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
@@ -52,8 +52,8 @@
 						</m:Input>
 					</l:VerticalLayout>
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
-						<m:Label text="Company Code:" required="true"/>
-						<m:Input id="idCompCode" value="{VendorModel>/CompanyCode}" textFormatMode="KeyValue" placeholder="Company Code" showSuggestion="true"
+						<m:Label text="Company Code:" required="true" fieldGroupIds="Bukrsb"/>
+						<m:Input id="idCompCode" value="{VendorModel>/Bukrsb}" fieldGroupIds="Bukrsb" textFormatMode="KeyValue" placeholder="Company Code" showSuggestion="true"
 							showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor" editable="{EditModel>/isEditable}"
 							suggestionItems="{ path: 'Lookup>/CountryCode' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
@@ -62,9 +62,9 @@
 						</m:Input>
 					</l:VerticalLayout>
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
-						<m:Label text="Account Group:" required="true"/>
-						<m:Input id="idAccGp" textFormatMode="KeyValue" placeholder="Account Group ..." showSuggestion="true" showValueHelp="true"
-							value="{VendorModel>/Accountgroup}" editable="{EditModel>/isEditable}" valueHelpRequest="handleAccountCodeVendor"
+						<m:Label text="Account Group:" required="true" fieldGroupIds="Ktokka"/>
+						<m:Input id="idAccGp" textFormatMode="KeyValue" fieldGroupIds="Ktokka" placeholder="Account Group ..." showSuggestion="true" showValueHelp="true"
+							value="{VendorModel>/Ktokka}" editable="{EditModel>/isEditable}" valueHelpRequest="handleAccountCodeVendor"
 							suggestionItems="{ path: 'Lookup>/AccountGroup' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
 								<core:ListItem key="{Lookup>Ktokk}" text="{Lookup>Ktokk}" additionalText="{Lookup>Ktokk}"/>

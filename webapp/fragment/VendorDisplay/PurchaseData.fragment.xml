@@ -59,8 +59,8 @@
 				<core:Title text=""/>
 				<Label fieldGroupIds="Verkfc" text="Sales Person "/>
 				<Input id="idsalesperson" value="{VendorModel>/Verkfc}" maxLength="30" fieldGroupIds="Verkfc" editable="{EditModel>/isEditable}"/>
-				<Label fieldGroupIds="Telf2a" text="Telephone " required="true"/>
-				<Input maxLength="16" value="{VendorModel>/Telf2a}" fieldGroupIds="Telf2a" id="Telephonepur" editable="{EditModel>/isEditable}"></Input>
+				<Label fieldGroupIds="Telf1a" text="Telephone " required="true"/>
+				<Input maxLength="16" value="{VendorModel>/Telf1a}" fieldGroupIds="Telf1a" id="Telephonepur" editable="{EditModel>/isEditable}"></Input>
 				<Label fieldGroupIds="Eiktoc" text="Acc. With vendor"/>
 				<Input id="accwvendorpur" value="{VendorModel>/Eiktoc}" editable="{EditModel>/isEditable}" fieldGroupIds="Eiktoc"/>
 			</form:content>

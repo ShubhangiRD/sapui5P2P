@@ -6,16 +6,16 @@
 			<form:content>
 				<core:Title text=" "/>
 				<Label text="Dunn Procedure" fieldGroupIds=" "/>
-				<Input id="iddunprodc" fieldGroupIds=" " maxLength="4" textFormatMode="KeyValue" showSuggestion="true"
-					editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handleDunprocHelp"
-					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestDunproc">
+				<Input id="iddunprodc" fieldGroupIds=" " maxLength="4" textFormatMode="KeyValue" showSuggestion="true" editable="{EditModel>/isEditable}"
+					showValueHelp="true" valueHelpRequest="handleDunprocHelp" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					suggestionItemSelected="onSuggestDunproc">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
 				<Label text="Dunn Recipient" fieldGroupIds="Qsrecb"/>
-				<Input maxLength="10" fieldGroupIds="Qsrecb" id="iddunreceipt" textFormatMode="KeyValue" showSuggestion="true"
-				value="{VendorModel>/Qsrecb}"	editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handledunnreceipt"
+				<Input maxLength="10" fieldGroupIds="Qsrecb" id="iddunreceipt" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Qsrecb}"
+					editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handledunnreceipt"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestdunreceipt">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
@@ -24,18 +24,18 @@
 				<Label text="Last Dunned" fieldGroupIds=" "/>
 				<DatePicker id="idlastdun" fieldGroupIds=" " editable="{EditModel>/isEditable}"/>
 				<Label text="Dunning Clerk" fieldGroupIds=" "/>
-				<Input maxLength="2" fieldGroupIds=" " id="iddunclerk" textFormatMode="KeyValue" showSuggestion="true"
-					editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handleiddunclerkHelp"
-					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestiddunclerk">
+				<Input maxLength="2" fieldGroupIds=" " id="iddunclerk" textFormatMode="KeyValue" showSuggestion="true" editable="{EditModel>/isEditable}"
+					showValueHelp="true" valueHelpRequest="handleiddunclerkHelp" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					suggestionItemSelected="onSuggestiddunclerk">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
 				<core:Title text=" "/>
 				<Label text="Dunning Block" fieldGroupIds=" "/>
-				<Input maxLength="1" id="iddunblock" fieldGroupIds=" " textFormatMode="KeyValue" showSuggestion="true"
-					editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handleiddunblockkHelp"
-					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestiddunblockk">
+				<Input maxLength="1" id="iddunblock" fieldGroupIds=" " textFormatMode="KeyValue" showSuggestion="true" editable="{EditModel>/isEditable}"
+					showValueHelp="true" valueHelpRequest="handleiddunblockkHelp" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					suggestionItemSelected="onSuggestiddunblockk">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
@@ -43,16 +43,16 @@
 				<Label text="Legal Dunn Proc" fieldGroupIds=" "/>
 				<DatePicker id="idlegaldunpro" fieldGroupIds=" " editable="{EditModel>/isEditable}"/>
 				<Label text="Dunning Level" fieldGroupIds=" "/>
-				<Input maxLength="1" fieldGroupIds=" " id="iddunlevel" textFormatMode="KeyValue" showSuggestion="true"
-					editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handleiddunlevelHelp"
-					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestiddunlevel">
+				<Input maxLength="1" fieldGroupIds=" " id="iddunlevel" textFormatMode="KeyValue" showSuggestion="true" editable="{EditModel>/isEditable}"
+					showValueHelp="true" valueHelpRequest="handleiddunlevelHelp" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+					suggestionItemSelected="onSuggestiddunlevel">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
 					</suggestionItems>
 				</Input>
 				<Label text="Grouping Key" fieldGroupIds="Zgrupb"/>
-				<Input maxLength="1" id="iddungrpkey" fieldGroupIds="Zgrupb" textFormatMode="KeyValue" showSuggestion="true"
-					value="{VendorModel>/Zgrupb}"	editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handledungrpkey"
+				<Input maxLength="1" id="iddungrpkey" fieldGroupIds="Zgrupb" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Zgrupb}"
+					editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handledungrpkey"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestiddungrpkey">
 					<suggestionItems>
 						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
@@ -60,9 +60,9 @@
 				</Input>
 			</form:content>
 		</form:SimpleForm>
-		<form:SimpleForm id="FormChange3cores" editable="true" layout="ResponsiveGridLayout"  labelSpanXL="4" labelSpanL="4"
-			labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3"
-			columnsL="3" columnsM="1" class="myFormMarginBottom" singleContainerFullSize="false">
+		<form:SimpleForm id="FormChange3cores" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+			labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="1"
+			class="myFormMarginBottom" singleContainerFullSize="false">
 			<form:content>
 				<core:Title text=" "/>
 				<Label text="" fieldGroupIds="Xdezvb"/>
@@ -76,15 +76,15 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Acct W vendor" fieldGroupIds="Eiktob"/>
-				<Input id="accwvendor" value="{VendorModel>/Eiktob}" fieldGroupIds="Eiktob" editable="{EditModel>/isEditable}"/>
+				<Input id="accwvendor"    value="{VendorModel>/Eiktob}" fieldGroupIds="Eiktob" editable="{EditModel>/isEditable}"/>
 				<Label text="Clerk At Vendor" fieldGroupIds="Zsabeb"/>
 				<Input id="clrkatvendor" value="{VendorModel>/Zsabeb}" fieldGroupIds="Zsabeb" editable="{EditModel>/isEditable}"/>
 				<core:Title text=" "/>
 				<Label text="AcountClrk tel no" fieldGroupIds="Tlfnsb" required="true"/>
-				<Input id="clrtelno" fieldGroupIds="Tlfnsb" value="{VendorModel>/Tlfnsb}" editable="{EditModel>/isEditable}"/>
+				<Input id="clrtelno" maxLength="10" fieldGroupIds="Tlfnsb" value="{VendorModel>/Tlfnsb}" editable="{EditModel>/isEditable}"/>
 				<Label text="Clerk Fax no" required="true" fieldGroupIds="Tlfxsb"/>
-				<Input id="clrkatfax" fieldGroupIds="Tlfxsb" value="{VendorModel>/Tlfxsb}" editable="{EditModel>/isEditable}"/>
-				<Label text="Clerk Internet " fieldGroupIds="Intadb"/>
+				<Input id="clrkatfax" fieldGroupIds="Tlfxsb" maxLength="14"  value="{VendorModel>/Tlfxsb}" editable="{EditModel>/isEditable}"/>
+				<Label text="Clerk Internet "  fieldGroupIds="Intadb"/>
 				<Input id="clrkatinternet" value="{VendorModel>/Intadb}" fieldGroupIds="Intadb" editable="{EditModel>/isEditable}"/>
 				<Label text="Account Memo" fieldGroupIds="Kvermb"/>
 				<Input id="idaccmemo" fieldGroupIds="Kvermb" value="{VendorModel>/Kvermb}" editable="{EditModel>/isEditable}"/>

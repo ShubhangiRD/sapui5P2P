@@ -8,14 +8,14 @@ sap.ui.define([
 	"com/vSimpleApp/model/Contract",
 	"com/vSimpleApp/model/Report",
 	"com/vSimpleApp/model/GetPurchaseVendor",
-
+	"com/vSimpleApp/model/PODetail",
 	"com/vSimpleApp/model/VendorP2P",
-		"sap/ui/core/BusyIndicator",
+	"sap/ui/core/BusyIndicator",
 	"sap/m/MessageToast"
 
-	
-], function(UIComponent, Device, models, JSONModel, Application, IconPool, Contract, Report, GetPurchaseVendor,VendorP2P,BusyIndicator,MessageToast
-	) {
+], function(UIComponent, Device, models, JSONModel, Application, IconPool, Contract, Report, GetPurchaseVendor, PODetail, VendorP2P,
+	BusyIndicator, MessageToast
+) {
 	"use strict";
 	var oComponent;
 	var ListofVendor = [],
@@ -39,7 +39,7 @@ sap.ui.define([
 			var oUserModel = new JSONModel(oUserData);
 			this.setModel(oUserModel, "User");
 
-	this.getVendorList();
+			this.getVendorList();
 			this.getPurchaseOrderList();
 			var oLookupData = {
 				SelectedTabKey: "item",
@@ -82,7 +82,7 @@ sap.ui.define([
 				ModeOfTransportList: [],
 				PoDocumentNumber: [],
 				PlanningGroups: [],
-				OpenPOList : []
+				OpenPOList: []
 			};
 			var oLookupModel = new JSONModel(oLookupData);
 			this.setModel(oLookupModel, "Lookup");
@@ -94,8 +94,15 @@ sap.ui.define([
 			var oPurchaseModel = new JSONModel(oPurchaseData);
 			this.setModel(oPurchaseModel, "PurchaseModel");
 
+			var oPoData = {
+				TempContract: new PODetail()
+
+			};
+			var oPOModel = new JSONModel(oPoData);
+			this.setModel(oPOModel, "POModel");
+
 			var oVData = new VendorP2P();
-				var oVendor = new JSONModel(oVData);
+			var oVendor = new JSONModel(oVData);
 			this.setModel(oVendor, "VendorModel");
 
 			var oVendorData = {
@@ -122,7 +129,6 @@ sap.ui.define([
 			// create the views based on the url/hash
 			this.getRouter().initialize();
 
-		
 			/*Started sim service*/
 
 			this.setModel(Report.getInstance().getModel(), "report");

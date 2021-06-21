@@ -141,7 +141,7 @@
 				<Label text="SCAC" fieldGroupIds="Scacda" required="true"/>
 				<Input id="idSCAC" placeholder="Standard Code"  fieldGroupIds="Scacda" maxLength="4" value="{VendorModel>/Scacda}" editable="{EditModel>/isEditable}"/>
 				<Label text="Transport Zone" fieldGroupIds="Lzonea" required="true"/>
-				<Input id="idTransportzone" fieldGroupIds="Lzonea" value="{Vendor>/Lzonea}" showSuggestion="true" showValueHelp="true"
+				<Input id="idTransportzone" fieldGroupIds="Lzonea" value="{VendorModel>/Lzonea}" showSuggestion="true" showValueHelp="true"
 					valueHelpRequest="handleTransportZone" suggestionItems="{ path: 'Lookup>/TransportZoneList' }"
 					suggestionItemSelected="onSuggestidTransportzone" editable="{EditModel>/isEditable}">
 					<suggestionItems>
