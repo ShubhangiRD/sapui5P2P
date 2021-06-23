@@ -11,18 +11,18 @@
 			
 						<f:FormElement label="SalesPerson" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="salePersn"  editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
+								<Input id="salePersn"  	value="{PurchaseModel>/TempContract/SalesPers}"  editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 							<f:FormElement label="Telephone" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="idTelphn" editable="{EditModel>/isEditable}"   textFormatMode="KeyValue"/>
+								<Input id="idTelphn" 	value="{PurchaseModel>/TempContract/Telephone}"   editable="{EditModel>/isEditable}"   textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 									<f:FormElement label="Language" class="sapUiTinyMarginTop">
 							<f:fields>
 								<Input id="LanguageHeader" textFormatMode="KeyValue"  showSuggestion="true" showValueHelp="true"
-									valueHelpRequest="handleLanguage" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+							value="{PurchaseModel>/TempContract/Langu}" 			valueHelpRequest="handleLanguage" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 									suggestionItemSelected="suggestionLanguage" editable="{EditModel>/isEditable}">
 									<suggestionItems>
 										<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
@@ -40,13 +40,13 @@
 					<f:formElements>
 						<f:FormElement label="Your Reference" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="urRef" editable="{EditModel>/isEditable}"    ></Input>
+								<Input id="urRef" 	value="{PurchaseModel>/TempContract/Ref1}"   editable="{EditModel>/isEditable}"    ></Input>
 						
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Our Reference" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="ourRef" editable="{EditModel>/isEditable}"   ></Input>
+								<Input id="ourRef" 	value="{PurchaseModel>/TempContract/OurRef}"   editable="{EditModel>/isEditable}"   ></Input>
 						
 							</f:fields>
 						</f:FormElement>

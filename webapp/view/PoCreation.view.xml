@@ -87,7 +87,7 @@
 				<subSections>
 					<ObjectPageSubSection titleUppercase="false">
 						<blocks>
-							<t:Table id="idTableitem" class="sapUiMediumMarginTop" rows="{PurchaseModel>/TempContract/POItem}" visibleRowCount="5"
+							<t:Table id="idTableitem" class="sapUiMediumMarginTop" rows="{PurchaseModel>/TempContract/PoitemSet}" visibleRowCount="5"
 								selectionMode="MultiToggle">
 								<t:extension>
 									<m:OverflowToolbar >

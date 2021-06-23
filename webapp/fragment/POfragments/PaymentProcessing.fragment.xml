@@ -11,7 +11,7 @@
 
 						<f:FormElement label="Retention" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Select id="idRetention" class="sapUiTinyMarginTop">
+								<Select id="idRetention" >
 									<items>
 										<core:Item text=" " key=" "/>
 										<core:Item text=" " key=" "/>
@@ -22,7 +22,7 @@
 						
 								<f:FormElement label="Dp Category " class="sapUiTinyMarginTop">
 							<f:fields>
-									<Select id="DpCat" class="sapUiTinyMarginTop">
+									<Select id="DpCat" >
 									<items>
 										<core:Item text=" " key=" "/>
 										<core:Item text=" " key=" "/>

@@ -11,7 +11,7 @@
 
 						<f:FormElement label="Conf Control" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Select id="confContrl" class="sapUiTinyMarginTop">
+								<Select id="confContrl" >
 									<items>
 										<core:Item text=" " key=" "/>
 										<core:Item text=" " key=" "/>
@@ -22,7 +22,7 @@
 						
 								<f:FormElement label="Order Acknwlg " class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="ordAckndg" maxLength="20" textFormatMode="KeyValue" class="sapUiTinyMarginTop"></Input>
+								<Input id="ordAckndg" maxLength="20" editable="{EditModel>/isEditable}" value="{PurchaseItems>/AcknowlNo}"  textFormatMode="KeyValue" ></Input>
 							</f:fields>
 						</f:FormElement>
 				
@@ -35,12 +35,12 @@
 					<f:formElements>
 						<f:FormElement label=" " class="sapUiTinyMarginTop">
 							<f:fields>
-								<CheckBox id="AckQeq" class="sapUiTinyMarginTop" text="Ackwlg Reqd"/>
+								<CheckBox id="AckQeq" editable="{EditModel>/isEditable}"   text="Ackwlg Reqd"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label=" " class="sapUiTinyMarginTop">
 							<f:fields>
-								<CheckBox id="RejectiInd" class="sapUiTinyMarginTop" text="Rejection Ind"/>
+								<CheckBox id="RejectiInd" editable="{EditModel>/isEditable}"  text="Rejection Ind"/>
 							</f:fields>
 						</f:FormElement>
 					

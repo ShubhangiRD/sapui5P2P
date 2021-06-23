@@ -8,26 +8,15 @@
 			<f:formContainers>
 				<f:FormContainer>
 					<f:formElements>
-						<f:FormElement label="A Table Rel">
+						<f:FormElement label="A Table Rel"  class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="TabRel" maxLength="10" textFormatMode="KeyValue" showSuggestion="true" value="{CreateVendor>/VendorContract/Lifnr}"
-									showValueHelp="true" valueHelpRequest="handleMaterialValueHelp" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
-									suggestionItemSelected="onSuggest">
-									<suggestionItems>
-										<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
-									</suggestionItems>
-								</Input>
-								<Input id="TabRel2" maxLength="3" textFormatMode="KeyValue" showSuggestion="true" value=" " showValueHelp="true"
-									valueHelpRequest="handleMaterialValueHelp" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">
-									<suggestionItems>
-										<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
-									</suggestionItems>
-								</Input>
+								<Input id="TabRel" editable="{EditModel>/isEditable}"  maxLength="10"></Input>
+								<Input id="TabRel2" editable="{EditModel>/isEditable}"  maxLength="3"></Input>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Allocation Table" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Select id="idAllocatnTab" class="sapUiTinyMarginTop">
+								<Select id="idAllocatnTab" >
 									<items>
 										<core:Item text=" " key=" "/>
 										<core:Item text=" " key=" "/>

@@ -10,55 +10,30 @@
 					<f:formElements>
 						<f:FormElement label="Validity Start" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="vstart" textFormatMode="KeyValue"  showSuggestion="true" showValueHelp="true"
-									valueHelpRequest="handleValidityStart" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
-									suggestionItemSelected="suggestionValidityStart" editable="{EditModel>/isEditable}">
-									<suggestionItems>
-										<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-									</suggestionItems>
-								</Input>
-							
+								<DateTimePicker id="vstart" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/VperStart}"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Validity End" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="vend" textFormatMode="KeyValue"  showSuggestion="true" showValueHelp="true"
-									valueHelpRequest="handleValidityend" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
-									suggestionItemSelected="suggestionValidityend" editable="{EditModel>/isEditable}">
-									<suggestionItems>
-										<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-									</suggestionItems>
-								</Input>
+								<DateTimePicker id="vend" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/VperEnd}"/>
 							</f:fields>
 						</f:FormElement>
-				
-					
 					</f:formElements>
 				</f:FormContainer>
 			</f:formContainers>
 			<f:formContainers>
 				<f:FormContainer>
 					<f:formElements>
-									<f:FormElement label="Warrenty" class="sapUiTinyMarginTop">
+						<f:FormElement label="Warrenty" class="sapUiTinyMarginTop">
 							<f:fields>
-							<Input id="Warrenty" textFormatMode="KeyValue"  showSuggestion="true" showValueHelp="true"
-									valueHelpRequest="handleWarrenty" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
-									suggestionItemSelected="suggestionWarrenty" editable="{EditModel>/isEditable}">
-									<suggestionItems>
-										<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-									</suggestionItems>
-								</Input>
+								<DateTimePicker id="Warrenty" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/Warranty}"/>
 							</f:fields>
 						</f:FormElement>
-							<f:FormElement label="Collective No" class="sapUiTinyMarginTop">
+						<f:FormElement label="Collective No" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="collecno"  editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
+								<Input id="collecno" value="{PurchaseModel>/TempContract/CollectNo}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
-					
-						
-				
-							
 					</f:formElements>
 				</f:FormContainer>
 			</f:formContainers>

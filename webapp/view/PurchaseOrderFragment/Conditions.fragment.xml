@@ -14,7 +14,7 @@
 						<Label text="Non Active "/>
 						<t:template>
 							<Input id="idnonActive" class="mtid" textFormatMode="KeyValue" placeholder=" EnterCtry" showSuggestion="true" showValueHelp="true"
-								value="{PurchaseModel>Material}" valueHelpRequest="handleCtryHelp" suggestionItems="{ path: 'Lookup>/MaterialList' }"
+						editable="{EditModel>/isEditable}"		value="{PurchaseModel>Material}" valueHelpRequest="handleCtryHelp" suggestionItems="{ path: 'Lookup>/MaterialList' }"
 								suggestionItemSelected="onSuggestCtry" liveChange="Ctrychange">
 								<suggestionItems>
 									<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
@@ -26,7 +26,7 @@
 						<Label text="Cnty "/>
 						<t:template>
 							<Input id="idcntyy" class="mtid" textFormatMode="KeyValue" placeholder=" EnterCtry" showSuggestion="true" showValueHelp="true"
-								value="{PurchaseModel>Material}" valueHelpRequest="handleCtryHelp" suggestionItems="{ path: 'Lookup>/MaterialList' }"
+						editable="{EditModel>/isEditable}"		value="{PurchaseModel>Material}" valueHelpRequest="handleCtryHelp" suggestionItems="{ path: 'Lookup>/MaterialList' }"
 								suggestionItemSelected="onSuggestCtry" liveChange="Ctrychange">
 								<suggestionItems>
 									<core:ListItem key="{Lookup>Materialno}" text="{Lookup>Description}" additionalText="{Lookup>Materialno}"/>
@@ -38,7 +38,7 @@
 						<Label text="Names"/>
 						<t:template>
 							<Input class="desc1" id="idnameVendor" textFormatMode="KeyValue" placeholder="Enter Bank Key" showSuggestion="true" showValueHelp="true"
-								valueHelpRequest="handleBankKey" suggestionItems="{ path: 'Lookup>/MaterialDiscription' }" value="{PurchaseModel>ShortText}"
+						editable="{EditModel>/isEditable}"		valueHelpRequest="handleBankKey" suggestionItems="{ path: 'Lookup>/MaterialDiscription' }" value="{PurchaseModel>ShortText}"
 								suggestionItemSelected="onSuggestBankKey">
 								<suggestionItems>
 									<core:ListItem key="{Lookup>Description}" text="{Lookup>Materialno}" additionalText="{Lookup>Description}"/>
@@ -68,7 +68,7 @@
 						<Label text=" "/>
 						<t:template>
 							<Input id="unitC" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>Plant}"
-								valueHelpRequest="handleValueHelpAK" suggestionItems="{ path: 'Lookup>/POPlant' }" suggestionItemSelected="onSuggestAK">
+					editable="{EditModel>/isEditable}"			valueHelpRequest="handleValueHelpAK" suggestionItems="{ path: 'Lookup>/POPlant' }" suggestionItemSelected="onSuggestAK">
 								<suggestionItems>
 									<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
 								</suggestionItems>
@@ -103,7 +103,7 @@
 						<t:Column width="9rem" hAlign="Center">
 						<Label text="Order Unit Oun"/>
 						<t:template>
-							<Input id="OrderunitC" class="price1" value="{PurchaseModel>}" editable="{EditModel>/isEditable}"/>
+							<Input id="OrderunitC" class="price1" value="{PurchaseModel>/PoUnit}" editable="{EditModel>/isEditable}"/>
 						</t:template>
 					</t:Column>
 						<t:Column width="9rem" hAlign="Center">
@@ -115,8 +115,8 @@
 						<t:Column width="9rem" hAlign="Center">
 						<Label text="Unit of Measure "/>
 						<t:template>
-							<Input id="iduomm" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>Plant}"
-								valueHelpRequest="handleValueHelpAK" suggestionItems="{ path: 'Lookup>/POPlant' }" suggestionItemSelected="onSuggestAK">
+							<Input id="iduomm" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>}"
+						editable="{EditModel>/isEditable}"		valueHelpRequest="handleValueHelpAK" suggestionItems="{ path: 'Lookup>/POPlant' }" suggestionItemSelected="onSuggestAK">
 								<suggestionItems>
 									<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
 								</suggestionItems>

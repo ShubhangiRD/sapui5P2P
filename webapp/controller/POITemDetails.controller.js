@@ -18,11 +18,11 @@ sap.ui.define([
 	"sap/ui/core/routing/History",
 	'sap/ui/core/BusyIndicator',
 	"com/vSimpleApp/model/POItem",
-	"com/vSimpleApp/model/PODetail"
+	"com/vSimpleApp/model/PurchaseHeader"
 
 ], function(Controller, JSONModel, library, Input, Fragment, Filter, FilterOperator, RebateConditionItemPO,
 	VendorRebateCondition, CreateContract, GetPODetails, UpdatePO, ColumnListItem, jQuery, MessageToast, MessageBox, History, BusyIndicator,
-	POItem, PODetail) {
+	POItem, PurchaseHeader) {
 	"use strict";
 
 	//global variable
@@ -50,11 +50,16 @@ sap.ui.define([
 			var oLookupModel = this.getOwnerComponent().getModel("Lookup");
 			//model property store in variable
 			openpoList = oLookupModel.oData.OpenPOList;
+			ListofVendor = oLookupModel.oData.DisplyaVendorList;
 			this.getOpenPOS();
 
 			//define the json models
 			var oPOitemsTab = new JSONModel();
 			oView.setModel(oPOitemsTab, "PurchaseModelITem");
+
+			/*	var oPurchaseItems = new JSONModel();
+				oView.setModel(oPurchaseItems, "PurchaseItems");
+			*/
 
 			var oOpenPOModel = new JSONModel();
 			oView.setModel(oOpenPOModel, "OpenPOModel");
@@ -104,110 +109,10 @@ sap.ui.define([
 		},
 		_onObjectMatched: function(oEvent) {
 			//get all the details form the parameter
-			var oModel = this.getOwnerComponent().getModel("VHeader");
+			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
+
 			var sPath = oEvent.getParameter("arguments");
 			PurchaseOno = sPath.PoNo;
-
-			if (PurchaseOno !== "" || PurchaseOno !== undefined) {
-				for (var y = 0; y < openpoList.length; y++) {
-					if (PurchaseOno === openpoList[y].Ebeln) {
-						var Abgru = openpoList[y].Abgru;
-						var Absgr = openpoList[y].Absgr;
-
-						var Addnr = openpoList[y].Addnr;
-
-						var Adrnr = openpoList[y].Adrnr;
-
-						var Angdt = openpoList[y].Angdt;
-
-						var Angnr = openpoList[y].Angnr;
-
-						var Lifnr = openpoList[y].Lifnr;
-
-						var PaymentTerm = openpoList[y].Zterm;
-
-						var Inco1 = openpoList[y].Inco1;
-						var Inco2 = openpoList[y].Inco2;
-
-						var AurelAllow = openpoList[y].AurelAllow;
-						var Ausnr = openpoList[y].Ausnr;
-						var Autlf = openpoList[y].Autlf;
-						var Bedat = openpoList[y].Bedat;
-						var Bnddt = openpoList[y].Bnddt;
-						var Bsakz = openpoList[y].Bsakz;
-						var Bsart = openpoList[y].Bsart;
-						var Bstyp = openpoList[y].Bstyp;
-						var BudgType = openpoList[y].BudgType;
-						var Bukrs = openpoList[y].Bukrs;
-						var Bwbdt = openpoList[y].Bwbdt;
-						var CheckType = openpoList[y].CheckType;
-						var ConDistrLev = openpoList[y].ConDistrLev;
-						var ConOtbReq = openpoList[y].ConOtbReq;
-						var ConPrebookLev = openpoList[y].ConPrebookLev;
-						var ContractAllow = openpoList[y].ContractAllow;
-						var DelperAllow = openpoList[y].DelperAllow;
-						var Description = openpoList[y].Description;
-						var Dpamt = openpoList[y].Dpamt;
-						var Dpdat = openpoList[y].Dpdat;
-						var Dppct = openpoList[y].Dppct;
-						var Dptyp = openpoList[y].Dptyp;
-						var Ebeln = openpoList[y].Ebeln;
-						var EindtAllow = openpoList[y].EindtAllow;
-						var Ekgrp = openpoList[y].Ekgrp;
-						var EkgrpAllow = openpoList[y].EkgrpAllow;
-						var Ekorg = openpoList[y].Ekorg;
-						var EqEindt = openpoList[y].EqEindt;
-						var EqWerks = openpoList[y].EqWerks;
-						var Ernam = openpoList[y].Ernam;
-						var Exnum = openpoList[y].Exnum;
-						var Fixpo = openpoList[y].Fixpo;
-						var FixpoAllow = openpoList[y].FixpoAllow;
-						var ForceCnt = openpoList[y].ForceCnt;
-						var ForceId = openpoList[y].ForceId;
-						var Frggr = openpoList[y].Frggr;
-						var Frgke = openpoList[y].Frgke;
-						var Frgrl = openpoList[y].Frgrl;
-						var Frgsx = openpoList[y].Frgsx;
-						var Frgzu = openpoList[y].Frgzu;
-						var Gwldt = openpoList[y].Gwldt;
-						var Handoverloc = openpoList[y].Handoverloc;
-						var HierarchyExists = openpoList[y].HierarchyExists;
-						var Ihran = openpoList[y].Ihran;
-						var Ihrez = openpoList[y].Ihrez;
-
-						var Zbd1t = openpoList[y].Zbd1t;
-
-						var Spras = openpoList[y].Spras;
-						//not working- 2
-						var WAERS = openpoList[y].WAERS;
-						var KURSF = openpoList[y].KURSF;
-
-						// delivery invoice
-						oView.byId("paymentin1").setValue(Zbd1t);
-						oView.byId("CurrencyHeader").setValue(WAERS);
-						oView.byId("ExhangeRateHeader").setValue(KURSF);
-
-						// address
-						/*
-							oView.byId("idStreetHeader").setValue(Stras);
-							oView.byId("idPostcodeHeader").setValue(Telf1);
-							oView.byId("country").setValue(Pstlz);
-							oView.byId("idCountryCodeHeader").setValue(Land1);
-							oView.byId("idTelHeader").setValue(Adrnr);
-							oView.byId("idCityHeader").setValue(Ort02);
-									*/
-						// communication
-						oView.byId("LanguageHeader").setValue(Spras);
-
-						// payment processing
-						oView.byId("idRetention").setValue(Spras);
-						oView.byId("PaymentTermsH").setValue(PaymentTerm);
-						oView.byId("IncotermsHeader").setValue(Inco1);
-						oView.byId("IncotermsHeader2").setValue(Inco2);
-
-					}
-				}
-			}
 
 			//call the function
 			this.getVendorList();
@@ -228,130 +133,134 @@ sap.ui.define([
 				})
 
 			];
+
 			return new Promise(function(resolve1, reject1) {
 
-				oModel.read("/PO_DetailsSet()", {
-					filters: aFilter,
+				BusyIndicator.show(true);
+				oModel.read("/PoDisplaySet(Purchaseorder='" + PurchaseOno + "')", {
+					urlParameters: {
+						"$expand": "PoitemSet"
+					},
+					//	filters: aFilter,
 					success: function(odata) {
+						console.log(odata);
+						BusyIndicator.hide(false);
 
-						oView.getModel("PurchaseModel").setProperty("/TempContract/POItem", odata.results); // setData(oData.results);
+						var Podata = new PurchaseHeader(odata);
+						oView.getModel("PurchaseModel").setProperty("/TempContract", Podata); // setData(oData.results);
 
-						var iItem = odata.results.length;
+						oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet", Podata.PoitemSet.results); // setData(oData.results);
 						var aPoDetailsItems = [];
-						for (var iRowIndex = 0; iRowIndex < iItem; iRowIndex++) {
 
-							var sPoNumber = odata.results[iRowIndex].PoNo;
-							var sVendor = odata.results[iRowIndex].Vendor;
-							var sMaterial = odata.results[iRowIndex].Material;
-							var sShortText = odata.results[iRowIndex].ShortText;
-							var sNetPrice = odata.results[iRowIndex].NetPrice;
-							var sQuantity = odata.results[iRowIndex].Quantity;
-							var sCreatedBy = odata.results[iRowIndex].CreatedBy;
-							var sCreatDate = odata.results[iRowIndex].CreatDate;
+						var sVendor = Podata.Vendor;
+						var sCreatedBy = Podata.CreatedBy;
+						var sCreatDate = Podata.CreatDate;
 
-							var sCompCode = odata.results[iRowIndex].CompCode;
-							var sPurchOrg = odata.results[iRowIndex].PurchOrg;
-							var sPurGroup = odata.results[iRowIndex].PurGroup;
-							var sCurrency = odata.results[iRowIndex].Currency;
-							var sPoItem = odata.results[iRowIndex].PoItem;
-							var sPlant = odata.results[iRowIndex].Plant;
+						var sCompCode = Podata.CompCode;
+						var sPurchOrg = Podata.PurchOrg;
+						var sPurGroup = Podata.PurGroup;
+						var sPurchaseorder = Podata.Purchaseorder;
+						//get vendor name form vendor
+						if (sVendor !== "" || sVendor !== undefined) {
+							for (var y = 0; y < ListofVendor.length; y++) {
+								if (sVendor === ListofVendor[y].Lifnr) {
+									var sVendorname = ListofVendor[y].Name1;
+									var Stras = ListofVendor[y].Stras;
+									var Telf1 = ListofVendor[y].Telf1;
+									var Pstlz = ListofVendor[y].Pstlz;
+									var Land1 = ListofVendor[y].Land1;
+									var Adrnr = ListofVendor[y].Adrnr;
+									var Ort02 = ListofVendor[y].Ort02;
+									var Regio = ListofVendor[y].Regio;
 
-							//get vendor name form vendor
-							if (sVendor !== "" || sVendor !== undefined) {
-								for (var y = 0; y < ListofVendor.length; y++) {
-									if (sVendor == ListofVendor[y].Lifnr) {
-										var sVendorname = ListofVendor[y].Name1;
-											var Stras = ListofVendor[y].Stras;
-											var Telf1 = ListofVendor[y].Telf1;
-											var Pstlz = ListofVendor[y].Pstlz;
-											var Land1 = ListofVendor[y].Land1;
-											var Adrnr = ListofVendor[y].Adrnr;
-										var Ort02 = ListofVendor[y].Ort02;
-										
-										
-											oView.byId("idStreetHeader").setValue(Stras);
-					oView.byId("idTelHeader").setValue(Telf1);
-					oView.byId("idPostcodeHeader").setValue(Pstlz);
-				oView.byId("idCountryCodeHeader").setValue(Land1);
-					oView.byId("idAddnoHeader").setValue(Adrnr);
-				oView.byId("idCityHeader").setValue(Ort02);
-										
-										
+									oView.byId("idStreetHeader").setValue(Stras);
+									oView.byId("idTelHeader").setValue(Telf1);
+									oView.byId("idPostcodeHeader").setValue(Pstlz);
+									oView.byId("idCountryCodeHeader").setValue(Land1);
+									oView.byId("idAddnoHeader").setValue(Adrnr);
+									oView.byId("idCityHeader").setValue(Ort02);
 
-									}
+									oView.byId("vendoridd").setValue(sVendor);
+
+									oView.byId("vendorname").setValue(sVendorname);
+									oView.byId("idStreet").setValue(Stras);
+									oView.byId("idAddno").setValue(Adrnr);
+									oView.byId("idCountryCode").setValue(Land1);
+
+									oView.byId("idRegion").setValue(Regio);
+									oView.byId("idPostcode").setValue(Adrnr);
+									oView.byId("idCity").setValue(Ort02);
+									oView.byId("idTel").setValue(Telf1);
+
 								}
 							}
-							//get companycode discription from comp code
-							if (sCompCode !== "" || sCompCode !== undefined) {
-								for (var z = 0; z < ListofCompanycode.length; z++) {
-									if (sCompCode == ListofCompanycode[z].Bukrs) {
-										var compcodename = ListofCompanycode[z].Butxt;
-										console.log(compcodename);
-
-									}
-								}
-							}
-							//get purchase org description from purchase org
-							if (sPurchOrg !== "" || sPurchOrg !== undefined) {
-								for (var w = 0; w < ListofPurchaseOrg.length; w++) {
-									if (sPurchOrg == ListofPurchaseOrg[w].Ekorg) {
-										var sPurchOrgname = ListofPurchaseOrg[w].Ekotx;
-
-									}
-								}
-							}
-							//set the values to id
-							oView.byId("vnumber").setValue(sVendor);
-							oView.byId("idPurchaseOrg").setValue(sPurchOrg);
-							oView.byId("cc").setValue(sCompCode);
-							oView.byId("cu").setValue(sCurrency);
-							oView.byId("pg").setValue(sPurGroup);
-
-							var sDateon = sCreatDate.getFullYear() + "/" + sCreatDate.getMonth() + "/" + sCreatDate.getDate() + " ";
-							//Header model 
-							var oHeaderDataModel = new JSONModel({
-								Name: sVendorname,
-								Number: sVendor,
-								createdby: sCreatedBy,
-								createddate: sDateon,
-								CompCodeno: sCompCode,
-								CompCodename: compcodename,
-								PurchOrgno: sPurchOrg,
-								PurchOrgname: sPurchOrgname
-							});
-
-							oView.setModel(oHeaderDataModel, "oHeaderDataModel");
-
-							var oHeaderDataCodePurOrg = new JSONModel({
-
-								CompCode: compcodename,
-								PurchOrg: sPurchOrgname
-							});
-
-							oView.setModel(oHeaderDataCodePurOrg, "oHeaderDataCodePurOrg");
-
-							aPoDetailsItems.push({
-								PoNumber: sPoNumber,
-								Vendor: sVendor,
-								Name: sVendorname,
-								Material: sMaterial,
-								ShortText: sShortText,
-								NetPrice: sNetPrice,
-								Quantity: sQuantity,
-								CreatedBy: sCreatedBy,
-								CreatDate: sCreatDate,
-								CompCode: sCompCode,
-								PurchOrg: sPurchOrg,
-								PurGroup: sPurGroup,
-								Currency: sCurrency,
-								PoItem: sPoItem,
-								Plant: sPlant
-							});
-
 						}
+						//get companycode discription from comp code
+						if (sCompCode !== "" || sCompCode !== undefined) {
+							for (var z = 0; z < ListofCompanycode.length; z++) {
+								if (sCompCode === ListofCompanycode[z].Bukrs) {
+									var compcodename = ListofCompanycode[z].Butxt;
+
+								}
+							}
+						}
+						//get purchase org description from purchase org
+						if (sPurchOrg !== "" || sPurchOrg !== undefined) {
+							for (var w = 0; w < ListofPurchaseOrg.length; w++) {
+								if (sPurchOrg === ListofPurchaseOrg[w].Ekorg) {
+									var sPurchOrgname = ListofPurchaseOrg[w].Ekotx;
+
+								}
+							}
+						}
+						//set the values to id
+						oView.byId("vnumber").setValue(sVendor);
+						oView.byId("idPurchaseOrg").setValue(sPurchOrg);
+						oView.byId("cc").setValue(sCompCode);
+						//		oView.byId("cu").setValue(sCurrency);
+						oView.byId("pg").setValue(sPurGroup);
+
+						var sDateon = sCreatDate.getFullYear() + "/" + sCreatDate.getMonth() + "/" + sCreatDate.getDate() + " ";
+						//Header model 
+						var oHeaderDataModel = new JSONModel({
+							Name: sVendorname,
+							Number: sVendor,
+							createdby: sCreatedBy,
+							createddate: sDateon,
+							CompCodeno: sCompCode,
+							CompCodename: compcodename,
+							PurchOrgno: sPurchOrg,
+							PurchOrgname: sPurchOrgname
+						});
+
+						oView.setModel(oHeaderDataModel, "oHeaderDataModel");
+
+						var oHeaderDataCodePurOrg = new JSONModel({
+
+							CompCode: compcodename,
+							PurchOrg: sPurchOrgname
+						});
+
+						oView.setModel(oHeaderDataCodePurOrg, "oHeaderDataCodePurOrg");
+
+						aPoDetailsItems.push({
+							PoNumber: sPurchaseorder,
+							Vendor: sVendor,
+							Name: sVendorname,
+
+							CreatedBy: sCreatedBy,
+							CreatDate: sCreatDate,
+							CompCode: sCompCode,
+							PurchOrg: sPurchOrg,
+							PurGroup: sPurGroup
+
+						});
+
 					},
 					error: function(oError) {
-						console.log(oError);
+						BusyIndicator.hide(false);
+						MessageBox.error(oError);
+
 					}
 				});
 
@@ -730,7 +639,7 @@ sap.ui.define([
 
 					},
 					error: function(oError) {
-						console.log(oError);
+						MessageBox.error(oError);
 					}
 				});
 				this.byId("idPOItemsTab").setModel(oView.getModel("PurchaseModelITem"), "PurchaseModelITem");
@@ -754,11 +663,10 @@ sap.ui.define([
 					for (var iRowIndex = 0; iRowIndex <= 2600; iRowIndex++) {
 						var odata = oData.results[iRowIndex];
 						if (odata !== undefined) {
-						//	var sLifnrr = odata.Lifnr;
-						//	var sName1r = odata.Name1;
-							
-							
-								var Lifnrr = odata.Lifnr;
+							//	var sLifnrr = odata.Lifnr;
+							//	var sName1r = odata.Name1;
+
+							var Lifnrr = odata.Lifnr;
 							var Name1r = odata.Name1;
 							var Bukrs = odata.Bukrs;
 							var Ekgrp = odata.Ekgrp;
@@ -776,7 +684,7 @@ sap.ui.define([
 							var Sexkz = odata.Sexkz;
 							var Adrnr = odata.Adrnr;
 							ListofVendor.push({
-							Lifnr: Lifnrr,
+								Lifnr: Lifnrr,
 								Name1: Name1r,
 								Adrnr: Adrnr,
 								Bukrs: Bukrs,
@@ -820,7 +728,7 @@ sap.ui.define([
 		_handleValueVendorHelpS: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
-//open the vendor fragment
+			//open the vendor fragment
 
 			//open the vendor fragment
 			this.inputId = oEvent.getSource().getId();
@@ -879,11 +787,7 @@ sap.ui.define([
 					oView.byId("cu").setValue(oModel.getProperty(sBindPath + "/Waers"));
 					oView.byId("VendorName").setValue(oModel.getProperty(sBindPath + "/Name1"));
 
-					/*	var sorg = oModel.getProperty(sBindPath + "/Ekorg");
-						var scmp = oModel.getProperty(sBindPath + "/Bukrs");
-						var scur = oModel.getProperty(sBindPath + "/Ekgrp");
-						var spgp = oModel.getProperty(sBindPath + "/Waers");
-						var sname = oModel.getProperty(sBindPath + "/Name1");*/
+				
 
 				}
 			}
@@ -913,7 +817,7 @@ sap.ui.define([
 			// add the new rows in a table and added set  the array to property
 
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
-			var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/POItem");
+			var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
 			aPurchaseConditionItems.push(new RebateConditionItemPO({
 				Ebelp: (aPurchaseConditionItems.length + 1).toString()
 			}));
@@ -926,14 +830,45 @@ sap.ui.define([
 			var oPurchaseItemTable = this.byId("idPOItemsTab");
 			var aSelectedIndex = oPurchaseItemTable.getSelectedIndices().reverse();
 			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
-			var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/POItem");
+			var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
 			for (var i = 0; i < aSelectedIndex.length; i++) {
 				aPurchaseConditionItems.splice(aSelectedIndex[i], 1);
 			}
 			oPurchaseItemTable.clearSelection();
 			oPurchaseModel.refresh(true);
 		},
+		onSelectMaterial: function(oEvt) {
+			var sMaterial = oEvt.getSource().getSelectedKey();
+			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
+			var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
+			var iTtem = oPurchaseModel.oData.TempContract.PoitemSet.length;
 
+			for (var val = 0; val < iTtem; val++) {
+				var Matitem = aPurchaseConditionItems[val].Material;
+				//		var a = aPurchaseConditionItems.indexOf(sMaterial);
+				if (sMaterial.indexOf(" ") !== -1) {
+					sMaterial = sMaterial.split(" ");
+					sMaterial = sMaterial[0];
+				}
+				if (Matitem === sMaterial) {
+					var sMatList = new RebateConditionItemPO(aPurchaseConditionItems[val]);
+					console.log(sMatList);
+
+					var oListModel = new JSONModel();
+					oListModel.setData(sMatList);
+					oView.setModel(oListModel, "PurchaseItems");
+
+					console.log(aPurchaseConditionItems[val]);
+				
+				} else {
+
+				}
+
+			}
+
+			
+
+		},
 		/*Material Number Search start*/
 		getMaterialList: function() {
 			var that = this;
@@ -959,7 +894,7 @@ sap.ui.define([
 			var sInputValue = oEvent.getSource().getValue();
 
 			this.inputId = oEvent.getSource().getId();
-			// create value help dialog
+			//eate value help dialog
 			if (!this._valueHelpDialogph) {
 				this._valueHelpDialogph = sap.ui.xmlfragment(
 					"com.vSimpleApp.view.fragment.Vendor.fragment.MaterialNumber",
@@ -1056,26 +991,21 @@ sap.ui.define([
 			var zero = "";
 			var oSelectedItem = evt.getParameter("selectedItem");
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
-			var sVendorNumber = oPurchaseModel.oData.TempContract.Lifnr;
-			console.log(sVendorNumber);
+			var sVendor = oPurchaseModel.oData.TempContract.Vendor;
 
 			var sMaterialno = MaterialnUmberForPo
-			console.log(sMaterialno);
 			var oModelread = oView.getModel("VHeader");
 
 			var oModel = oView.getModel("Lookup");
 			if (oSelectedItem) {
 				var productInput = this.byId(this.inputId);
-				var sBindPath = oSelectedItem.getBindingContext("Lookup").sPath;
 				productInput.setValue(oSelectedItem.getTitle());
 				var sPlantNumber = oSelectedItem.getTitle();
-				console.log(sPlantNumber);
-				console.log(sMaterialno);
 				oView.byId("Price").setValue(oModel.getProperty("/Stprs"));
 				var s = "This";
 				//increase the lenght of value
 				var a = oView.byId("Price").setValue(s);
-				if ($.isNumeric((sMaterialno)) == true) {
+				if ($.isNumeric((sMaterialno)) === true) {
 					var len = sMaterialno.length;
 					if (len !== undefined) {
 						var z = 18 - len;
@@ -1091,8 +1021,8 @@ sap.ui.define([
 				var notzwer = "";
 				//	var no;
 				//increase the length of variable
-				if ($.isNumeric((sVendorNumber)) === true) {
-					var len = sVendorNumber.length;
+				if ($.isNumeric((sVendor)) === true) {
+					var len = sVendor.length;
 					if (len !== undefined) {
 						var z = 18 - len;
 						for (var i = 0; i < z; i++) {
@@ -1101,13 +1031,13 @@ sap.ui.define([
 					}
 					console.log(len);
 					console.log(notzwer);
-					sVendorNumber = notzwer + sVendorNumber;
+					sVendor = notzwer + sVendor;
 				}
 				//filtered the data and set the filter to get enttityset
-				var oFilter = new sap.ui.model.Filter('Lifnr', sap.ui.model.FilterOperator.EQ, sVendorNumber);
+				var oFilter = new sap.ui.model.Filter('Lifnr', sap.ui.model.FilterOperator.EQ, sVendor);
 				var oFilterV = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, sMaterialno);
 				var that = this;
-				oModelread.read("/fetch_matpriceSet?$filter=(Lifnr eq '" + sVendorNumber + "',Matnr eq '" + sMaterialno + "')", {
+				oModelread.read("/fetch_matpriceSet?$filter=(Lifnr eq '" + sVendor + "',Matnr eq '" + sMaterialno + "')", {
 					filters: [oFilter, oFilterV],
 
 					success: function(oData) {
@@ -1198,9 +1128,9 @@ sap.ui.define([
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
 
-			var Bukrs = oPurchaseContract.Bukrs;
+			var Bukrs = oPurchaseContract.CompCode;
 
-			var Lifnr = oPurchaseContract.Lifnr;
+			var Lifnr = oPurchaseContract.Vendor;
 			var Ebelp = oPurchaseContract.PoItem;
 
 			var PoItem = Ebelp;
@@ -1220,14 +1150,14 @@ sap.ui.define([
 			console.log(zero);
 			Lifnr = zero + Lifnr;
 			console.log(Lifnr);
-			var Ekorg = oPurchaseContract.Ekorg;
-			var Ekgrp = oPurchaseContract.Ekgrp;
-			var Waers = oPurchaseContract.Waers;
+			var Ekorg = oPurchaseContract.PurchOrg;
+			var Ekgrp = oPurchaseContract.PurGroup;
+			var Waers = oPurchaseContract.Currency;
 
 			console.log(Ebeln);
 			//var POItem = [];
 
-			var aItems = oPurchaseContract.POItem;
+			var aItems = oPurchaseContract.PoitemSet;
 			//	Ebeln = oPurchaseContract.oData[0].Ebeln;
 
 			console.log(aItems.length);
@@ -1237,10 +1167,10 @@ sap.ui.define([
 			//iterate the values of levels
 			for (var iRowIndex = 0; iRowIndex < aItems.length; iRowIndex++) {
 
-				var s_Ebelp = oPurchaseContract.POItem[iRowIndex].Ebelp;
+				var s_Ebelp = oPurchaseContract.PoitemSet[iRowIndex].Ebelp;
 				s_Ebelp = Number(s_Ebelp).toString();
 
-				var l_PoItem = oPurchaseContract.POItem[iRowIndex].PoItem;
+				var l_PoItem = oPurchaseContract.PoitemSet[iRowIndex].PoItem;
 				l_PoItem = Number(l_PoItem).toString();
 
 				var l_Ebelp1;
@@ -1251,9 +1181,9 @@ sap.ui.define([
 					l_Ebelp1 = l_PoItem;
 				}
 
-				var l_material = oPurchaseContract.POItem[iRowIndex].Material;
-				var l_Menge = oPurchaseContract.POItem[iRowIndex].Quantity;
-				var l_Werks = oPurchaseContract.POItem[iRowIndex].Plant;
+				var l_material = oPurchaseContract.PoitemSet[iRowIndex].Material;
+				var l_Menge = oPurchaseContract.PoitemSet[iRowIndex].Quantity;
+				var l_Werks = oPurchaseContract.PoitemSet[iRowIndex].Plant;
 
 				aItemData.push({
 					Ebelp: l_Ebelp1,
@@ -1336,7 +1266,7 @@ sap.ui.define([
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/PurchaseOrganization", oData.results);
 					oLookupModel.refresh(true);
-				
+
 				},
 				error: function(oError) {
 					BusyIndicator.hide();

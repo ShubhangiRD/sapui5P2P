@@ -8,12 +8,12 @@ sap.ui.define([
 	"com/vSimpleApp/model/Contract",
 	"com/vSimpleApp/model/Report",
 	"com/vSimpleApp/model/GetPurchaseVendor",
-	"com/vSimpleApp/model/PODetail",
+	"com/vSimpleApp/model/PurchaseHeader",
 	"com/vSimpleApp/model/VendorP2P",
 	"sap/ui/core/BusyIndicator",
 	"sap/m/MessageToast"
 
-], function(UIComponent, Device, models, JSONModel, Application, IconPool, Contract, Report, GetPurchaseVendor, PODetail, VendorP2P,
+], function(UIComponent, Device, models, JSONModel, Application, IconPool, Contract, Report, GetPurchaseVendor, PurchaseHeader, VendorP2P,
 	BusyIndicator, MessageToast
 ) {
 	"use strict";
@@ -88,14 +88,16 @@ sap.ui.define([
 			this.setModel(oLookupModel, "Lookup");
 
 			var oPurchaseData = {
-				TempContract: new GetPurchaseVendor()
+				//TempContract: new GetPurchaseVendor()
 					//	ContractList: new POrdersList()
+					TempContract: new PurchaseHeader()
+
 			};
 			var oPurchaseModel = new JSONModel(oPurchaseData);
 			this.setModel(oPurchaseModel, "PurchaseModel");
 
 			var oPoData = {
-				TempContract: new PODetail()
+				TempContract: new PurchaseHeader()
 
 			};
 			var oPOModel = new JSONModel(oPoData);

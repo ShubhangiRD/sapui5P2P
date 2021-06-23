@@ -46,19 +46,16 @@ sap.ui.define([
 
 			//window.location.reload();
 		},
-	onNavBack: function(oevt) {
+		onNavBack: function(oevt) {
 			var oPurchaseModel = oComponent.getModel("PurchaseModel");
 			var oTempContract = oPurchaseModel.getProperty("/TempContract");
 			oTempContract.setData();
 			//	oPurchaseModel.setData([]);
-			var s = oPurchaseModel.oData.TempContract.destroy;	
-				
-				
-		
-		
+			var s = oPurchaseModel.oData.TempContract.destroy;
+
 			oPurchaseModel.refresh(true);
 			this.getOwnerComponent().getRouter().navTo("PoHeaderList");
-		//	this.getView().getModel("VHeader").refresh();
+			//	this.getView().getModel("VHeader").refresh();
 
 		},
 		getVendorList: function() {
@@ -140,26 +137,24 @@ sap.ui.define([
 					oView.byId("cu").setValue(oModel.getProperty(sBindPath + "/Waers"));
 					oView.byId("VendorName").setValue(oModel.getProperty(sBindPath + "/Name1"));
 
-					var org = oModel.getProperty(sBindPath + "/Ekorg");
-					var cmp = oModel.getProperty(sBindPath + "/Bukrs");
-					var cur = oModel.getProperty(sBindPath + "/Ekgrp");
-					var pgp = oModel.getProperty(sBindPath + "/Waers");
-					var name = oModel.getProperty(sBindPath + "/Name1");
-					
-						oView.byId("idStreetHeader").setValue(oModel.getProperty(sBindPath + "/Stras"));
+					oView.byId("idStreetHeader").setValue(oModel.getProperty(sBindPath + "/Stras"));
 					oView.byId("idTelHeader").setValue(oModel.getProperty(sBindPath + "/Telf1"));
 					oView.byId("idPostcodeHeader").setValue(oModel.getProperty(sBindPath + "/Pstlz"));
-				oView.byId("idCountryCodeHeader").setValue(oModel.getProperty(sBindPath + "/Land1"));
+					oView.byId("idCountryCodeHeader").setValue(oModel.getProperty(sBindPath + "/Land1"));
 					oView.byId("idAddnoHeader").setValue(oModel.getProperty(sBindPath + "/Adrnr"));
-				oView.byId("idCityHeader").setValue(oModel.getProperty(sBindPath + "/Ort02"));
-			
-					
-				
-					
-					
-					
-					
-					
+					oView.byId("idCityHeader").setValue(oModel.getProperty(sBindPath + "/Ort02"));
+
+					oView.byId("vendoridd").setValue(oModel.getProperty(sBindPath + "/Lifnr"));
+
+					oView.byId("vendorname").setValue(oModel.getProperty(sBindPath + "/Name1"));
+					oView.byId("idStreet").setValue(oModel.getProperty(sBindPath + "/Stras"));
+					oView.byId("idAddno").setValue(oModel.getProperty(sBindPath + "/Adrnr"));
+					oView.byId("idCountryCode").setValue(oModel.getProperty(sBindPath + "/Land1"));
+
+					oView.byId("idRegion").setValue(oModel.getProperty(sBindPath + "/Regio"));
+					oView.byId("idPostcode").setValue(oModel.getProperty(sBindPath + "/Pstlz"));
+					oView.byId("idCity").setValue(oModel.getProperty(sBindPath + "/Ort02"));
+					oView.byId("idTel").setValue(oModel.getProperty(sBindPath + "/Telf1"));
 
 				}
 			}
@@ -773,7 +768,7 @@ sap.ui.define([
 		onAddNewConditionItem: function() {
 			var oVendorModel = this.getOwnerComponent().getModel("PurchaseModel");
 
-			var aPurchaseConditionItems = oVendorModel.getProperty("/TempContract/POItem");
+			var aPurchaseConditionItems = oVendorModel.getProperty("/TempContract/PoitemSet");
 			aPurchaseConditionItems.push(new RebateConditionItemPO({
 				Ebelp: (aPurchaseConditionItems.length + 1).toString()
 			}));
@@ -786,7 +781,7 @@ sap.ui.define([
 			var oPurchaseItemTable = this.byId("idTableitem");
 			var aSelectedIndex = oPurchaseItemTable.getSelectedIndices().reverse();
 			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
-			var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/POItem");
+			var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
 			for (var i = 0; i < aSelectedIndex.length; i++) {
 				aPurchaseConditionItems.splice(aSelectedIndex[i], 1);
 			}
@@ -1041,12 +1036,11 @@ sap.ui.define([
 			var err = x.error.message.value;
 
 			jQuery.sap.require("sap.m.MessageBox");
-			
+
 			sap.m.MessageBox.error(
-				"Error creating entry: " + err + " "  
+				"Error creating entry: " + err + " "
 			);
 
-	
 		},
 
 		onEditPOOrders: function() {

@@ -63,11 +63,13 @@
 					"localUri": "localService/metadata.xml"
 				}
 			},
-				"vendorGetService1": {
-				"uri": "/sap/opu/odata/sap/ZVENDOR_ASSIGNMENT_SRV/",
+			"p2pServices": {
+				"uri": "/sap/opu/odata/sap/ZP2PSERVICES_SRV/",
 				"type": "OData",
 				"settings": {
-					"odataVersion": "2.0"
+					"defaultUpdateMethod": "PUT",
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml"
 				}
 			},
 			"Vendorf4Service": {
@@ -130,7 +132,7 @@
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "data/taxnotype.json"
 			},
-				"Title": {
+			"Title": {
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "data/Title.json"
 			},
@@ -193,8 +195,8 @@
 			"VHeader": {
 				"dataSource": "vendorGetService"
 			},
-			"VHeader1": {
-				"dataSource": "vendorGetService1"
+			"PurchaseSet": {
+				"dataSource": "p2pServices"
 			},
 			"Vendorf4Model": {
 				"dataSource": "Vendorf4Service"
@@ -374,7 +376,7 @@
 				"name": "VendorDetails",
 				"pattern": "VendorDetails",
 				"target": ["VendorDetails"]
-			},  {
+			}, {
 				"pattern": "POForm-screen",
 				"name": "POForm",
 				"target": "POForm"

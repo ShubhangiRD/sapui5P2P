@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:x="sap.uxap" xmlns:t="sap.ui.table" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified"
 	xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
-	<t:Table id="idPOItemsTab" class="sapUiSmallMarginTop" rows="{ path: 'PurchaseModel>/TempContract/POItem'}" visibleRowCount="5"
+	<t:Table id="idPOItemsTab" class="sapUiSmallMarginTop" rows="{ path: 'PurchaseModel>/TempContract/PoitemSet'}" visibleRowCount="5"
 		selectionMode="MultiToggle">
 		<t:extension>
 			<OverflowToolbar>

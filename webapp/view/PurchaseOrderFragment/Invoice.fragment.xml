@@ -8,56 +8,55 @@
 			<f:formContainers>
 				<f:FormContainer>
 					<f:formElements>
-
 						<f:FormElement label="Dp Categories" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Select id="DpCategories" class="sapUiTinyMarginTop">
+								<Select id="DpCategories" >
 									<items>
-										<core:Item text=" " key=" "/>
-										<core:Item text=" " key=" "/>
+											<core:Item text=" " key=" "/>
+										<core:Item text="Mandatory Down Payment" key="Mandatory Down Payment"/>
+										<core:Item text="No Down Payment" key="No Down Payment"/>
+										<core:Item text="Voluntory Down Payment" key="Voluntory Down Payment"/>
 									</items>
 								</Select>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Differencial Invoicing" class="sapUiResponsiveMargin ">
 							<f:fields>
-								<Select id="DiffInvoicing" class="sapUiTinyMarginTop">
+								<Select id="DiffInvoicing" >
 									<items>
-										<core:Item text=" " key=" "/>
-										<core:Item text=" " key=" "/>
+											<core:Item text=" " key=" "/>
+										<core:Item text="Not Relevent" key="Not Relevent"/>
+										<core:Item text="Relevent" key="Relevent"/>
 									</items>
 								</Select>
 							</f:fields>
 						</f:FormElement>
-								<f:FormElement label="Tax Code" class="sapUiTinyMarginTop">
+						<f:FormElement label="Tax Code" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="TaxCodeInvoic" maxLength="2" textFormatMode="KeyValue" class="sapUiTinyMarginTop"></Input>
+								<Input id="TaxCodeInvoic" editable="{EditModel>/isEditable}" value= "{PurchaseItems>/TaxCode}" maxLength="2" textFormatMode="KeyValue" ></Input>
 							</f:fields>
 						</f:FormElement>
-				
 					</f:formElements>
 				</f:FormContainer>
 			</f:formContainers>
-		
 			<f:formContainers>
 				<f:FormContainer>
 					<f:formElements>
 						<f:FormElement label=" " class="sapUiTinyMarginTop">
 							<f:fields>
-								<CheckBox id="InvReceipt" class="sapUiTinyMarginTop" text="Inv.Receipt"/>
+								<CheckBox id="InvReceipt"  editable="{EditModel>/isEditable}" text="Inv.Receipt"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label=" " class="sapUiTinyMarginTop">
 							<f:fields>
-								<CheckBox id="FinalInvoice" class="sapUiTinyMarginTop" text="Final Invoice"/>
+								<CheckBox id="FinalInvoice" editable="{EditModel>/isEditable}"  text="Final Invoice"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label=" " class="sapUiTinyMarginTop">
 							<f:fields>
-								<CheckBox id="GRBasedIV" class="sapUiTinyMarginTop" text="GR Based IV"/>
+								<CheckBox id="GRBasedIV" editable="{EditModel>/isEditable}"   text="GR Based IV"/>
 							</f:fields>
 						</f:FormElement>
-					
 					</f:formElements>
 				</f:FormContainer>
 			</f:formContainers>

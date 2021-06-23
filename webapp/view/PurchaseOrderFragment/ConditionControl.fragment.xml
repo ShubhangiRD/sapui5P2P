@@ -12,12 +12,12 @@
 					<f:formElements>
 						<f:FormElement label=" " class="sapUiTinyMarginTop">
 							<f:fields>
-								<CheckBox id="printprc" class="sapUiTinyMarginTop" text="Print price"/>
+								<CheckBox id="printprc" editable="{EditModel>/isEditable}"  text="Print price"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label=" " class="sapUiTinyMarginTop">
 							<f:fields>
-								<CheckBox id="idestimatedprc" class="sapUiTinyMarginTop" text="Estimated price"/>
+								<CheckBox id="idestimatedprc" editable="{EditModel>/isEditable}"  text="Estimated price"/>
 							</f:fields>
 						</f:FormElement>
 					
