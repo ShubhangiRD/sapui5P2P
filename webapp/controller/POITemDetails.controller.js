@@ -125,15 +125,6 @@ sap.ui.define([
 
 			this.getView().setModel(oPomodel, "pomodel");
 
-			var aFilter = [
-				new sap.ui.model.Filter({
-					path: "Purchaseorder",
-					operator: sap.ui.model.FilterOperator.EQ,
-					value1: PurchaseOno
-				})
-
-			];
-
 			return new Promise(function(resolve1, reject1) {
 
 				BusyIndicator.show(true);
@@ -141,15 +132,16 @@ sap.ui.define([
 					urlParameters: {
 						"$expand": "PoitemSet"
 					},
-					//	filters: aFilter,
+
 					success: function(odata) {
 						console.log(odata);
 						BusyIndicator.hide(false);
 
 						var Podata = new PurchaseHeader(odata);
-						oView.getModel("PurchaseModel").setProperty("/TempContract", Podata); // setData(oData.results);
+						oView.getModel("PurchaseModel").setProperty("/TempContract", Podata);
+						// setData(oData.results);
 
-						oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet", Podata.PoitemSet.results); // setData(oData.results);
+						oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet", Podata.PoitemSet.results);
 						var aPoDetailsItems = [];
 
 						var sVendor = Podata.Vendor;
@@ -181,12 +173,10 @@ sap.ui.define([
 									oView.byId("idCityHeader").setValue(Ort02);
 
 									oView.byId("vendoridd").setValue(sVendor);
-
 									oView.byId("vendorname").setValue(sVendorname);
 									oView.byId("idStreet").setValue(Stras);
 									oView.byId("idAddno").setValue(Adrnr);
 									oView.byId("idCountryCode").setValue(Land1);
-
 									oView.byId("idRegion").setValue(Regio);
 									oView.byId("idPostcode").setValue(Adrnr);
 									oView.byId("idCity").setValue(Ort02);
@@ -368,17 +358,15 @@ sap.ui.define([
 			//	var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
 
 			var oModel = oView.getModel("Lookup");
-
+	var oPurchaseModel = this.getView().getModel("PurchaseModel");
+			
 			if (oSelectedItem) {
 				var productInput = this.byId(this.inputId);
-				//productInput2 = this.byId(this.inputId),
 				MaterialnUmberForPo = oSelectedItem.getInfo();
 				var sTitle = oSelectedItem.getTitle();
 				productInput.setSelectedKey(MaterialnUmberForPo);
 
 				productInput.setValue(sTitle);
-				//**********
-				//var productInput = this.byId(this.inputId);
 				var sBindPath = oSelectedItem.getBindingContext("Lookup").sPath;
 				productInput.setValue(MaterialnUmberForPo);
 
@@ -394,12 +382,10 @@ sap.ui.define([
 				$("#" + id + "-inner").val(oDiscription);
 
 				var b = oModel.getProperty(sBindPath + "/UOM");
-				//this.getView().byId("measure1").setValue(b); getPurchase.getData().UOM = 
 				var ab1 = $(this)[0].inputId;
 				var id1 = $("#" + ab1).closest("tr").find(".measure1").attr("id");
 				$("#" + id1 + "-inner").val(b);
 
-				var oPurchaseModel = this.getView().getModel("PurchaseModel");
 				var sPath = oPurchaseModel.oData.TempContract.POItem;
 				var Modifiedlenght = sPath.length - 1;
 
@@ -499,7 +485,7 @@ sap.ui.define([
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/POOrderList", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+
 				},
 				error: function(oError) {
 					BusyIndicator.hide();
@@ -563,17 +549,14 @@ sap.ui.define([
 				var productInput = this.byId(this.inputId);
 				var sBindPath = oSelectedItem.getBindingContext("Lookup").sPath;
 				productInput.setValue(oSelectedItem.getTitle());
-				var sTitle = oSelectedItem.getTitle();
 
 				oView.byId("vnumber").setValue(oModellookup.getProperty(sBindPath + "/Lifnr"));
 				oView.byId("idPurOrg").setValue(oModellookup.getProperty(sBindPath + "/Ekorg"));
 				oView.byId("idCompCode").setValue(oModellookup.getProperty(sBindPath + "/Bukrs"));
 				oView.byId("idCountryCode").setValue(oModellookup.getProperty(sBindPath + "/Waers"));
 				oView.byId("idPurGrg").setValue(oModellookup.getProperty(sBindPath + "/Ekgrp"));
-				//		oView.byId("productPO").setValue(oModellookup.getProperty(sBindPath + "/Ebeln"));
 				Ebeln = oModellookup.getProperty(sBindPath + "/Ebeln");
 
-				console.log(Ebeln);
 				var aFilter = [
 					new sap.ui.model.Filter({
 						path: "Purchaseorder",
@@ -592,7 +575,8 @@ sap.ui.define([
 
 					},
 					error: function(oError) {
-						console.log(oError);
+						MessageBox.error(oError);
+
 					}
 				});
 				//set the data to table
@@ -610,8 +594,6 @@ sap.ui.define([
 
 				var iproductInput = this.byId(this.inputId);
 				var sBindPath = oSelectedItem.getBindingContext("VHeader").sPath;
-				//	productInput.setValue(oSelectedItem.getText());
-				var sno = oSelectedItem.getText();
 
 				//	productInput.setValue(sInputValue.getTitle());
 				oView.byId("vnumber").setValue(oModel.getProperty(sBindPath + "/Lifnr"));
@@ -621,7 +603,6 @@ sap.ui.define([
 				oView.byId("idPurGrg").setValue(oModel.getProperty(sBindPath + "/Ekgrp"));
 				oView.byId("idPoOrder").setValue(oModel.getProperty(sBindPath + "/Ebeln"));
 				Ebeln = oModel.getProperty(sBindPath + "/Ebeln");
-				console.log(Ebeln);
 				var aFilter = [
 					new sap.ui.model.Filter({
 						path: "Purchaseorder",
@@ -636,14 +617,12 @@ sap.ui.define([
 					filters: aFilter,
 					success: function(oData) {
 						oView.getModel("PurchaseModel").setProperty("/TempContract/POItem", oData.results); // setData(oData.results);
-
 					},
 					error: function(oError) {
 						MessageBox.error(oError);
 					}
 				});
 				this.byId("idPOItemsTab").setModel(oView.getModel("PurchaseModelITem"), "PurchaseModelITem");
-
 			}
 
 		},
@@ -657,15 +636,11 @@ sap.ui.define([
 			//BusyIndicator.show(0);
 			oModel.read("/Fetch_Vendor_DetailsSet", {
 				success: function(oData) {
-					//		console.log(oData);
 					var iItem = oData.results.length;
 
 					for (var iRowIndex = 0; iRowIndex <= 2600; iRowIndex++) {
 						var odata = oData.results[iRowIndex];
 						if (odata !== undefined) {
-							//	var sLifnrr = odata.Lifnr;
-							//	var sName1r = odata.Name1;
-
 							var Lifnrr = odata.Lifnr;
 							var Name1r = odata.Name1;
 							var Bukrs = odata.Bukrs;
@@ -728,8 +703,7 @@ sap.ui.define([
 		_handleValueVendorHelpS: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
-			//open the vendor fragment
-
+		
 			//open the vendor fragment
 			this.inputId = oEvent.getSource().getId();
 			// create value help dialog
@@ -786,8 +760,6 @@ sap.ui.define([
 					oView.byId("pg").setValue(oModel.getProperty(sBindPath + "/Ekgrp"));
 					oView.byId("cu").setValue(oModel.getProperty(sBindPath + "/Waers"));
 					oView.byId("VendorName").setValue(oModel.getProperty(sBindPath + "/Name1"));
-
-				
 
 				}
 			}
@@ -859,14 +831,12 @@ sap.ui.define([
 					oView.setModel(oListModel, "PurchaseItems");
 
 					console.log(aPurchaseConditionItems[val]);
-				
+
 				} else {
 
 				}
 
 			}
-
-			
 
 		},
 		/*Material Number Search start*/
@@ -954,7 +924,6 @@ sap.ui.define([
 				var sUOM = oModel.getProperty(sBindPath + "/UOM");
 
 				var b = oModel.getProperty(sBindPath + "/UOM");
-				//this.getView().byId("measure1").setValue(b); getPurchase.getData().UOM = 
 				var ab1 = $(this)[0].inputId;
 				var id1 = $("#" + ab1).closest("tr").find(".measure1").attr("id");
 				$("#" + id1 + "-inner").val(b);
@@ -977,7 +946,7 @@ sap.ui.define([
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/POPlant", oData.results);
 					oLookupModel.refresh(true);
-					//that.getMaterialList();
+					
 				},
 				error: function(oError) {
 					//BusyIndicator.hide();
@@ -993,7 +962,7 @@ sap.ui.define([
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var sVendor = oPurchaseModel.oData.TempContract.Vendor;
 
-			var sMaterialno = MaterialnUmberForPo
+			var sMaterialno = MaterialnUmberForPo;
 			var oModelread = oView.getModel("VHeader");
 
 			var oModel = oView.getModel("Lookup");

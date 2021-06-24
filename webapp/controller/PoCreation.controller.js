@@ -458,24 +458,17 @@ sap.ui.define([
 			var oSelectedItem = evt.getParameter("selectedItem");
 			var getPurchase = this.getView().getModel("CreateContract");
 			var vendorModel = this.getView().getModel("PurchaseModel");
-			var Materialno = getPurchase.getProperty("/Materialno");
-			var VendorNumber = vendorModel.oData.TempContract.Lifnr;
-			console.log(Materialno);
+			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
 
-			console.log(VendorNumber);
+			var Materialno = getPurchase.getProperty("/Materialno");
+			var VendorNumber = oPurchaseModel.oData.TempContract.Lifnr;
 
 			var oModel = oView.getModel("VHeader");
 			if (oSelectedItem) {
 				var productInput = this.byId(this.inputId);
-				var sBindPath = oSelectedItem.getBindingContext("Lookup").sPath;
 				productInput.setValue(oSelectedItem.getTitle());
-				var PlantNumber = oSelectedItem.getTitle();
-				console.log(PlantNumber);
-				console.log(Materialno);
 				oView.byId("Price").setValue(getPurchase.getProperty("/Stprs"));
-				var s = "This";
-				var a = oView.byId("Price").setValue(s);
-				if ($.isNumeric((Materialno)) == true) {
+				if ($.isNumeric((Materialno)) === true) {
 					var len = Materialno.length;
 					if (len !== undefined) {
 						var z = 18 - len;
@@ -483,83 +476,124 @@ sap.ui.define([
 							zero += "0";
 						}
 					}
-					console.log(len);
-					console.log(zero);
+
 					Materialno = zero + Materialno;
-					console.log(Materialno)
+
 				}
 
-				var notzwer = "";
-				//	var no;
+				var sVstring = "";
 
-				if ($.isNumeric((VendorNumber)) == true) {
-					var len = VendorNumber.length;
-					if (len !== undefined) {
-						var z = 10 - len;
-						for (var i = 0; i < z; i++) {
-							notzwer += "0";
+				if ($.isNumeric((VendorNumber)) === true) {
+					var iVenLength = VendorNumber.length;
+					if (iVenLength !== undefined) {
+						var sV = 10 - iVenLength;
+						for (var itext = 0; itext < sV; i++) {
+							sVstring += "0";
 						}
 					}
-					console.log(len);
-					console.log(notzwer);
-					VendorNumber = notzwer + VendorNumber;
+
+					VendorNumber = sVstring + VendorNumber;
 				}
-				console.log(VendorNumber);
 				var oFilter = new sap.ui.model.Filter('Lifnr', sap.ui.model.FilterOperator.EQ, VendorNumber);
 				var oFilterV = new sap.ui.model.Filter('Matnr', sap.ui.model.FilterOperator.EQ, Materialno);
 				var that = this;
 				oModel.read("/fetch_matpriceSet?$filter=(Lifnr eq '" + VendorNumber + "',Matnr eq '" + Materialno + "')", {
 					filters: [oFilter, oFilterV],
 
-					/*		oModel.read("/fetch_matpriceSet(Matnr='" + Materialno + "',Bwkey='" + PlantNumber + "')", {
-					 */ //	oModel.read("/fetch_matpriceSet(Lifnr='" + VendorNumber + "',Matnr ='" + Materialno + "')", {
-
-					//	oModel.read("/fetch_matpriceSet?$filter=(Lifnr eq + VendorNumber + and Matnr eq + Materialno + ))",{
-
 					success: function(oData) {
 
 						console.log(oData);
 
 						if (!oData.results.length) {
-							alert("No price found for given material number and plant combination. Add the price manually.");
+							MessageBox.alert("No price found for given material number and plant combination. Add the price manually.");
 							var aaas = "0.00"
 							console.log(aaas);
 							var ab = $(that)[0].inputId;
 							var id = $("#" + ab).closest("tr").find(".price1").attr("id");
 							$("#" + id + "-inner").val(aaas);
 						} else {
-							console.log("array having values");
 							var PriceJson = new JSONModel();
 							PriceJson.setData(oData.results);
 							oView.setModel(PriceJson);
 							var oHierarchyModel = new sap.ui.model.json.JSONModel();
 							oView.setModel(oHierarchyModel, "hierarchy");
 							oView.getModel("hierarchy").setData(oData);
-							var aaas = oHierarchyModel.oData.results[0].Netpr;
+							var sNetPrice = oHierarchyModel.oData.results[0].Netpr;
 
-							console.log(aaas);
-							var ab = $(that)[0].inputId;
-							var id = $("#" + ab).closest("tr").find(".price1").attr("id");
-							$("#" + id + "-inner").val(aaas);
-							//	$("#" + id + "-inner").val(oHierarchyModel.getProperty("/Netpr"));
-
-							//var price = oView.byId("idPrice").setValue(PriceJson.getProperty("/Stprs"));
+							var sPriceab = $(that)[0].inputId;
+							var idPrice = $("#" + sPriceab).closest("tr").find(".price1").attr("id");
+							$("#" + idPrice + "-inner").val(sNetPrice);
 
 						}
 
 					},
 					error: function(oError) {
-						console.log(oError);
+						MessageBox.error(oError);
 
 					}
 
 				});
+
+				var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
+				var iTtem = oPurchaseModel.oData.TempContract.PoitemSet.length;
+
+				var sMatno = aPurchaseConditionItems[aPurchaseConditionItems.length - 1].Material;
+
+				for (var val = 0; val < iTtem; val++) {
+					var Matitem = aPurchaseConditionItems[val].Material;
+					//		var a = aPurchaseConditionItems.indexOf(sMaterial);
+					if (sMatno.indexOf(" ") !== -1) {
+						sMatno = sMatno.split(" ");
+						sMatno = sMatno[0];
+					}
+					if (Matitem === sMatno) {
+						var sMatList = new RebateConditionItemPO(aPurchaseConditionItems[val]);
+						console.log(sMatList);
+
+						var oListModel = new JSONModel();
+						oListModel.setData(sMatList);
+						oView.setModel(oListModel, "PurchaseItems");
+
+						console.log(aPurchaseConditionItems[val]);
+
+					} else {
+
+					}
+
+				}
 
 				evt.getSource().getBinding("items").filter([]);
 			}
 		},
 
 		/*plant search end*/
+		onSelectMaterial: function(oEvt) {
+			var sMaterial = oEvt.getSource().getSelectedKey();
+			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
+			var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
+			var iTtem = oPurchaseModel.oData.TempContract.PoitemSet.length;
+
+			for (var val = 0; val < iTtem; val++) {
+				var Matitem = aPurchaseConditionItems[val].Material;
+				//		var a = aPurchaseConditionItems.indexOf(sMaterial);
+				if (sMaterial.indexOf(" ") !== -1) {
+					sMaterial = sMaterial.split(" ");
+					sMaterial = sMaterial[0];
+				}
+				if (Matitem === sMaterial) {
+					var sMatList = new RebateConditionItemPO(aPurchaseConditionItems[val]);
+
+					var oListModel = new JSONModel();
+					oListModel.setData(sMatList);
+					oView.setModel(oListModel, "PurchaseItems");
+
+				} else {
+
+				}
+
+			}
+
+		},
 
 		/*Material Number Search start*/
 		getMaterialList: function() {
@@ -632,23 +666,17 @@ sap.ui.define([
 				productInput.setValue(oSelectedItem.getTitle());
 
 				var oDiscription = oModel.getProperty(sBindPath + "/Description");
-				var uom = oModel.getProperty(sBindPath + "/UOM");
-
 				var ab = $(this)[0].inputId;
 				var id = $("#" + ab).closest("tr").find(".desc1").attr("id");
 				$("#" + id + "-inner").val(oDiscription);
 
 				getPurchase.getData().Materialno = oSelectedItem.getTitle();
-				var a = getPurchase.getData().Description = oModel.getProperty(sBindPath + "/Description");
-				var UOM = getPurchase.getData().UOM = oModel.getProperty(sBindPath + "/UOM");
 
-				var b = oModel.getProperty(sBindPath + "/UOM");
-				//this.getView().byId("measure1").setValue(b); getPurchase.getData().UOM = 
+				var sUnitb = oModel.getProperty(sBindPath + "/UOM");
 				var ab1 = $(this)[0].inputId;
 				var id1 = $("#" + ab1).closest("tr").find(".measure1").attr("id");
-				$("#" + id1 + "-inner").val(b);
+				$("#" + id1 + "-inner").val(sUnitb);
 
-				//		getPurchase.getData().PurchaseGroup = oModel.getProperty(sBindPath + "/ ");
 			}
 			evt.getSource().getBinding("items").filter([]);
 
@@ -657,8 +685,6 @@ sap.ui.define([
 		/*Material SEarch end*/
 
 		/*material discription start*/
-
-		/*Comp Search start*/
 
 		getMaterialDisList: function() {
 			var that = this;

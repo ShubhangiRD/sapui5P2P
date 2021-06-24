@@ -10,12 +10,12 @@
 					<f:formElements>
 						<f:FormElement label="Overdeliv Tool" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="Overdeliv"  editable="{EditModel>/isEditable}" maxLength="3" textFormatMode="KeyValue" ></Input>
+								<Input id="Overdeliv"  value="{PurchaseItems>/OverDlvTol}"   editable="{EditModel>/isEditable}" maxLength="3" textFormatMode="KeyValue" ></Input>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="UnderDeliv Tool" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="UnderDeliv" editable="{EditModel>/isEditable}"  maxLength="3"  textFormatMode="KeyValue"/>
+								<Input id="UnderDeliv"  value="{PurchaseItems>/UnderDlvTol}"  editable="{EditModel>/isEditable}"  maxLength="3"  textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Rem Shelf Life" class="sapUiTinyMarginTop">
