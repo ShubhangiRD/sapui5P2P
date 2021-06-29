@@ -410,17 +410,14 @@ sap.ui.define([
 						console.log(path.length);
 						//	aa.setProperty(path + "/SuppVendor", dd);
 
-						var aData = aa.getProperty("/TempContract/POItem");
+						var aData = aa.getProperty("/TempContract/PoitemSet");
 						aData.push.apply(aData, oData.fpoItemSet.results);
-						aa.setProperty("/TempContract/POItem", aData);
-						/*	for (var i = 0; i < aa.oData.TempContract.POItem.length; i++) {
-						oView.getModel("PurchaseModel").setProperty("/TempContract/POItem", oData.results); // setData(oData.results);
-						//console.log(oData);
-						}*/
+						aa.setProperty("/TempContract/PoitemSet", aData);
+					
 
 						var poModel = oView.getModel("PurchaseModel");
 						console.log(poModel);
-						var mModel = poModel.getProperty("/TempContract/POItem");
+						var mModel = poModel.getProperty("/TempContract/PoitemSet");
 						CreateDocDate = oData.CreatDate;
 						CreateDoctypeDate = oData.DocDate;
 						var mno = mModel[0].Material;
@@ -488,7 +485,7 @@ sap.ui.define([
 					success: function(oData) {
 						//	console.log(oData.results);
 						//	oView.getModel("PurchaseModelITem").setData(oData.results);
-						oView.getModel("PurchaseModel").setProperty("/TempContract/POItem", oData.results); // setData(oData.results);
+						oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet", oData.results); // setData(oData.results);
 						//console.log(oData);
 
 					},

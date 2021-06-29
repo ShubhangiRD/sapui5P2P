@@ -61,6 +61,15 @@
 						</ObjectPageSubSection>
 					</subSections>
 				</ObjectPageSection>
+					<ObjectPageSection titleUppercase="false" title="Conditions">
+					<subSections>
+						<ObjectPageSubSection titleUppercase="false">
+							<blocks>
+								<core:Fragment fragmentName="com.vSimpleApp.fragment.POfragments.Conditions" type="XML"/>
+							</blocks>
+						</ObjectPageSubSection>
+					</subSections>
+				</ObjectPageSection>
 				<ObjectPageSection titleUppercase="false" title="Address">
 					<subSections>
 						<ObjectPageSubSection titleUppercase="false">

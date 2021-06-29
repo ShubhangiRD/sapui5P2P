@@ -75,6 +75,8 @@ sap.ui.define([
 			this.Handoverloc = (oData && oData.Handoverloc) ? oData.Handoverloc : "";
 			this.Shipcond = (oData && oData.Shipcond) ? oData.Shipcond : "";
 		this.PoitemSet = (oData && oData.PoitemSet) ? oData.PoitemSet : [];
+		this.PoCondSet = (oData && oData.PoCondSet) ? oData.PoCondSet : [];
+		this.PoScheduleSet = (oData && oData.PoScheduleSet) ? oData.PoScheduleSet : [];
 	//	this.PoitemSet = (oData && oData.PoitemSet) ? oData.PoitemSet : new PODetail();
 		
 		

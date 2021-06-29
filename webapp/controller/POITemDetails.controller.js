@@ -57,9 +57,8 @@ sap.ui.define([
 			var oPOitemsTab = new JSONModel();
 			oView.setModel(oPOitemsTab, "PurchaseModelITem");
 
-			/*	var oPurchaseItems = new JSONModel();
-				oView.setModel(oPurchaseItems, "PurchaseItems");
-			*/
+			var oPurchaseItems = new JSONModel();
+			oView.setModel(oPurchaseItems, "PurchaseItems");
 
 			var oOpenPOModel = new JSONModel();
 			oView.setModel(oOpenPOModel, "OpenPOModel");
@@ -130,7 +129,7 @@ sap.ui.define([
 				BusyIndicator.show(true);
 				oModel.read("/PoDisplaySet(Purchaseorder='" + PurchaseOno + "')", {
 					urlParameters: {
-						"$expand": "PoitemSet"
+						"$expand": "PoitemSet,PoCondSet,PoScheduleSet"
 					},
 
 					success: function(odata) {
@@ -142,6 +141,33 @@ sap.ui.define([
 						// setData(oData.results);
 
 						oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet", Podata.PoitemSet.results);
+						oView.getModel("PurchaseModel").setProperty("/TempContract/PoCondSet", Podata.PoCondSet.results);
+						oView.getModel("PurchaseModel").setProperty("/TempContract/PoScheduleSet", Podata.PoScheduleSet.results);
+
+						var aPurchaseConditionItems = Podata.PoitemSet;
+						var iTtem = aPurchaseConditionItems.length;
+
+						var sMatno = aPurchaseConditionItems[0].Material;
+
+						for (var val = 0; val < iTtem; val++) {
+							var Matitem = aPurchaseConditionItems[val].Material;
+							//		var a = aPurchaseConditionItems.indexOf(sMaterial);
+							if (sMatno.indexOf(" ") !== -1) {
+								sMatno = sMatno.split(" ");
+								sMatno = sMatno[0];
+							}
+							if (Matitem === sMatno) {
+								var sMatList = new RebateConditionItemPO(aPurchaseConditionItems[val]);
+
+								var oListModel = new JSONModel();
+								oListModel.setData(sMatList);
+								oView.setModel(oListModel, "PurchaseItems");
+
+							} else {
+
+							}
+
+						}
 						var aPoDetailsItems = [];
 
 						var sVendor = Podata.Vendor;
@@ -358,8 +384,8 @@ sap.ui.define([
 			//	var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
 
 			var oModel = oView.getModel("Lookup");
-	var oPurchaseModel = this.getView().getModel("PurchaseModel");
-			
+			var oPurchaseModel = this.getView().getModel("PurchaseModel");
+
 			if (oSelectedItem) {
 				var productInput = this.byId(this.inputId);
 				MaterialnUmberForPo = oSelectedItem.getInfo();
@@ -703,7 +729,6 @@ sap.ui.define([
 		_handleValueVendorHelpS: function(oEvent) {
 			var sInputValue = oEvent.getSource().getValue();
 
-		
 			//open the vendor fragment
 			this.inputId = oEvent.getSource().getId();
 			// create value help dialog
@@ -824,13 +849,8 @@ sap.ui.define([
 				}
 				if (Matitem === sMaterial) {
 					var sMatList = new RebateConditionItemPO(aPurchaseConditionItems[val]);
-					console.log(sMatList);
 
-					var oListModel = new JSONModel();
-					oListModel.setData(sMatList);
-					oView.setModel(oListModel, "PurchaseItems");
-
-					console.log(aPurchaseConditionItems[val]);
+					oView.getModel("PurchaseItems").setData(sMatList);
 
 				} else {
 
@@ -946,7 +966,7 @@ sap.ui.define([
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/POPlant", oData.results);
 					oLookupModel.refresh(true);
-					
+
 				},
 				error: function(oError) {
 					//BusyIndicator.hide();
