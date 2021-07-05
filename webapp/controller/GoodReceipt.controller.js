@@ -11,10 +11,11 @@ sap.ui.define([
 	"sap/m/ColumnListItem",
 	"jquery.sap.global",
 	"sap/m/MessageBox",
-	"sap/ui/core/routing/History"
+	"sap/ui/core/routing/History",
+	"com/vSimpleApp/model/GRDisplayHeader"
 
 ], function(Controller, JSONModel, BusyIndicator, MessageToast, FilterOperator, Filter, library, Fragment,
- MessageBox, History) {
+	MessageBox, History,GRDisplayHeader) {
 	"use strict";
 	var oView, Ebeln, oComponent;
 	var ListofVendor = [];
@@ -32,7 +33,7 @@ sap.ui.define([
 			//set the model on view to be used by the UI controls
 			this.getView().setModel(oModel);
 			oComponent = this.getOwnerComponent();
-		
+
 			this.getVendorList();
 			var POItemsModel = new JSONModel();
 			oView.setModel(POItemsModel, "POItemsModel");
@@ -52,7 +53,8 @@ sap.ui.define([
 
 			var AllDataModel = new sap.ui.model.json.JSONModel([]);
 			oView.setModel(AllDataModel, "AllDataModel");
-
+			var oMatData = new JSONModel();
+			oView.setModel(oMatData, "MatData");
 		},
 		onNavBack: function(oevt) {
 
@@ -218,7 +220,7 @@ sap.ui.define([
 			//	BusyIndicator.show(0);
 
 			oModel.read("/openpo_headerSet", {
-			success: function(oData) {
+				success: function(oData) {
 					console.log(oData);
 
 					BusyIndicator.hide();
@@ -284,7 +286,6 @@ sap.ui.define([
 
 			var oModellookup = oView.getModel("Lookup");
 
-			console.log(oModellookup);
 			if (oSelectedItem) {
 
 				var productInput = this.byId(this.inputId);
@@ -319,8 +320,8 @@ sap.ui.define([
 					},
 					success: function(oData) {
 						console.log(oData);
-							var AllModel = oView.getModel("AllDataModel");
-						
+						var AllModel = oView.getModel("AllDataModel");
+
 						var lq = oData.fpoItemSet.results.length;
 						if (lq == 0) {
 							var AllModel = oView.getModel("AllDataModel");
@@ -358,8 +359,7 @@ sap.ui.define([
 						Datepoststring = Datepoststring.slice(0, -5);
 						console.log(Datepoststring);
 
-					
-					AllModel = oView.getModel("AllDataModel");
+						AllModel = oView.getModel("AllDataModel");
 						var path = AllModel.oData;
 						AllModel.setProperty(path + "/CreatDate");
 						oView.getModel("AllDataModel").setProperty("/CreatDate", str);
@@ -413,7 +413,6 @@ sap.ui.define([
 						var aData = aa.getProperty("/TempContract/PoitemSet");
 						aData.push.apply(aData, oData.fpoItemSet.results);
 						aa.setProperty("/TempContract/PoitemSet", aData);
-					
 
 						var poModel = oView.getModel("PurchaseModel");
 						console.log(poModel);
@@ -450,6 +449,57 @@ sap.ui.define([
 			oEvent.getSource().getBinding("items").filter([]);
 
 		},
+		PressMaterialDoc: function(oEvent) {
+			var oMatModel = oView.getModel("MatData");
+			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
+
+			var sMaterialDocument = oMatModel.oData.MatDocument;
+			var sMaterialDocumentYear = oMatModel.oData.MatDocYear;
+			/*	var sMaterialDoc = oView.byId("idMacDoc");
+			var sMatYear = oView.byId("idMacDocYear");
+*/
+
+			
+				oModel.read("/GrHeadSet(MatDoc='5000001693',DocYear='2021')", {
+				urlParameters: {
+					"$expand": "GrItemSet"
+				},
+
+			
+					success: function(oData) {
+					console.log(oData);
+					var grData = new GRDisplayHeader(oData);
+					console.log(grData);
+						oView.getModel("GoodReceiptModel").setProperty("/GRPost", oData);
+						// setData(oData.results);
+					oView.getModel("GoodReceiptModel").setProperty("/GRPost/GrItemSet", oData.GrItemSet.results);
+					
+
+					},
+				error: function(oError) {
+					MessageBox.error(oError);
+				}
+			});
+
+		},
+		AddPartnerHeaderItems: function() {
+			this.MacDocDialog = this.getView().byId("idMacDocyear");
+			if (!this.MacDocDialog) {
+				this.MacDocDialog = sap.ui.xmlfragment("com.vSimpleApp.GoodReceipt.MacDocYear", this);
+				this.MacDocDialog.open();
+			}
+		},
+
+		onClosePartner: function() {
+			this.MacDocDialog.close();
+			this.MacDocDialog.destroy();
+		},
+		onExitPartner: function() {
+			if (this.MacDocDialog) {
+				this.MacDocDialog.destroy();
+			}
+		},
+
 		suggestionItemSelectedPOrder: function(oEvent) {
 			var oSelectedItem = oEvent.getParameter("selectedItem");
 			//get the all data for selected values
@@ -624,7 +674,7 @@ sap.ui.define([
 					var oLookupModel = that.getOwnerComponent().getModel("Lookup");
 					oLookupModel.setProperty("/DisplyaVendorList", ListofVendor);
 					oLookupModel.refresh(true);
-				
+
 				},
 				error: function(oError) {
 					//BusyIndicator.hide();
@@ -823,7 +873,6 @@ sap.ui.define([
 			oView.byId("idDocDate").setValue(" ");
 			oView.byId("idPostDate").setValue(" ");
 
-		
 			//	this.getView().getModel("VHeader").refresh();
 			jQuery.sap.require("sap.m.MessageBox");
 
@@ -873,7 +922,6 @@ sap.ui.define([
 				oPurchaseModel.refresh(true);
 				this.getView().getModel("VHeader").refresh();
 
-			
 				oView.byId("idPD").setValue("");
 				oView.byId("idlant").setValue("");
 				oView.byId("idVendor").setValue("");

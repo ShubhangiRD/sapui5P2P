@@ -69,7 +69,7 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Price"/>
 				<t:template>
-					<Input id="Price" class="price1" value="{ path: 'PurchaseModel>NetPrice' }" editable="{EditModel>/isEditable}"/>
+					<Input id="Price" class="price1"  editable="{EditModel>/isEditable}" value="{PurchaseModel>NetPrice}" />
 					<!--<u:Currency id="Price" class="price1" textAlign="Center" stringValue="{PurchaseModel>NetPrice}" currency="{ }"
 						editable="{EditModel>/isEditable}" useSymbol="true"/>-->
 				</t:template>
@@ -107,13 +107,14 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Date Cat."/>
 				<t:template>
-					<Input id="iddatecat" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>Pricedate}"
+						<DateTimePicker id="iddatecat" editable="{EditModel>/isEditable}" value="{PurchaseModel>Pricedate}"/>
+				<!--	<Input id="iddatecat" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>Pricedate}"
 						editable="{EditModel>/isEditable}" valueHelpRequest="handlePODateCate" suggestionItems="{ path: 'Lookup>/MaterialList' }"
 						suggestionItemSelected="onSuggestDateCate">
 						<suggestionItems>
 							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
 						</suggestionItems>
-					</Input>
+					</Input>-->
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">

@@ -8,12 +8,14 @@ sap.ui.define([
 	"com/vSimpleApp/model/Contract",
 	"com/vSimpleApp/model/Report",
 	"com/vSimpleApp/model/GetPurchaseVendor",
+	"com/vSimpleApp/model/GRDisplayHeader",
 	"com/vSimpleApp/model/PurchaseHeader",
 	"com/vSimpleApp/model/VendorP2P",
 	"sap/ui/core/BusyIndicator",
 	"sap/m/MessageToast"
 
-], function(UIComponent, Device, models, JSONModel, Application, IconPool, Contract, Report, GetPurchaseVendor, PurchaseHeader, VendorP2P,
+], function(UIComponent, Device, models, JSONModel, Application, IconPool, Contract, Report, GetPurchaseVendor, GRDisplayHeader,
+	PurchaseHeader, VendorP2P,
 	BusyIndicator, MessageToast
 ) {
 	"use strict";
@@ -89,12 +91,19 @@ sap.ui.define([
 
 			var oPurchaseData = {
 				//TempContract: new GetPurchaseVendor()
-					//	ContractList: new POrdersList()
-					TempContract: new PurchaseHeader()
+				//	ContractList: new POrdersList()
+				TempContract: new PurchaseHeader()
+		
 
 			};
 			var oPurchaseModel = new JSONModel(oPurchaseData);
 			this.setModel(oPurchaseModel, "PurchaseModel");
+
+			var oGRData = {
+				GRPost: new GRDisplayHeader()
+			};
+			var oGRModel = new JSONModel(oGRData);
+			this.setModel(oGRModel, "GoodReceiptModel");
 
 			var oPoData = {
 				TempContract: new PurchaseHeader()

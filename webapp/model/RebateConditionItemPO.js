@@ -2,16 +2,16 @@ sap.ui.define([
 	"com/vSimpleApp/model/BaseObject"
 ], function(BaseObject) {
 	"use strict";
+		var instance;
 	var RebateConditionItemPO = BaseObject.extend("com.vSimpleApp.model.RebateConditionItemPO", {
 		constructor: function(oData) {
 			BaseObject.call(this);
-		
+
 			this.setData(oData);
 		},
 
 		setData: function(oData) {
-			
-			
+
 			this.PoItem = (oData && oData.PoItem) ? oData.PoItem : "";
 			this.DeleteInd = (oData && oData.DeleteInd) ? oData.DeleteInd : "";
 			this.ShortText = (oData && oData.ShortText) ? oData.ShortText : "";
@@ -184,47 +184,207 @@ sap.ui.define([
 			this.TaxSubjectSt = (oData && oData.TaxSubjectSt) ? oData.TaxSubjectSt : "";
 			this.ReqSegment = (oData && oData.ReqSegment) ? oData.ReqSegment : "";
 			this.StkSegment = (oData && oData.StkSegment) ? oData.StkSegment : "";
-				this.Ebelp = (oData && oData.Ebelp) ? oData.Ebelp : ""; 
-	
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-	
+		//	this.Ebelp = (oData && oData.Ebelp) ? oData.Ebelp : "";
 
-		this.Matnr = (oData && oData.Matnr) ? oData.Matnr : "";     
-		this.Werks = (oData && oData.Werks) ? oData.Werks : "";   
-		this.Menge = (oData && oData.Menge) ? oData.Menge : "";      
-		this.Material = (oData && oData.Material) ? oData.Material: "";
+		/*	this.Matnr = (oData && oData.Matnr) ? oData.Matnr : "";
+			this.Werks = (oData && oData.Werks) ? oData.Werks : "";
+			this.Menge = (oData && oData.Menge) ? oData.Menge : "";
+			this.Material = (oData && oData.Material) ? oData.Material : "";*/
 
-	
 		},
-		
-	getRequestPayload: function() {
+
+		getRequestPayload: function() {
 			return {
-		
-			//	Rcont: sContractNo,
-				Ebelp: this.Ebelp,
-		/*		Matnr: this.Materialno,
-				Menge: this.POQuantity,      
-				Werks: this.Plant
-		*/
-				Matnr: this.Matnr,
-				Werks: this.Werks,
-				Menge: this.Menge
-			//	Material: this.Materialno
+
+			/*	Ebelp: this.Ebelp,
 			
-		};
+					Matnr: this.Matnr,
+					Werks: this.Werks,
+					Menge: this.Menge,
+*/
+				PoItem: this.PoItem,
+				DeleteInd: this.DeleteInd,
+				ShortText: this.ShortText,
+				Material: this.Material,
+				MaterialExternal: this.MaterialExternal,
+				MaterialGuid: this.MaterialGuid,
+				MaterialVersion: this.MaterialVersion,
+				Ematerial: this.Ematerial,
+				EmaterialExternal: this.EmaterialExternal,
+				EmaterialGuid: this.EmaterialGuid,
+				EmaterialVersion: this.EmaterialVersion,
+				Plant: this.Plant,
+				StgeLoc: this.StgeLoc,
+				Trackingno: this.Trackingno,
+				MatlGroup: this.MatlGroup,
+				InfoRec: this.InfoRec,
+				VendMat: this.VendMat,
+				Quantity: this.Quantity,
+				PoUnit: this.PoUnit,
+				PoUnitIso: this.PoUnitIso,
+				OrderprUn: this.OrderprUn,
+				OrderprUnIso: this.OrderprUnIso,
+			//	ConvNum1: this.ConvNum1,
+			//	ConvDen1: this.ConvDen1,
+				NetPrice: this.NetPrice,
+		//		PriceUnit: this.PriceUnit,
+			//	GrPrTime: this.GrPrTime,
+				TaxCode: this.TaxCode,
+				BonGrp1: this.BonGrp1,
+				QualInsp: this.QualInsp,
+				InfoUpd: this.InfoUpd,
+				PrntPrice: this.PrntPrice,
+				EstPrice: this.EstPrice,
+			//	Reminder1: this.Reminder1,
+			//	Reminder2: this.Reminder2,
+			//	Reminder3: this.Reminder3,
+			//	OverDlvTol: this.OverDlvTol,
+			//	UnlimitedDlv: this.UnlimitedDlv,
+			//	UnderDlvTol: this.UnderDlvTol,
+			//	ValType: this.ValType,
+				NoMoreGr: this.NoMoreGr,
+				FinalInv: this.FinalInv,
+				ItemCat: this.ItemCat,
+				Acctasscat: this.Acctasscat,
+				Distrib: this.Distrib,
+				PartInv: this.PartInv,
+				GrInd: this.GrInd,
+				GrNonVal: this.GrNonVal,
+				IrInd: this.IrInd,
+				FreeItem: this.FreeItem,
+				GrBasediv: this.GrBasediv,
+				AcknReqd: this.AcknReqd,
+				AcknowlNo: this.AcknowlNo,
+				Agreement: this.Agreement,
+				AgmtItem: this.AgmtItem,
+				Shipping: this.Shipping,
+				Customer: this.Customer,
+				CondGroup: this.CondGroup,
+				NoDisct: this.NoDisct,
+				PlanDel: this.PlanDel,
+				NetWeight: this.NetWeight,
+				Weightunit: this.Weightunit,
+				WeightunitIso: this.WeightunitIso,
+				Taxjurcode: this.Taxjurcode,
+				CtrlKey: this.CtrlKey,
+				ConfCtrl: this.ConfCtrl,
+				RevLev: this.RevLev,
+				Fund: this.Fund,
+				FundsCtr: this.FundsCtr,
+				CmmtItem: this.CmmtItem,
+				Pricedate: this.Pricedate,
+				PriceDate: this.PriceDate,
+				GrossWt: this.GrossWt,
+				Volume: this.Volume,
+				Volumeunit: this.Volumeunit,
+				VolumeunitIso: this.VolumeunitIso,
+				Incoterms1: this.Incoterms1,
+				Incoterms2: this.Incoterms2,
+				PreVendor: this.PreVendor,
+				VendPart: this.VendPart,
+				HlItem: this.HlItem,
+				GrToDate: this.GrToDate,
+				SuppVendor: this.SuppVendor,
+				ScVendor: this.ScVendor,
+				KanbanInd: this.KanbanInd,
+				Ers: this.Ers,
+				RPromo: this.RPromo,
+				Points: this.Points,
+				PointUnit: this.PointUnit,
+				PointUnitIso: this.PointUnitIso,
+				Season: this.Season,
+				SeasonYr: this.SeasonYr,
+				BonGrp2: this.BonGrp2,
+				BonGrp3: this.BonGrp3,
+				SettItem: this.SettItem,
+				RfqNo: this.RfqNo,
+				RfqItem: this.RfqItem,
+				PreqNo: this.PreqNo,
+				PreqItem: this.PreqItem,
+				RefDoc: this.RefDoc,
+				RefItem: this.RefItem,
+				SiCat: this.SiCat,
+				RetItem: this.RetItem,
+				AtRelev: this.AtRelev,
+				OrderReason: this.OrderReason,
+				BrasNbm: this.BrasNbm,
+				MatlUsage: this.MatlUsage,
+				MatOrigin: this.MatOrigin,
+				InHouse: this.InHouse,
+				Indus3: this.Indus3,
+				InfIndex: this.InfIndex,
+				UntilDate: this.UntilDate,
+				DelivCompl: this.DelivCompl,
+				PartDeliv: this.PartDeliv,
+				ShipBlocked: this.ShipBlocked,
+				PreqName: this.PreqName,
+				PeriodIndExpirationDate: this.PeriodIndExpirationDate,
+				IntObjNo: this.IntObjNo,
+				PckgNo: this.PckgNo,
+				Batch: this.Batch,
+				Vendrbatch: this.Vendrbatch,
+				Calctype: this.Calctype,
+				GrantNbr: this.GrantNbr,
+				CmmtItemLong: this.CmmtItemLong,
+				FuncAreaLong: this.FuncAreaLong,
+				NoRounding: this.NoRounding,
+				PoPrice: this.PoPrice,
+				SupplStloc: this.SupplStloc,
+				SrvBasedIv: this.SrvBasedIv,
+				FundsRes: this.FundsRes,
+				ResItem: this.ResItem,
+				OrigAccept: this.OrigAccept,
+				AllocTbl: this.AllocTbl,
+				AllocTblItem: this.AllocTblItem,
+				SrcStockType: this.SrcStockType,
+				ReasonRej: this.ReasonRej,
+				CrmSalesOrderNo: this.CrmSalesOrderNo,
+				CrmSalesOrderItemNo: this.CrmSalesOrderItemNo,
+				CrmRefSalesOrderNo: this.CrmRefSalesOrderNo,
+				CrmRefSoItemNo: this.CrmRefSoItemNo,
+				PrioUrgency: this.PrioUrgency,
+				PrioRequirement: this.PrioRequirement,
+				ReasonCode: this.ReasonCode,
+				FundLong: this.FundLong,
+				LongItemNumber: this.LongItemNumber,
+				ExternalSortNumber: this.ExternalSortNumber,
+				ExternalHierarchyType: this.ExternalHierarchyType,
+				RetentionPercentage: this.RetentionPercentage,
+				DownpayType: this.DownpayType,
+				DownpayAmount: this.DownpayAmount,
+				DownpayPercent: this.DownpayPercent,
+				DownpayDuedate: this.DownpayDuedate,
+				ExtRfxNumber: this.ExtRfxNumber,
+				ExtRfxItem: this.ExtRfxItem,
+				ExtRfxSystem: this.ExtRfxSystem,
+				SrmContractId: this.SrmContractId,
+				SrmContractItm: this.SrmContractItm,
+				BudgetPeriod: this.BudgetPeriod,
+				BlockReasonId: this.BlockReasonId,
+				BlockReasonText: this.BlockReasonText,
+				SpeCrmFkrel: this.SpeCrmFkrel,
+				DateQtyFixed: this.DateQtyFixed,
+				GiBasedGr: this.GiBasedGr,
+				Shiptype: this.Shiptype,
+				Handoverloc: this.Handoverloc,
+				TcAutDet: this.TcAutDet,
+				ManualTcReason: this.ManualTcReason,
+				FiscalIncentive: this.FiscalIncentive,
+				FiscalIncentiveId: this.FiscalIncentiveId,
+				TaxSubjectSt: this.TaxSubjectSt,
+				ReqSegment: this.ReqSegment,
+				StkSegment: this.StkSegment
+
+			};
+		},
+			getInstance: function () {
+			if (!instance) {
+				// create new instance of ODataUtility Object
+				instance = new RebateConditionItemPO();
+			}
+			return instance;
 		}
-	
+
 	});
 	return RebateConditionItemPO;
 });

@@ -10,29 +10,26 @@
 					<f:formElements>
 						<f:FormElement label="Material Group" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="MaterialGrp" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseItems>/Material}"
-									valueHelpRequest="handleMaterialMaterialGrpp" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
-									suggestionItemSelected="suggestionMaterialGrp" editable="{EditModel>/isEditable}">
-									<suggestionItems>
-										<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-									</suggestionItems>
+								<Input id="MaterialGrp" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>/TempContract/PoitemSet/MatlGroup}"
+								 editable="{EditModel>/isEditable}">
+								
 								</Input>
 								<CheckBox id="idrelevent" editable="{EditModel>/isEditable}"  text="IUID-Relevent"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Vendor Mat.no" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="vendormatno" editable="{EditModel>/isEditable}"  value="{PurchaseItems>/VendMat}"  textFormatMode="KeyValue"/>
+								<Input id="vendormatno" editable="{EditModel>/isEditable}"  value="{PurchaseModel>/TempContract/PoitemSet/VendMat}"  textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Vendor Sub-range" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="vendorsubrang" editable="{EditModel>/isEditable}" value="{PurchaseItems>/VendPart}"  textFormatMode="KeyValue"/>
+								<Input id="vendorsubrang" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/PoitemSet>/VendPart}"  textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Batch" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="idbatchMD" editable="{EditModel>/isEditable}"  value="{PurchaseItems>/Batch}" textFormatMode="KeyValue"/>
+								<Input id="idbatchMD" editable="{EditModel>/isEditable}"  value="{PurchaseModel>/TempContract/PoitemSet>/Batch}" textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 					</f:formElements>
@@ -44,7 +41,7 @@
 						<f:FormElement label="Revision Level " class="sapUiTinyMarginTop">
 							<f:fields>
 								<Input id="RevisionLevel"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-									value="{PurchaseItems>/RevLev}" valueHelpRequest="handleRevisionLevel" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
+									value="{PurchaseModel>/TempContract/PoitemSet>/RevLev}" valueHelpRequest="handleRevisionLevel" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 									suggestionItemSelected="suggestionRevisionLevel" editable="{EditModel>/isEditable}">
 									<suggestionItems>
 										<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
@@ -59,7 +56,7 @@
 						</f:FormElement>
 						<f:FormElement label="Vendor Batch" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="vendorbatch" value="{PurchaseItems>/Vendrbatch}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" />
+								<Input id="vendorbatch" value="{PurchaseModel>/TempContract/PoitemSet>/Vendrbatch}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" />
 								<CheckBox id="idInfoUpdate" text="InfoUpdate" editable="{EditModel>/isEditable}" />
 							</f:fields>
 						</f:FormElement>

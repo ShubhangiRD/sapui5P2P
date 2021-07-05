@@ -54,8 +54,56 @@ sap.ui.define([
 			this.ChangeId = (oData && oData.ChangeId) ? oData.ChangeId : "";
 			this.VendorNo = (oData && oData.VendorNo) ? oData.VendorNo : "";
 
+		},
+		getRequestPayloadPoCond: function() {
+			return {
+
+				ConditionNo: this.ConditionNo,
+				ItmNumber: this.ItmNumber,
+				CondStNo: this.CondStNo,
+				CondCount: this.CondCount,
+				CondType: this.CondType,
+				CondValue: this.CondValue,
+				Currency: this.Currency,
+				CurrencyIso: this.CurrencyIso,
+				CondUnit: this.CondUnit,
+				CondUnitIso: this.CondUnitIso,
+				CondPUnt: this.CondPUnt,
+				Applicatio: this.Applicatio,
+				Conpricdat: this.Conpricdat,
+				Calctypcon: this.Calctypcon,
+				Conbaseval: this.Conbaseval,
+				Numconvert: this.Numconvert,
+				Denominato: this.Denominato,
+				Condtype: this.Condtype,
+				StatCon: this.StatCon,
+				Scaletype: this.Scaletype,
+				Accruals: this.Accruals,
+				Coninvolst: this.Coninvolst,
+				Condorigin: this.Condorigin,
+				Groupcond: this.Groupcond,
+				CondUpdat: this.CondUpdat,
+				AccessSeq: this.AccessSeq,
+				Condcount: this.Condcount,
+				Condcntrl: this.Condcntrl,
+				Condisacti: this.Condisacti,
+				Condclass: this.Condclass,
+				Factbasval: this.Factbasval,
+				Scalebasin: this.Scalebasin,
+				Scalbasval: this.Scalbasval,
+				Unitmeasur: this.Unitmeasur,
+				UnitmeasurIso: this.UnitmeasurIso,
+				Currenckey: this.Currenckey,
+				CurrenckeyIso: this.CurrenckeyIso,
+				Condincomp: this.Condincomp,
+				Condconfig: this.Condconfig,
+				Condchaman: this.Condchaman,
+				CondNo: this.CondNo,
+				ChangeId: this.ChangeId,
+				VendorNo: this.VendorNo
+
+			};
 		}
-		
 
 	});
 

@@ -519,7 +519,14 @@ sap.ui.define([
 							oView.setModel(oHierarchyModel, "hierarchy");
 							oView.getModel("hierarchy").setData(oData);
 							var sNetPrice = oHierarchyModel.oData.results[0].Netpr;
-
+							var sInfnr = oHierarchyModel.oData.results[0].Infnr;
+						
+							var sInforef = $(that)[0].inputId;
+							var idInfo = $("#" + sInforef).closest("tr").find(".mtidd").attr("id");
+							$("#" + idInfo + "-inner").val(sInfnr);
+							
+							
+							
 							var sPriceab = $(that)[0].inputId;
 							var idPrice = $("#" + sPriceab).closest("tr").find(".price1").attr("id");
 							$("#" + idPrice + "-inner").val(sNetPrice);
@@ -676,6 +683,11 @@ sap.ui.define([
 				var ab1 = $(this)[0].inputId;
 				var id1 = $("#" + ab1).closest("tr").find(".measure1").attr("id");
 				$("#" + id1 + "-inner").val(sUnitb);
+				
+					var sOunit = $(this)[0].inputId;
+				var sOunitId = $("#" + sOunit).closest("tr").find(".ClassOU").attr("id");
+				$("#" + sOunitId + "-inner").val(sUnitb);
+				
 
 			}
 			evt.getSource().getBinding("items").filter([]);
@@ -792,14 +804,23 @@ sap.ui.define([
 		/*Company SEarch end*/
 
 		onAddNewConditionItem: function() {
-			var oVendorModel = this.getOwnerComponent().getModel("PurchaseModel");
+			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
 
-			var aPurchaseConditionItems = oVendorModel.getProperty("/TempContract/PoitemSet");
+			var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
+			function LeadingZeros(num, size) {
+				    var s = num+"";
+				    while (s.length < size) s = "0" + s;
+				    return s;
+				}
+				
+				//padLeadingZeros(57, 5); //"0057"
 			aPurchaseConditionItems.push(new RebateConditionItemPO({
-				Ebelp: (aPurchaseConditionItems.length + 1).toString()
+				
+			//	PoItem: (aPurchaseConditionItems.length + 1).toString()
+			PoItem : LeadingZeros(aPurchaseConditionItems.length + 1, 5)
 			}));
 
-			oVendorModel.refresh(false);
+			oPurchaseModel.refresh(false);
 
 		},
 
@@ -921,17 +942,17 @@ sap.ui.define([
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
 
-			var oRequestPayload = oPurchaseContract.getRequestPayload();
-
-			//	var Ebeln = oRequestPayload.Ebeln;
-			var Bukrs = oRequestPayload.Bukrs;
-			//	var Bsart = oPurchaseContract.Bsart;
+		//	var oRequestPayload = oPurchaseContract.getRequestPayload();
+	var oRequestPayload = oPurchaseContract.getRequestPayloadPO();		
+		console.log(oRequestPayload);
+	/*		var Bukrs = oRequestPayload.Bukrs;
+			
 			var Lifnr = oRequestPayload.Lifnr;
 
 			var zero = "";
-			//	var no;
+	
 			console.log($.isNumeric((Lifnr)));
-			if ($.isNumeric((Lifnr)) == true) {
+			if ($.isNumeric((Lifnr)) === true) {
 				var len = Lifnr.length;
 				if (len !== undefined) {
 					var z = 10 - len;
@@ -1000,12 +1021,12 @@ sap.ui.define([
 
 			//set the item data to ProductSet
 			oEntry1.POItem = itemData;
-			console.log(oEntry1);
-			var oModel = this.getOwnerComponent().getModel("VHeader");
-			BusyIndicator.show(0);
+			console.log(oEntry1);*/
+			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
+		//	BusyIndicator.show(0);
 
 			//method for creating the prod
-			oModel.create("/POHeaderSet", payLoad, {
+			oModel.create("/PoDisplaySet", oRequestPayload, {
 				success: this._onCreateEntrySuccess.bind(this),
 				error: this._onCreateEntryError.bind(this)
 			});
@@ -1014,7 +1035,7 @@ sap.ui.define([
 
 		},
 		_onCreateEntrySuccess: function(oObject, oResponse) {
-			BusyIndicator.hide();
+		//	BusyIndicator.hide();
 			var successObj = oResponse.data.Ebeln;
 
 			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
@@ -1057,7 +1078,7 @@ sap.ui.define([
 
 		},
 		_onCreateEntryError: function(oError) {
-			BusyIndicator.hide();
+		//	BusyIndicator.hide();
 			var x = JSON.parse(oError.responseText);
 			var err = x.error.message.value;
 

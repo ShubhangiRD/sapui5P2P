@@ -162,7 +162,9 @@ sap.ui.define([
 								var oListModel = new JSONModel();
 								oListModel.setData(sMatList);
 								oView.setModel(oListModel, "PurchaseItems");
-
+								
+				//	oView.getModel("PurchaseModel").setProperty("/TempContract/PoitemSet", Podata.PoitemSet.results);
+					
 							} else {
 
 							}
@@ -815,8 +817,13 @@ sap.ui.define([
 
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var aPurchaseConditionItems = oPurchaseModel.getProperty("/TempContract/PoitemSet");
+				function LeadingZeros(num, size) {
+				    var s = num+"";
+				    while (s.length < size) s = "0" + s;
+				    return s;
+				}
 			aPurchaseConditionItems.push(new RebateConditionItemPO({
-				Ebelp: (aPurchaseConditionItems.length + 1).toString()
+				PoItem: LeadingZeros(aPurchaseConditionItems.length + 1 , 5)
 			}));
 			oPurchaseModel.refresh(false);
 
@@ -1111,13 +1118,15 @@ sap.ui.define([
 		/*plant search end*/
 
 		onSavePurchaseOrder: function() {
-			var oModel = this.getOwnerComponent().getModel("VHeader");
+			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
 
 			//get odata model with the data
 			var oPurchaseModel = this.getView().getModel("PurchaseModel");
 			var oPurchaseContract = oPurchaseModel.getProperty("/TempContract");
-
-			var Bukrs = oPurchaseContract.CompCode;
+			var oRequestPayload = oPurchaseContract.getRequestPayload();
+		 console.log(oRequestPayload);
+		 
+		/*	var Bukrs = oPurchaseContract.CompCode;
 
 			var Lifnr = oPurchaseContract.Vendor;
 			var Ebelp = oPurchaseContract.PoItem;
@@ -1194,10 +1203,10 @@ sap.ui.define([
 
 			//set the item data to ProductSet
 			oEntry1.POItem = aItemData;
+*/
+	//		BusyIndicator.show(0);
 
-			BusyIndicator.show(0);
-
-			oModel.create("/POHeaderSet", oEntry1, {
+			oModel.create("/PoDisplaySet", oRequestPayload, {
 				success: this._onUpdateProdEntrySuccess.bind(this),
 				error: this._onCreateEntryError.bind(this)
 			});
@@ -1206,7 +1215,7 @@ sap.ui.define([
 
 		},
 		_onUpdateProdEntrySuccess: function(oObject, oResponse) {
-			BusyIndicator.hide();
+		//	BusyIndicator.hide();
 			//show the response from sap using meassage box
 			var sUpdatedPO = oResponse.data.Ebeln;
 			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
@@ -1232,7 +1241,7 @@ sap.ui.define([
 
 		},
 		_onCreateEntryError: function(oError) {
-			BusyIndicator.hide();
+		//	BusyIndicator.hide();
 			var sRespon = JSON.parse(oError.responseText);
 			var err = sRespon.error.message.value;
 

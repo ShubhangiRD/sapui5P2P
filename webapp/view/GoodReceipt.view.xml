@@ -1,6 +1,6 @@
-<mvc:View controllerName="com.vSimpleApp.controller.GoodReceipt" xmlns:t="sap.ui.table" xmlns:mvc="sap.ui.core.mvc"
-	xmlns:card="sap.f.cards" xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.uxap" xmlns:m="sap.m"
-	xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" class="sapUiSizeCompact" height="100%" displayBlock="true">
+<mvc:View controllerName="com.vSimpleApp.controller.GoodReceipt" xmlns:t="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:card="sap.f.cards"
+	xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.uxap" xmlns:m="sap.m" xmlns:tnt="sap.tnt"
+	xmlns:u="sap.ui.unified" class="sapUiSizeCompact" height="100%" displayBlock="true">
 	<m:Page showNavButton="true" navButtonPress="onNavBack">
 		<ObjectPageLayout id="ObjectPageLayout" showFooter="true" showTitleInHeaderContent="true" alwaysShowContentHeader="false"
 			preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
@@ -41,29 +41,34 @@
 					labelSpanS="12" adjustLabelSpan="false" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
 					<form:content>
 						<m:Label text=" "/>
-						<m:Input id="idPD" textFormatMode="KeyValue" placeholder="Purchase Document" showSuggestion="true" showValueHelp="true" valueHelpOnly="true"
+						<!--	<m:Input id="idPD" textFormatMode="KeyValue" placeholder="Purchase Document" showSuggestion="true" showValueHelp="true" valueHelpOnly="true"
 							width="100%" valueHelpRequest="handlePursOrderValueHelp" suggestionItems="{ path: 'Lookup>/PoDocumentNumber'}"
 							suggestionItemSelected="suggestionItemSelectedPOrder">
 							<m:suggestionItems>
 								<core:ListItem key="{Lookup>Ebeln}" text="{Lookup>Lifnr}" additionalText="{Lookup>Ebeln}"/>
 							</m:suggestionItems>
-						</m:Input>
-						<m:Input id="idlant" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" placeholder=" Plant No" showSuggestion="true" width="30%"
+						</m:Input>-->
+						<m:Input id="idMacDoc" width="100%" value="{MatData>/MatDocument}" placeholder="Material Document" change="PressMaterialDoc"/>
+						<m:Input id="idMacDocYear" placeholder="Year" value="{MatData>/MatDocYear}" width="30%" change="PressMaterialDoc"/>
+						<!--	<m:Input id="idlant" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" placeholder=" Plant No" showSuggestion="true"
+					width="30%"
 							showValueHelp="true" valueHelpRequest="handleValueHelpPlant" suggestionItems="{ path: 'Lookup>/POPlant' }"
 							suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
 								<core:ListItem key="{Lookup>Bwkey}" text="{Lookup>Bwkey}" additionalText="{Lookup>Bwkey}"/>
 							</m:suggestionItems>
-						</m:Input>
+						</m:Input>-->
 					</form:content>
 				</form:SimpleForm>
 				<form:SimpleForm id="FormHeaderContent2" editable="true" layout="ResponsiveGridLayout" labelSpanXL="2" labelSpanL="2" labelSpanM="12"
 					labelSpanS="12" adjustLabelSpan="false" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
 					<form:content>
 						<m:Label text="Vendor "/>
-						<m:Text id="idVendorr" text="{AllDataModel>/Vendor}: {AllDataModel>/VendorName} "/>
+						<m:Text id="idVendorr" text="{GoodReceiptModel>/Vendor}: {AllDataModel>/VendorName} "/>
 						<m:Label text="Purchasing Document "/>
 						<m:Text text="{AllDataModel>/PON}"/>
+						<m:Label text="Created By "/>
+						<m:Text text="{GoodReceiptModel>/Username}"/>
 					</form:content>
 				</form:SimpleForm>
 			</headerContent>
@@ -76,12 +81,7 @@
 									labelSpanS="12" adjustLabelSpan="false" columnsXL="3" columnsL="3" columnsM="1" singleContainerFullSize="false">
 									<form:content>
 										<core:Title text=""/>
-										<!--<m:Label text="Printing"/>-->
-										<!--<m:Select id="idPrinting" selectedKey="vtitle" class="sapclassinputbox">-->
-										<!--	<m:items>-->
-										<!--		<core:Item text="No print." key="No print"/>-->
-										<!--	</m:items>-->
-										<!--</m:Select>-->
+									
 										<m:Label text="Bill of Lading"/>
 										<m:Input type="Text" id="idBillLand" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/Waers}"/>
 										<m:Label text="GR Slip No"/>
@@ -89,18 +89,13 @@
 										<m:Label text="Delivery Note"/>
 										<m:Input id="idDeliDate" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"></m:Input>
 										<core:Title text=" "/>
-										<!--<m:Label text="Note"/>-->
-										<!--<m:Input id="idNote"/>-->
+									
 										<m:Label text="Document Date"/>
 										<m:DateTimePicker id="idDocDate" editable="{EditModel>/isEditable}" value="{ path: 'AllDataModel>/CreatDate' }"/>
-										<!--	<m:DatePicker id="idDocDate" editable="{EditModel>/isEditable}" value="{AllDataModel>/CreatDate}"/>
-									-->
+										
 										<m:Label text="Posting Date"/>
 										<m:DateTimePicker id="idPostDate" editable="{EditModel>/isEditable}" value="{ path: 'AllDataModel>/DocumentDate' }"/>
-										<!--		<m:DatePicker id="idPostDate" value="{AllDataModel>/DocumentDate}" editable="{EditModel>/isEditable}"/>
-								-->
-										<!--<m:Input type="Text" id="idPostDate" value="{Megodate>/CreatDate}" editable="{EditModel>/isEditable}"/>
-									-->
+								
 										<core:Title text=" "/>
 										<m:Label text="Header text"/>
 										<m:Input type="Text" id="idHeadertext" editable="{EditModel>/isEditable}" value="{AllDataModel>/VendorName}"></m:Input>
