@@ -7,15 +7,14 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/m/library",
 	"sap/ui/core/Fragment",
-
 	"sap/m/ColumnListItem",
 	"jquery.sap.global",
 	"sap/m/MessageBox",
 	"sap/ui/core/routing/History",
-	"com/vSimpleApp/model/GRDisplayHeader"
-
+	"com/vSimpleApp/model/GRDisplayHeader",
+	"com/vSimpleApp/model/GRDisplayItem"
 ], function(Controller, JSONModel, BusyIndicator, MessageToast, FilterOperator, Filter, library, Fragment,
-	MessageBox, History,GRDisplayHeader) {
+	MessageBox, History, GRDisplayHeader, GRDisplayItem) {
 	"use strict";
 	var oView, Ebeln, oComponent;
 	var ListofVendor = [];
@@ -35,8 +34,8 @@ sap.ui.define([
 			oComponent = this.getOwnerComponent();
 
 			this.getVendorList();
-			var POItemsModel = new JSONModel();
-			oView.setModel(POItemsModel, "POItemsModel");
+			var oGRItemsModel = new JSONModel();
+			oView.setModel(oGRItemsModel, "GRItemsModel");
 
 			//define the model to  field editable or not
 			var oEditModel = new JSONModel({
@@ -56,50 +55,39 @@ sap.ui.define([
 			var oMatData = new JSONModel();
 			oView.setModel(oMatData, "MatData");
 		},
+		datatime: function(dDate) {
+			var s_doc_datePost = dDate;
+			var Datepoststring = s_doc_datePost.toISOString();
+			Datepoststring = Datepoststring.slice(0, -5);
+			return Datepoststring;
+		},
 		onNavBack: function(oevt) {
 
-			var oPurchaseModel = oComponent.getModel("PurchaseModel");
-			var oTempContract = oPurchaseModel.getProperty("/TempContract");
-			oTempContract.setData();
-			//	oPurchaseModel.setData([]);
-			var s = oPurchaseModel.oData.TempContract.destroy;
-			//	s.refresh(true);
+			var oGoodReceiptModel = oComponent.getModel("GoodReceiptModel");
+			var oTempContract = oGoodReceiptModel.getProperty("/GRPost");
+			oGoodReceiptModel.setData([]);
 			var AllDataModel = oView.getModel("AllDataModel");
+			var aGRItemsModel = oView.getModel("GRItemsModel");
+			aGRItemsModel.setData();
 			AllDataModel.setData();
 			AllDataModel.refresh(true);
 			oView.getModel("visiblemodel").setProperty("/isvisible", false);
 
-			oPurchaseModel.refresh(true);
+			oGoodReceiptModel.refresh(true);
 			this.getView().getModel("VHeader").refresh();
-			oView.byId("idPD").setValue("");
-			oView.byId("idlant").setValue("");
-			oView.byId("idVendor").setValue("");
 
-			oView.byId("idMatdis").setValue("");
-			oView.byId("idMatNo").setValue("");
-			oView.byId("VMatNo").setValue("");
-			oView.byId("idMatGrp").setValue("");
-			oView.byId("idmatGrptwo").setValue("");
-			oView.byId("ident").setValue("");
-
-			oView.byId("idQunat").setValue("");
-			oView.byId("idQntS").setValue("");
-			oView.byId("idQuantsku").setValue("");
-			oView.byId("idDelNot").setValue("");
-			oView.byId("idDelNott").setValue("");
-			oView.byId("idPOrder").setValue("");
 			this.getOwnerComponent().getRouter().navTo("ShowTiles");
 
 		},
 
 		onMenuButtonPress: function() {
-			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
-			var oTempContract = oPurchaseModel.getProperty("/TempContract");
-			oTempContract.setData();
-			var s = oPurchaseModel.oData.TempContract.destroy;
-			//	s.refresh(true);
+			var oGoodReceiptModel = this.getOwnerComponent().getModel("GoodReceiptModel");
+			oGoodReceiptModel.setData([]);
+			/*	var oTempContract = oGoodReceiptModel.getProperty("/GRPost");
+				oTempContract.setData();
+			*/ //	s.refresh(true);
 
-			oPurchaseModel.refresh(true);
+			oGoodReceiptModel.refresh(true);
 			//	oView.byId("vtitle").setValue("");
 			//	oView.byId("idPurchaseOrder").setValue("");
 			oView.byId("idPD").setValue("");
@@ -323,41 +311,34 @@ sap.ui.define([
 						var AllModel = oView.getModel("AllDataModel");
 
 						var lq = oData.fpoItemSet.results.length;
-						if (lq == 0) {
+						if (lq === 0) {
 							var AllModel = oView.getModel("AllDataModel");
 							var path = AllModel.oData;
 							AllModel.setProperty(path + "/PONO");
 							oView.getModel("AllDataModel").setProperty("/PONO", Ebeln);
 							oView.getModel("visiblemodel").setProperty("/isvisible", true);
 							oView.getModel("EditModel").setProperty("/isEditable", false);
-							console.log('value starts with zero');
+
 						} else {
 							oView.getModel("visiblemodel").setProperty("/isvisible", false);
 							oView.getModel("EditModel").setProperty("/isEditable", true);
 						}
 						for (var quant = 0; quant < lq; quant++) {
-							var Quantity = oData.fpoItemSet.results[quant].Quantity;
 
 							var path = AllModel.oData;
 							AllModel.setProperty(path + "/PONO");
 							oView.getModel("AllDataModel").setProperty("/PONO", Ebeln);
-							/*	var PO = new JSONModel({
-									PONO: Ebeln
-								});
 
-								oView.setModel(PO, "PO");*/
 						}
 						var PostDate = oData.CreatDate;
 						var s_doc_date = PostDate;
 						var str = s_doc_date.toISOString();
 						str = str.slice(0, -5);
-						console.log(str);
 
 						var DocumentDates = oData.DocDate;
 						var s_doc_datePost = DocumentDates;
 						var Datepoststring = s_doc_datePost.toISOString();
 						Datepoststring = Datepoststring.slice(0, -5);
-						console.log(Datepoststring);
 
 						AllModel = oView.getModel("AllDataModel");
 						var path = AllModel.oData;
@@ -452,30 +433,92 @@ sap.ui.define([
 		PressMaterialDoc: function(oEvent) {
 			var oMatModel = oView.getModel("MatData");
 			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
-
+			var oGRItemsModel = oView.getModel("GRItemsModel");
+			var oGRModelData = this.getOwnerComponent().getModel("GoodReceiptModel");
 			var sMaterialDocument = oMatModel.oData.MatDocument;
 			var sMaterialDocumentYear = oMatModel.oData.MatDocYear;
 			/*	var sMaterialDoc = oView.byId("idMacDoc");
 			var sMatYear = oView.byId("idMacDocYear");
 */
 
-			
-				oModel.read("/GrHeadSet(MatDoc='5000001693',DocYear='2021')", {
+			oModel.read("/GrHeadSet(MatDoc='5000001693',DocYear='2021')", {
 				urlParameters: {
 					"$expand": "GrItemSet"
 				},
 
-			
-					success: function(oData) {
-					console.log(oData);
-					var grData = new GRDisplayHeader(oData);
-					console.log(grData);
-						oView.getModel("GoodReceiptModel").setProperty("/GRPost", oData);
-						// setData(oData.results);
-					oView.getModel("GoodReceiptModel").setProperty("/GRPost/GrItemSet", oData.GrItemSet.results);
-					
+				success: function(oData) {
+					var sPurchaseno = oData.GrItemSet.results[0].PoNumber;
+					var sVendor = oData.GrItemSet.results[0].Vendor;
 
-					},
+					var AllModel = oView.getModel("AllDataModel");
+
+					var path = AllModel.oData;
+					var iLength = oData.GrItemSet.results.length;
+					if (iLength === 0) {
+
+						AllModel.setProperty(path + "/PONO");
+						oView.getModel("AllDataModel").setProperty("/PONO", sPurchaseno);
+						oView.getModel("visiblemodel").setProperty("/isvisible", true);
+						oView.getModel("EditModel").setProperty("/isEditable", false);
+						console.log('value starts with zero');
+					} else {
+						oView.getModel("visiblemodel").setProperty("/isvisible", false);
+						oView.getModel("EditModel").setProperty("/isEditable", true);
+					}
+					for (var quant = 0; quant < iLength; quant++) {
+						//		var Quantity = oData.GrItemSet.results[quant].Quantity;
+
+						AllModel.setProperty(path + "/PONO");
+						oView.getModel("AllDataModel").setProperty("/PONO", sPurchaseno);
+
+					}
+					var PostDate = oData.PstngDate;
+					var s_doc_date = PostDate;
+					var str = s_doc_date.toISOString();
+					str = str.slice(0, -5);
+
+					var DocumentDates = oData.DocDate;
+					var s_doc_datePost = DocumentDates;
+					var Datepoststring = s_doc_datePost.toISOString();
+					Datepoststring = Datepoststring.slice(0, -5);
+
+					AllModel.setProperty(path + "/CreatDate");
+					oView.getModel("AllDataModel").setProperty("/CreatDate", str);
+
+					AllModel.setProperty(path + "/DocumentDate");
+					oView.getModel("AllDataModel").setProperty("/DocumentDate", Datepoststring);
+
+					if (sVendor !== "" || sVendor !== undefined) {
+						for (var y = 0; y < ListofVendor.length; y++) {
+							if (sVendor === ListofVendor[y].Lifnr) {
+								var sVenname = ListofVendor[y].Name1;
+
+							}
+						}
+					}
+					AllModel.setProperty(path + "/Vendor");
+					oView.getModel("AllDataModel").setProperty("/Vendor", sVendor);
+					AllModel.setProperty(path + "/VendorName");
+					oView.getModel("AllDataModel").setProperty("/VendorName", sVenname);
+					oView.getModel("GoodReceiptModel").setData(oData);
+					oView.getModel("GoodReceiptModel").setProperty("/GRPost", oData);
+					oView.getModel("GoodReceiptModel").setProperty("/GRPost/GrItemSet", oData.GrItemSet.results);
+
+					var aModel = oGRModelData.getProperty("/GRPost/GrItemSet");
+					console.log(aModel);
+					oView.getModel("GRItemsModel").setData(aModel[0]);
+
+					CreateDoctypeDate = oData.DocDate;
+					var mno = aModel[0].Material;
+
+					var MaterialAndVendor = mno.concat("-", sVendor);
+					oView.byId("VMatNo").setValue(MaterialAndVendor);
+					//		oView.byId("iddis").setValue(VendorNum);
+
+					console.log(oGRItemsModel);
+					console.log(oGRModelData);
+
+				},
 				error: function(oError) {
 					MessageBox.error(oError);
 				}
@@ -746,8 +789,18 @@ sap.ui.define([
 
 		/*vendor list end*/
 		onPostPurchaseOrder: function() {
-			var oPurchaseModel = this.getView().getModel("PurchaseModel");
-			var oTempModel = oPurchaseModel.getProperty("/TempContract");
+
+			var oPurchaseModel = this.getView().getModel("GoodReceiptModel");
+			var oTempModel = oPurchaseModel.getProperty("/GRPost");
+			var oRequestPayload = oTempModel.getRequestPayloadGR();
+			console.log(oRequestPayload);
+
+			var oVendors = oPurchaseModel.getData();
+
+			//define and bind the model
+			var oVModel = new VendorP2P(oVendors);
+			var oContract = oVModel.getUpdateRequestPayload();
+
 			var oModel = this.getOwnerComponent().getModel("VHeader");
 
 			console.log(oTempModel);
@@ -834,15 +887,298 @@ sap.ui.define([
 			oPurchaseModel.refresh(true);
 
 		},
+		OnPostGoodReceipt: function() {
+			var oModel = this.getOwnerComponent().getModel("PurchaseSet");
 
+			var oPurchaseModel = this.getView().getModel("GoodReceiptModel");
+			var oTempModel = oPurchaseModel.getProperty("/GRPost");
+			/*	var oRequestPayload = oTempModel.getRequestPayloadGR();
+			console.log(oRequestPayload);
+*/
+			var aItems = oTempModel.GrItemSet;
+			console.log(aItems.length);
+
+			var itemData = [];
+
+			for (var iTex = 0; iTex < aItems.length; iTex++) {
+
+				var MatDoc = oTempModel.GrItemSet[iTex].MatDoc;
+				var DocYear = oTempModel.GrItemSet[iTex].DocYear;
+				var MatdocItm = oTempModel.GrItemSet[iTex].MatdocItm;
+				var Material = oTempModel.GrItemSet[iTex].Material;
+				var Plant = oTempModel.GrItemSet[iTex].Plant;
+				var StgeLoc = oTempModel.GrItemSet[iTex].StgeLoc;
+				var Batch = oTempModel.GrItemSet[iTex].Batch;
+				var MoveType = oTempModel.GrItemSet[iTex].MoveType;
+				var StckType = oTempModel.GrItemSet[iTex].StckType;
+				var SpecStock = oTempModel.GrItemSet[iTex].SpecStock;
+				var Vendor = oTempModel.GrItemSet[iTex].Vendor;
+				var Customer = oTempModel.GrItemSet[iTex].Customer;
+				var SalesOrd = oTempModel.GrItemSet[iTex].SalesOrd;
+				var SOrdItem = oTempModel.GrItemSet[iTex].SOrdItem;
+				var SchedLine = oTempModel.GrItemSet[iTex].SchedLine;
+				var ValType = oTempModel.GrItemSet[iTex].ValType;
+				var EntryQnt = oTempModel.GrItemSet[iTex].EntryQnt;
+				var EntryUom = oTempModel.GrItemSet[iTex].EntryUom;
+				var EntryUomIso = oTempModel.GrItemSet[iTex].EntryUomIso;
+				var PoPrQnt = oTempModel.GrItemSet[iTex].PoPrQnt;
+				var OrderprUn = oTempModel.GrItemSet[iTex].OrderprUn;
+				var OrderprUnIso = oTempModel.GrItemSet[iTex].OrderprUnIso;
+				var PoNumber = oTempModel.GrItemSet[iTex].PoNumber;
+				var PoItem = oTempModel.GrItemSet[iTex].PoItem;
+				var Shipping = oTempModel.GrItemSet[iTex].Shipping;
+				var CompShip = oTempModel.GrItemSet[iTex].CompShip;
+				var NoMoreGr = oTempModel.GrItemSet[iTex].NoMoreGr;
+				var ItemText = oTempModel.GrItemSet[iTex].ItemText;
+				var GrRcpt = oTempModel.GrItemSet[iTex].GrRcpt;
+				var UnloadPt = oTempModel.GrItemSet[iTex].UnloadPt;
+				var Costcenter = oTempModel.GrItemSet[iTex].Costcenter;
+				var Orderid = oTempModel.GrItemSet[iTex].Orderid;
+				var OrderItno = oTempModel.GrItemSet[iTex].OrderItno;
+				var CalcMotive = oTempModel.GrItemSet[iTex].CalcMotive;
+				var AssetNo = oTempModel.GrItemSet[iTex].AssetNo;
+				var SubNumber = oTempModel.GrItemSet[iTex].SubNumber;
+				var ReservNo = oTempModel.GrItemSet[iTex].ReservNo;
+				var ResItem = oTempModel.GrItemSet[iTex].ResItem;
+				var ResType = oTempModel.GrItemSet[iTex].ResType;
+				var Withdrawn = oTempModel.GrItemSet[iTex].Withdrawn;
+				var MoveMat = oTempModel.GrItemSet[iTex].MoveMat;
+				var MovePlant = oTempModel.GrItemSet[iTex].MovePlant;
+				var MoveStloc = oTempModel.GrItemSet[iTex].MoveStloc;
+				var MoveBatch = oTempModel.GrItemSet[iTex].MoveBatch;
+				var MoveValType = oTempModel.GrItemSet[iTex].MoveValType;
+				var MvtInd = oTempModel.GrItemSet[iTex].MvtInd;
+				var MoveReas = oTempModel.GrItemSet[iTex].MoveReas;
+				var RlEstKey = oTempModel.GrItemSet[iTex].RlEstKey;
+				var RefDate = oTempModel.GrItemSet[iTex].RefDate;
+				var CostObj = oTempModel.GrItemSet[iTex].CostObj;
+				var ProfitSegmNo = oTempModel.GrItemSet[iTex].ProfitSegmNo;
+				var ProfitCtr = oTempModel.GrItemSet[iTex].ProfitCtr;
+				var WbsElem = oTempModel.GrItemSet[iTex].WbsElem;
+				var Network = oTempModel.GrItemSet[iTex].Network;
+				var Activity = oTempModel.GrItemSet[iTex].Activity;
+				var PartAcct = oTempModel.GrItemSet[iTex].PartAcct;
+				var AmountLc = oTempModel.GrItemSet[iTex].AmountLc;
+				var AmountSv = oTempModel.GrItemSet[iTex].AmountSv;
+				var Currency = oTempModel.GrItemSet[iTex].Currency;
+				var CurrencyIso = oTempModel.GrItemSet[iTex].CurrencyIso;
+				var RefDocYr = oTempModel.GrItemSet[iTex].RefDocYr;
+				var RefDoc = oTempModel.GrItemSet[iTex].RefDoc;
+				var RefDocIt = oTempModel.GrItemSet[iTex].RefDocIt;
+				var Expirydate = oTempModel.GrItemSet[iTex].Expirydate;
+				var ProdDate = oTempModel.GrItemSet[iTex].ProdDate;
+				var Fund = oTempModel.GrItemSet[iTex].Fund;
+				var FundsCtr = oTempModel.GrItemSet[iTex].FundsCtr;
+				var CmmtItem = oTempModel.GrItemSet[iTex].CmmtItem;
+				var ValSalesOrd = oTempModel.GrItemSet[iTex].ValSalesOrd;
+				var ValSOrdItem = oTempModel.GrItemSet[iTex].ValSOrdItem;
+				var ValWbsElem = oTempModel.GrItemSet[iTex].ValWbsElem;
+				var CoBusproc = oTempModel.GrItemSet[iTex].CoBusproc;
+				var Acttype = oTempModel.GrItemSet[iTex].Acttype;
+				var SupplVend = oTempModel.GrItemSet[iTex].SupplVend;
+				var XAutoCre = oTempModel.GrItemSet[iTex].XAutoCre;
+				var MaterialExternal = oTempModel.GrItemSet[iTex].MaterialExternal;
+				var MaterialGuid = oTempModel.GrItemSet[iTex].MaterialGuid;
+				var MaterialVersion = oTempModel.GrItemSet[iTex].MaterialVersion;
+				var MoveMatExternal = oTempModel.GrItemSet[iTex].MoveMatExternal;
+				var MoveMatGuid = oTempModel.GrItemSet[iTex].MoveMatGuid;
+				var MoveMatVersion = oTempModel.GrItemSet[iTex].MoveMatVersion;
+				var GrantNbr = oTempModel.GrItemSet[iTex].GrantNbr;
+				var CmmtItemLong = oTempModel.GrItemSet[iTex].CmmtItemLong;
+				var FuncAreaLong = oTempModel.GrItemSet[iTex].FuncAreaLong;
+				var LineId = oTempModel.GrItemSet[iTex].LineId;
+				var ParentId = oTempModel.GrItemSet[iTex].ParentId;
+				var LineDepth = oTempModel.GrItemSet[iTex].LineDepth;
+				var BudgetPeriod = oTempModel.GrItemSet[iTex].BudgetPeriod;
+				var EarmarkedNumber = oTempModel.GrItemSet[iTex].EarmarkedNumber;
+				var EarmarkedItem = oTempModel.GrItemSet[iTex].EarmarkedItem;
+				var StkSegment = oTempModel.GrItemSet[iTex].StkSegment;
+
+				itemData.push({
+					Material: Material,
+					Plant: Plant,
+					StgeLoc: StgeLoc,
+					Batch: Batch,
+					MoveType: MoveType,
+					StckType: StckType,
+					SpecStock: SpecStock,
+					Vendor: Vendor,
+					Customer: Customer,
+					SalesOrd: SalesOrd,
+					SOrdItem: SOrdItem,
+					SchedLine: SchedLine,
+					ValType: ValType,
+					EntryQnt: EntryQnt,
+					EntryUom: EntryUom,
+					EntryUomIso: EntryUomIso,
+					PoPrQnt: PoPrQnt,
+					OrderprUn: OrderprUn,
+					OrderprUnIso: OrderprUnIso,
+					PoNumber: PoNumber,
+					PoItem: PoItem,
+					Shipping: Shipping,
+					CompShip: CompShip,
+					NoMoreGr: NoMoreGr,
+					ItemText: ItemText,
+					GrRcpt: GrRcpt,
+					UnloadPt: UnloadPt,
+					Costcenter: Costcenter,
+					Orderid: Orderid,
+					OrderItno: OrderItno,
+					CalcMotive: CalcMotive,
+					AssetNo: AssetNo,
+					SubNumber: SubNumber,
+					ReservNo: ReservNo,
+					ResItem: ResItem,
+					ResType: ResType,
+					Withdrawn: Withdrawn,
+					MoveMat: MoveMat,
+					MovePlant: MovePlant,
+					MoveStloc: MoveStloc,
+					MoveBatch: MoveBatch,
+					MoveValType: MoveValType,
+					MvtInd: MvtInd,
+					MoveReas: MoveReas,
+					RlEstKey: RlEstKey,
+					RefDate: RefDate,
+					CostObj: CostObj,
+					ProfitSegmNo: ProfitSegmNo,
+					ProfitCtr: ProfitCtr,
+					WbsElem: WbsElem,
+					Network: Network,
+					Activity: Activity,
+					PartAcct: PartAcct,
+					AmountLc: AmountLc,
+					AmountSv: AmountSv,
+					RefDocYr: RefDocYr,
+					RefDoc: RefDoc,
+					RefDocIt: RefDocIt,
+					Expirydate: Expirydate,
+					ProdDate: ProdDate,
+					Fund: Fund,
+					FundsCtr: FundsCtr,
+					CmmtItem: CmmtItem,
+					ValSalesOrd: ValSalesOrd,
+					ValSOrdItem: ValSOrdItem,
+					ValWbsElem: ValWbsElem,
+					GlAccount: "",
+					IndProposeQuanx: " ",
+					Xstob: "",
+					EanUpc: "",
+					DelivNumbToSearch: "",
+					DelivItemToSearch: " ",
+					SerialnoAutoNumberassignment: " ",
+					Vendrbatch: Batch,
+					StgeType: "",
+					StgeBin: "StgeBin",
+					SuPlStck1: EntryQnt,
+					StUnQtyy1: EntryQnt,
+					StUnQtyy1Iso: "",
+					Unittype1: "",
+					SuPlStck2: EntryQnt,
+					StUnQtyy2: EntryQnt,
+					StUnQtyy2Iso: " ",
+					Unittype2: " ",
+					StgeTypePc: "",
+					StgeBinPc: " ",
+					NoPstChgnt: " ",
+					GrNumber: " ",
+					StgeTypeSt: " ",
+					StgeBinSt: "",
+					MatdocTrCancel: " ",
+					MatitemTrCancel: " ",
+					MatyearTrCancel: " ",
+					NoTransferReq: " ",
+					CoBusproc: CoBusproc,
+					Acttype: Acttype,
+					SupplVend: SupplVend,
+					MaterialExternal: MaterialExternal,
+					MaterialGuid: MaterialGuid,
+					MaterialVersion: MaterialVersion,
+					MoveMatExternal: MoveMatExternal,
+					MoveMatGuid: MoveMatGuid,
+					MoveMatVersion: MoveMatVersion,
+					FuncArea: FuncAreaLong,
+					TrPartBa: " ",
+					ParCompco: "",
+					DelivNumb: " ",
+					DelivItem: " ",
+					NbSlips: " ",
+					NbSlipsx: " ",
+					GrRcptx: " ",
+					UnloadPtx: "",
+					SpecMvmt: " ",
+					GrantNbr: GrantNbr,
+					CmmtItemLong: CmmtItemLong,
+					FuncAreaLong: FuncAreaLong,
+					LineId: LineId,
+					ParentId: ParentId,
+					LineDepth: LineDepth,
+					Quantity: EntryQnt,
+					BaseUom: EntryUom,
+					Longnum: " ",
+					BudgetPeriod: BudgetPeriod,
+					EarmarkedNumber: EarmarkedNumber,
+					EarmarkedItem: EarmarkedItem,
+					StkSegment: StkSegment,
+					MoveSegment: ""
+
+				});
+
+			}
+			var oRequestPayload = {};
+			var MatDocd = oTempModel.MatDoc;
+			var DocYear = oTempModel.DocYear;
+			var TrEvType = oTempModel.TrEvType;
+			var DocDate = this.datatime(oTempModel.DocDate);
+			var PstngDate = this.datatime(oTempModel.PstngDate);
+			//	var EntryDate = this.datatime(oTempModel.EntryDate);
+			//	var EntryTime = oTempModel.EntryTime;
+			var Username = oTempModel.Username;
+			var VerGrGiSlip = oTempModel.VerGrGiSlip;
+			//	var ExpimpNo = oTempModel.ExpimpNo;
+			var RefDocNo = oTempModel.RefDocNo;
+			var HeaderTxt = oTempModel.HeaderTxt;
+			var RefDocNoLong = oTempModel.RefDocNoLong;
+
+			oRequestPayload.PstngDate = PstngDate;
+			oRequestPayload.DocDate = DocDate;
+			oRequestPayload.RefDocNo = RefDocNo;
+			oRequestPayload.BillOfLading = " ";
+			oRequestPayload.GrGiSlipNo = " ";
+			oRequestPayload.PrUname = Username;
+			oRequestPayload.HeaderTxt = HeaderTxt;
+			oRequestPayload.VerGrGiSlip = VerGrGiSlip;
+			oRequestPayload.VerGrGiSlipx = " ";
+			oRequestPayload.ExtWms = " ";
+			oRequestPayload.RefDocNoLong = RefDocNoLong;
+			oRequestPayload.BillOfLadingLong = " ";
+			oRequestPayload.BarCode = " ";
+			oRequestPayload.Matdocumentyear = DocYear;
+			oRequestPayload.Materialdocument = MatDocd;
+			oRequestPayload.GoodsmvtitemSet = itemData;
+
+			console.log(oRequestPayload);
+
+			BusyIndicator.show(0);
+			oModel.create("/GrCrudSet", oRequestPayload, {
+
+				success: this._onUpdateProdEntrySuccess.bind(this),
+				error: this._onCreateEntryError.bind(this)
+			});
+			oPurchaseModel.refresh(true);
+
+		},
 		_onUpdateProdEntrySuccess: function(oObject, oResponse) {
 			BusyIndicator.hide();
 
 			var sap1 = {};
 			sap1 = JSON.parse(oResponse.headers["sap-message"]);
 			console.log(sap1.message);
-			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
-			var oTempContract = oPurchaseModel.getProperty("/TempContract");
+
+			var oPurchaseModel = this.getView().getModel("GoodReceiptModel");
+			var oTempContract = oPurchaseModel.getProperty("/GRPost");
+
 			oTempContract.setData();
 			var s = oPurchaseModel.oData.TempContract.destroy;
 			//	s.refresh(true);
@@ -905,9 +1241,9 @@ sap.ui.define([
 		},
 
 		onCancelPRess: function(event) {
+				var oPurchaseModel = this.getView().getModel("GoodReceiptModel");
+				var oTempContract = oPurchaseModel.getProperty("/GRPost");
 
-				var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
-				var oTempContract = oPurchaseModel.getProperty("/TempContract");
 				oTempContract.setData();
 				//	oPurchaseModel.setData([]);
 				var s = oPurchaseModel.oData.TempContract.destroy;

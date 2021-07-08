@@ -20,7 +20,7 @@
 					<snappedHeading>
 						<m:FlexBox fitContainer="true" alignItems="Center">
 							<m:Avatar src="./test-resources/sap/uxap/images/imageID_275314.png" class="sapUiTinyMarginEnd"/>
-							<m:Title text="Goods Receipt" wrapping="true"/>
+							<m:Title text="Goods Receipt"/>
 						</m:FlexBox>
 					</snappedHeading>
 					<expandedContent>
@@ -32,7 +32,7 @@
 					</snappedContent>
 					<actions>
 						<ObjectPageHeaderActionButton text="Cancel" type="Transparent" hideText="false" press="onCancelPRess"/>
-						<ObjectPageHeaderActionButton text="Save" type="Emphasized" hideText="false" press="onPostPurchaseOrder"/>
+						<ObjectPageHeaderActionButton text="Save" type="Emphasized" hideText="false" press="OnPostGoodReceipt"/>
 					</actions>
 				</ObjectPageDynamicHeaderTitle>
 			</headerTitle>
@@ -64,9 +64,9 @@
 					labelSpanS="12" adjustLabelSpan="false" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
 					<form:content>
 						<m:Label text="Vendor "/>
-						<m:Text id="idVendorr" text="{GoodReceiptModel>/Vendor}: {AllDataModel>/VendorName} "/>
+						<m:Text id="idVendorr" text="{AllDataModel>/Vendor}: {AllDataModel>/VendorName} "/>
 						<m:Label text="Purchasing Document "/>
-						<m:Text text="{AllDataModel>/PON}"/>
+						<m:Text text="{AllDataModel>/PONO}"/>
 						<m:Label text="Created By "/>
 						<m:Text text="{GoodReceiptModel>/Username}"/>
 					</form:content>
@@ -100,7 +100,7 @@
 										<m:Label text="Header text"/>
 										<m:Input type="Text" id="idHeadertext" editable="{EditModel>/isEditable}" value="{AllDataModel>/VendorName}"></m:Input>
 										<m:Label text="Vendor"/>
-										<m:Input type="Text" id="idVendor" value=" " editable="{EditModel>/isEditable}"></m:Input>
+										<m:Input type="Text" id="idVendor" value="{AllDataModel>/Vendor}" editable="{EditModel>/isEditable}"></m:Input>
 									</form:content>
 								</form:SimpleForm>
 							</blocks>

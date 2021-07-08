@@ -10,27 +10,32 @@
 											<f:formElements>
 												<f:FormElement label="Movement Type">
 													<f:fields>
-														<Input id="idMovementType" editable="{EditModel>/isEditable}" showValueHelp="true" showSuggestion="true"/>
+														<Input id="idMovementType" editable="{EditModel>/isEditable}" value="{GRItemsModel>/MoveType}"/>
 													</f:fields>
 												</f:FormElement>
 												<f:FormElement label="Plant">
 													<f:fields>
-														<Input id="idPlant" editable="{EditModel>/isEditable}"  value=" "/>
-														<Input id="idPlantNo" editable="{EditModel>/isEditable}" value=" ">
+														<Input id="idPlant" editable="{EditModel>/isEditable}"  value="{GRItemsModel>/Plant}"/>
+														<Input id="idPlantNo" editable="{EditModel>/isEditable}" value="{GRItemsModel>/AmountLc}">
 															<layoutData>
 																<l:GridData span="XL1 L2 M2 S4"/>
 															</layoutData>
 														</Input>
 													</f:fields>
 												</f:FormElement>
-												<f:FormElement label="Goods Recipient">
+												<f:FormElement label="Storage Location Recipient">
 													<f:fields>
-														<Input id="idGoodsRecipient" editable="{EditModel>/isEditable}" value=" "/>
+														<Input id="idGoodsRecipient" editable="{EditModel>/isEditable}" value="{GRItemsModel>/StgeLoc}"/>
+														<Input id="idStorelco" editable="{EditModel>/isEditable}" value="{GRItemsModel>/StgeLoc}">
+															<layoutData>
+																<l:GridData span="XL1 L2 M2 S4"/>
+															</layoutData>
+														</Input>
 													</f:fields>
 												</f:FormElement>
 												<f:FormElement label="Unloading Point">
 													<f:fields>
-														<Input id="idUnloadingPoint" editable="{EditModel>/isEditable}" value=" "/>
+														<Input id="idUnloadingPoint" editable="{EditModel>/isEditable}" value="{GRItemsModel>/UnloadPt}"/>
 													</f:fields>
 												</f:FormElement>
 												<f:FormElement label="Text">

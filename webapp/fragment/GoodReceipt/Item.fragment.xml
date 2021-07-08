@@ -88,7 +88,7 @@
 					</t:template>
 				</t:Column>
 		
-				<t:Column width="7rem" hAlign="Center">
+				<t:Column width="9rem" hAlign="Center">
 					<Label text="Purchase Order"/>
 					<t:template>
 						<Input id="idPoNumber" value="{GoodReceiptModel>PoNumber}" editable="{EditModel>/isEditable}"  />
@@ -243,7 +243,7 @@
 						<Input id="idExtAmountLC" value="{GoodReceiptModel>CurrencyIso}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
-				<t:Column width="7rem" hAlign="Center">
+				<t:Column width="9rem" hAlign="Center">
 					<Label text="Reservation Number"/>
 					<t:template>
 						<Input id="idResno" value="{GoodReceiptModel>ReservNo}" editable="{EditModel>/isEditable}"/>

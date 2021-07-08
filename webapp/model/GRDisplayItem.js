@@ -1,10 +1,10 @@
 sap.ui.define([
 	"com/vSimpleApp/model/BaseObject",
-
 	"com/vSimpleApp/service/Application"
+
 ], function(BaseObject, Application) {
 	"use strict";
-	var GRDisplay = BaseObject.extend("com.vSimpleApp.model.GRDisplay", {
+	var GRDisplay = BaseObject.extend("com.vSimpleApp.model.GRDisplayItem", {
 		constructor: function(oData) {
 			BaseObject.call(this);
 
@@ -12,7 +12,7 @@ sap.ui.define([
 		},
 
 		setData: function(oData) {
-		
+
 			this.MatDoc = (oData && oData.MatDoc) ? oData.MatDoc : "";
 			this.DocYear = (oData && oData.DocYear) ? oData.DocYear : "";
 			this.MatdocItm = (oData && oData.MatdocItm) ? oData.MatdocItm : "";
@@ -110,7 +110,98 @@ sap.ui.define([
 		getRequestPayloadGR: function() {
 			return {
 
-			
+				MatDoc: this.MatDoc,
+				DocYear: this.DocYear,
+				MatdocItm: this.MatdocItm,
+				Material: this.Material,
+				Plant: this.Plant,
+				StgeLoc: this.StgeLoc,
+				Batch: this.Batch,
+				MoveType: this.MoveType,
+				StckType: this.StckType,
+				SpecStock: this.SpecStock,
+				Vendor: this.Vendor,
+				Customer: this.Customer,
+				SalesOrd: this.SalesOrd,
+				SOrdItem: this.SOrdItem,
+				SchedLine: this.SchedLine,
+				ValType: this.ValType,
+				EntryQnt: this.EntryQnt,
+				EntryUom: this.EntryUom,
+				EntryUomIso: this.EntryUomIso,
+				PoPrQnt: this.PoPrQnt,
+				OrderprUn: this.OrderprUn,
+				OrderprUnIso: this.OrderprUnIso,
+				PoNumber: this.PoNumber,
+				PoItem: this.PoItem,
+				Shipping: this.Shipping,
+				CompShip: this.CompShip,
+				NoMoreGr: this.NoMoreGr,
+				ItemText: this.ItemText,
+				GrRcpt: this.GrRcpt,
+				UnloadPt: this.UnloadPt,
+				Costcenter: this.Costcenter,
+				Orderid: this.Orderid,
+				OrderItno: this.OrderItno,
+				CalcMotive: this.CalcMotive,
+				AssetNo: this.AssetNo,
+				SubNumber: this.SubNumber,
+				ReservNo: this.ReservNo,
+				ResItem: this.ResItem,
+				ResType: this.ResType,
+				Withdrawn: this.Withdrawn,
+				MoveMat: this.MoveMat,
+				MovePlant: this.MovePlant,
+				MoveStloc: this.MoveStloc,
+				MoveBatch: this.MoveBatch,
+				MoveValType: this.MoveValType,
+				MvtInd: this.MvtInd,
+				MoveReas: this.MoveReas,
+				RlEstKey: this.RlEstKey,
+				RefDate: this.RefDate,
+				CostObj: this.CostObj,
+				ProfitSegmNo: this.ProfitSegmNo,
+				ProfitCtr: this.ProfitCtr,
+				WbsElem: this.WbsElem,
+				Network: this.Network,
+				Activity: this.Activity,
+				PartAcct: this.PartAcct,
+				AmountLc: this.AmountLc,
+				AmountSv: this.AmountSv,
+				Currency: this.Currency,
+				CurrencyIso: this.CurrencyIso,
+				RefDocYr: this.RefDocYr,
+				RefDoc: this.RefDoc,
+				RefDocIt: this.RefDocIt,
+				Expirydate: this.Expirydate,
+				ProdDate: this.ProdDate,
+				Fund: this.Fund,
+				FundsCtr: this.FundsCtr,
+				CmmtItem: this.CmmtItem,
+				ValSalesOrd: this.ValSalesOrd,
+				ValSOrdItem: this.ValSOrdItem,
+				ValWbsElem: this.ValWbsElem,
+				CoBusproc: this.CoBusproc,
+				Acttype: this.Acttype,
+				SupplVend: this.SupplVend,
+				XAutoCre: this.XAutoCre,
+				MaterialExternal: this.MaterialExternal,
+				MaterialGuid: this.MaterialGuid,
+				MaterialVersion: this.MaterialVersion,
+				MoveMatExternal: this.MoveMatExternal,
+				MoveMatGuid: this.MoveMatGuid,
+				MoveMatVersion: this.MoveMatVersion,
+				GrantNbr: this.GrantNbr,
+				CmmtItemLong: this.CmmtItemLong,
+				FuncAreaLong: this.FuncAreaLong,
+				LineId: this.LineId,
+				ParentId: this.ParentId,
+				LineDepth: this.LineDepth,
+				BudgetPeriod: this.BudgetPeriod,
+				EarmarkedNumber: this.EarmarkedNumber,
+				EarmarkedItem: this.EarmarkedItem,
+				StkSegment: this.StkSegment
+
 			};
 		}
 

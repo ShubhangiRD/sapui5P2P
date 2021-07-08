@@ -10,28 +10,29 @@
 											<f:formElements>
 												<f:FormElement label="G/L Account">
 													<f:fields>
-														<Input id="idGLAccount1" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" showSuggestion="true" showValueHelp="true"></Input>
+														<Input id="idGLAccount1" textFormatMode="KeyValue" editable="{EditModel>/isEditable}"  ></Input>
 													</f:fields>
 												</f:FormElement>
 												<f:FormElement label="Business Area">
 													<f:fields>
-														<Input type="Text" maxLength="3" id="idBusinessArea1" value=" " showSuggestion="true" showValueHelp="true"
+														<Input type="Text" maxLength="3" id="idBusinessArea1" 
+														value="{GRItemsModel>/CoBusproc}" 
 															editable="{EditModel>/isEditable}"></Input>
 													</f:fields>
 												</f:FormElement>
 												<f:FormElement label="Cost Center">
 													<f:fields>
-														<Input type="Text" maxLength="4" id="idCostCenter1" editable="{EditModel>/isEditable}" showSuggestion="true" showValueHelp="true"/>
+														<Input type="Text" maxLength="4" id="idCostCenter1" editable="{EditModel>/isEditable}" 	value="{GRItemsModel>/Costcenter}" />
 													</f:fields>
 												</f:FormElement>
 												<f:FormElement label="Profit Center">
 													<f:fields>
-														<Input type="Text" maxLength="4" id="idProfitCenter1" editable="{EditModel>/isEditable}" showSuggestion="true" showValueHelp="true"/>
+														<Input type="Text" maxLength="4" id="idProfitCenter1" editable="{EditModel>/isEditable}"	value="{GRItemsModel>/ProfitCtr}" />
 													</f:fields>
 												</f:FormElement>
 												<f:FormElement label="Functional Area">
 													<f:fields>
-														<Input type="Text" id="idFunctionalArea" showSuggestion="true" editable="{EditModel>/isEditable}" showValueHelp="true"/>
+														<Input type="Text" id="idFunctionalArea"  editable="{EditModel>/isEditable}" 	value="{GRItemsModel>/FuncAreaLong}" />
 													</f:fields>
 												</f:FormElement>
 											</f:formElements>

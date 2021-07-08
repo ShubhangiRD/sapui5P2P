@@ -26,40 +26,37 @@ sap.ui.define([
 
 	return Controller.extend("com.vSimpleApp.controller.Home", {
 		onInit: function() {
-<<<<<<< HEAD
+
 			//get model and model property
 			var oUserModel = this.getOwnerComponent().getModel("User");
 			var sUsername = oUserModel.getProperty("/Username");
-=======
->>>>>>> branch 'main' of https://github.com/ShubhangiRD/sapui5P2P.git
 
 			this.oModel = new JSONModel();
 			//get the view name to set model value
 			oView = this.getView();
-<<<<<<< HEAD
 			var sViewName = oView.sViewName;
 
 			if (sViewName === "com.vSimpleApp.view.ChangeContract") {
-=======
-			var svn = oView.sViewName;
 
-			if (svn === "com.vSimpleApp.view.ChangeContract") {
->>>>>>> branch 'main' of https://github.com/ShubhangiRD/sapui5P2P.git
-				this.oModel.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/model.json", null, false);
-				this.oModel.oData.selectedKey = "changeContract";
-				this.getView().setModel(this.oModel);
-			} else
-			if (sViewName === "com.vSimpleApp.view.ViewContract") {
-				this.oModel.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/model.json", null, false);
-				this.oModel.oData.selectedKey = "viewContract";
-				this.getView().setModel(this.oModel);
-			} else
-			if (sViewName === "com.vSimpleApp.view.Home") {
-				this.oModel.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/model.json", null, false);
-				this.oModel.oData.selectedKey = "createContract";
-				this.getView().setModel(this.oModel);
+				var svn = oView.sViewName;
+
+				if (svn === "com.vSimpleApp.view.ChangeContract") {
+
+					this.oModel.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/model.json", null, false);
+					this.oModel.oData.selectedKey = "changeContract";
+					this.getView().setModel(this.oModel);
+				} else
+				if (sViewName === "com.vSimpleApp.view.ViewContract") {
+					this.oModel.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/model.json", null, false);
+					this.oModel.oData.selectedKey = "viewContract";
+					this.getView().setModel(this.oModel);
+				} else
+				if (sViewName === "com.vSimpleApp.view.Home") {
+					this.oModel.loadData(sap.ui.require.toUrl("com/vSimpleApp/model") + "/model.json", null, false);
+					this.oModel.oData.selectedKey = "createContract";
+					this.getView().setModel(this.oModel);
+				}
 			}
-
 		},
 		onUserNamePress: function(oEvent) {
 			//creating buttons through button objects
@@ -94,18 +91,12 @@ sap.ui.define([
 		onItemSelect: function(oEvent) {
 			var oComponent = this.getOwnerComponent();
 			var iItem = oEvent.getParameter("item");
-<<<<<<< HEAD
 			var sKey = iItem.getKey();
-=======
-			var skey = iItem.getKey();
->>>>>>> branch 'main' of https://github.com/ShubhangiRD/sapui5P2P.git
 			//get model
 			var oVendorModel = this.getOwnerComponent().getModel("Vendor");
-<<<<<<< HEAD
+
 			if (sKey === "createContract") {
-=======
-			if (skey === "createContract") {
->>>>>>> branch 'main' of https://github.com/ShubhangiRD/sapui5P2P.git
+
 				//get model property to set data 
 				var oTempContract = oVendorModel.getProperty("/TempContract");
 				oTempContract.setData({
@@ -114,28 +105,21 @@ sap.ui.define([
 				//navigate the page according to the condition
 				oComponent.getRouter().navTo("Home");
 			} else
-<<<<<<< HEAD
+
 			if (sKey === "displayContract") {
-=======
-			if (skey === "displayContract") {
->>>>>>> branch 'main' of https://github.com/ShubhangiRD/sapui5P2P.git
+
 				oComponent.getRouter().navTo("Dashboard");
 			} else
-<<<<<<< HEAD
+
 			if (sKey === "changeContract") {
-=======
-			if (skey === "changeContract") {
->>>>>>> branch 'main' of https://github.com/ShubhangiRD/sapui5P2P.git
+
 				oComponent.getRouter().navTo("ChangeContract");
 			} else
-<<<<<<< HEAD
+
 			if (sKey === "dashboard") {
-=======
-			if (skey === "dashboard") {
->>>>>>> branch 'main' of https://github.com/ShubhangiRD/sapui5P2P.git
+
 				oComponent.getRouter().navTo("Dashboard");
 			}
-
 		},
 
 		onMenuButtonPress: function() {

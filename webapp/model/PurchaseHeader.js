@@ -6,11 +6,11 @@ sap.ui.define([
 	"com/vSimpleApp/model/PoCondition",
 	"com/vSimpleApp/service/dateServices"
 
-], function(BaseObject, Application, MessageToast, RebateConditionItemPO, PoSchedule, PoCondition, dateServices) {
+], function(BaseObject,  MessageToast, RebateConditionItemPO, PoSchedule, PoCondition, dateServices) {
 	"use strict";
 	var PurchaseHeader = BaseObject.extend("com.vSimpleApp.model.PurchaseHeader", {
 		constructor: function(oData) {
-			//	BaseObject.call(this);
+				BaseObject.call(this);
 
 			this.setData(oData);
 		},
@@ -87,18 +87,17 @@ sap.ui.define([
 			this.PoScheduleSet = (oData && oData.PoScheduleSet) ? oData.PoScheduleSet : [];
 
 		},
-	getRequestPayloadPO: function() {
-				var that = this;
+		getRequestPayloadPO: function() {
+	
 			var PoitemSet = [];
-				var PoScheduleSet = [];
-					var PoCondSet = [];
-		
-		
+			var PoScheduleSet = [];
+			var PoCondSet = [];
+
 			this.PoitemSet.forEach(function(item) {
-			PoitemSet.push(item.getRequestPayloadPOI());
-			
+				PoitemSet.push(item.getRequestPayloadPO());
+
 			});
-				this.PoScheduleSet.forEach(function(item2) {
+			this.PoScheduleSet.forEach(function(item2) {
 				PoScheduleSet.push(item2);
 
 			});
@@ -117,18 +116,18 @@ sap.ui.define([
 				CreatedBy: this.CreatedBy,
 				ItemIntvl: this.ItemIntvl,
 				Vendor: this.Vendor,
-				Langu: this.Langu,
-				LanguIso: this.LanguIso,
+				Langu: "E",
+				LanguIso: "EN",
 				Pmnttrms: this.Pmnttrms,
-			//	Dscnt1To: this.Dscnt1To,
-			//	Dscnt2To: this.Dscnt2To,
-			//	Dscnt3To: this.Dscnt3To,
-			//	DsctPct1: this.DsctPct1,
-			//	DsctPct2: this.DsctPct2,
+				//	Dscnt1To: this.Dscnt1To,
+				//	Dscnt2To: this.Dscnt2To,
+				//	Dscnt3To: this.Dscnt3To,
+				//	DsctPct1: this.DsctPct1,
+				//	DsctPct2: this.DsctPct2,
 				PurchOrg: this.PurchOrg,
 				PurGroup: this.PurGroup,
 				Currency: this.Currency,
-				CurrencyIso: this.CurrencyIso,
+				CurrencyIso: this.Currency,
 				//		ExchRate: this.ExchRate,
 				ExRateFx: this.ExRateFx,
 				DocDate: this.DocDate,
@@ -159,12 +158,12 @@ sap.ui.define([
 				ReasonCancel: this.ReasonCancel,
 				ReasonCode: this.ReasonCode,
 				RetentionType: this.RetentionType,
-			//	RetentionPercentage: this.RetentionPercentage,
+				RetentionPercentage: "0.00",
 				DownpayType: this.DownpayType,
-			//	DownpayAmount: this.DownpayAmount,
-			//	DownpayPercent: this.DownpayPercent,
+				//	DownpayAmount: this.DownpayAmount,
+				//	DownpayPercent: this.DownpayPercent,
 				//	DownpayDuedate: this.DownpayDuedate,
-			
+
 				Memory: this.Memory,
 				Memorytype: this.Memorytype,
 				Shiptype: this.Shiptype,
@@ -173,18 +172,17 @@ sap.ui.define([
 				PoScheduleSet: PoScheduleSet,
 				PoCondSet: PoCondSet,
 				PoitemSet: PoitemSet
-		
-		
-		
+
 			};
-			
-		
+
 		},
-	
+
 		getRequestPayload: function() {
 			var PoitemSet = [];
 			this.PoitemSet.forEach(function(item) {
-				PoitemSet.push(item);
+				var sPo = new RebateConditionItemPO(item);
+					PoitemSet.push(sPo.getRequestPayloadPO());
+			//	PoitemSet.push(item);
 
 			});
 			var PoScheduleSet = [];

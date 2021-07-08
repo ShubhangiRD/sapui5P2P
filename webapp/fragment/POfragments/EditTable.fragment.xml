@@ -30,9 +30,9 @@
 			<t:Column hAlign="Center" width="11rem">
 				<Label text="Material Description"/>
 				<t:template>
-					<Input class="desc1" id="nDescription" textFormatMode="KeyValue" placeholder="Enter Material Description" showSuggestion="true"
+					<Input class="desc1" id="nDescription" 	value="{PurchaseModel>ShortText}" textFormatMode="KeyValue" placeholder="Enter Material Description" showSuggestion="true"
 						showValueHelp="true" valueHelpRequest="handleMaterialDisVendor" suggestionItems="{ path: 'Lookup>/MaterialDiscription' }"
-						value="{PurchaseModel>ShortText}" editable="{EditModel>/isEditable}" suggestionItemSelected="onSuggest">
+					 editable="{EditModel>/isEditable}" suggestionItemSelected="onSuggest">
 						<suggestionItems>
 							<core:ListItem key="{Lookup>Description}" text="{Lookup>Materialno}" additionalText="{Lookup>Description}"/>
 						</suggestionItems>
@@ -77,25 +77,25 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Status"/>
 				<t:template>
-					<Input id="idstatuss" editable="{EditModel>/isEditable}" class="price1"/>
+					<Input id="idstatuss" editable="{EditModel>/isEditable}" />
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Item"/>
 				<t:template>
-					<Input id="iditems" value="{PurchaseModel>PoItem}"  editable="{EditModel>/isEditable}" class="price1"/>
+					<Input id="iditems" value="{PurchaseModel>PoItem}"  editable="{EditModel>/isEditable}" />
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="A"/>
 				<t:template>
-					<Input id="idAa" class="mtid" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{PurchaseModel>Acctasscat}"></Input>
+					<Input id="idAa"  textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{PurchaseModel>Acctasscat}"></Input>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="I"/>
 				<t:template>
-					<Input id="idii" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>ItemCat}"
+					<Input id="idii"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>ItemCat}"
 						editable="{EditModel>/isEditable}" valueHelpRequest="handlePOII" suggestionItems="{ path: 'Lookup>/MaterialList' }"
 						suggestionItemSelected="onSuggestII">
 						<suggestionItems>
@@ -126,7 +126,7 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Order Unit"/>
 				<t:template>
-					<Input id="idorderUnit" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>PoUnit}"
+					<Input id="idorderUnit"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>PoUnit}"
 						editable="{EditModel>/isEditable}" valueHelpRequest="handleOrderUnit" suggestionItems="{ path: 'Lookup>/MaterialList' }"
 						suggestionItemSelected="onSuggestOrderUnit">
 						<suggestionItems>
@@ -144,13 +144,13 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Per"/>
 				<t:template>
-					<Input id="idPer" editable="{EditModel>/isEditable}" class="price1"/>
+					<Input id="idPer" editable="{EditModel>/isEditable}" />
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Store Location"/>
 				<t:template>
-					<Input id="idstoreLocation" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+					<Input id="idstoreLocation"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
 						value="{PurchaseModel>StgeLoc}" editable="{EditModel>/isEditable}" valueHelpRequest="handlePOStoreLocation"
 						suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggestStoreLocation">
 						<suggestionItems>
@@ -162,60 +162,44 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Batch "/>
 				<t:template>
-					<Input id="idbatch" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>Batch}"
-						editable="{EditModel>/isEditable}" valueHelpRequest="handlePOBatchPo" suggestionItems="{ path: 'Lookup>/MaterialList' }"
-						suggestionItemSelected="onSuggestBatchPO">
-						<suggestionItems>
-							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-						</suggestionItems>
+					<Input id="idbatch"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>Batch}"
+						editable="{EditModel>/isEditable}" >
 					</Input>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Requestment Number"/>
 				<t:template>
-					<Input id="idReqnumber" editable="{EditModel>/isEditable}" value="{PurchaseModel>PrioRequirement}" class="price1"/>
+					<Input id="idReqnumber" editable="{EditModel>/isEditable}" value="{PurchaseModel>PrioRequirement}" />
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Requisitoner "/>
 				<t:template>
-					<Input id="idRequisitonerr" editable="{EditModel>/isEditable}" value="{PurchaseModel>PreqName}" class="price1"/>
+					<Input id="idRequisitonerr" editable="{EditModel>/isEditable}" value="{PurchaseModel>PreqName}" />
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Type Of Subcontracting "/>
 				<t:template>
-					<Input id="idsubcontracting" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-						editable="{EditModel>/isEditable}" valueHelpRequest="handlePOSubcontracting" suggestionItems="{ path: 'Lookup>/MaterialList' }"
-						suggestionItemSelected="onSuggestSubcontracting">
-						<suggestionItems>
-							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-						</suggestionItems>
+					<Input id="idsubcontracting"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+						editable="{EditModel>/isEditable}" >
 					</Input>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Inventory Managed Material "/>
 				<t:template>
-					<Input id="idinventrymaterial" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-						editable="{EditModel>/isEditable}" valueHelpRequest="handlePOInventrymaterial" suggestionItems="{ path: 'Lookup>/MaterialList' }"
-						suggestionItemSelected="onSuggestInventrymaterial">
-						<suggestionItems>
-							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-						</suggestionItems>
+					<Input id="idinventrymaterial"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+						editable="{EditModel>/isEditable}" >
 					</Input>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Info Rec "/>
 				<t:template>
-					<Input id="idInfoRec" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>InfoRec}"
-						editable="{EditModel>/isEditable}" valueHelpRequest="handlePOInfoRec" suggestionItems="{ path: 'Lookup>/MaterialList' }"
-						suggestionItemSelected="onSuggestInfoRec">
-						<suggestionItems>
-							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-						</suggestionItems>
+					<Input id="idInfoRec" class="infoClass"  value="{PurchaseModel>InfoRec}"
+						editable="{EditModel>/isEditable}" >
 					</Input>
 				</t:template>
 			</t:Column>
@@ -240,12 +224,8 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Purchase Request "/>
 				<t:template>
-					<Input id="idPurcReq" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>PreqNo}"
-						editable="{EditModel>/isEditable}" valueHelpRequest="handlePOPurcReq" suggestionItems="{ path: 'Lookup>/MaterialList' }"
-						suggestionItemSelected="onSuggestPurcReq">
-						<suggestionItems>
-							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-						</suggestionItems>
+					<Input id="idPurcReq"   value="{PurchaseModel>PreqNo}"
+						editable="{EditModel>/isEditable}" >
 					</Input>
 				</t:template>
 			</t:Column>
@@ -258,12 +238,8 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="OutLine Agreement "/>
 				<t:template>
-					<Input id="idOutLineAgmnt" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-						value="{PurchaseModel>Agreement}" editable="{EditModel>/isEditable}" valueHelpRequest="handlePOOutLineAgmnt"
-						suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggestOutLineAgmnt">
-						<suggestionItems>
-							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-						</suggestionItems>
+					<Input id="idOutLineAgmnt"  
+						value="{PurchaseModel>Agreement}" editable="{EditModel>/isEditable}" >
 					</Input>
 				</t:template>
 			</t:Column>
@@ -276,12 +252,8 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Central Contract "/>
 				<t:template>
-					<Input id="idCentralcontract" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-						value="{PurchaseModel>SrmContractId}" editable="{EditModel>/isEditable}" valueHelpRequest="handlePOCentralContract"
-						suggestionItems="{ path: 'Lookup>/MaterialList' }" suggestionItemSelected="onSuggestCentralContract">
-						<suggestionItems>
-							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-						</suggestionItems>
+					<Input id="idCentralcontract" 
+						value="{PurchaseModel>SrmContractId}" editable="{EditModel>/isEditable}" >
 					</Input>
 				</t:template>
 			</t:Column>
@@ -294,12 +266,8 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="RFQ "/>
 				<t:template>
-					<Input id="idRGQ" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>RfqNo}"
-						editable="{EditModel>/isEditable}" valueHelpRequest="handlePORFQ" suggestionItems="{ path: 'Lookup>/MaterialList' }"
-						suggestionItemSelected="onSuggestRFQ">
-						<suggestionItems>
-							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-						</suggestionItems>
+					<Input id="idRGQ"   value="{PurchaseModel>RfqNo}"
+						editable="{EditModel>/isEditable}" >
 					</Input>
 				</t:template>
 			</t:Column>
@@ -312,12 +280,8 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Purchasing Document "/>
 				<t:template>
-					<Input id="idPurchasingDocument" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-						editable="{EditModel>/isEditable}" valueHelpRequest="handlePOPurDoc" suggestionItems="{ path: 'Lookup>/MaterialList' }"
-						suggestionItemSelected="onSuggestPurcDoc">
-						<suggestionItems>
-							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-						</suggestionItems>
+					<Input id="idPurchasingDocument" 
+						editable="{EditModel>/isEditable}" >
 					</Input>
 				</t:template>
 			</t:Column>
@@ -330,12 +294,8 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="ISS Store Location "/>
 				<t:template>
-					<Input id="idissStorLoc" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-						editable="{EditModel>/isEditable}" valueHelpRequest="handlePOissStorLoc" suggestionItems="{ path: 'Lookup>/MaterialList' }"
-						suggestionItemSelected="onSuggestissStorLoc">
-						<suggestionItems>
-							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-						</suggestionItems>
+					<Input id="idissStorLoc"
+						editable="{EditModel>/isEditable}" >
 					</Input>
 				</t:template>
 			</t:Column>
@@ -348,12 +308,8 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="SubItem Category"/>
 				<t:template>
-					<Input id="idSubitemCate" class="mtid" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-						editable="{EditModel>/isEditable}" valueHelpRequest="handlePOSubitemCate" suggestionItems="{ path: 'Lookup>/MaterialList' }"
-						suggestionItemSelected="onSuggestSubitemCate">
-						<suggestionItems>
-							<core:ListItem key="{Lookup>}" text="{Lookup>}" additionalText="{Lookup>}"/>
-						</suggestionItems>
+					<Input id="idSubitemCate" 
+						editable="{EditModel>/isEditable}" >
 					</Input>
 				</t:template>
 			</t:Column>

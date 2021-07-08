@@ -522,7 +522,7 @@ sap.ui.define([
 							var sInfnr = oHierarchyModel.oData.results[0].Infnr;
 						
 							var sInforef = $(that)[0].inputId;
-							var idInfo = $("#" + sInforef).closest("tr").find(".mtidd").attr("id");
+							var idInfo = $("#" + sInforef).closest("tr").find(".infoClass").attr("id");
 							$("#" + idInfo + "-inner").val(sInfnr);
 							
 							
@@ -1036,7 +1036,7 @@ sap.ui.define([
 		},
 		_onCreateEntrySuccess: function(oObject, oResponse) {
 		//	BusyIndicator.hide();
-			var successObj = oResponse.data.Ebeln;
+			var successObj = oResponse.data.Purchaseorder;
 
 			var oPurchaseModel = this.getOwnerComponent().getModel("PurchaseModel");
 			var oTempContract = oPurchaseModel.getProperty("/TempContract");
