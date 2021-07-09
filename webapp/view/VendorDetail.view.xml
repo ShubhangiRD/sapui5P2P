@@ -3,12 +3,12 @@
 	controllerName="com.vSimpleApp.controller.VendorDetail">
 	<m:Page showNavButton="true" navButtonPress="onNavBack">
 		<ObjectPageLayout id="POHeader" showFooter="true" showTitleInHeaderContent="true" alwaysShowContentHeader="false"
-			preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false">
+ isChildPage="true" upperCaseAnchorBar="false">
 			<headerTitle>
 				<ObjectPageDynamicHeaderTitle>
 					<expandedHeading>
 							<m:HBox>
-							<m:Title text="{ScreenName>/isScreen}" id="idvndorscreen" wrapping="true"/>
+							<m:Title text="{ScreenName>/isScreen}" id="idvndorscreen" />
 							<m:ObjectMarker type="Favorite" class="sapUiTinyMarginBegin"/>
 						</m:HBox>
 					
@@ -16,7 +16,7 @@
 					<snappedHeading>
 						<m:FlexBox fitContainer="true" alignItems="Center">
 							<m:Avatar src="sap-icon://picture" class="sapUiTinyMarginEnd"/>
-							<m:Title text="{ScreenName>/isScreen}" wrapping="true"/>
+							<m:Title text="{ScreenName>/isScreen}" />
 						</m:FlexBox>
 					</snappedHeading>
 					<actions>
@@ -32,7 +32,7 @@
 	
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 						<m:Label text="Vendor : " required="true" visible="{VisibleModel>/isVisible}"/>
-						<m:Input id="idVendor" value="{VendorModel>/Lifnra}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"
+						<m:Input id="Lifnra" value="{VendorModel>/Lifnra}" visible="{VisibleModel>/isVisible}" textFormatMode="KeyValue" placeholder="Vendor Number"
 							showSuggestion="true" showValueHelp="true" valueHelpRequest="handleVendorValueHelpBox"
 							suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
@@ -43,7 +43,7 @@
 					</l:VerticalLayout>
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 						<m:Label text="Purchase Org :" required="true"/>
-						<m:Input id="idPurOrg" value="{VendorModel>/Ekorgc}" textFormatMode="KeyValue" placeholder=" Purchase Org" showSuggestion="true"
+						<m:Input id="Ekorgc" value="{VendorModel>/Ekorgc}" textFormatMode="KeyValue" placeholder=" Purchase Org" showSuggestion="true"
 							showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor" editable="{EditModel>/isEditable}"
 							suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
@@ -53,7 +53,7 @@
 					</l:VerticalLayout>
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 						<m:Label text="Company Code:" required="true" fieldGroupIds="Bukrsb"/>
-						<m:Input id="idCompCode" value="{VendorModel>/Bukrsb}" textFormatMode="KeyValue" placeholder="Company Code" showSuggestion="true"
+						<m:Input id="Bukrsb" value="{VendorModel>/Bukrsb}" textFormatMode="KeyValue" placeholder="Company Code" showSuggestion="true"
 						fieldGroupIds="Bukrsb"	showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor" editable="{EditModel>/isEditable}"
 							suggestionItems="{ path: 'Lookup>/CountryCode' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>
@@ -63,7 +63,7 @@
 					</l:VerticalLayout>
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 						<m:Label text="Account Group:" required="true"/>
-						<m:Input id="idAccGp" textFormatMode="KeyValue" placeholder="Account Group ..." showSuggestion="true" showValueHelp="true"
+						<m:Input id="Ktokka" textFormatMode="KeyValue" placeholder="Account Group ..." showSuggestion="true" showValueHelp="true"
 							value="{VendorModel>/Ktokka}" editable="{EditModel>/isEditable}" valueHelpRequest="handleAccountCodeVendor"
 							suggestionItems="{ path: 'Lookup>/AccountGroup' }" suggestionItemSelected="onSuggest">
 							<m:suggestionItems>

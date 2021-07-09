@@ -71,10 +71,10 @@ sap.ui.define([
 			oView.getModel("EditModel").setProperty("/isEditable", true);
 			oView.byId("iddEditt").setVisible(false);
 			oVendorModel.refresh(true);
-			oView.byId("idVendor").setValue("");
-			oView.byId("idCompCode").setValue("");
-			oView.byId("idPurOrg").setValue("");
-			oView.byId("idAccGp").setValue("");
+			oView.byId("Lifnra").setValue("");
+			oView.byId("Bukrsb").setValue("");
+			oView.byId("Ekorgc").setValue("");
+			oView.byId("Ktokka").setValue("");
 
 			this.getOwnerComponent().getRouter().navTo("ShowTiles");
 

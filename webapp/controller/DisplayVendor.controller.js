@@ -3122,10 +3122,10 @@ sap.ui.define([
 
 			//setting property to models
 			oVendorModel.refresh(true);
-			oView.byId("idVendor").setValue("");
-			oView.byId("idCompCode").setValue("");
-			oView.byId("idPurOrg").setValue("");
-			oView.byId("idAccGp").setValue("");
+			oView.byId("Lifnra").setValue("");
+			oView.byId("Bukrsb").setValue("");
+			oView.byId("Ekorgc").setValue("");
+			oView.byId("Ktokka").setValue("");
 
 			this.getOwnerComponent().getRouter().navTo("ShowTiles");
 

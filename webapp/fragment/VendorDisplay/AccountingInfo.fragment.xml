@@ -6,7 +6,7 @@
 			<form:content>
 				<core:Title text=""/>
 				<Label text="Recon Account" required="true" fieldGroupIds="Akontb"/>
-				<Input id="ReconAccount" fieldGroupIds="Akontb" maxLength="8" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Akontb}"
+				<Input id="Akontb" fieldGroupIds="Akontb" maxLength="8" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Akontb}"
 					showValueHelp="true" valueHelpRequest="handleReconAccountValueHelp" editable="{EditModel>/isEditable}"
 					suggestionItems="{ path: '{reconaccount>/ReconAccount}' }" suggestionItemSelected="onSuggestReconAccount">
 					<suggestionItems>
@@ -14,7 +14,7 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Head Office" fieldGroupIds="Lnrzeb"/>
-				<Input id="headoffice" fieldGroupIds="Lnrzeb" value="{VendorModel>/Lnrzeb}" textFormatMode="KeyValue" showSuggestion="true"
+				<Input id="Lnrzeb" fieldGroupIds="Lnrzeb" value="{VendorModel>/Lnrzeb}" textFormatMode="KeyValue" showSuggestion="true"
 					showValueHelp="true" valueHelpRequest="handleHeadOfficeHelp" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 					suggestionItemSelected="onSuggestheadoffice" editable="{EditModel>/isEditable}">
 					<suggestionItems>
@@ -22,13 +22,13 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Authorization " fieldGroupIds="Begrua"/>
-				<Input id="idauthor" fieldGroupIds="Begrua" value="{VendorModel>/Begrua}" placeholder="Authorization" editable="{EditModel>/isEditable}"/>
+				<Input id="Begrua" fieldGroupIds="Begrua" value="{VendorModel>/Begrua}" placeholder="Authorization" editable="{EditModel>/isEditable}"/>
 			
 				<Label text="Certification Date" fieldGroupIds="Cerdtb"/>
-				<DatePicker fieldGroupIds="Cerdtb" id="idcertificatindate" value="{VendorModel>/Cerdtb}" editable="{EditModel>/isEditable}"/>
+				<DatePicker fieldGroupIds="Cerdtb" id="Cerdtb" value="{VendorModel>/Cerdtb}" editable="{EditModel>/isEditable}"/>
 			
 				<Label text="Minority Indic" fieldGroupIds="Mindkb"/>
-				<Input id="MinorityIndic" fieldGroupIds="Mindkb" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+				<Input id="Mindkb" fieldGroupIds="Mindkb" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
 					valueHelpRequest="handleMinorityIndicHelp" value="{VendorModel>/Mindkb}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 					suggestionItemSelected="onSuggestMinorityIndic" editable="{EditModel>/isEditable}">
 					<suggestionItems>
@@ -37,7 +37,7 @@
 				</Input>
 				<core:Title text=""/>
 				<Label text="Sort Key." required="true" fieldGroupIds="Zuawab"/>
-				<Input id="idsortkey" fieldGroupIds="Zuawab" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Zuawab}"
+				<Input id="Zuawab" fieldGroupIds="Zuawab" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Zuawab}"
 					showValueHelp="true" valueHelpRequest="handleSorkeyValueHelp"  suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 					suggestionItemSelected="onSuggestsortkey" editable="{EditModel>/isEditable}">
 					<suggestionItems>
@@ -45,7 +45,7 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Subsidy Indic " fieldGroupIds="Blnkzb"/>
-				<Input id="idsubsudyindic" fieldGroupIds="Blnkzb" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+				<Input id="Blnkzb" fieldGroupIds="Blnkzb" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
 					value="{VendorModel>/Blnkzb}" valueHelpRequest="handlesubsudyindicValueHelp" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 					suggestionItemSelected="onSuggestsubsidyindic" editable="{EditModel>/isEditable}">
 					<suggestionItems>
@@ -53,15 +53,12 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Cash Managment Grp" fieldGroupIds=" "/>
-				<Input id="idcashmgmntgrp" fieldGroupIds=" " textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
-					class="sapUiSmallMarginTop" valueHelpRequest="handlecashmangmentgrpValueHelp" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
-					 suggestionItemSelected="onSuggestcashmgtgrp" editable="{EditModel>/isEditable}">
-					<suggestionItems>
-						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
-					</suggestionItems>
+				<Input id="idcashmgmntgrp" fieldGroupIds=" " 
+					class="sapUiSmallMarginTop"  editable="{EditModel>/isEditable}">
+				
 				</Input>
 				<Label text="Release Group " fieldGroupIds="Frgrpb" required="true"/>
-				<Input id="Releasegrp" fieldGroupIds="Frgrpb" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Frgrpb}"
+				<Input id="Frgrpb" fieldGroupIds="Frgrpb" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Frgrpb}"
 					showValueHelp="true" valueHelpRequest="handleReleasegrpValueHelp" suggestionItems="{ path: 'Lookup>/ReleaseGroupList' }"
 					suggestionItemSelected="onSuggestReleasegrp" editable="{EditModel>/isEditable}" >
 					<suggestionItems>
@@ -76,7 +73,7 @@
 			<form:content>
 				<core:Title text=""/>
 				<Label text="Interest Indic" fieldGroupIds="Vzskzb"/>
-				<Input id="idinterestindi" fieldGroupIds="Vzskzb" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+				<Input id="Vzskzb" fieldGroupIds="Vzskzb" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
 					valueHelpRequest="handleinterestindic" value="{VendorModel>/Vzskzb}" suggestionItems="{ path: 'Lookup>/InterestlndicList' }"
 					suggestionItemSelected="onSuggestinterestindic" editable="{EditModel>/isEditable}">
 					<suggestionItems>
@@ -94,7 +91,7 @@
 				<core:Title text=""/>
 				<Label text="Last Key Date " fieldGroupIds="Zindtb"/>
 				<!--<DatePicker id="idLastKeydate" />-->
-				<Input id="idLastKeydate" fieldGroupIds="Zindtb" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Zindtb}"
+				<Input id="Zindtb" fieldGroupIds="Zindtb" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Zindtb}"
 					showValueHelp="true" valueHelpRequest="handlekeydate" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 					suggestionItemSelected="onSuggestkeydate" editable="{EditModel>/isEditable}">
 					<suggestionItems>
@@ -118,7 +115,7 @@
 			<form:content>
 				<core:Title text="Withholding tax "/>
 				<Label text="W.Tax Code" fieldGroupIds="Qsskzb"/>
-				<Input id="idwtaxcode" fieldGroupIds="Qsskzb" textFormatMode="KeyValue" showSuggestion="true" editable="{EditModel>/isEditable}"
+				<Input id="Qsskzb" fieldGroupIds="Qsskzb" textFormatMode="KeyValue" showSuggestion="true" editable="{EditModel>/isEditable}"
 					showValueHelp="true" value="{VendorModel>/Qsskzb}" valueHelpRequest="handleidwtaxcode"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestwtaxcode">
 					<suggestionItems>
@@ -135,7 +132,7 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Receipt Type" fieldGroupIds="Qsrecb"/>
-				<Input id="idreceptype" fieldGroupIds="Qsrecb" textFormatMode="KeyValue" showSuggestion="true" editable="{EditModel>/isEditable}"
+				<Input id="Qsrecb" fieldGroupIds="Qsrecb" textFormatMode="KeyValue" showSuggestion="true" editable="{EditModel>/isEditable}"
 					showValueHelp="true" value="{VendorModel>/Qsrecb}" valueHelpRequest="handlereceipttype"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestreceipttype">
 					<suggestionItems>
@@ -143,12 +140,12 @@
 					</suggestionItems>
 				</Input>
 				<core:Title text=" "/>
-				<Label text="Exemption Number" fieldGroupIds=" "/>
-				<Input id="expnum" value="{VendorModel>/ }" fieldGroupIds=" " class="sapUiSmallMarginTopBottom" editable="{EditModel>/isEditable}"/>
+				<Label text="Exemption Number" fieldGroupIds="Qsznrb"/>
+				<Input id="Qsznrb" value="{VendorModel>/Qsznrb }" fieldGroupIds="Qsznrb" class="sapUiSmallMarginTopBottom" editable="{EditModel>/isEditable}"/>
 				<Label text="Valid Until" fieldGroupIds="Qszdtb"/>
-				<DatePicker id="idvaliduntil" fieldGroupIds="Qszdtb" value="{VendorModel>/Qszdtb }" editable="{EditModel>/isEditable}"/>
+				<DatePicker id="Qszdtb" fieldGroupIds="Qszdtb" value="{VendorModel>/Qszdtb }" editable="{EditModel>/isEditable}"/>
 				<Label text="Exmpt Authority" fieldGroupIds="Qsbgrb"/>
-				<Input id="idexmptauthority" fieldGroupIds="Qsbgrb" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+				<Input id="Qsbgrb" fieldGroupIds="Qsbgrb" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
 					valueHelpRequest="handleExmptAuthority" value="{VendorModel>/Qsbgrb}" suggestionItems="{ path: 'Lookup>/ExemptionAuthorityList' }"
 					suggestionItemSelected="onSuggestExmptAuthority" editable="{EditModel>/isEditable}">
 					<suggestionItems>
@@ -163,10 +160,10 @@
 			<form:content>
 				<core:Title text=""/>
 				<Label text="Prev Account Number" fieldGroupIds="Altknb"/>
-				<Input id="idprevaccno" fieldGroupIds="Altknb" class="sapUiSmallMarginTop" value="{VendorModel>/Altknb}" editable="{EditModel>/isEditable}"
+				<Input id="Altknb" fieldGroupIds="Altknb" class="sapUiSmallMarginTop" value="{VendorModel>/Altknb}" editable="{EditModel>/isEditable}"
 					textFormatMode="KeyValue"></Input>
 				<Label text="Activity Code" fieldGroupIds="Gricdb"/>
-				<Input id="Activitycode" fieldGroupIds="Gricdb" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
+				<Input id="Gricdb" fieldGroupIds="Gricdb" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true"
 					valueHelpRequest="handleActivityCode" value="{VendorModel>/Gricdb}" editable="{EditModel>/isEditable}"
 					suggestionItems="{ path: 'Lookup>/ActivityCodeList' }" suggestionItemSelected="onSuggestActivityCode">
 					<suggestionItems>
@@ -175,7 +172,7 @@
 				</Input>
 				<core:Title text=""/>
 				<Label text="Personal Number " fieldGroupIds="Pernrb"/>
-				<Input id="idpersonalno" fieldGroupIds="Pernrb" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" showSuggestion="true"
+				<Input id="Pernrb" fieldGroupIds="Pernrb" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" showSuggestion="true"
 					showValueHelp="true" value="{VendorModel>/Pernrb}" class="sapUiSmallMarginTop" valueHelpRequest="handlePersonalNumber"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestPersonalNumber">
 					<suggestionItems>
@@ -183,12 +180,8 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Distr Type " fieldGroupIds="Gridtb"/>
-				<Input id="iddistrtype" fieldGroupIds="Gridtb" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" showSuggestion="true"
-					showValueHelp="true" value="{VendorModel>/Gridtb}" valueHelpRequest="handleDistype" 
-					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestDistytyp">
-					<suggestionItems>
-						<core:ListItem key="{Lookup>Lifnr}" text="{Lookup>Name1}" additionalText="{Lookup>Lifnr}"/>
-					</suggestionItems>
+				<Input id="Gridtb" fieldGroupIds="Gridtb" editable="{EditModel>/isEditable}" textFormatMode="KeyValue" 
+				 value="{VendorModel>/Gridtb}" >
 				</Input>
 			</form:content>
 		</form:SimpleForm>

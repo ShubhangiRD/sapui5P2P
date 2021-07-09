@@ -14,7 +14,7 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Dunn Recipient" fieldGroupIds="Qsrecb"/>
-				<Input maxLength="10" fieldGroupIds="Qsrecb" id="iddunreceipt" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Qsrecb}"
+				<Input maxLength="10" fieldGroupIds="Qsrecb"  textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Qsrecb}"
 					editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handledunnreceipt"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestdunreceipt">
 					<suggestionItems>
@@ -51,7 +51,7 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Grouping Key" fieldGroupIds="Zgrupb"/>
-				<Input maxLength="1" id="iddungrpkey" fieldGroupIds="Zgrupb" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Zgrupb}"
+				<Input maxLength="1" id="Zgrupb" fieldGroupIds="Zgrupb" textFormatMode="KeyValue" showSuggestion="true" value="{VendorModel>/Zgrupb}"
 					editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handledungrpkey"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" suggestionItemSelected="onSuggestiddungrpkey">
 					<suggestionItems>
@@ -66,9 +66,9 @@
 			<form:content>
 				<core:Title text=" "/>
 				<Label text="" fieldGroupIds="Xdezvb"/>
-				<CheckBox id="lcoalprocessid" fieldGroupIds="Xdezvb" text="Local Process" editable="{EditModel>/isEditable}"/>
+				<CheckBox id="Xdezvb" fieldGroupIds="Xdezvb" text="Local Process" editable="{EditModel>/isEditable}"/>
 				<Label text="Acctg clerk" fieldGroupIds="Busabb"/>
-				<Input maxLength="2" fieldGroupIds="Busabb" id="idAcctgclrk" showValueHelp="true" valueHelpRequest="handleAcctgClerk"
+				<Input maxLength="2" fieldGroupIds="Busabb" id="Busabb" showValueHelp="true" valueHelpRequest="handleAcctgClerk"
 					value="{VendorModel>/Busabb}" editable="{EditModel>/isEditable}" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 					suggestionItemSelected="onSuggestAcctgclerk">
 					<suggestionItems>
@@ -76,18 +76,18 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Acct W vendor" fieldGroupIds="Eiktob"/>
-				<Input id="accwvendor"    value="{VendorModel>/Eiktob}" fieldGroupIds="Eiktob" editable="{EditModel>/isEditable}"/>
+				<Input id="Eiktob"    value="{VendorModel>/Eiktob}" fieldGroupIds="Eiktob" editable="{EditModel>/isEditable}"/>
 				<Label text="Clerk At Vendor" fieldGroupIds="Zsabeb"/>
-				<Input id="clrkatvendor" value="{VendorModel>/Zsabeb}" fieldGroupIds="Zsabeb" editable="{EditModel>/isEditable}"/>
+				<Input id="Zsabeb" value="{VendorModel>/Zsabeb}" fieldGroupIds="Zsabeb" editable="{EditModel>/isEditable}"/>
 				<core:Title text=" "/>
 				<Label text="AcountClrk tel no" fieldGroupIds="Tlfnsb" required="true"/>
-				<Input id="clrtelno" maxLength="10" fieldGroupIds="Tlfnsb" value="{VendorModel>/Tlfnsb}" editable="{EditModel>/isEditable}"/>
+				<Input id="Tlfnsb" maxLength="10" fieldGroupIds="Tlfnsb" value="{VendorModel>/Tlfnsb}" editable="{EditModel>/isEditable}"/>
 				<Label text="Clerk Fax no" required="true" fieldGroupIds="Tlfxsb"/>
-				<Input id="clrkatfax" fieldGroupIds="Tlfxsb" maxLength="14"  value="{VendorModel>/Tlfxsb}" editable="{EditModel>/isEditable}"/>
+				<Input id="Tlfxsb" fieldGroupIds="Tlfxsb" maxLength="14"  value="{VendorModel>/Tlfxsb}" editable="{EditModel>/isEditable}"/>
 				<Label text="Clerk Internet "  fieldGroupIds="Intadb"/>
-				<Input id="clrkatinternet" value="{VendorModel>/Intadb}" fieldGroupIds="Intadb" editable="{EditModel>/isEditable}"/>
+				<Input id="Intadb" value="{VendorModel>/Intadb}" fieldGroupIds="Intadb" editable="{EditModel>/isEditable}"/>
 				<Label text="Account Memo" fieldGroupIds="Kvermb"/>
-				<Input id="idaccmemo" fieldGroupIds="Kvermb" value="{VendorModel>/Kvermb}" editable="{EditModel>/isEditable}"/>
+				<Input id="Kvermb" fieldGroupIds="Kvermb" value="{VendorModel>/Kvermb}" editable="{EditModel>/isEditable}"/>
 			</form:content>
 		</form:SimpleForm>
 	</VBox>
