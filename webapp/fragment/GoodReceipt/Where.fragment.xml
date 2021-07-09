@@ -35,7 +35,7 @@
 												</f:FormElement>
 												<f:FormElement label="Unloading Point">
 													<f:fields>
-														<Input id="idUnloadingPoint" editable="{EditModel>/isEditable}" value="{GRItemsModel>/UnloadPt}"/>
+														<Input id="UnloadPt" editable="{EditModel>/isEditable}" value="{GRItemsModel>/UnloadPt}"/>
 													</f:fields>
 												</f:FormElement>
 												<f:FormElement label="Text">

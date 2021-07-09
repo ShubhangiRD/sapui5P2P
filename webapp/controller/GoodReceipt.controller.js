@@ -856,8 +856,8 @@ sap.ui.define([
 			}
 			var oEntry1 = {};
 
-			var Documentdate = oView.byId("idDocDate").getValue();
-			var PostingDate = oView.byId("idPostDate").getValue();
+			var Documentdate = oView.byId("DocDate").getValue();
+			var PostingDate = oView.byId("PstngDate").getValue();
 
 			var date_post = new Date(PostingDate);
 			var podate = date_post.toISOString();

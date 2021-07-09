@@ -10,7 +10,7 @@
 											<f:formElements>
 												<f:FormElement label="Material"  >
 													<f:fields>
-														<Input id="idMatdis" value="{GRItemsModel>/Material}" editable="{EditModel>/isEditable}"/>
+														<Input id="Material" value="{GRItemsModel>/Material}" editable="{EditModel>/isEditable}"/>
 														<Input id="idMatNo" value=" " editable="{EditModel>/isEditable}" >
 															<layoutData>
 																<l:GridData span="XL1 L2 M2 S4"/>

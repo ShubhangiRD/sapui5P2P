@@ -214,7 +214,7 @@
 				<t:Column width="9rem" hAlign="Center">
 					<Label text="Material Document "/>
 					<t:template>
-						<Input id="MatDoc" value="{GoodReceiptModel>MatDoc}" editable="{EditModel>/isEditable}"/>
+						<Input id="MatDoc1" value="{GoodReceiptModel>MatDoc1}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				
