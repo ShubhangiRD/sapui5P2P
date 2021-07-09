@@ -4,7 +4,7 @@
 			labelSpanS="12" adjustLabelSpan="false" columnsXL="3" columnsL="3" columnsM="1" singleContainerFullSize="false">
 			<f:content>
 				<m:Label text="Purchase Org" required="true"/>
-				<m:Input id="idPurchaseOrg" textFormatMode="KeyValue" placeholder=" Purchase Org " showSuggestion="true" editable="{EditModel>/isEditable}"
+				<m:Input id="PurchOrg" textFormatMode="KeyValue" placeholder=" Purchase Org " showSuggestion="true" editable="{EditModel>/isEditable}"
 					value="{PurchaseModel>/TempContract/PurchOrg}" showValueHelp="true" valueHelpRequest="handlePurchaseOrgVendor"
 					suggestionItems="{ path: 'Lookup>/PurchaseOrganization' }" suggestionItemSelected="onSuggest">
 					<m:suggestionItems>
@@ -12,7 +12,7 @@
 					</m:suggestionItems>
 				</m:Input>
 				<m:Label text="Purchase Group" required="true"/>
-				<m:Input id="pg" textFormatMode="KeyValue" placeholder="Purchase Group " showSuggestion="true"
+				<m:Input id="PurGroup" textFormatMode="KeyValue" placeholder="Purchase Group " showSuggestion="true"
 					value="{PurchaseModel>/TempContract/PurGroup}" editable="{EditModel>/isEditable}" showValueHelp="true"
 					valueHelpRequest="handlePurchaseGroupVendor" suggestionItems="{ path: 'Lookup>/PurchaseGroupList' }" suggestionItemSelected="onSuggest">
 					<m:suggestionItems>
@@ -20,7 +20,7 @@
 					</m:suggestionItems>
 				</m:Input>
 				<m:Label text="Company Code" required="true"/>
-				<m:Input id="cc" textFormatMode="KeyValue" placeholder="Company Code " showSuggestion="true" value="{PurchaseModel>/TempContract/CompCode}"
+				<m:Input id="CompCode" textFormatMode="KeyValue" placeholder="Company Code " showSuggestion="true" value="{PurchaseModel>/TempContract/CompCode}"
 					editable="{EditModel>/isEditable}" showValueHelp="true" valueHelpRequest="handleCompanyCodeVendor"
 					suggestionItems="{ path: 'Lookup>/CountryCode' }" suggestionItemSelected="onSuggest">
 					<m:suggestionItems>
@@ -29,7 +29,7 @@
 				</m:Input>
 				<core:Title text=""/>
 				<m:Label text="Vendor" required="true"/>
-				<m:Input id="vnumber" textFormatMode="KeyValue" placeholder="Vendor" showSuggestion="true" showValueHelp="true"
+				<m:Input id="Vendor" textFormatMode="KeyValue" placeholder="Vendor" showSuggestion="true" showValueHelp="true"
 					value="{PurchaseModel>/TempContract/Vendor}" valueHelpRequest="_handleValueVendorHelpS"
 					suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }" 	editable="{EditModel>/isEditable}"  suggestionItemSelected="suggestionVebor">
 					<m:suggestionItems>
@@ -37,7 +37,7 @@
 					</m:suggestionItems>
 				</m:Input>
 					<m:Label text="Currency" required="true"/>
-						<m:Input type="Text" id="cu" value="{PurchaseModel>/TempContract/Currency}" 	editable="{EditModel>/isEditable}"  ></m:Input>
+						<m:Input type="Text" id="Currency" value="{PurchaseModel>/TempContract/Currency}" 	editable="{EditModel>/isEditable}"  ></m:Input>
 			
 			</f:content>
 		</f:SimpleForm>

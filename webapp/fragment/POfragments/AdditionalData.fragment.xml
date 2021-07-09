@@ -10,12 +10,12 @@
 					<f:formElements>
 						<f:FormElement label="Validity Start" class="sapUiTinyMarginTop">
 							<f:fields>
-								<DateTimePicker id="vstart" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/VperStart}"/>
+								<DateTimePicker id="VperStart" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/VperStart}"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Validity End" class="sapUiTinyMarginTop">
 							<f:fields>
-								<DateTimePicker id="vend" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/VperEnd}"/>
+								<DateTimePicker id="VperEnd" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/VperEnd}"/>
 							</f:fields>
 						</f:FormElement>
 					</f:formElements>
@@ -26,12 +26,12 @@
 					<f:formElements>
 						<f:FormElement label="Warrenty" class="sapUiTinyMarginTop">
 							<f:fields>
-								<DateTimePicker id="Warrenty" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/Warranty}"/>
+								<DateTimePicker id="Warranty" editable="{EditModel>/isEditable}" value="{PurchaseModel>/TempContract/Warranty}"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Collective No" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="collecno" value="{PurchaseModel>/TempContract/CollectNo}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"/>
+								<Input id="CollectNo" value="{PurchaseModel>/TempContract/CollectNo}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 					</f:formElements>

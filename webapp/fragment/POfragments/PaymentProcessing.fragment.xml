@@ -11,7 +11,7 @@
 
 						<f:FormElement label="Retention" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Select id="idRetention" >
+								<Select id="RetentionType" >
 									<items>
 										<core:Item text=" " key=" "/>
 										<core:Item text=" " key=" "/>

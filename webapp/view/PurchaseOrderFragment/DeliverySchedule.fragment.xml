@@ -20,31 +20,31 @@
 			<t:Column width="5rem" hAlign="Center">
 				<Label text="C "/>
 				<t:template>
-					<Input id="idCDelisc" class="mtid" editable="{EditModel>/isEditable}" value="{PurchaseModel>DelDatcatExt}"></Input>
+					<Input id="DelDatcatExt" class="mtid" editable="{EditModel>/isEditable}" value="{PurchaseModel>DelDatcatExt}"></Input>
 				</t:template>
 			</t:Column>
 			<t:Column hAlign="Center" width="9rem">
 				<Label text="Delivery Date"/>
 				<t:template>
-					<Input class="desc1" id="DeliveryDateSD" editable="{EditModel>/isEditable}" value="{PurchaseModel>DeliveryDate}"></Input>
+					<Input class="DeliveryDate" id="DeliveryDateSD" editable="{EditModel>/isEditable}" value="{PurchaseModel>DeliveryDate}"></Input>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Schedule Quantity "/>
 				<t:template>
-					<Input id="ScheduleQuantSD" value="{PurchaseModel>Quantity}" editable="{EditModel>/isEditable}"/>
+					<Input id="Quantity" value="{PurchaseModel>Quantity}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Time"/>
 				<t:template>
-					<Input id="idTimeDS" class="measure1"  editable="{EditModel>/isEditable}"/>
+					<Input id="DelivTime" class="measure1"  editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Stat Del.Date"/>
 				<t:template>
-					<Input id="StatDelDateDS" value="{PurchaseModel>DeliveryDate}" editable="{EditModel>/isEditable}"></Input>
+					<Input id="StatDate" value="{PurchaseModel>DeliveryDate}" editable="{EditModel>/isEditable}"></Input>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
@@ -56,13 +56,13 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Purchase Request"/>
 				<t:template>
-					<Input id="PurchaseRequestSD" class="price1" editable="{EditModel>/isEditable}"/>
+					<Input id="PreqNo" class="price1" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Requison Items"/>
 				<t:template>
-					<Input id="RequisonItemsSD" class="price1" value="{PurchaseModel>PreqItem}" editable="{EditModel>/isEditable}"/>
+					<Input id="PreqItem" class="price1" value="{PurchaseModel>PreqItem}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
@@ -80,13 +80,13 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Sch Line"/>
 				<t:template>
-					<Input id="SchLineSD" class="price1" value="{PurchaseModel>SchedLine}" editable="{EditModel>/isEditable}"/>
+					<Input id="SchedLine" class="price1" value="{PurchaseModel>SchedLine}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Preq Closed."/>
 				<t:template>
-					<Input id="PreqClosedSD" class="price1" value="{PurchaseModel>ReqClosed}" editable="{EditModel>/isEditable}"/>
+					<Input id="ReqClosed" class="price1" value="{PurchaseModel>ReqClosed}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 		</t:columns>

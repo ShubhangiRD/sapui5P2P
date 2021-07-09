@@ -805,7 +805,7 @@ sap.ui.define([
 
 			$(document).ready(function() {
 				$("idEdit").click(function() {
-					$("nDescription").removeAttr("value");
+					$("ShortText").removeAttr("value");
 				});
 			});
 

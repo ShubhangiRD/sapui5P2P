@@ -19,7 +19,7 @@
 			<t:Column width="5rem" hAlign="Center">
 				<Label text="Condi. Type "/>
 				<t:template>
-					<Input id="cntry" class="mtid" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{PurchaseModel>CondType}"></Input>
+					<Input id="CondType1" class="mtid" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{PurchaseModel>CondType}"></Input>
 				</t:template>
 			</t:Column>
 			<t:Column hAlign="Center" width="9rem">
@@ -31,13 +31,13 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Amount"/>
 				<t:template>
-					<Input id="AmountC" value="{PurchaseModel>CondValue}" editable="{EditModel>/isEditable}"/>
+					<Input id="CondValue1" value="{PurchaseModel>CondValue}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="CurrencyKey"/>
 				<t:template>
-					<Input id="curcy" class="measure1" value="{PurchaseModel>CurrencyIso}" editable="{EditModel>/isEditable}"/>
+					<Input id="CurrencyIso1" class="measure1" value="{PurchaseModel>CurrencyIso}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
@@ -55,13 +55,13 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Currecy"/>
 				<t:template>
-					<Input id="iCurrC" class="price1" value="{PurchaseModel>Currency}" editable="{EditModel>/isEditable}"/>
+					<Input id="Currency3" class="price1" value="{PurchaseModel>Currency}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Status"/>
 				<t:template>
-					<Input id="iStatC" class="price1" editable="{EditModel>/isEditable}"/>
+					<Input id="Status1" class="price1" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">

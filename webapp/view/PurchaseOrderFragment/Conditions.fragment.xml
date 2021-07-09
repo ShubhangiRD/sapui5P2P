@@ -13,13 +13,13 @@
 			<t:Column width="6rem" hAlign="Center">
 				<Label text="Non Active "/>
 				<t:template>
-					<Input id="idnonActive" class="mtid" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{PurchaseModel>Condisacti}"></Input>
+					<Input id="Condisacti" class="mtid" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{PurchaseModel>Condisacti}"></Input>
 				</t:template>
 			</t:Column>
 			<t:Column width="5rem" hAlign="Center">
 				<Label text="Cond. Type "/>
 				<t:template>
-					<Input id="idcntyy" class="mtid" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{PurchaseModel>CondType}"></Input>
+					<Input id="CondType" class="mtid" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{PurchaseModel>CondType}"></Input>
 				</t:template>
 			</t:Column>
 			<t:Column hAlign="Center" width="9rem">
@@ -31,13 +31,13 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Amount"/>
 				<t:template>
-					<Input id="idAmountC" value="{PurchaseModel>CondValue}" editable="{EditModel>/isEditable}"/>
+					<Input id="CondValue" value="{PurchaseModel>CondValue}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="CurrencyKey"/>
 				<t:template>
-					<Input id="idcucy" class="measure1" value="{PurchaseModel>CurrencyIso}" editable="{EditModel>/isEditable}"/>
+					<Input id="CurrencyIso" class="measure1" value="{PurchaseModel>CurrencyIso}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
@@ -49,13 +49,13 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Condition Value"/>
 				<t:template>
-					<Input id="ConditionValue1" class="price1" editable="{EditModel>/isEditable}"/>
+					<Input id="Conbaseval" class="price1" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Currecy"/>
 				<t:template>
-					<Input id="CurrC" class="price1" value="{PurchaseModel>Currency}" editable="{EditModel>/isEditable}"/>
+					<Input id="Currency2" class="price1" value="{PurchaseModel>Currency}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
@@ -67,25 +67,25 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Num Cco"/>
 				<t:template>
-					<Input id="NumCC" class="price1" value="{PurchaseModel>Numconvert}" editable="{EditModel>/isEditable}"/>
+					<Input id="Numconvert" class="price1" value="{PurchaseModel>Numconvert}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Order Unit Oun"/>
 				<t:template>
-					<Input id="OrderunitC" class="price1" value="{PurchaseModel>/Unitmeasur}" editable="{EditModel>/isEditable}"/>
+					<Input id="Unitmeasur" class="price1" value="{PurchaseModel>/Unitmeasur}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="CConDen"/>
 				<t:template>
-					<Input id="CConDenC" class="price1" value="{PurchaseModel>Denominato}" editable="{EditModel>/isEditable}"/>
+					<Input id="Denominato" class="price1" value="{PurchaseModel>Denominato}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Unit of Measure "/>
 				<t:template>
-					<Input id="iduomm" textFormatMode="KeyValue" value="{PurchaseModel>CondUnit}" editable="{EditModel>/isEditable}"></Input>
+					<Input id="CondUnit" textFormatMode="KeyValue" value="{PurchaseModel>CondUnit}" editable="{EditModel>/isEditable}"></Input>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
@@ -103,7 +103,7 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Stat"/>
 				<t:template>
-					<CheckBox id="idstatt" class="price1" editable="{EditModel>/isEditable}"/>
+					<CheckBox id="StatCon" class="price1" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 		</t:columns>
