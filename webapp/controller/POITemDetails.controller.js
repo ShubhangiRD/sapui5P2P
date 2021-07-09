@@ -406,7 +406,7 @@ sap.ui.define([
 				var uom = oModel.getProperty(sBindPath + "/UOM");
 
 				var ab = $(this)[0].inputId;
-				var id = $("#" + ab).closest("tr").find(".desc1").attr("id");
+				var id = $("#" + ab).closest("tr").find(".ShortText").attr("id");
 				$("#" + id + "-inner").val(oDiscription);
 
 				var b = oModel.getProperty(sBindPath + "/UOM");
@@ -941,7 +941,7 @@ sap.ui.define([
 				var uom = oModel.getProperty(sBindPath + "/UOM");
 
 				var ab = $(this)[0].inputId;
-				var id = $("#" + ab).closest("tr").find(".desc1").attr("id");
+				var id = $("#" + ab).closest("tr").find(".ShortText").attr("id");
 				var ss = "#" + id + "-inner";
 				console.log(ss);
 				$("#" + id + "-inner").val(oDiscription);

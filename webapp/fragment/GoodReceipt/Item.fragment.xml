@@ -15,7 +15,7 @@
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Line"/>
 					<t:template>
-						<Input id="idMaterialNumber" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{GoodReceiptModel>LineId}"></Input>
+						<Input id="LineId" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" value="{GoodReceiptModel>LineId}"></Input>
 					</t:template>
 				</t:Column>
 				<t:Column hAlign="Center" width="12rem">
@@ -35,7 +35,7 @@
 						<t:Column width="4rem" hAlign="Center">
 					<Label text="EUn"/>
 					<t:template>
-						<Input id="idEUn" value="{GoodReceiptModel>EntryUom}" editable="{EditModel>/isEditable}"/>
+						<Input id="EntryUom" value="{GoodReceiptModel>EntryUom}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 			<!--	<t:Column hAlign="Center" width="12rem">
@@ -47,19 +47,19 @@
 				<t:Column width="4rem" hAlign="Center">
 					<Label text="ISO Code"/>
 					<t:template>
-						<Input id="idEntryUomIso" value="{GoodReceiptModel>EntryUomIso}" editable="{EditModel>/isEditable}"/>
+						<Input id="EntryUomIso" value="{GoodReceiptModel>EntryUomIso}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="9rem" hAlign="Center">
 					<Label text="Vendor"/>
 					<t:template>
-						<Input id="Price" value="{GoodReceiptModel>Vendor}" class="price1" editable="false"/>
+						<Input id="Vendor" value="{GoodReceiptModel>Vendor}" class="price1" editable="false"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="9rem" hAlign="Center">
 					<Label text="Storage Location"/>
 					<t:template>
-						<Input id="idCust" value="{GoodReceiptModel>StgeLoc}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"
+						<Input id="StgeLoc" value="{GoodReceiptModel>StgeLoc}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"
 							placeholder="Storage Location" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleStorageLocationValue"
 							suggestionItems="{ path: 'Lookup>/StorageLocationList'}" suggestionItemSelected="suggestionItemStorageLocation">
 							<suggestionItems>
@@ -71,7 +71,7 @@
 				<t:Column width="9rem" hAlign="Center">
 					<Label text="Plant"/>
 					<t:template>
-						<Input id="idPlanttab" value="{GoodReceiptModel>Plant}" editable="{EditModel>/isEditable}"/>
+						<Input id="Plant" value="{GoodReceiptModel>Plant}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 		
@@ -84,14 +84,14 @@
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Unit of Quantity"/>
 					<t:template>
-						<Input id="uom1" value="{GoodReceiptModel>PoPrQnt}" editable="{EditModel>/isEditable}" class="measure1"/>
+						<Input id="PoPrQnt" value="{GoodReceiptModel>PoPrQnt}" editable="{EditModel>/isEditable}" class="measure1"/>
 					</t:template>
 				</t:Column>
 		
 				<t:Column width="9rem" hAlign="Center">
 					<Label text="Purchase Order"/>
 					<t:template>
-						<Input id="idPoNumber" value="{GoodReceiptModel>PoNumber}" editable="{EditModel>/isEditable}"  />
+						<Input id="PoNumber" value="{GoodReceiptModel>PoNumber}" editable="{EditModel>/isEditable}"  />
 					</t:template>
 				</t:Column>
 			<t:Column width="9rem" hAlign="Center">
@@ -103,43 +103,43 @@
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Cost Center"/>
 					<t:template>
-						<Input id="idCostCenter" value="{GoodReceiptModel>Costcenter}" editable="{EditModel>/isEditable}"/>
+						<Input id="Costcenter" value="{GoodReceiptModel>Costcenter}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Partner"/>
 					<t:template>
-						<Input id="idPArtnr" value="{GoodReceiptModel>PartAcct}" editable="{EditModel>/isEditable}" />
+						<Input id="PartAcct" value="{GoodReceiptModel>PartAcct}" editable="{EditModel>/isEditable}" />
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Profit Center"/>
 					<t:template>
-						<Input id="idProfitCenter"  value="{GoodReceiptModel>ProfitCtr}" editable="{EditModel>/isEditable}"/>
+						<Input id="ProfitCtr"  value="{GoodReceiptModel>ProfitCtr}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Network"/>
 					<t:template>
-						<Input id="idGLAccount" value="{GoodReceiptModel>Network}" editable="{EditModel>/isEditable}"/>
+						<Input id="Network" value="{GoodReceiptModel>Network}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="5rem" hAlign="Center">
 					<Label text="Batch"/>
 					<t:template>
-						<Input id="idBatch"  value="{GoodReceiptModel>Batch}" editable="{EditModel>/isEditable}"/>
+						<Input id="Batch"  value="{GoodReceiptModel>Batch}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Valuation Type"/>
 					<t:template>
-						<Input id="idValuationType" value="{GoodReceiptModel>ValType}" editable="{EditModel>/isEditable}" />
+						<Input id="ValType" value="{GoodReceiptModel>ValType}" editable="{EditModel>/isEditable}" />
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Movement Type"/>
 					<t:template>
-						<Input id="idMovementType1" value="{GoodReceiptModel>MoveType}" editable="{EditModel>/isEditable}"  />
+						<Input id="MoveType" value="{GoodReceiptModel>MoveType}" editable="{EditModel>/isEditable}"  />
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
@@ -151,7 +151,7 @@
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Stock Type"/>
 					<t:template>
-								<Input id="idStockType" value="{GoodReceiptModel>StckType}" editable="{EditModel>/isEditable}"  />
+								<Input id="StckType" value="{GoodReceiptModel>StckType}" editable="{EditModel>/isEditable}"  />
 			
 				
 					</t:template>
@@ -159,38 +159,38 @@
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Special Stock"/>
 					<t:template>
-						<Input id="idSpecialStock" value="{GoodReceiptModel>SpecStock}" editable="{EditModel>/isEditable}" />
+						<Input id="SpecStock" value="{GoodReceiptModel>SpecStock}" editable="{EditModel>/isEditable}" />
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Customer"/>
 					<t:template>
-						<Input id="idCustomer" value="{GoodReceiptModel>Customer}" editable="{EditModel>/isEditable}"/>
+						<Input id="Customer" value="{GoodReceiptModel>Customer}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 			
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Sales Order"/>
 					<t:template>
-						<Input id="idSalesOrder" value="{GoodReceiptModel>SalesOrd}" editable="{EditModel>/isEditable}" />
+						<Input id="SalesOrd" value="{GoodReceiptModel>SalesOrd}" editable="{EditModel>/isEditable}" />
 					</t:template>
 				</t:Column>
 					<t:Column width="7rem" hAlign="Center">
 					<Label text="Sales Order Item"/>
 					<t:template>
-						<Input id="idSalesOrderItem" value="{GoodReceiptModel>SOrdItem}" editable="{EditModel>/isEditable}" />
+						<Input id="SOrdItem" value="{GoodReceiptModel>SOrdItem}" editable="{EditModel>/isEditable}" />
 					</t:template>
 				</t:Column>
 				<t:Column width="9rem" hAlign="Center">
 					<Label text="Deliv. Compl."/>
 					<t:template>
-						<Input id="idNoMoreGr" value="{GoodReceiptModel>NoMoreGr}" editable="{EditModel>/isEditable}"/>
+						<Input id="NoMoreGr" value="{GoodReceiptModel>NoMoreGr}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="WBS Element"/>
 					<t:template>
-						<Input id="idWBSElement" value="{GoodReceiptModel>WbsElem}" editable="{EditModel>/isEditable}"/>
+						<Input id="WbsElem" value="{GoodReceiptModel>WbsElem}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 			<!--	<t:Column width="7rem" hAlign="Center">
@@ -202,69 +202,69 @@
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="OPUn"/>
 					<t:template>
-						<Input id="idOPUn" value="{GoodReceiptModel>OrderprUn}" editable="{EditModel>/isEditable}"/>
+						<Input id="OrderprUn" value="{GoodReceiptModel>OrderprUn}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Item"/>
 					<t:template>
-						<Input id="idItem" value="{GoodReceiptModel>ItemText}" editable="{EditModel>/isEditable}"/>
+						<Input id="ItemText" value="{GoodReceiptModel>ItemText}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="9rem" hAlign="Center">
 					<Label text="Material Document "/>
 					<t:template>
-						<Input id="idDCIPOItem" value="{GoodReceiptModel>MatDoc}" editable="{EditModel>/isEditable}"/>
+						<Input id="MatDoc1" value="{GoodReceiptModel>MatDoc1}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				
 			<t:Column width="7rem" hAlign="Center">
 					<Label text="Material Document Item" />
 					<t:template>
-						<Input id="idDateOfManuf" value="{GoodReceiptModel>MatdocItm}" editable="{EditModel>/isEditable}"/>
+						<Input id="MatdocItm" value="{GoodReceiptModel>MatdocItm}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 			
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Ref Doc"/>
 					<t:template>
-						<Input id="idRefDoc" value="{GoodReceiptModel>RefDoc}" editable="{EditModel>/isEditable}"/>
+						<Input id="RefDoc" value="{GoodReceiptModel>RefDoc}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 					<t:Column width="7rem" hAlign="Center">
 					<Label text="Currency"/>
 					<t:template>
-						<Input id="idCurrency" value="{GoodReceiptModel>Currency}" editable="{EditModel>/isEditable}"/>
+						<Input id="Currency" value="{GoodReceiptModel>Currency}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="CurrencyIso"/>
 					<t:template>
-						<Input id="idExtAmountLC" value="{GoodReceiptModel>CurrencyIso}" editable="{EditModel>/isEditable}"/>
+						<Input id="CurrencyIso" value="{GoodReceiptModel>CurrencyIso}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="9rem" hAlign="Center">
 					<Label text="Reservation Number"/>
 					<t:template>
-						<Input id="idResno" value="{GoodReceiptModel>ReservNo}" editable="{EditModel>/isEditable}"/>
+						<Input id="ReservNo" value="{GoodReceiptModel>ReservNo}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="RealEstet Key"/>
 					<t:template>
-						<Input id="idRlEstKey" value="{GoodReceiptModel>RlEstKey}" editable="{EditModel>/isEditable}"/>
+						<Input id="RlEstKey" value="{GoodReceiptModel>RlEstKey}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Value Sales Order"/>
 					<t:template>
-						<Input id="idvsales" value="{GoodReceiptModel>ValSOrdItem}" editable="{EditModel>/isEditable}"/>
+						<Input id="ValSOrdItem" value="{GoodReceiptModel>ValSOrdItem}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Document Year"/>
 					<t:template>
-						<Input id="DocYear" value="{GoodReceiptModel>DocYear}" editable="{EditModel>/isEditable}"/>
+						<Input id="DocYear1" value="{GoodReceiptModel>DocYear1}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
@@ -288,7 +288,7 @@
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="Movement ind."/>
 					<t:template>
-						<Input id="idMPNMaterial" value="{GoodReceiptModel>MvtInd}" editable="{EditModel>/isEditable}"/>
+						<Input id="MvtInd" value="{GoodReceiptModel>MvtInd}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
@@ -354,13 +354,13 @@
 						<t:Column width="7rem" hAlign="Center">
 					<Label text="Ref Doc Year"/>
 					<t:template>
-						<Input id="idRfDocYear" value="{GoodReceiptModel>RefDocYr}" editable="{EditModel>/isEditable}"/>
+						<Input id="RefDocYr" value="{GoodReceiptModel>RefDocYr}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 				<t:Column width="7rem" hAlign="Center">
 					<Label text="RfDocIt"/>
 					<t:template>
-						<Input id="idRfIt" value="{GoodReceiptModel>RefDocIt}" editable="{EditModel>/isEditable}"/>
+						<Input id="RefDocIt" value="{GoodReceiptModel>RefDocIt}" editable="{EditModel>/isEditable}"/>
 					</t:template>
 				</t:Column>
 			
