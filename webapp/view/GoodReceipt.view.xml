@@ -48,8 +48,8 @@
 								<core:ListItem key="{Lookup>Ebeln}" text="{Lookup>Lifnr}" additionalText="{Lookup>Ebeln}"/>
 							</m:suggestionItems>
 						</m:Input>-->
-						<m:Input id="idMacDoc" width="100%" value="{MatData>/MatDocument}" placeholder="Material Document" change="PressMaterialDoc"/>
-						<m:Input id="idMacDocYear" placeholder="Year" value="{MatData>/MatDocYear}" width="30%" change="PressMaterialDoc"/>
+						<m:Input id="MatDoc" width="100%" value="{MatData>/MatDocument}" placeholder="Material Document" change="PressMaterialDoc"/>
+						<m:Input id="DocYear1" placeholder="Year" value="{MatData>/MatDocYear}" width="30%" change="PressMaterialDoc"/>
 						<!--	<m:Input id="idlant" textFormatMode="KeyValue" editable="{EditModel>/isEditable}" placeholder=" Plant No" showSuggestion="true"
 					width="30%"
 							showValueHelp="true" valueHelpRequest="handleValueHelpPlant" suggestionItems="{ path: 'Lookup>/POPlant' }"
@@ -91,14 +91,14 @@
 										<core:Title text=" "/>
 									
 										<m:Label text="Document Date"/>
-										<m:DateTimePicker id="idDocDate" editable="{EditModel>/isEditable}" value="{ path: 'AllDataModel>/CreatDate' }"/>
+										<m:DateTimePicker id="DocDate" editable="{EditModel>/isEditable}" value="{ path: 'AllDataModel>/CreatDate' }"/>
 										
 										<m:Label text="Posting Date"/>
-										<m:DateTimePicker id="idPostDate" editable="{EditModel>/isEditable}" value="{ path: 'AllDataModel>/DocumentDate' }"/>
+										<m:DateTimePicker id="PstngDate" editable="{EditModel>/isEditable}" value="{ path: 'AllDataModel>/DocumentDate' }"/>
 								
 										<core:Title text=" "/>
 										<m:Label text="Header text"/>
-										<m:Input type="Text" id="idHeadertext" editable="{EditModel>/isEditable}" value="{AllDataModel>/VendorName}"></m:Input>
+										<m:Input type="Text" id="HeaderTxt" editable="{EditModel>/isEditable}" value="{AllDataModel>/VendorName}"></m:Input>
 										<m:Label text="Vendor"/>
 										<m:Input type="Text" id="idVendor" value="{AllDataModel>/Vendor}" editable="{EditModel>/isEditable}"></m:Input>
 									</form:content>
