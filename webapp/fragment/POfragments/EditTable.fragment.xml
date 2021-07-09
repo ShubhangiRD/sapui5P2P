@@ -32,7 +32,7 @@
 				<Label text="Material Description"/>
 				<t:template>
 
-					<Input class="desc1" id="ShortText" value="{PurchaseModel>ShortText}" textFormatMode="KeyValue" placeholder="Enter Material Description" showSuggestion="true"
+					<Input class="ShortText" id="ShortText" value="{PurchaseModel>ShortText}" textFormatMode="KeyValue" placeholder="Enter Material Description" showSuggestion="true"
 						showValueHelp="true" valueHelpRequest="handleMaterialDisVendor" suggestionItems="{ path: 'Lookup>/MaterialDiscription' }"
 					 editable="{EditModel>/isEditable}" suggestionItemSelected="onSuggest">
 						<suggestionItems>
