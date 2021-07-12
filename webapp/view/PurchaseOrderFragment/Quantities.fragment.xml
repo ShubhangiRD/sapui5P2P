@@ -10,48 +10,48 @@
 					<f:formElements>
 						<f:FormElement label="PO Quantity">
 							<f:fields>
-								<Input id="idQuantity" value="{PurchaseItems>/Quantity}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue" />
-								<Input id="quantunit" value="{PurchaseItems>/PoUnit}"  editable="{EditModel>/isEditable}">
+								<Input id="Quantity3" value="{PurchaseItems>/Quantity}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue" />
+								<Input id="PoUnit" value="{PurchaseItems>/PoUnit}"  editable="{EditModel>/isEditable}">
 								
 								</Input>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="PO Quantity in SKU">
 							<f:fields>
-								<Input id="idQuantSKU" value="{PurchaseItems>/Quantity}"  editable="{EditModel>/isEditable}" textFormatMode="KeyValue" />
-								<Input id="quantunitST1" value="{PurchaseItems>/OrderprUn}" editable="{EditModel>/isEditable}">
+								<Input id="Quantity4" value="{PurchaseItems>/Quantity}"  editable="{EditModel>/isEditable}" textFormatMode="KeyValue" />
+								<Input id="OrderprUn" value="{PurchaseItems>/OrderprUn}" editable="{EditModel>/isEditable}">
 								
 								</Input>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Net Weight">
 							<f:fields>
-								<Input id="idNetWeight" value="{PurchaseItems>/NetWeight}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue" />
-								<Input id="idNetWeight2" value="{PurchaseItems>/Weightunit}"  editable="{EditModel>/isEditable}">
+								<Input id="NetWeight" value="{PurchaseItems>/NetWeight}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue" />
+								<Input id="Weightunit" value="{PurchaseItems>/Weightunit}"  editable="{EditModel>/isEditable}">
 									
 								</Input>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Gross Weight">
 							<f:fields>
-								<Input id="GrossWeight" value="{PurchaseItems>/GrossWt}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
-								<Input id="GrossWeight2" value="{PurchaseItems>/Weightunit}"   editable="{EditModel>/isEditable}">
+								<Input id="GrossWt" value="{PurchaseItems>/GrossWt}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
+								<Input id="Weightunit1" value="{PurchaseItems>/Weightunit}"   editable="{EditModel>/isEditable}">
 								
 								</Input>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Volume ">
 							<f:fields>
-								<Input id="Volumeid"  value="{PurchaseItems>/Volume}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"/>
-								<Input id="Volumeid2"   value="{PurchaseItems>/Volumeunit}"  editable="{EditModel>/isEditable}">
+								<Input id="Volume"  value="{PurchaseItems>/Volume}" editable="{EditModel>/isEditable}" textFormatMode="KeyValue"/>
+								<Input id="Volumeunit"   value="{PurchaseItems>/Volumeunit}"  editable="{EditModel>/isEditable}">
 								
 								</Input>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Points">
 							<f:fields>
-								<Input id="idPoints"  value="{PurchaseItems>/Points}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
-								<Input id="idPoints2"  value="{PurchaseItems>/PointUnit}"  textFormatMode="KeyValue" showSuggestion="true"
+								<Input id="Points"  value="{PurchaseItems>/Points}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
+								<Input id="PointUnit"  value="{PurchaseItems>/PointUnit}"  textFormatMode="KeyValue" showSuggestion="true"
 									showValueHelp="true" valueHelpRequest="handlePoints" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 									suggestionItemSelected="suggestionPoints" editable="{EditModel>/isEditable}">
 									<suggestionItems>
@@ -66,8 +66,8 @@
 					<f:formElements>
 						<f:FormElement label="Net Weight">
 							<f:fields>
-								<Input id="idNetWeight3" value="{PurchaseItems>/NetWeight}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
-								<Input id="idNetWeight4" value="{PurchaseItems>/Weightunit}"  textFormatMode="KeyValue" showSuggestion="true"
+								<Input id="NetWeight1" value="{PurchaseItems>/NetWeight}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
+								<Input id="Weightunit2" value="{PurchaseItems>/Weightunit}"  textFormatMode="KeyValue" showSuggestion="true"
 									showValueHelp="true" valueHelpRequest="handleidNetWeight2" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 									suggestionItemSelected="suggestionidNetWeight2" editable="{EditModel>/isEditable}">
 									<suggestionItems>
@@ -78,8 +78,8 @@
 						</f:FormElement>
 						<f:FormElement label="Gross Weight">
 							<f:fields>
-								<Input id="GrossWeight3" value="{PurchaseItems>/GrossWt}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
-								<Input id="GrossWeight4" value="{PurchaseItems>/Weightunit}"  textFormatMode="KeyValue" showSuggestion="true"
+								<Input id="GrossWt1" value="{PurchaseItems>/GrossWt}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
+								<Input id="Weightunit3" value="{PurchaseItems>/Weightunit}"  textFormatMode="KeyValue" showSuggestion="true"
 									showValueHelp="true" valueHelpRequest="handleGrossWeight" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 									suggestionItemSelected="suggestionGrossWeight" editable="{EditModel>/isEditable}">
 									<suggestionItems>
@@ -90,7 +90,7 @@
 						</f:FormElement>
 						<f:FormElement label="Volume ">
 							<f:fields>
-								<Input id="Volumeid3" value="{PurchaseItems>/Volume}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
+								<Input id="Volume1" value="{PurchaseItems>/Volume}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
 								<Input id="Volumeid4"   textFormatMode="KeyValue" showSuggestion="true"
 									showValueHelp="true" valueHelpRequest="handleVolume" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 									suggestionItemSelected="suggestionVolume" editable="{EditModel>/isEditable}">
@@ -102,7 +102,7 @@
 						</f:FormElement>
 						<f:FormElement label="Points">
 							<f:fields>
-								<Input id="idPoints3" value="{PurchaseItems>/Points}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
+								<Input id="Points1" value="{PurchaseItems>/Points}" editable="{EditModel>/isEditable}"  textFormatMode="KeyValue"/>
 								<Input id="idPoints4"   textFormatMode="KeyValue" showSuggestion="true"
 									showValueHelp="true" valueHelpRequest="handlePoints" suggestionItems="{ path: 'Lookup>/DisplyaVendorList' }"
 									suggestionItemSelected="suggestionPoints" editable="{EditModel>/isEditable}">

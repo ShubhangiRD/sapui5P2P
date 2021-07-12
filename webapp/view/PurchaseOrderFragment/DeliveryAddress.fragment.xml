@@ -14,7 +14,7 @@
 					</suggestionItems>
 				</Input>
 				<Label text="Vendor"/>
-				<Input maxLength="10" editable="{EditModel>/isEditable}" id="vendoridd"></Input>
+				<Input maxLength="10" editable="{EditModel>/isEditable}" id="SuppVendor"></Input>
 				<Input maxLength="35" id="vendorname" editable="{EditModel>/isEditable}"></Input>
 				<Label text="Street/House no"/>
 				<Input maxLength="35" editable="{EditModel>/isEditable}" id="idStreet" placeholder=" Your Street">
@@ -47,7 +47,7 @@
 				<Label text="Telphone"/>
 				<Input maxLength="16" id="idTel" editable="{EditModel>/isEditable}"/>
 				<Label text="SC Vend"/>
-				<CheckBox id="scVend" editable="{EditModel>/isEditable}"/>
+				<CheckBox id="ScVendor" editable="{EditModel>/isEditable}"/>
 				<Button id="AddnrDetails" class="sapUiTinyMarginTop" text="Address Details"/>
 			</form:content>
 		</form:SimpleForm>

@@ -33,7 +33,7 @@
 						</f:FormElement>
 						<f:FormElement label="Tax Code" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="TaxCodeInvoic" editable="{EditModel>/isEditable}" value= "{PurchaseItems>/TaxCode}" maxLength="2" textFormatMode="KeyValue" ></Input>
+								<Input id="TaxCode" editable="{EditModel>/isEditable}" value= "{PurchaseItems>/TaxCode}" maxLength="2" textFormatMode="KeyValue" ></Input>
 							</f:fields>
 						</f:FormElement>
 					</f:formElements>
@@ -44,17 +44,17 @@
 					<f:formElements>
 						<f:FormElement label=" " class="sapUiTinyMarginTop">
 							<f:fields>
-								<CheckBox id="InvReceipt"  editable="{EditModel>/isEditable}" text="Inv.Receipt"/>
+								<CheckBox id="IrInd"  editable="{EditModel>/isEditable}" text="Inv.Receipt"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label=" " class="sapUiTinyMarginTop">
 							<f:fields>
-								<CheckBox id="FinalInvoice" editable="{EditModel>/isEditable}"  text="Final Invoice"/>
+								<CheckBox id="FinalInv" editable="{EditModel>/isEditable}"  text="Final Invoice"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label=" " class="sapUiTinyMarginTop">
 							<f:fields>
-								<CheckBox id="GRBasedIV" editable="{EditModel>/isEditable}"   text="GR Based IV"/>
+								<CheckBox id="GrBasediv" editable="{EditModel>/isEditable}"   text="GR Based IV"/>
 							</f:fields>
 						</f:FormElement>
 					</f:formElements>

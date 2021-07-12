@@ -10,12 +10,12 @@
 					<f:formElements>
 						<f:FormElement label="Overdeliv Tool" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="Overdeliv"  value="{PurchaseItems>/OverDlvTol}"   editable="{EditModel>/isEditable}" maxLength="3" textFormatMode="KeyValue" ></Input>
+								<Input id="OverDlvTol"  value="{PurchaseItems>/OverDlvTol}"   editable="{EditModel>/isEditable}" maxLength="3" textFormatMode="KeyValue" ></Input>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="UnderDeliv Tool" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="UnderDeliv"  value="{PurchaseItems>/UnderDlvTol}"  editable="{EditModel>/isEditable}"  maxLength="3"  textFormatMode="KeyValue"/>
+								<Input id="UnderDlvTol"  value="{PurchaseItems>/UnderDlvTol}"  editable="{EditModel>/isEditable}"  maxLength="3"  textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Rem Shelf Life" class="sapUiTinyMarginTop">
@@ -25,17 +25,17 @@
 						</f:FormElement>
 						<f:FormElement label="PL Deliv Time" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="PLDelivTime" editable="{EditModel>/isEditable}" value="{PurchaseItems>/PlanDel}"  textFormatMode="KeyValue"/>
+								<Input id="PlanDel" editable="{EditModel>/isEditable}" value="{PurchaseItems>/PlanDel}"  textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="GR Proc Time" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="GRProcTime" editable="{EditModel>/isEditable}" value="{PurchaseItems>/GrPrTime}"  textFormatMode="KeyValue"/>
+								<Input id="GrPrTime" editable="{EditModel>/isEditable}" value="{PurchaseItems>/GrPrTime}"  textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Latest GR Date" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="LatestGRDate" value="{PurchaseItems>/GrToDate}" editable="{EditModel>/isEditable}"  maxLength="8" textFormatMode="KeyValue" />
+								<Input id="GrToDate" value="{PurchaseItems>/GrToDate}" editable="{EditModel>/isEditable}"  maxLength="8" textFormatMode="KeyValue" />
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Shippping Instruction" class="sapUiTinyMarginTop">
@@ -80,22 +80,22 @@
 					<f:formElements>
 						<f:FormElement label="1Rem/Exped." class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="Exped1" maxLength="3" editable="{EditModel>/isEditable}" value="{PurchaseItems>/Reminder1}"  textFormatMode="KeyValue"/>
+								<Input id="Reminder1" maxLength="3" editable="{EditModel>/isEditable}" value="{PurchaseItems>/Reminder1}"  textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="2Rem/Exped." class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="Exped2" maxLength="3" editable="{EditModel>/isEditable}" value="{PurchaseItems>/Reminder2}"  textFormatMode="KeyValue"/>
+								<Input id="Reminder2" maxLength="3" editable="{EditModel>/isEditable}" value="{PurchaseItems>/Reminder2}"  textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="3Rem/Exped." class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="Exped3" maxLength="3" editable="{EditModel>/isEditable}" value="{PurchaseItems>/Reminder3}"  textFormatMode="KeyValue"/>
+								<Input id="Reminder3" maxLength="3" editable="{EditModel>/isEditable}" value="{PurchaseItems>/Reminder3}"  textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="No Exped." class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="Expedno" maxLength="3"  value="{PurchaseItems>/Volume}" editable="{EditModel>/isEditable}"   textFormatMode="KeyValue"/>
+								<Input id="Volume" maxLength="3"  value="{PurchaseItems>/Volume}" editable="{EditModel>/isEditable}"   textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Incoterms" class="sapUiTinyMarginTop">

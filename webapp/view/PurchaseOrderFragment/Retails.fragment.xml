@@ -16,7 +16,7 @@
 						</f:FormElement>
 						<f:FormElement label="Allocation Table" class="sapUiTinyMarginTop">
 							<f:fields>
-								<Select id="idAllocatnTab" >
+								<Select id="AllocTbl" >
 									<items>
 										<core:Item text=" " key=" "/>
 										<core:Item text=" " key=" "/>
