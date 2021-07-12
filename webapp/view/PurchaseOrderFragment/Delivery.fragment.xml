@@ -95,7 +95,7 @@
 						</f:FormElement>
 						<f:FormElement label="No Exped." class="sapUiTinyMarginTop">
 							<f:fields>
-								<Input id="Volume" maxLength="3"  value="{PurchaseItems>/Volume}" editable="{EditModel>/isEditable}"   textFormatMode="KeyValue"/>
+								<Input id="Volume2" maxLength="3"  value="{PurchaseItems>/Volume}" editable="{EditModel>/isEditable}"   textFormatMode="KeyValue"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label="Incoterms" class="sapUiTinyMarginTop">

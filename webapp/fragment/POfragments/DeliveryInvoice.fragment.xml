@@ -72,12 +72,12 @@
 						</f:FormElement>
 						<f:FormElement label=" ">
 							<f:fields>
-								<CheckBox id="ExchangeRateC" editable="{EditModel>/isEditable}" text="Exch.Rate Fixed"/>
+								<CheckBox id="ExRateFx" editable="{EditModel>/isEditable}" text="Exch.Rate Fixed"/>
 							</f:fields>
 						</f:FormElement>
 						<f:FormElement label=" ">
 							<f:fields>
-								<CheckBox id="GrmsgC" editable="{EditModel>/isEditable}"  text="GR Message"/>
+								<CheckBox id="GrMessage" editable="{EditModel>/isEditable}"  text="GR Message"/>
 							</f:fields>
 						</f:FormElement>
 					</f:formElements>

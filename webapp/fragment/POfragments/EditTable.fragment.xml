@@ -52,7 +52,7 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Unit of Measure"/>
 				<t:template>
-					<Input id="uom1" class="measure1" value="{PurchaseModel>PoUnit}" editable="{EditModel>/isEditable}"/>
+					<Input id="PoUnit1" class="measure1" value="{PurchaseModel>PoUnit}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
@@ -79,7 +79,7 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Status"/>
 				<t:template>
-					<Input id="idstatuss" editable="{EditModel>/isEditable}" />
+					<Input id="Status2" editable="{EditModel>/isEditable}" />
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
@@ -129,7 +129,7 @@
 				<Label text="Order Unit"/>
 				<t:template> 
 
-					<Input id="PoUnit"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>PoUnit}"
+					<Input id="PoUnit2"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>PoUnit}"
 						editable="{EditModel>/isEditable}" valueHelpRequest="handleOrderUnit" suggestionItems="{ path: 'Lookup>/MaterialList' }"
 						suggestionItemSelected="onSuggestOrderUnit">
 						<suggestionItems>
@@ -165,7 +165,7 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Batch "/>
 				<t:template>
-					<Input id="Batch"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>Batch}"
+					<Input id="Batch1"  textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" value="{PurchaseModel>Batch}"
 						editable="{EditModel>/isEditable}" >
 					</Input>
 				</t:template>
@@ -243,7 +243,7 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="OutLine Agreement "/>
 				<t:template>
-					<Input id="idOutLineAgmnt"  
+					<Input id="Agreement"  
 						value="{PurchaseModel>Agreement}" editable="{EditModel>/isEditable}" >
 					</Input>
 				</t:template>
@@ -251,7 +251,7 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Contract Item"/>
 				<t:template>
-					<Input id="idContractitem" editable="{EditModel>/isEditable}" value="{PurchaseModel>SrmContractItm}"/>
+					<Input id="SrmContractItm" editable="{EditModel>/isEditable}" value="{PurchaseModel>SrmContractItm}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
@@ -265,7 +265,7 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Cent Contract Item"/>
 				<t:template>
-					<Input id="idCentContractitem" editable="{EditModel>/isEditable}" value="{PurchaseModel>SrmContractItm}"/>
+					<Input id="SrmContractItm1" editable="{EditModel>/isEditable}" value="{PurchaseModel>SrmContractItm}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
@@ -285,7 +285,7 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Purchasing Document "/>
 				<t:template>
-					<Input id="idPurchasingDocument" 
+					<Input id="Purchaseorder" 
 						editable="{EditModel>/isEditable}" >
 					</Input>
 				</t:template>

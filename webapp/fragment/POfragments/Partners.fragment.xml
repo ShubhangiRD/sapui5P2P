@@ -26,7 +26,7 @@
 			<t:Column hAlign="Center" width="9rem">
 				<Label text="Name"/>
 				<t:template>
-					<Input class="desc1" id="idnamepf" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleidnamepf"
+					<Input class="ShortText1" id="idnamepf" textFormatMode="KeyValue" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleidnamepf"
 						suggestionItems="{ path: 'Lookup>/MaterialDiscription' }" editable="{EditModel>/isEditable}"   value="{PurchaseModel>ShortText}" suggestionItemSelected="onSuggestidnamepf">
 						<suggestionItems>
 							<core:ListItem key="{Lookup>Description}" text="{Lookup>Materialno}" additionalText="{Lookup>Description}"/>
@@ -37,13 +37,13 @@
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Number"/>
 				<t:template>
-					<Input id="idnumberpf" value="{PurchaseModel>Quantity}" editable="{EditModel>/isEditable}"/>
+					<Input id="Quantity5" value="{PurchaseModel>Quantity}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 			<t:Column width="9rem" hAlign="Center">
 				<Label text="Name"/>
 				<t:template>
-					<Input id="idnamepurfunc" class="measure1" value="{PurchaseModel>PoUnit}" editable="{EditModel>/isEditable}"/>
+					<Input id="PoUnit3" class="measure1" value="{PurchaseModel>PoUnit}" editable="{EditModel>/isEditable}"/>
 				</t:template>
 			</t:Column>
 	
